@@ -1178,6 +1178,8 @@
         function openAdminLogin() { document.getElementById('adminLogin').value = ''; document.getElementById('adminPassword').value = ''; document.getElementById('adminAuthModal').style.display = 'flex'; }
 
                 // 🔒 УМНАЯ ДИАГНОСТИЧЕСКАЯ ФУНКЦИЯ ВХОДА ЧЕРЕЗ ОБЛАКО (С МАРКЕРАМИ ОШИБОК)
+       
+                  // 🔒 ИСПРАВЛЕННАЯ ФУНКЦИЯ ВХОДА: ВОЗВРАЩАЕТ ТРИ КНОПКИ АЛЬБОМОВ И СЧЁТЧИК ПОРЦИЙ
         function checkAdminCredentials(event) {
             if (event && event.preventDefault) event.preventDefault(); // Блокируем перезагрузку страницы
             
@@ -1189,22 +1191,9 @@
                 return;
             }
 
-            // 🪐 ЗАЩИЩЁННЫЙ ПОДХВАТ БАЗЫ: Пытаемся разбудить Firebase при клике
-            if (!window.db && typeof firebase !== 'undefined') {
-                try {
-                    if (firebase.apps.length === 0) {
-                        firebase.initializeApp(firebaseConfig);
-                    }
-                    window.db = firebase.app().firestore();
-                } catch(e) { 
-                    alert("⚠️ Маркер: Сбой при запуске ядра Firebase. Ошибка: " + e.message);
-                }
-            }
-
             const database = window.db;
 
             if (!database) {
-                alert("⛔ Маркер: Облачный движок Firebase пуст в памяти браузера! Проверьте подключение скриптов.");
                 alert("Облако временно недоступно. Проверьте подключение к интернету! 🌐");
                 return;
             }
@@ -1214,27 +1203,32 @@
                 if (doc.exists) {
                     let data = doc.data();
                     
-                    // Проверяем, правильно ли созданы строчки внутри Firebase
-                    if (data.admin_login === undefined || data.admin_password === undefined) {
-                        alert("⚠️ Маркер: Сейф 'credentials' найден, но внутри него нет полей 'admin_login' или 'admin_password'. Проверьте буквы в Firebase Console!");
-                        return;
-                    }
-
                     // Сверяем данные в памяти Google
                     if (data.admin_login === inputLogin && data.admin_password === inputPassword) {
-                        grantAccess();
+                        alert("Доступ разрешен! Добро пожаловать, Хозяйка! 👑");
+                        
+                        // Закрываем окошко ввода пароля
+                        document.getElementById('adminAuthModal').style.display = 'none';
+                        
+                        // 🔥 ВОЗВРАЩАЕМ ОКНО С ВЫБОРОМ 3-Х КНОПОК АЛЬБОМОВ (🍰 🥣 🥗)
+                        const folderModal = document.getElementById('categorySelectModal') || document.getElementById('albumSelectModal');
+                        if (folderModal) {
+                            folderModal.style.display = 'flex';
+                        } else {
+                            grantAccess();
+                        }
                     } else {
                         alert("Неверный логин или пароль Хозяйки! Доступ закрыт. ⛔");
                     }
                 } else {
-                    alert("🔎 Маркер: Папка 'settings' есть, но документ 'credentials' не найден! Проверьте, верно ли написано имя документа в Firebase.");
+                    alert("Критическая ошибка configuration облака. Проверьте Firebase! 🫘");
                 }
             }).catch((error) => {
-                // Выводим точную техническую ошибку от серверов Google
-                alert("📡 Маркер: Google Firestore отклонил запрос!\n\nТекст ошибки от Google: " + error.message + "\n\n(Обычно это означает, что заблокированы Firebase Rules или не опубликован API-ключ)");
-                alert("Облако временно недоступно. Проверьте подключение к интернету! 🌐");
+                console.error("Ошибка сети Firestore: ", error);
+                alert("Ошибка связи с облаком! Проверьте интернет. 🌐");
             });
         }
+
             
         function grantAccess() {
             alert("Доступ разрешен! Добро пожаловать, Хозяйка! 👑");
