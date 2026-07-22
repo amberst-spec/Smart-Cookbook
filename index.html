@@ -1136,15 +1136,20 @@
 
         function sendPasswordReminder() { let mail = prompt("Введите E-mail:"); if (mail && mail.trim().toLowerCase() === 'avender59@gmail.com') { window.location.href = 'mailto:avender59@://gmail.com: Еленочка'; } else { alert("Ошибка! 🛑"); } }
 
+               // 🔄 ПОЛНАЯ АВТОМАТИЧЕСКАЯ СИНХРОНИЗАЦИЯ С ОБЛАКОМ ПРИ СТАРТЕ КНИГИ
         window.addEventListener('DOMContentLoaded', () => {
+            // Подгружаем локальную память
             const savedDatabase = localStorage.getItem('helenCookbookDatabase');
             if (savedDatabase) recipeAlbums = JSON.parse(savedDatabase);
+            
             const savedLang = localStorage.getItem('selectedLanguage') || 'ru'; 
-            changeLanguage(savedLang);
-            let btnEl = document.getElementById('lang-btn'); if (btnEl) btnEl.innerText = savedLang.toUpperCase();
+            if (typeof changeLanguage === 'function') changeLanguage(savedLang);
+            
+            let btnEl = document.getElementById('lang-btn'); 
+            if (btnEl) btnEl.innerText = savedLang.toUpperCase();
 
-            // Автоматическое скачивание рецептов из облака Firebase при запуске сайта для гостей
-            const database = window.db || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
+            // 🌐 ГЛАВНЫЙ КАНАЛ СВЯЗИ: Принудительно будим Firebase Firestore при запуске сайта
+            const database = window.db || (typeof firebase !== 'undefined' ? firebase.app().firestore() : null);
             if (database) {
                 database.collection("recipes").get().then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
@@ -1156,9 +1161,13 @@
                         }
                     });
                     localStorage.setItem('helenCookbookDatabase', JSON.stringify(recipeAlbums));
-                }).catch(e => console.log("Работаем в автономном режиме памяти ПК"));
+                    console.log("Облачная база рецептов успешно синхронизирована! 🪐");
+                }).catch(e => {
+                    console.log("Автономный режим памяти ПК активен: ", e);
+                });
             }
         });
+
 
         function runSearch() {
             let q = document.getElementById("search-field").value.trim().toLowerCase();
