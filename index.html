@@ -642,15 +642,21 @@
         }
 
         // 🌟 ОРИГИНАЛЬНАЯ ФУНКЦИЯ ОТКРЫТИЯ СТРАНИЦЫ С НОВЫМИ ИНТЕРАКТИВНЫМИ ШАГАМИ
-        function showRecipePage() {
+        async function showRecipePage() {
             if (document.getElementById("interactiveRecipePage")) document.getElementById("interactiveRecipePage").remove();
             const recipe = recipeAlbums[currentAlbumId][currentRecipeIndex];
             const template = document.getElementById("recipePageTemplate");
             const recipeContainer = document.createElement("div");
             recipeContainer.innerHTML = template.innerHTML;
             document.body.appendChild(recipeContainer.firstElementChild);
+                    // 🌍 Переводим название рецепта на лету через Google API
+        const targetLang = currentLangCode || 'ru';
+        let displayTitle = recipe.title;
+        if (targetLang !== 'ru' && typeof translateTextOnTheFly === 'function') {
+            displayTitle = await translateTextOnTheFly(recipe.title, targetLang);
+        }
 
-            document.getElementById("recipe-display-title").innerText = recipe.title;
+            document.getElementById("recipe-display-title").innerText = displayTitle;
 
             if (recipe.photoData) {
                 const imgEl = document.getElementById("recipe-uploaded-img");
@@ -685,7 +691,14 @@
             // Отрисовка ингредиентов
             const listContainer = document.getElementById("recipe-ingredients-list-container");
             if (listContainer && recipe.ingredientsArray && recipe.ingredientsArray.length > 0) {
-                recipe.ingredientsArray.forEach(item => { addNewIngredientRowFromScreen(item.weight, item.name, item.checked || false); });
+                            for (const item of recipe.ingredientsArray) {
+                    let displayName = item.name;
+                    if (targetLang !== 'ru' && typeof translateTextOnTheFly === 'function') {
+                        displayName = await translateTextOnTheFly(item.name, targetLang);
+                    }
+                    addNewIngredientRowFromScreen(item.weight, displayName, item.checked || false);
+                }
+
             } else if (listContainer && isAdminModeActive) {
                 addNewIngredientRowFromScreen("", "");
             }
@@ -693,7 +706,14 @@
             // Отрисовка новых пошаговых строк рецепта с автоматической пронумерованной структурой
             const stepsContainer = document.getElementById("recipe-steps-list-container");
             if (stepsContainer && recipe.stepsArray && recipe.stepsArray.length > 0) {
-                recipe.stepsArray.forEach(stepText => { addNewStepRowFromScreen(stepText); });
+                            for (const stepText of recipe.stepsArray) {
+                    let displayStep = stepText;
+                    if (targetLang !== 'ru' && typeof translateTextOnTheFly === 'function') {
+                        displayStep = await translateTextOnTheFly(stepText, targetLang);
+                    }
+                    addNewStepRowFromScreen(displayStep);
+                }
+
             } else if (stepsContainer) {
                 // Если старый формат или пусто — бьем на строки по переносу
                 let oldSteps = recipe.steps ? recipe.steps.split('\n') : [];
