@@ -513,7 +513,8 @@
         if (typeof firebase !== 'undefined') {
             try {
                 firebase.initializeApp(firebaseConfig);
-                
+                window.db = firebase.app().firestore();
+
                 console.log("Ура! База данных успешно подключена глобально! 🌐");
             } catch (e) {
                 console.error("Ошибка инициализации Firebase: ", e);
