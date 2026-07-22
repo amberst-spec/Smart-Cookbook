@@ -1241,13 +1241,16 @@
             });
         }
 
-            
-        function grantAccess() {
-            alert("Доступ разрешен! Добро пожаловать, Хозяйка! 👑");
-            isAdminModeActive = true; 
-            document.getElementById('helenAdminPanel').style.display = 'block';
+                function grantAccess() {
+            isAdminModeActive = true;
             document.getElementById('adminAuthModal').style.display = 'none';
+            
+            // 🔥 Показываем окно выбора из 3-х кнопок альбомов (🍰 🥣 🥗)
+            const folderModal = document.getElementById('categorySelectModal') || document.getElementById('albumSelectModal');
+            if (folderModal) folderModal.style.display = 'flex';
         }
+    
+        
         function openAdminForm(catId) {
             let customTitle = prompt("Введите название нового блюда:");
             if (customTitle && customTitle.trim()) {
