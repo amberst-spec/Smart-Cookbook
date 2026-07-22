@@ -1066,61 +1066,66 @@
         }
 
         function openAdminLogin() { document.getElementById('adminLogin').value = ''; document.getElementById('adminPassword').value = ''; document.getElementById('adminAuthModal').style.display = 'flex'; }
-        
-               // 🔒 АБСОЛЮТНО БЕЗОПАСНАЯ ИСПРАВЛЕННАЯ ФУНКЦИЯ ВХОДА ЧЕРЕЗ ОБЛАКО (БЕЗ ПАРОЛЕЙ В КОДЕ)
-               function checkAdminCredentials(event) {
-            if (event && event.preventDefault) event.preventDefault(); // Блокируем перезагрузку
-            
-            // 🚨 МАРКЕР 1: Проверяем, работает ли вообще кнопка и не сбрасывается ли страница
-            alert("Шаг 1: Кнопка нажата! Перезагрузка страницы успешно заблокирована. 🛑");
 
+                // 🔒 УМНАЯ ДИАГНОСТИЧЕСКАЯ ФУНКЦИЯ ВХОДА ЧЕРЕЗ ОБЛАКО (С МАРКЕРАМИ ОШИБОК)
+        function checkAdminCredentials(event) {
+            if (event && event.preventDefault) event.preventDefault(); // Блокируем перезагрузку страницы
+            
             let inputLogin = document.getElementById('adminLogin').value.trim();
             let inputPassword = document.getElementById('adminPassword').value.trim();
 
             if (!inputLogin || !inputPassword) {
-                alert("Внимание: Вы оставили поля пустыми! Заполните их. 🌸");
+                alert("Пожалуйста, заполните все поля! 🌸");
                 return;
             }
 
-            // Ищем базу данных в памяти
-            const database = window.db || (typeof firebase !== 'undefined' ? firebase.app().firestore() : null);
+            // 🪐 ЗАЩИЩЁННЫЙ ПОДХВАТ БАЗЫ: Пытаемся разбудить Firebase при клике
+            if (!window.db && typeof firebase !== 'undefined') {
+                try {
+                    if (firebase.apps.length === 0) {
+                        firebase.initializeApp(firebaseConfig);
+                    }
+                    window.db = firebase.app().firestore();
+                } catch(e) { 
+                    alert("⚠️ Маркер: Сбой при запуске ядра Firebase. Ошибка: " + e.message);
+                }
+            }
 
-            // 🚨 МАРКЕР 2: Проверяем, видит ли код библиотеку Firebase
+            const database = window.db;
+
             if (!database) {
-                alert("Ошибка на Шаге 2: Облачный движок Firebase пуст! Код его не видит в памяти. ❌");
+                alert("⛔ Маркер: Облачный движок Firebase пуст в памяти браузера! Проверьте подключение скриптов.");
                 alert("Облако временно недоступно. Проверьте подключение к интернету! 🌐");
                 return;
-            } else {
-                alert("Шаг 2: Отлично! Облачный движок Firebase успешно найден в памяти браузера. 🟢");
             }
 
-            // 🚨 МАРКЕР 3: Проверяем отправку сигнала в облако
-            alert("Шаг 3: Отправляю секретный запрос в Firebase Firestore... Ждём ответа от Google... 📡");
-
+            // Безопасный запрос в закрытый сейф Firebase Firestore
             database.collection("settings").doc("credentials").get().then((doc) => {
-                alert("Шаг 4: Ответ от Google получен! Сервер пустил нас внутрь сейфа. 🔓");
-                
                 if (doc.exists) {
                     let data = doc.data();
-                    alert("Шаг 5: Документ 'credentials' успешно найден! Сверяю логин и пароль... 🗝️");
                     
+                    // Проверяем, правильно ли созданы строчки внутри Firebase
+                    if (data.admin_login === undefined || data.admin_password === undefined) {
+                        alert("⚠️ Маркер: Сейф 'credentials' найден, но внутри него нет полей 'admin_login' или 'admin_password'. Проверьте буквы в Firebase Console!");
+                        return;
+                    }
+
+                    // Сверяем данные в памяти Google
                     if (data.admin_login === inputLogin && data.admin_password === inputPassword) {
                         grantAccess();
                     } else {
-                        alert("Ошибка: Неверный логин или пароль Хозяйки! Доступ закрыт. ⛔");
+                        alert("Неверный логин или пароль Хозяйки! Доступ закрыт. ⛔");
                     }
                 } else {
-                    alert("Ошибка на Шаге 5: Сейф пуст! Документ 'credentials' не найден внутри папки 'settings'. Проверите Firebase Console! 🫘");
+                    alert("🔎 Маркер: Папка 'settings' есть, но документ 'credentials' не найден! Проверьте, верно ли написано имя документа в Firebase.");
                 }
             }).catch((error) => {
-                // 🚨 МАРКЕР ОШИБКИ СЕТИ ИЛИ ПРАВИЛ
-                alert("Критическая ошибка Google Firestore! Сбой сети или заблокированы Rules.\n\nТекст ошибки от Google: " + error.message);
+                // Выводим точную техническую ошибку от серверов Google
+                alert("📡 Маркер: Google Firestore отклонил запрос!\n\nТекст ошибки от Google: " + error.message + "\n\n(Обычно это означает, что заблокированы Firebase Rules или не опубликован API-ключ)");
                 alert("Облако временно недоступно. Проверьте подключение к интернету! 🌐");
             });
         }
-
-
-
+            
         function grantAccess() {
             alert("Доступ разрешен! Добро пожаловать, Хозяйка! 👑");
             isAdminModeActive = true; 
