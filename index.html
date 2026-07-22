@@ -224,6 +224,7 @@
         <!-- Сочное журнальное описание под фотографией обложки -->
         <p class="book-description" id="text-desc">
             <strong>🧼 Режим «Чистые руки». Встроенный таймер.</strong><br>
+     
             «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта».
         </p>
         <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
@@ -1120,6 +1121,14 @@
                 linkEl.innerHTML = `✨ Создано в <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Интерактивной кулинарной книге</a>. Хотите такую же? Нажмите сюда! 📖`;
             }
 
+                        // 🎯 Локальный перевод заголовка окна порций
+            const portionsTitleEl = document.getElementById("text-portionsModalTitle");
+            if (portionsTitleEl) {
+                if (lang === 'en') portionsTitleEl.innerText = "Select number of servings:";
+                else if (lang === 'uk') portionsTitleEl.innerText = "Виберіть кількість порцій:";
+                else portionsTitleEl.innerText = "Выберите количество порций:";
+            }
+
         }
 
         // ➡️ ФУНКЦИЯ ДЛЯ СТРЕЛОЧКИ «ПОДЕЛИТЬСЯ» В ШАПКЕ
@@ -1140,7 +1149,10 @@
         // 🌍 ГЛОБАЛЬНЫЙ БЕСПЛАТНЫЙ АВТО-ПЕРЕВОДЧИК ЛЮБОГО ТЕКСТА ЧЕРЕЗ GOOGLE API
         async function translateTextOnTheFly(text, targetLang) {
             if (!text || targetLang === 'ru') return text;
-            
+
+                        // 🌸 Защита калькулятора порций: если текст содержит цифры или слово порций, не переводим его принудительно
+            if (text.toString().includes("порций") || text.toString().includes("servings")) return text;
+           
             // Если язык украинский, переводим на 'uk', если английский — на 'en'
             const target = targetLang === 'uk' ? 'uk' : 'en';
             
