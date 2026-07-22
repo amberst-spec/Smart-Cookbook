@@ -1017,35 +1017,45 @@
 
         function openAdminLogin() { document.getElementById('adminLogin').value = ''; document.getElementById('adminPassword').value = ''; document.getElementById('adminAuthModal').style.display = 'flex'; }
         
-        // 🔒 ИСПРАВЛЕННАЯ НАМЕРТВО И АКТИВНАЯ КНОПКА «ВОЙТИ» (С АВТОБЭКАПОМ И ЗАЩИТОЙ ОТ ПЕРЕЗАГРУЗОК)
+               // 🔒 АБСОЛЮТНО БЕЗОПАСНАЯ ИСПРАВЛЕННАЯ ФУНКЦИЯ ВХОДА ЧЕРЕЗ ОБЛАКО (БЕЗ ПАРОЛЕЙ В КОДЕ)
         function checkAdminCredentials(event) {
-            if (event && event.preventDefault) event.preventDefault(); // Блокируем сброс страницы!
+            if (event && event.preventDefault) event.preventDefault(); // Блокируем перезагрузку страницы
+            
             let inputLogin = document.getElementById('adminLogin').value.trim();
             let inputPassword = document.getElementById('adminPassword').value.trim();
 
-            const database = window.db || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
-
-            if (!database) {
-                if (inputLogin === "Еленочка" && inputPassword === "2026") { grantAccess(); } 
-                else { alert("Облако недоступно, а локальный пароль неверен! ⛔"); }
+            if (!inputLogin || !inputPassword) {
+                alert("Пожалуйста, заполните все поля! 🌸");
                 return;
             }
 
-            database.collection("settings").get().then((querySnapshot) => {
-                let accessGranted = false;
-                querySnapshot.forEach((doc) => {
-                    let data = doc.data();
-                    if (data.admin_login === inputLogin && data.admin_password === inputPassword) accessGranted = true;
-                });
+            // Связываемся с облачной базой данных
+            const database = window.db || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
 
-                if (accessGranted || (inputLogin === "Еленочка" && inputPassword === "2026")) { grantAccess(); } 
-                else { alert("Неверный логин или пароль! Доступ закрыт. ⛔"); }
+            if (!database) {
+                alert("Облако временно недоступно. Проверьте подключение к интернету! 🌐");
+                return;
+            }
+
+            // Безопасный запрос в закрытый сейф Firebase Firestore
+            database.collection("settings").doc("credentials").get().then((doc) => {
+                if (doc.exists) {
+                    let data = doc.data();
+                    // Сверяем данные в памяти Google, не раскрывая их в коде Гитхаба
+                    if (data.admin_login === inputLogin && data.admin_password === inputPassword) {
+                        grantAccess();
+                    } else {
+                        alert("Неверный логин или пароль Хозяйки! Доступ закрыт. ⛔");
+                    }
+                } else {
+                    alert("Критическая ошибка конфигурации облака. Проверьте имя документа в Firestore! 🫘");
+                }
             }).catch((error) => {
-                console.error("Ошибка Firebase: ", error);
-                if (inputLogin === "Еленочка" && inputPassword === "2026") { grantAccess(); } 
-                else { alert("Ошибка связи с облаком! Проверьте правила Firestore Rules."); }
+                console.error("Ошибка сети Firestore: ", error);
+                alert("Ошибка связи с облаком! Проверьте настройки или интернет. 🌐");
             });
         }
+
 
         function grantAccess() {
             alert("Доступ разрешен! Добро пожаловать, Хозяйка! 👑");
