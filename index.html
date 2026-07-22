@@ -1068,53 +1068,57 @@
         function openAdminLogin() { document.getElementById('adminLogin').value = ''; document.getElementById('adminPassword').value = ''; document.getElementById('adminAuthModal').style.display = 'flex'; }
         
                // 🔒 АБСОЛЮТНО БЕЗОПАСНАЯ ИСПРАВЛЕННАЯ ФУНКЦИЯ ВХОДА ЧЕРЕЗ ОБЛАКО (БЕЗ ПАРОЛЕЙ В КОДЕ)
-        function checkAdminCredentials(event) {
-            if (event && event.preventDefault) event.preventDefault(); // Блокируем перезагрузку страницы
+               function checkAdminCredentials(event) {
+            if (event && event.preventDefault) event.preventDefault(); // Блокируем перезагрузку
             
+            // 🚨 МАРКЕР 1: Проверяем, работает ли вообще кнопка и не сбрасывается ли страница
+            alert("Шаг 1: Кнопка нажата! Перезагрузка страницы успешно заблокирована. 🛑");
+
             let inputLogin = document.getElementById('adminLogin').value.trim();
             let inputPassword = document.getElementById('adminPassword').value.trim();
 
             if (!inputLogin || !inputPassword) {
-                alert("Пожалуйста, заполните все поля! 🌸");
+                alert("Внимание: Вы оставили поля пустыми! Заполните их. 🌸");
                 return;
             }
-      
-             // 🌟 УМНЫЙ ТЕСТИРОВОЧНЫЙ ПОДХВАТ: Если Firebase не успел запуститься на старте, инициализируем его прямо сейчас!
-            if (!window.db && typeof firebase !== 'undefined') {
-                try {
-                    if (firebase.apps.length === 0) {
-                        firebase.initializeApp(firebaseConfig);
-                    }
-                    window.db = firebase.app().firestore();
 
-                } catch(e) { console.error(e); }
-            }
+            // Ищем базу данных в памяти
+            const database = window.db || (typeof firebase !== 'undefined' ? firebase.app().firestore() : null);
 
-            const database = window.db;
-
+            // 🚨 МАРКЕР 2: Проверяем, видит ли код библиотеку Firebase
             if (!database) {
+                alert("Ошибка на Шаге 2: Облачный движок Firebase пуст! Код его не видит в памяти. ❌");
                 alert("Облако временно недоступно. Проверьте подключение к интернету! 🌐");
                 return;
+            } else {
+                alert("Шаг 2: Отлично! Облачный движок Firebase успешно найден в памяти браузера. 🟢");
             }
 
-            // Безопасный запрос в закрытый сейф Firebase Firestore
+            // 🚨 МАРКЕР 3: Проверяем отправку сигнала в облако
+            alert("Шаг 3: Отправляю секретный запрос в Firebase Firestore... Ждём ответа от Google... 📡");
+
             database.collection("settings").doc("credentials").get().then((doc) => {
+                alert("Шаг 4: Ответ от Google получен! Сервер пустил нас внутрь сейфа. 🔓");
+                
                 if (doc.exists) {
                     let data = doc.data();
-                    // Сверяем данные в памяти Google, не раскрывая их в коде Гитхаба
+                    alert("Шаг 5: Документ 'credentials' успешно найден! Сверяю логин и пароль... 🗝️");
+                    
                     if (data.admin_login === inputLogin && data.admin_password === inputPassword) {
                         grantAccess();
                     } else {
-                        alert("Неверный логин или пароль Хозяйки! Доступ закрыт. ⛔");
+                        alert("Ошибка: Неверный логин или пароль Хозяйки! Доступ закрыт. ⛔");
                     }
                 } else {
-                    alert("Критическая ошибка конфигурации облака. Проверьте имя документа в Firestore! 🫘");
+                    alert("Ошибка на Шаге 5: Сейф пуст! Документ 'credentials' не найден внутри папки 'settings'. Проверите Firebase Console! 🫘");
                 }
             }).catch((error) => {
-                console.error("Ошибка сети Firestore: ", error);
-                alert("Ошибка связи с облаком! Проверьте настройки или интернет. 🌐");
+                // 🚨 МАРКЕР ОШИБКИ СЕТИ ИЛИ ПРАВИЛ
+                alert("Критическая ошибка Google Firestore! Сбой сети или заблокированы Rules.\n\nТекст ошибки от Google: " + error.message);
+                alert("Облако временно недоступно. Проверьте подключение к интернету! 🌐");
             });
         }
+
 
 
         function grantAccess() {
