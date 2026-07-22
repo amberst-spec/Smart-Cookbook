@@ -1220,15 +1220,14 @@
                         alert("Доступ разрешен! Добро пожаловать, Хозяйка! 👑");
                         
                         // Закрываем окошко ввода пароля
-                        document.getElementById('adminAuthModal').style.display = 'none';
-                        
-                        // 🔥 ВОЗВРАЩАЕМ ОКНО С ВЫБОРОМ 3-Х КНОПОК АЛЬБОМОВ (🍰 🥣 🥗)
-                        const folderModal = document.getElementById('categorySelectModal') || document.getElementById('albumSelectModal');
-                        if (folderModal) {
-                            folderModal.style.display = 'flex';
-                        } else {
-                            grantAccess();
-                        }
+            
+                                            // 🔥 Мгновенно открываем вашу родную панель с 3 кнопками (🍰 🥣 🥗)
+                    isAdminModeActive = true;
+                    const adminPanel = document.getElementById('helenAdminPanel');
+                    if (adminPanel) {
+                        adminPanel.style.display = 'block';
+                    }
+                 
                     } else {
                         alert("Неверный логин или пароль Хозяйки! Доступ закрыт. ⛔");
                     }
@@ -1241,16 +1240,6 @@
             });
         }
 
-                function grantAccess() {
-            isAdminModeActive = true;
-            document.getElementById('adminAuthModal').style.display = 'none';
-            
-            // 🔥 Показываем окно выбора из 3-х кнопок альбомов (🍰 🥣 🥗)
-            const folderModal = document.getElementById('categorySelectModal') || document.getElementById('albumSelectModal');
-            if (folderModal) folderModal.style.display = 'flex';
-        }
-    
-        
         function openAdminForm(catId) {
             let customTitle = prompt("Введите название нового блюда:");
             if (customTitle && customTitle.trim()) {
