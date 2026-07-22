@@ -1036,10 +1036,23 @@
             ]
         };
 
-
         function renderMeasuresTable(lang) {
             let html = ""; if (ingredientsData[lang]) { ingredientsData[lang].forEach(item => { html += `<tr style="border-bottom: 1px solid #FFF6EE;"><td style="padding:12px;"><strong>${item.name}</strong></td><td style="padding:12px;">${item.glass}</td><td style="padding:12px;">${item.spoon}</td><td style="padding:12px;">${item.tsp}</td></tr>`; }); }
             document.getElementById('table-body-content').innerHTML = html;
+        }
+
+                // 🥄 ФУНКЦИИ ДЛЯ ОТКРЫТИЯ И ЗАКРЫТИЯ МОДАЛЬНОГО ОКНА ЛОЖЕЧКИ
+        function openMeasuresModal() {
+            const modal = document.getElementById("measuresModal");
+            if (modal) {
+                modal.style.display = "flex";
+                renderMeasuresTable(currentLangCode || 'ru');
+            }
+        }
+
+        function closeMeasuresModal() {
+            const modal = document.getElementById("measuresModal");
+            if (modal) modal.style.display = "none";
         }
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
