@@ -1001,6 +1001,42 @@
                 if (time <= 0) { clearInterval(timerInterval); timerInterval = null; trigger.innerText = "⏱️"; display.innerText = "05:00"; playTimerEndSound(); } 
             }, 1000);
         }
+        
+        // ТАБЛИЦА МЕР И ВЕСОВ ЕЛЕНОЧКИ
+        const ingredientsData = {
+            ru: [
+                { name: "Мука пшеничная 🌾", glass: "160 г", spoon: "30 г", tsp: "10 г" },
+                { name: "Сахарный песок 🍬", glass: "200 г", spoon: "25 г", tsp: "8 г" },
+                { name: "Соль поваренная 🧂", glass: "320 г", spoon: "30 г", tsp: "10 г" },
+                { name: "Сода пищевая 🧁", glass: "—", spoon: "28 г", tsp: "12 г" },
+                { name: "Масло сливочное 🧈", glass: "240 г", spoon: "20 г", tsp: "8 г" },
+                { name: "Масло растительное 🌻", glass: "230 г", spoon: "17 г", tsp: "5 г" },
+                { name: "Какао-порошок 🍫", glass: "—", spoon: "25 г", tsp: "9 г" },
+                { name: "Мёд натуральный 🍯", glass: "325 г", spoon: "35 г", tsp: "12 г" }
+            ],
+            ukr: [
+                { name: "Борошно пшеничне 🌾", glass: "160 г", spoon: "30 г", tsp: "10 г" },
+                { name: "Цукор-пісок 🍬", glass: "200 г", spoon: "25 г", tsp: "8 г" },
+                { name: "Сіль кухонна 🧂", glass: "320 г", spoon: "30 г", tsp: "10 г" },
+                { name: "Сода харчова 🧁", glass: "—", spoon: "28 г", tsp: "12 г" },
+                { name: "Масло вершкове 🧈", glass: "240 г", spoon: "20 г", tsp: "8 г" },
+                { name: "Олія рослинна 🌻", glass: "230 г", spoon: "17 г", tsp: "5 г" },
+                { name: "Какао-порошок 🍫", glass: "—", spoon: "25 г", tsp: "9 г" },
+                { name: "Мед натуральний 🍯", glass: "325 г", spoon: "35 г", tsp: "12 г" }
+            ],
+            en: [
+                { name: "Wheat Flour 🌾", glass: "160 g", spoon: "30 g", tsp: "10 g" },
+                { name: "Granulated Sugar 🍬", glass: "200 g", spoon: "25 g", tsp: "8 g" },
+                { name: "Baking Salt 🧂", glass: "320 g", spoon: "30 g", tsp: "10 g" },
+                { name: "Baking Soda 🧁", glass: "—", spoon: "28 g", tsp: "12 g" },
+                { name: "Butter (melted) 🧈", glass: "240 g", spoon: "20 g", tsp: "8 g" },
+                { name: "Vegetable Oil 🌻", glass: "230 g", spoon: "17 g", tsp: "5 g" },
+                { name: "Cocoa Powder 🍫", glass: "—", spoon: "25 g", tsp: "9 g" },
+                { name: "Natural Honey 🍯", glass: "325 g", spoon: "35 g", tsp: "12 g" }
+            ]
+        };
+
+
         function renderMeasuresTable(lang) {
             let html = ""; if (ingredientsData[lang]) { ingredientsData[lang].forEach(item => { html += `<tr style="border-bottom: 1px solid #FFF6EE;"><td style="padding:12px;"><strong>${item.name}</strong></td><td style="padding:12px;">${item.glass}</td><td style="padding:12px;">${item.spoon}</td><td style="padding:12px;">${item.tsp}</td></tr>`; }); }
             document.getElementById('table-body-content').innerHTML = html;
