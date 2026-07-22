@@ -1028,9 +1028,18 @@
                 alert("Пожалуйста, заполните все поля! 🌸");
                 return;
             }
+      
+             // 🌟 УМНЫЙ ТЕСТИРОВОЧНЫЙ ПОДХВАТ: Если Firebase не успел запуститься на старте, инициализируем его прямо сейчас!
+            if (!window.db && typeof firebase !== 'undefined') {
+                try {
+                    if (firebase.apps.length === 0) {
+                        firebase.initializeApp(firebaseConfig);
+                    }
+                    window.db = firebase.firestore();
+                } catch(e) { console.error(e); }
+            }
 
-            // Связываемся с облачной базой данных
-            const database = window.db || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
+            const database = window.db;
 
             if (!database) {
                 alert("Облако временно недоступно. Проверьте подключение к интернету! 🌐");
