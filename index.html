@@ -1055,6 +1055,115 @@
             if (modal) modal.style.display = "none";
         }
 
+                // =========================================================================
+        // 🌍 МЕЖДУНАРОДНЫЙ БЛОК: ЧАШЕЧКА-ДОНАТ, ССЫЛКА НАД РЕЦЕПТОМ И УМНЫЙ ПЕРЕВОДЧИК GOOGLE
+        // =========================================================================
+
+        // 🎙️ ЖИВОЙ ЧЕЛОВЕЧЕСКИЙ ГОЛОС ДЛЯ ЧАШЕЧКИ (ГОЛОС ДЕВУШКИ ИЗ MP3 ФАЙЛОВ)
+        function speakThanksInUserLanguage() {
+            try {
+                const audioPlayer = new Audio();
+                const lang = currentLangCode || 'ru';
+                
+                if (lang === 'en') audioPlayer.src = 'thanks_en.mp3';
+                else if (lang === 'uk') audioPlayer.src = 'thanks_ukr.mp3';
+                else audioPlayer.src = 'thanks_ru.mp3';
+
+                audioPlayer.play().catch(err => console.log("Аудиофайл пока не положен в папку:", err));
+            } catch (e) { console.log("Воспроизведение звука недоступно:", e); }
+        }
+
+        // ☕ УПРАВЛЕНИЕ ОКНОМ ЧАШЕЧКИ
+        function openSupportModal() {
+            document.getElementById('supportAmountInput').value = '';
+            document.getElementById('support-step-input').style.display = 'block';
+            document.getElementById('support-step-thanks').style.display = 'none';
+            document.getElementById('supportModal').style.display = 'flex';
+        }
+
+        function processSupportPayment() {
+            let amt = document.getElementById('supportAmountInput').value;
+            const lang = currentLangCode || 'ru';
+            
+            if (!amt || parseInt(amt) <= 0) { 
+                if (lang === 'en') alert("Please enter the amount! 🌸");
+                else if (lang === 'uk') alert("Будь ласка, введіть суму! 🌸");
+                else alert("Пожалуйста, введите сумму! 🌸");
+                return; 
+            }
+
+            document.getElementById('support-step-input').style.display = 'none';
+            document.getElementById('support-step-thanks').style.display = 'block';
+
+            setTimeout(() => {
+                if (lang === 'en') alert("Redirecting you to the secure bank page for safe payment... 💳");
+                else if (lang === 'uk') alert("Перенаправляємо вас на захищену сторінку банку для безпечної оплати... 💳");
+                else alert("Перенаправляем вас на защищенную страницу банка для безопасной оплаты... 💳");
+                
+                document.getElementById('supportModal').style.display = 'none';
+                speakThanksInUserLanguage(); // Включается живой голос «Спасибо за Вашу доброту»
+            }, 800);
+        }
+
+        // 🔗 ИНТЕРАКТИВНАЯ СТРОКА ССЫЛКА НАД РЕЦЕПТОМ У ГОСТЕЙ
+        function updateRecipeTopLink(lang) {
+            const linkEl = document.getElementById("recipe-top-link-container");
+            if (!linkEl) return;
+
+            const mainPageUrl = `https://github.io{lang}`;
+
+            if (lang === 'en') {
+                linkEl.innerHTML = `✨ Created in <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Helen's Interactive Cookbook</a>. Want your own? Click here! 📖`;
+            } else if (lang === 'uk') {
+                linkEl.innerHTML = `✨ Створено в <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Інтерактивній книзі рецептів Оленки</a>. Хочете таку ж? Натисніть сюди! 📖`;
+            } else {
+                linkEl.innerHTML = `✨ Создано в <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Интерактивной книге рецептов Еленочки</a>. Хотите такую же? Нажмите сюда! 📖`;
+            }
+        }
+
+        // ➡️ ФУНКЦИЯ ДЛЯ СТРЕЛОЧКИ «ПОДЕЛИТЬСЯ» В ШАПКЕ
+        function shareCurrentRecipePage() {
+            const lang = currentLangCode || 'ru';
+            const currentUrl = window.location.href;
+            
+            if (navigator.share) {
+                navigator.share({ title: document.title, url: currentUrl }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(currentUrl);
+                if (lang === 'en') alert("Recipe link copied! Share it with your friends. ➡️");
+                else if (lang === 'uk') alert("Посилання на рецепт скопійовано! Поділіться з друзями. ➡️");
+                else alert("Ссылка на рецепт скопирована! Поделитесь с друзьями. ➡️");
+            }
+        }
+
+        // 🌍 ГЛОБАЛЬНЫЙ БЕСПЛАТНЫЙ АВТО-ПЕРЕВОДЧИК ЛЮБОГО ТЕКСТА ЧЕРЕЗ GOOGLE API
+        async function translateTextOnTheFly(text, targetLang) {
+            if (!text || targetLang === 'ru') return text;
+            
+            // Если язык украинский, переводим на 'uk', если английский — на 'en'
+            const target = targetLang === 'uk' ? 'uk' : 'en';
+            
+            try {
+                // Обращаемся напрямую к бесплатному каналу перевода Google
+                const url = `https://googleapis.com{target}&dt=t&q=${encodeURIComponent(text)}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                // Собираем переведённый текст по кусочкам
+                if (data && data[0]) {
+                    let translatedText = "";
+                    data[0].forEach(sentence => {
+                        if (sentence[0]) translatedText += sentence[0];
+                    });
+                    return translatedText;
+                }
+            } catch (e) {
+                console.error("Ошибка автоперевода Google:", e);
+            }
+            return text; // Если интернет мигнёт, вернётся исходный русский текст
+        }
+
+
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
         function sendRecipeToHelen() {
             let name = document.getElementById('guestNameInput').value.trim();
