@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Helen Smart Cookbook</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Подключаем официальные библиотеки Firebase (Compat-версия v8 для стабильной работы) -->
+    <script src="https://gstatic.com"></script>
+    <script src="https://gstatic.com"></script>
+
+    <style>
+        /* Подключаем уютный рукописный шрифт */
+        @font-face {
+            font-family: 'Caveat';
+            src: local('Caveat'), local('Caveat Regular'), local('Caveat-Regular'), local('Caveat-Bold');
+        }
+
+        /* Кремовый фон и базовый масштаб книги */
+        body {
+            background-color: #FFF6EE; 
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 25px;
+            color: #332211; 
+            font-size: 18px;
+        }
+
+        /* Белая воздушная шапка сайта во всю ширину */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 30px auto;
+            background: #FFFFFF; 
+            padding: 18px 35px;
+            border-radius: 40px;
+            box-shadow: 0 6px 20px rgba(160, 82, 45, 0.05); 
+        }
+
+        /* Переключатель языков */
+        .lang-switcher {
+            font-size: 18px;
+            font-weight: bold;
+            background: #FFF;
+            padding: 10px 24px;
+            border-radius: 30px;
+            border: 2px solid #EAD5C3;
+            cursor: pointer;
+            color: #A0522D;
+            transition: all 0.2s;
+        }
+
+        /* Главный журнальный контейнер */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 42px;
+            font-weight: bold;
+            color: #A0522D; 
+            margin-top: 30px;
+            margin-bottom: 8px;
+        }
+
+        /* Крупная журнальная обложка */
+        .cover-image {
+            width: 100%;
+            max-width: 960px;
+            height: auto;
+            max-height: 440px;
+            object-fit: cover;
+            margin: 25px auto 35px auto;
+            border-radius: 35px;
+            box-shadow: 0 18px 40px rgba(160, 82, 45, 0.14);
+            display: block;
+        }
+        /* Описание под фотографией обложки */
+        .book-description {
+            font-size: 22px;
+            max-width: 850px;
+            margin: 0 auto 45px auto;
+            line-height: 1.6;
+            color: #554433;
+            padding: 0 25px;
+        }
+
+        /* Сетка для больших оранжевых клавиш */
+        .categories-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            padding: 0 20px;
+        }
+
+        /* Пышные крупные оранжевые кнопки категорий */
+        .category-card {
+            background: linear-gradient(135deg, #FF9E66, #FF7A33);
+            padding: 24px 55px;
+            border-radius: 65px;
+            box-shadow: 0 10px 25px rgba(255, 122, 51, 0.35), inset 0 -6px 0 rgba(0,0,0,0.18);
+            font-size: 24px;
+            font-weight: bold;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            border: none;
+        }
+        .category-card:hover {
+            background: linear-gradient(135deg, #FFAE7A, #FF8B47);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(255, 122, 51, 0.45), inset 0 -6px 0 rgba(0,0,0,0.18);
+        }
+        .category-card:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 8px rgba(255, 122, 51, 0.25);
+        }
+
+        .footer-copyright {
+            margin-top: 70px; 
+            padding: 30px; 
+            font-size: 18px; 
+            color: #A0522D; 
+            border-top: 2px solid #EAD5C3;
+        }
+
+        /* Крупный декор для полей ПК и ноутбуков */
+        .decor-left, .decor-right {
+            display: none;
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: -1; 
+            opacity: 0.9; 
+            pointer-events: none;
+            animation: fadeInDecor 0.8s ease-in-out forwards;
+        }
+
+        @keyframes fadeInDecor {
+            from { opacity: 0; }
+            to { opacity: 0.9; }
+        }
+
+        @media (min-width: 992px) {
+            .decor-left {
+                display: block;
+                left: 60px; 
+                width: 480px; 
+                filter: drop-shadow(-12px 12px 20px rgba(139, 69, 19, 0.15));
+            }
+            .decor-right {
+                display: block;
+                right: 120px; 
+                width: 380px; 
+                filter: drop-shadow(12px 12px 20px rgba(139, 69, 19, 0.12));
+            }
+            /* Крупный воздушный фоновый узор из чашек */
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0; left: 0; width: 100%; height: 100%;
+                z-index: -2;
+                background-image: url("pattern.png");
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                opacity: 0.25;
+                pointer-events: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Уютные кофейные сердечки, зафиксированные строго на своих местах -->
+    <div style="position: fixed; right: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; color: #8B4513;">
+        <span style="position: fixed; right: 440px; top: 40%; font-size: 35px; opacity: 0.65;">🤎</span>
+        <span style="position: fixed; right: 460px; top: 60%; font-size: 28px; opacity: 0.55;">🤎</span>
+        <span style="position: fixed; right: 110px; top: 45%; font-size: 32px; opacity: 0.65;">🤎</span>
+    </div>
+
+    <!-- Интерактивная крупная шапка сайта -->
+    <div class="header">
+        <div style="display: flex; align-items: center;">
+            <div id="text-menu" style="font-size: 20px; font-weight: bold; color: #A0522D;">📖 Меню</div>
+
+            <!-- Рабочая укрупненная поисковая строка -->
+            <div class="search-container" style="display: flex; align-items: center; background: #FFF6EE; border: 2px solid #EAD5C3; border-radius: 25px; padding: 4px 14px; margin-left: 20px;">
+                <input type="text" id="search-field" style="border: none; background: transparent; padding: 6px; font-size: 16px; color: #332211; outline: none; width: 180px;" placeholder="Поиск рецептов...">
+                <button type="button" onclick="runSearch()" style="background: transparent; border: none; cursor: pointer; font-size: 18px;">🔍</button>
+            </div>
+        </div>
+
+        <!-- Кнопка "Поделиться" для вызова гостевого бланка предложений -->
+        <button id="text-share-btn" onclick="shareRecipeBook()" 
+                style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; color: #A0522D; padding: 10px 22px; font-size: 16px; font-weight: bold; border-radius: 22px; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.06); display: flex; align-items: center; gap: 8px; font-family: sans-serif; margin: 0 20px; transition: all 0.2s ease;" 
+                onmouseover="this.style.background='#FFF6EE'; this.style.transform='scale(1.02)'" 
+                onmouseout="this.style.background='#FFF'; this.style.transform='scale(1)'">
+            👩‍🍳 Поделиться рецептом 🔍
+        </button>
+
+        <div id="lang-btn" class="lang-switcher">RU</div>
+    </div>
+
+    <div class="main-container">
+        <!-- Картинки декора на левом и правом полях ПК -->
+        <img src="left.png" class="decor-left" alt="Декор слева">
+        <img src="right.png" class="decor-right" alt="Декор справа">
+
+        <!-- Крупный заголовок книги рецептов -->
+        <h1 class="main-title" id="text-title">Интерактивная книга рецептов:</h1>
+        <div style="font-size: 26px; color: #D2691E; font-weight: bold; margin-bottom: 25px;" id="text-subtitle">
+            Умная кухня с таймером
+        </div>
+
+        <!-- Крупная журнальная фотография обложки -->
+        <img src="cover.jpg" alt="Обложка" class="cover-image">
+
+        <!-- Сочное журнальное описание под фотографией обложки -->
+        <p class="book-description" id="text-desc">
+            <strong>🧼 Режим «Чистые руки». Встроенный таймер.</strong><br>
+            «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта».
+        </p>
+        <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
+        <div style="width: 360px; height: 110px; overflow: hidden; position: relative; margin: -475px 95px 365px auto; z-index: 15; opacity: 0.6; pointer-events: none;">
+            <svg viewBox="0 0 200 100" width="100%" height="100%">
+                <path id="rainbowPath" d="M 5,75 A 95,55 0 0,1 195,75" fill="none" />
+                <text font-family="'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="bold" fill="#8B4513" text-anchor="middle">
+                    <textPath href="#rainbowPath" startOffset="50%" id="text-watermark">
+                        ✨ От Еленочки с любовью ✨
+                    </textPath>
+                </text>
+            </svg>
+        </div>
+
+        <!-- Парящее рукописное пожелание пером (Красиво зафиксировано!) -->
+        <p style="font-family: 'Caveat', cursive; color: #8B4513; font-size: 32px; text-align: center; line-height: 1.2; max-width: 320px; margin: -385px 125px 260px auto; padding: 0 10px; position: relative; z-index: 10;" id="text-wish">
+            ✨ Желаем вам вдохновения на кухне и приятного аппетита!
+        </p>
+
+        <!-- Крупные клавиши кулинарных разделов и круглая кнопка-пуговка мер веса -->
+        <div class="categories-grid" id="main-categories-buttons">
+            <button class="category-card" id="cat-1" onclick="openRecipeCategory(1)">🍰 Выпечка</button>
+            <button class="category-card" id="cat-2" onclick="openRecipeCategory(2)">🥣 Основные блюда</button>
+            <button class="category-card" id="cat-3" onclick="openRecipeCategory(3)">🥗 Салаты</button>
+
+            <!-- Круглая укрупненная кнопочка ложечки мер веса -->
+            <button type="button" id="btn-measures" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; width: 64px; height: 64px; border-radius: 50%; font-size: 24px; color: #A0522D; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.1); display: flex; align-items: center; justify-content: center; padding: 0; outline: none;">
+                <span>🥄</span>
+            </button>
+        </div>
+
+        <!-- Права автора в самом низу главной страницы -->
+        <div id="text-copyright" class="footer-copyright">
+            © 2026 Интерактивная книга рецептов. Создано с любовью и заботой.
+        </div>
+    </div>
+
+    <!-- Скрытый кофейный вход Еленочки (Админка) строго на своем месте -->
+    <div style="position: fixed; right: 235px; top: 38%; z-index: 20; pointer-events: auto;">
+        <span id="secret-admin-heart" style="font-size: 33px; opacity: 0.85; cursor: pointer; color: #8B4513;" onclick="openAdminLogin()">🤎</span>
+    </div>
+    <!-- 📂 КРАСИВОЕ ВСПЛЫВАЮЩЕЕ ОКНО-ПАПКА ДЛЯ ВЫВОДА СПИСКА НАЗВАНИЙ РЕЦЕПТОВ -->
+    <div id="categoryRecipesModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 450; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('categoryRecipesModal').style.display='none'">
+        <div style="background: #FFFDF9; padding: 30px; border-radius: 32px; max-width: 520px; width: 94%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center;" onclick="event.stopPropagation()">
+            <span style="position: absolute; top: 14px; right: 22px; font-size: 26px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('categoryRecipesModal').style.display='none'">×</span>
+            <h3 id="category-modal-title" style="font-size: 22px; color: #A0522D; margin: 0 0 22px 0; font-weight: bold;">📂 Выберите рецепт:</h3>
+            <div id="category-modal-recipes-list" style="display: flex; flex-direction: column; gap: 14px; max-height: 320px; overflow-y: auto; padding: 5px;"></div>
+        </div>
+    </div>
+
+    <!-- 🫘 КРУПНОЕ МОДАЛЬНОЕ ОКНО АВТОРИЗАЦИИ В АДМИНКУ -->
+    <div id="adminAuthModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 500; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('adminAuthModal').style.display='none'">
+        <div style="background: #FFFFFF; padding: 30px; border-radius: 32px; max-width: 360px; width: 88%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center;" onclick="event.stopPropagation()">
+            <span style="position: absolute; top: 15px; right: 22px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('adminAuthModal').style.display='none'">×</span>
+            <h3 style="font-size: 22px; color: #A0522D; margin: 0 0 20px 0; font-weight: bold;">🫘 Вход в кулинарную админку</h3>
+            <input type="text" id="adminLogin" placeholder="Логин" style="width: 92%; padding: 12px; margin-bottom: 15px; border: 2px solid #EAD5C3; border-radius: 18px; outline: none; font-size: 16px; background: #FFF6EE; text-align: center; font-weight: 500;">
+            <input type="password" id="adminPassword" placeholder="Пароль" style="width: 92%; padding: 12px; margin-bottom: 22px; border: 2px solid #EAD5C3; border-radius: 18px; outline: none; font-size: 16px; background: #FFF6EE; text-align: center; font-weight: 500;">
+            
+            <!-- Исправленная кнопка вызова, предотвращающая перезагрузку страницы -->
+            <button type="button" onclick="checkAdminCredentials(event)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 14px 30px; font-size: 18px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 92%; box-shadow: 0 5px 12px rgba(255,122,51,0.15);">Войти</button>
+
+            <!-- Личный кабинет Елены с круглыми кнопками-папками -->
+            <div id="helenAdminPanel" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px dashed #EAD5C3; text-align: center;">
+                <h4 style="font-size: 16px; color: #A0522D; margin: 0 0 15px 0; font-weight: bold;">Создать шаблон в категории:</h4>
+                <div style="display: flex; justify-content: center; gap: 20px;">
+                    <button type="button" onclick="openAdminForm(1)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🍰</button>
+                    <button type="button" onclick="openAdminForm(2)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🥣</button>
+                    <button type="button" onclick="openAdminForm(3)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🥗</button>
+                </div>
+            </div>
+            <div style="margin-top: 20px; text-align: center;">
+                <span onclick="sendPasswordReminder()" style="font-size: 14px; color: #A0522D; text-decoration: underline; opacity: 0.8; cursor: pointer; font-weight: 500;">Забыли пароль?</span>
+            </div>
+        </div>
+    </div>
+    <!-- 📝 МУЛЬТИЯЗЫЧНОЕ ГОСТЕВОЕ ОКНО-БЛАНК ЕЛЕНОЧКИ -->
+    <div id="guestSuggestModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 550; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('guestSuggestModal').style.display='none'">
+        <div style="background: #FFFFFF; padding: 26px; border-radius: 32px; max-width: 440px; width: 90%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center;" onclick="event.stopPropagation()">
+            <span style="position: absolute; top: 14px; right: 20px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('guestSuggestModal').style.display='none'">×</span>
+            <h3 id="text-guestModalTitle" style="font-size: 20px; color: #A0522D; margin: 0 0 18px 0; font-weight: bold;">📝 Поделиться Любимым рецептом 🥰</h3>
+            <input type="text" id="guestNameInput" placeholder="Ваше имя" style="width: 92%; padding: 12px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFF6EE; text-align: center; font-size: 15px; font-weight: 500;">
+            <input type="text" id="guestTitleInput" placeholder="Название вашего блюда" style="width: 92%; padding: 12px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFF6EE; text-align: center; font-size: 15px; font-weight: 500;">
+            <textarea id="guestRecipeTextInput" placeholder="Впишите сюда ингредиенты и подробные шаги вашего рецепта..." style="width: 92%; height: 140px; padding: 14px; margin-bottom: 18px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFF6EE; resize: vertical; line-height: 1.5; text-align: left; font-size: 15px; font-family: sans-serif; font-weight: 500;"></textarea>
+            <button type="button" id="text-guestSendBtn" onclick="sendRecipeToHelen()" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 13px 35px; font-size: 17px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 92%; box-shadow: 0 5px 12px rgba(255,122,51,0.15);">Отправить 🌸</button>
+        </div>
+    </div>
+
+    <!-- 🥄 ВСПЛЫВАЮЩЕЕ ОКНО ТАБЛИЦЫ МЕР И ВЕСОВ -->
+    <div id="measuresModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 500; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('measuresModal').style.display='none'">
+        <div style="background: #FFFDF9; padding: 30px; border-radius: 32px; max-width: 520px; width: 94%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative;" onclick="event.stopPropagation()">
+            <span style="position: absolute; top: 15px; right: 22px; font-size: 26px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('measuresModal').style.display='none'">×</span>
+            <h3 style="font-size: 22px; color: #A0522D; margin: 0 0 20px 0; text-align: center; font-weight: bold;">🥄 Таблица мер и весов</h3>
+            <table style="width: 100%; border-collapse: collapse; font-size: 17px; font-weight: 500;">
+                <thead>
+                    <tr style="background: #FFF6EE; color: #A0522D; border-bottom: 2px solid #EAD5C3;">
+                        <th id="th-ing" style="padding: 12px; text-align: left;">Продукт</th>
+                        <th id="th-glass" style="padding: 12px; text-align: left;">Стакан</th>
+                        <th id="th-spoon" style="padding: 12px; text-align: left;">Ст. ложка</th>
+                        <th id="th-tsp" style="padding: 12px; text-align: left;">Ч. ложка</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body-content"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ☕ ВСПЛЫВАЮЩЕЕ ОКНО «ЧАШЕЧКИ ПОДДЕРЖКИ» -->
+    <div id="supportModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 2000; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('supportModal').style.display='none'">
+        <div style="background: #FFFDF9; padding: 30px; border-radius: 32px; max-width: 400px; width: 88%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center; box-sizing: border-box;" onclick="event.stopPropagation()">
+            <span style="position: absolute; top: 15px; right: 22px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('supportModal').style.display='none'">×</span>
+            <div id="support-step-input" style="display: block;">
+                <h3 id="text-supportTitle" style="font-size: 20px; color: #A0522D; margin: 0 0 18px 0; font-weight: bold;">☕ Поддержать автора кулинарной книги</h3>
+                <input type="number" id="supportAmountInput" min="1" oninput="if(this.value<1)this.value=1;" placeholder="Введите сумму..." style="width: 88%; padding: 14px; margin-bottom: 22px; border: 2px solid #EAD5C3; border-radius: 18px; outline: none; font-size: 18px; background: #FFF6EE; text-align: center; font-weight: bold; color: #332211; box-sizing: border-box;">
+                <button type="button" onclick="processSupportPayment()" id="text-supportPayBtn" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 14px 35px; font-size: 18px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 88%; box-shadow: 0 5px 12px rgba(255,122,51,0.15); box-sizing: border-box;">Оплатить 💳</button>
+            </div>
+            <div id="support-step-thanks" style="display: none; padding: 25px 0;">
+                <span id="coffee-flying-grains" style="font-size: 65px; display: block; animation: bounceCup 0.6s infinite alternate;">☕✨</span>
+            </div>
+        </div>
+    </div>
+    <style>
+        @keyframes bounceCup { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+    </style>
+
+    <!-- ⚖️ ВСПЛЫВАЮЩЕЕ ОКНО ПОРЦИЙ -->
+    <div id="portionsModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 950; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('portionsModal').style.display='none'">
+        <div style="background: #FFFDF9; padding: 30px; border-radius: 32px; max-width: 360px; width: 90%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center;" onclick="event.stopPropagation()">
+            <span style="position: absolute; top: 14px; right: 20px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('portionsModal').style.display='none'">×</span>
+            <h3 id="text-portionsModalTitle" style="font-size: 20px; color: #A0522D; margin: 0 0 18px 0; font-weight: bold;">⚖️ Выберите количество порций:</h3>
+            <div style="display: flex; justify-content: center; gap: 14px; margin-bottom: 5px;">
+                <button type="button" onclick="setRecipePortions(0.5)" class="portion-modal-btn" id="p-05" style="background: #FFF6EE; border: 2px solid #EAD5C3; border-radius: 50%; width: 56px; height: 56px; font-size: 16px; font-weight: bold; color: #A0522D; cursor: pointer; outline: none; transition: all 0.2s; display: flex; align-items: center; justify-content: center; padding: 0;">0.5</button>
+                <button type="button" onclick="setRecipePortions(1)" class="portion-modal-btn" id="p-1" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); border: none; border-radius: 50%; width: 56px; height: 56px; font-size: 16px; font-weight: bold; color: #FFF; cursor: pointer; outline: none; transition: all 0.2s; display: flex; align-items: center; justify-content: center; padding: 0;">1</button>
+                <button type="button" onclick="setRecipePortions(1.5)" class="portion-modal-btn" id="p-15" style="background: #FFF6EE; border: 2px solid #EAD5C3; border-radius: 50%; width: 56px; height: 56px; font-size: 16px; font-weight: bold; color: #A0522D; cursor: pointer; outline: none; transition: all 0.2s; display: flex; align-items: center; justify-content: center; padding: 0;">1.5</button>
+                <button type="button" onclick="setRecipePortions(2)" class="portion-modal-btn" id="p-2" style="background: #FFF6EE; border: 2px solid #EAD5C3; border-radius: 50%; width: 56px; height: 56px; font-size: 16px; font-weight: bold; color: #A0522D; cursor: pointer; outline: none; transition: all 0.2s; display: flex; align-items: center; justify-content: center; padding: 0;">2</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ЭЛЕМЕНТ КЛАССИЧЕСКОГО ОНЛАЙН-ПЕРЕВОДЧИКА GOOGLE -->
+    <div id="google_translate_element" style="display: none;"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ru',
+                includedLanguages: 'en,uk,ru',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://google.com"></script>
+    <!-- 👑 НЕЖНАЯ ОСНОВА ШАБЛОНА СТРАНИЦЫ РЕЦЕПТОВ -->
+    <template id="recipePageTemplate">
+        <div id="interactiveRecipePage" style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #FFF6EE; z-index: 600; overflow-y: auto; box-sizing: border-box; padding: 10px; margin: 0;">
+
+            <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
+            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 601; background-image: url('coffee_bg.png'), url('coffee_bg.jpg'); background-position: center center; background-repeat: no-repeat; background-size: cover; opacity: 0.25; pointer-events: none;"></div>
+
+            <div style="width: 100%; min-height: 100%; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; position: relative; z-index: 605;">
+
+                <!-- 📜 ШОКОЛАДНЫЙ ПОЛЗУНОК СКРОЛЛА -->
+                <style>
+                    #interactiveRecipePage::-webkit-scrollbar { width: 12px; }
+                    #interactiveRecipePage::-webkit-scrollbar-track { background: transparent; }
+                    #interactiveRecipePage::-webkit-scrollbar-thumb { background: #8B4513; border-radius: 10px; border: 2px solid #FFF6EE; }
+                    #interactiveRecipePage::-webkit-scrollbar-thumb:hover { background: #5C2D0C; }
+                </style>
+
+                <!-- ☕ ПАРЯЩАЯ ЧАШЕЧКА ПОДДЕРЖКИ (СЛОЙ 9999, ОСТАЕТСЯ НА МЕСТЕ ПРИ СКРОЛЛЕ) -->
+                <div onclick="openSupportModal()" style="position: fixed; left: 50%; margin-left: 275px; bottom: 45px; z-index: 9999; width: 95px; height: 95px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none;">
+                    <svg viewBox="0 0 100 100" style="position: absolute; width: 100%; height: 100%; animation: rotateText 12s linear infinite;">
+                        <path id="cupTextPath" d="M 15,50 A 35,35 0 1,1 85,50" fill="none" />
+                        <text font-family="'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="bold" fill="#8B4513" text-anchor="middle">
+                            <textPath href="#cupTextPath" startOffset="50%" id="text-supportRainbow">Понравилось? Поддержи! ✨</textPath>
+                        </text>
+                    </svg>
+                    <span style="font-size: 36px; background: #FFFFFF; border: 2px solid #EAD5C3; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(139,69,19,0.18);">☕</span>
+                </div>
+                <style>
+                    @keyframes rotateText { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+                </style>
+
+                <!-- 🟠 ПАНЕЛЬ УПРАВЛЕНИЯ РЕЦЕПТОМ (Кнопки навигации, Таймер, Чистые руки) -->
+                <div style="position: sticky; top: 0; width: 100%; max-width: 720px; background: #FFF3E7; border: 2px solid #EAD5C3; border-radius: 30px; padding: 10px 15px; margin: 15px auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-sizing: border-box; z-index: 610; box-shadow: 0 10px 30px rgba(160, 82, 45, 0.08);">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <button type="button" onclick="closeRecipePageAndGoBack()" style="background: #FF7A33; color: #FFFFFF; border: none; width: 42px; height: 42px; border-radius: 50%; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; box-shadow: 0 4px 10px rgba(255,122,51,0.2);" title="Назад в Меню">📖</button>
+                        <button type="button" onclick="navigateRecipe(-1)" style="background: #FFFFFF; border: 2px solid #FFA873; color: #FF7A33; width: 38px; height: 38px; border-radius: 50%; font-size: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0;">◀️</button>
+                        <button type="button" onclick="navigateRecipe(1)" style="background: #FF7A33; color: #FFFFFF; border: none; width: 38px; height: 38px; border-radius: 50%; font-size: 14px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; box-shadow: 0 4px 10px rgba(255,122,51,0.15);">▶️</button>
+                        <button type="button" id="admin-delete-recipe-btn" onclick="deleteCurrentRecipeFromDatabase()" style="display: none; background: #FFF6EE; border: 2px dashed #FF7A33; color: #FF7A33; width: 40px; height: 40px; border-radius: 50%; font-size: 18px; cursor: pointer; align-items: center; justify-content: center; padding: 0; outline: none; margin-left: 5px;" title="Удалить этот рецепт навсегда">🗑️</button>
+                    </div>
+
+                    <div id="recipe-hands-btn" onclick="toggleCleanHandsMode()" style="background: #FFFFFF; border: 2px solid #FFA873; padding: 8px 18px; border-radius: 25px; font-size: 14px; font-weight: bold; color: #FF7A33; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+                        <span>🧼</span> <span id="text-recipeCleanHands">Режим «Чистые руки»</span>
+                    </div>
+
+                    <div style="display: flex; align-items: center; background: #FFFFFF; border: 2px solid #FFA873; padding: 6px 14px; border-radius: 25px; gap: 8px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+                        <div style="display: flex; flex-direction: column; gap: 1px;">
+                            <button type="button" onclick="changeRecipeTimerMinutes(1)" style="background: transparent; border: none; cursor: pointer; font-size: 10px; color: #FF7A33; padding: 0; font-weight: bold;">▲</button>
+                            <button type="button" onclick="changeRecipeTimerMinutes(-1)" style="background: transparent; border: none; cursor: pointer; font-size: 10px; color: #FF7A33; padding: 0; font-weight: bold;">▼</button>
+
+
+                        </div>
+                        <span id="recipe-timer-display" style="font-size: 18px; font-weight: bold; color: #443322; font-family: monospace; width: 54px; text-align: center;">05:00</span>
+                        <button type="button" id="recipe-timer-trigger" onclick="toggleRecipeTimer()" style="background: transparent; border: none; cursor: pointer; font-size: 18px; padding: 0;">⏱️</button>
+                    </div>
+
+                    <button type="button" onclick="shareCurrentRecipePage()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; color: #A0522D; width: 42px; height: 42px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; box-shadow: 0 4px 10px rgba(160,82,45,0.05);" title="Поделиться рецептом">➡️</button>
+                </div>
+                <!-- 👑 НАКЛАДНАЯ КРЕМОВАЯ РАМОЧКА ДЛЯ РЕЦЕПТА (Свиток) -->
+                <div class="recipe-scroll-box" style="width: 100%; max-width: 720px; background: #FFFDFB; margin: 10px auto 30px auto; padding: 25px 20px; border-radius: 26px; box-shadow: 0 15px 45px rgba(160, 82, 45, 0.05); border: 2px solid #EAD5C3; box-sizing: border-box;">
+
+                    <!-- Рукописное название кулинарного шедевра пером -->
+                    <h2 id="recipe-display-title" contenteditable="false" style="font-family: 'Caveat', cursive; font-size: 38px; color: #A0522D; font-weight: normal; margin: 0 0 18px 0; text-align: center; border-bottom: 2px dashed #EAD5C3; padding-bottom: 5px; outline: none;"></h2>
+
+                    <!-- Фотоаппарат для загрузки и отображения фотографии блюда -->
+                    <div id="recipe-photo-area" onclick="triggerRecipePhotoUpload()" style="width: 100%; height: 260px; background: #FFF6EE; border-radius: 18px; margin-bottom: 12px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px dashed #EAD5C3; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#FFEAD9'" onmouseout="this.style.background='#FFF6EE'">
+                        <input type="file" id="recipe-photo-file-input" accept="image/*" style="display: none;">
+                        <img id="recipe-uploaded-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                        <div id="recipe-photo-placeholder" style="text-align: center; color: #A0522D; padding: 15px;">
+                            <span style="font-size: 40px; display: block; margin-bottom: 6px;">📸</span>
+                            <span id="text-addPhotoLabel" style="font-size: 15px; font-weight: bold;">Нажмите, чтобы добавить аппетитное фото блюда 🏠</span>
+                        </div>
+                    </div>
+
+                    <!-- Кнопка удаления фото Хозяйки -->
+                    <button type="button" onclick="event.stopPropagation(); removeCurrentRecipePhoto()" style="background: #FFF6EE; border: 2px dashed #FF7A33; color: #FF7A33; padding: 6px 14px; font-size: 14px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-bottom: 22px; display: block; margin-left: auto; margin-right: auto; outline: none;">🗑️ Удалить фото</button>
+
+                    <div style="text-align: left;">
+                        <!-- Заголовок ингредиентов и Порции -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #FFEAD9; padding-bottom: 10px; margin-bottom: 18px; flex-wrap: wrap; gap: 12px;">
+                            <h3 id="text-recipeIngredientsTitle" style="font-size: 21px; color: #A0522D; margin: 0; font-weight: bold;">📋 Список ингредиентов (Чек-лист):</h3>
+                            <button type="button" onclick="openPortionsModal()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; padding: 7px 18px; font-size: 16px; font-weight: bold; color: #A0522D; border-radius: 18px; cursor: pointer; display: flex; align-items: center; gap: 6px; outline: none; box-shadow: 0 4px 10px rgba(160,82,45,0.06);">
+                                <span>⚖️</span> <span id="text-btnPortions">Порции</span>
+                            </button>
+                        </div>
+
+                        <!-- Линованный блокнот ингредиентов -->
+                        <div id="recipe-ingredients-list-container" style="display: flex; flex-direction: column; gap: 14px; width: 100%; min-height: 40px; margin-bottom: 25px; padding: 5px; box-sizing: border-box; background-image: linear-gradient(#FFEAD9 1px, transparent 1px); background-size: 100% 42px; line-height: 42px;"></div>
+
+                        <!-- Кнопка добавления строк ингредиентов -->
+                        <button type="button" id="admin-add-row-btn" onclick="addNewIngredientRowFromScreen('', '')" style="display: none; background: #FFF6EE; border: 2px dashed #FF7A33; color: #FF7A33; padding: 12px; font-size: 17px; font-weight: bold; border-radius: 16px; cursor: pointer; width: 100%; margin-top: -10px; margin-bottom: 25px; outline: none;">➕ Добавить продукт</button>
+
+                        <!-- Крупный заголовок шагов приготовления -->
+                        <h3 id="text-recipeStepsTitle" style="font-size: 21px; color: #A0522D; border-bottom: 2px solid #FFEAD9; padding-bottom: 8px; margin-bottom: 18px; font-weight: bold;">👩‍🍳 Пошаговое приготовление:</h3>
+
+                        <!-- 🌟 ОБНОВЛЕННЫЙ ИНТЕРАКТИВНЫЙ СПИСОК ШАГОВ С АВТОНУМЕРАЦИЕЙ И КРУПНЫМИ КОФЕЙНЫМИ БУКВАМИ (20px) -->
+                        <div id="recipe-steps-list-container" style="display: flex; flex-direction: column; gap: 16px; width: 100%; margin-bottom: 30px; padding: 5px; box-sizing: border-box;"></div>
+
+                        <!-- Крупная кнопка добавления шагов для Хозяйки -->
+                        <button type="button" id="admin-add-step-btn" onclick="addNewStepRowFromScreen('')" style="display: none; background: #FFF6EE; border: 2px dashed #A0522D; color: #A0522D; padding: 12px; font-size: 17px; font-weight: bold; border-radius: 16px; cursor: pointer; width: 100%; margin-top: -10px; margin-bottom: 25px; outline: none;">➕ Добавить шаг приготовления</button>
+
+                        <!-- Крупная оранжевая кнопка сохранения Хозяйки -->
+                        <button type="button" id="admin-save-recipe-btn" onclick="saveCurrentRecipeFromScreen()" style="display: none; background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 16px; font-size: 19px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 100%; box-shadow: 0 6px 18px rgba(255,122,51,0.25);">💾 Сохранить страницу-шаблон</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </template>
+    <!-- 🌐 ГЛАВНЫЙ ПРОГРАММНЫЙ БЛОК JAVASCRIPT -->
+    <script>
+        // ЭЛЕКТРОННЫЙ АРХИВ КУЛИНАРНЫХ ПОЛОК ХОЗЯЙКИ
+        let recipeAlbums = {
+            1: [], // Полка 1: Выпечка 🍰
+            2: [], // Полка 2: Основные блюда 🥣
+            3: []  // Полка 3: Салаты 🥗
+        };
+
+        // Состояния кулинарного движка Еленочки
+        let currentAlbumId = 1;      
+        let currentRecipeIndex = 0;  
+        let currentLangCode = 'ru';
+        let currentPortionMultiplier = 1;
+        let wakeLock = null;
+        let timerInterval = null;
+        let isAdminModeActive = false; 
+
+        // Инициализация Firebase с вашими новыми подтвержденными ключами
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7-EjKMp4HmoqsvdSOx8yIqGGJj8SSa_4",
+            authDomain: "://firebaseapp.com",
+            projectId: "helen-smart-cookbook",
+            storageBucket: "helen-smart-cookbook.firebasestorage.app",
+            messagingSenderId: "986225882700",
+            appId: "1:986225882700:web:c85966a73d513960be26e9"
+        };
+
+        if (typeof firebase !== 'undefined') {
+            try {
+                firebase.initializeApp(firebaseConfig);
+                window.db = firebase.firestore();
+                console.log("Ура! База данных успешно подключена глобально! 🌐");
+            } catch (e) {
+                console.error("Ошибка инициализации Firebase: ", e);
+            }
+        }
+
+        // Мультиязычный словарь с подсказками
+        const translations = {
+            ru: {
+                menu: "📖 Menu", title: "Интерактивная книга рецептов:", subtitle: "Умная кухня с таймером",
+                desc: "<strong>🧼 Режим «Чистые руки». Встроенный таймер.</strong><br>«Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта».",
+                "cat-1": "🍰 Выпечка", "cat-2": "🥣 Основные блюда", "cat-3": "🥗 Салаты", copyright: "© 2026 Интерактивная книга рецептов. Создано с любовью и заботой.",
+                searchPlaceholder: "Поиск рецептов...", alertMsg: "Этот кулинарный раздел находится в процессе наполнения вкусными рецептами Еленочки! Загляните чуточку позже 🌸", alertSearch: "Рецепт не найден.",
+                recipeCleanHands: "Режим «Чистые руки»", recipeIngredientsTitle: "📋 Список ингредиентов (Чек-лист):", recipeStepsTitle: "👩‍🍳 Пошаговое приготовление:",
+                guestModalTitle: "📝 Поделиться Любимым рецептом 🥰", addPhotoLabel: "Нажмите, чтобы добавить аппетитное фото блюда 🏠",
+                supportTitle: "☕ Поддержать автора книги Еленочки", supportPayBtn: "Оплатить 💳", supportRainbow: "Понравилось? Поддержи! ✨",
+                voiceThanks: "Спасибо огромное за вашу поддержку! Приятного вам аппетита! 🌸",
+                btnPortions: "Порции", portionsModalTitle: "⚖️ Выберите количество порций:", "share-btn": "👩‍🍳 Поделиться рецептом 🔍",
+                guestNameInput: "Ваше имя", guestTitleInput: "Название вашего блюда", guestRecipeTextInput: "Впишите сюда ингредиенты и подробные шаги вашего рецепта...", guestSendBtn: "Отправить 🌸"
+            },
+            ukr: {
+                menu: "📖 Меню", title: "Інтерактивна книга рецептів:", subtitle: "Розумна кухня с таймером",
+                desc: "<strong>🧼 Режим «Чисті руки». Вбудований таймер.</strong><br>«Інтуїтивний кулінарний формат. Вибирайте кількість порцій, запускайте таймери та відзначайте кроки прямо на сторінці рецепта».",
+                "cat-1": "🍰 Випічка", "cat-2": "🥣 Основні страви", "cat-3": "🥗 Салати", copyright: "© 2026 Интерактивная книга рецептов. Створено з любов'ю та турботою.",
+                searchPlaceholder: "Пошук рецептів...", alertMsg: "Цей кулінарний розділ знаходиться в процесі наповнення смачними рецептами Оленочки! Завітайте трохи пізніше 🌸", alertSearch: "Рецепт не знайдено.",
+                recipeCleanHands: "Режим «Чисті руки»", recipeIngredientsTitle: "📋 Список інгредієнтів (Чек-лист):", recipeStepsTitle: "👩‍🍳 Покрокове приготування:",
+                guestModalTitle: "📝 Поділитися Улюбленим рецептом 🥰", addPhotoLabel: "Натисніть, щоб додати апетитне фото страви 🏠",
+                supportTitle: "☕ Підтримати автора книги Оленочку", supportPayBtn: "Оплатити 💳", supportRainbow: "Сподобалось? Підтримай! ✨",
+                voiceThanks: "Щиро дякую за вашу підтримку! Смачного вам! 🌸",
+                btnPortions: "Порції", portionsModalTitle: "⚖️ Оберіть кількість порцій:", "share-btn": "👩‍🍳 Поділитися рецептом 🔍",
+                guestNameInput: "Ваше ім'я", guestTitleInput: "Назва вашої страви", guestRecipeTextInput: "Впішіть сюди інгредієнти та докладні кроки вашого рецепту...", guestSendBtn: "Надіслати 🌸"
+            },
+            en: {
+                menu: "📖 Menu", title: "Interactive Cookbook:", subtitle: "Smart Kitchen with Timer",
+                desc: "<strong>🧼 'Clean Hands' Mode. Built-in Timer.</strong><br>'Intuitive cooking format. Choose the number of servings, start built-in timers, and check off steps right on the recipe page.'",
+                "cat-1": "🍰 Baking", "cat-2": "🥣 Savoury", "cat-3": "🥗 Salads", copyright: "© 2026 Interactive Cookbook. Made with love and care.",
+                searchPlaceholder: "Search recipes...", alertMsg: "This culinary section is in the process of being filled with Helen's delicious recipes! Check back a bit later 🌸", alertSearch: "Recipe not found.",
+                recipeCleanHands: "'Clean Hands' Mode", recipeIngredientsTitle: "📋 Ingredients List (Check-list):", recipeStepsTitle: "👩‍🍳 Step-by-Step Cooking:",
+                guestModalTitle: "📝 Share Your Favorite Recipe 🥰", addPhotoLabel: "Click to add an appetizing photo of the dish 🏠",
+                supportTitle: "☕ Support the Cookbook Author Helen", supportPayBtn: "Pay 💳", supportRainbow: "Liked it? Support! ✨",
+                voiceThanks: "Thank you so much for your support! Enjoy your meal! 🌸",
+                btnPortions: "Servings", portionsModalTitle: "⚖️ Choose number of servings:", "share-btn": "👩‍🍳 Share Recipe 🔍",
+                guestNameInput: "Your name", guestTitleInput: "Name of your dish", guestRecipeTextInput: "Enter here the ingredients and detailed steps of your recipe...", guestSendBtn: "Send 🌸"
+            }
+        };
+
+        const wishTranslations = { ru: "✨ Желаем вам вдохновения на кухне и приятного аппетита!", ukr: "✨ Бажаємо вам натхнення на кухні та приємного апетиту!", en: "✨ Wishing you inspiration in the kitchen and bon appétit!" };
+        const watermarkTranslations = { ru: "✨ От Еленочки с любовью ✨", ukr: "✨ Від Оленочки з любов'ю ✨", en: "✨ From Helen with love ✨" };
+                // УМНАЯ ФУНКЦИЯ ПЕРЕВОДА ИНТЕРФЕЙСА И ПРИНУДИТЕЛЬНОГО ПЕРЕВОДА СВИТКА РЕЦЕПТА
+        function changeLanguage(lang) {
+            currentLangCode = lang;
+            document.querySelectorAll('[id^="text-"], [id^="cat-"]').forEach(element => {
+                let key = element.id.replace('text-', '');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.id === 'text-desc') element.innerHTML = translations[lang][key];
+                    else element.innerText = translations[lang][key];
+                }
+            });
+
+            if (document.getElementById('text-guestModalTitle')) document.getElementById('text-guestModalTitle').innerText = translations[lang].guestModalTitle;
+            if (document.getElementById('text-guestSendBtn')) document.getElementById('text-guestSendBtn').innerText = translations[lang].guestSendBtn;
+            if (document.getElementById('text-share-btn')) document.getElementById('text-share-btn').innerText = translations[lang]["share-btn"];
+            if (document.getElementById('guestNameInput')) document.getElementById('guestNameInput').placeholder = translations[lang].guestNameInput;
+            if (document.getElementById('guestTitleInput')) document.getElementById('guestTitleInput').placeholder = translations[lang].guestTitleInput;
+            if (document.getElementById('guestRecipeTextInput')) document.getElementById('guestRecipeTextInput').placeholder = translations[lang].guestRecipeTextInput;
+
+            let searchFieldEl = document.getElementById('search-field');
+            if (searchFieldEl) searchFieldEl.placeholder = translations[lang].searchPlaceholder;
+            if (document.getElementById('text-wish')) document.getElementById('text-wish').innerText = wishTranslations[lang];
+            if (document.getElementById('text-watermark')) document.getElementById('text-watermark').textContent = watermarkTranslations[lang];
+
+            // Заставляем Google Translate переводить динамические ручные тексты
+            try {
+                const googleSelect = document.querySelector('.goog-te-combo');
+                if (googleSelect) { 
+                    googleSelect.value = lang === 'ukr' ? 'uk' : lang; 
+                    googleSelect.dispatchEvent(new Event('change')); 
+                }
+            } catch (e) {}
+            localStorage.setItem('selectedLanguage', lang);
+        }
+
+        document.getElementById('lang-btn').addEventListener('click', function() {
+            const languages = ['ru', 'ukr', 'en'];
+            let nextIndex = (languages.indexOf(currentLangCode) + 1) % languages.length;
+            this.innerText = languages[nextIndex].toUpperCase();
+            changeLanguage(languages[nextIndex]);
+        });
+
+        function openRecipeCategory(catId) { 
+            currentAlbumId = catId; 
+            const modalTitles = {
+                ru: { 1: "🍰 Выпечка", 2: "🥣 Основные блюда", 3: "🥗 Салаты" },
+                ukr: { 1: "🍰 Випічка", 2: "🥣 Основні страви", 3: "🥗 Салати" },
+                en: { 1: "🍰 Baking", 2: "🥣 Savoury", 3: "🥗 Salads" }
+            };
+            const titleEl = document.getElementById("category-modal-title");
+            if (titleEl) titleEl.innerText = modalTitles[currentLangCode][catId];
+            renderCategoryRecipesList(); 
+        }
+
+        function renderCategoryRecipesList() {
+            const container = document.getElementById("category-modal-recipes-list");
+            if (!container) return; 
+            container.innerHTML = "";
+            const list = recipeAlbums[currentAlbumId];
+            if (!list || list.length === 0) { 
+                alert(translations[currentLangCode].alertMsg); 
+                return; 
+            }
+            list.forEach((recipe, index) => {
+                const btn = document.createElement("button");
+                btn.className = "category-card";
+                btn.style.cssText = "background: linear-gradient(135deg, #FFB385, #FF8B47); padding: 14px 30px; font-size: 18px; margin: 5px 0; width: 100%; border-radius: 20px; box-shadow: 0 4px 10px rgba(255,122,51,0.15);";
+                btn.innerText = recipe.title;
+                btn.onclick = () => { 
+                    currentRecipeIndex = index; 
+                    document.getElementById('categoryRecipesModal').style.display = 'none'; 
+                    showRecipePage(); 
+                };
+                container.appendChild(btn);
+            });
+            document.getElementById('categoryRecipesModal').style.display = 'flex';
+        }
+
+        // 🌟 ОРИГИНАЛЬНАЯ ФУНКЦИЯ ОТКРЫТИЯ СТРАНИЦЫ С НОВЫМИ ИНТЕРАКТИВНЫМИ ШАГАМИ
+        function showRecipePage() {
+            if (document.getElementById("interactiveRecipePage")) document.getElementById("interactiveRecipePage").remove();
+            const recipe = recipeAlbums[currentAlbumId][currentRecipeIndex];
+            const template = document.getElementById("recipePageTemplate");
+            const recipeContainer = document.createElement("div");
+            recipeContainer.innerHTML = template.innerHTML;
+            document.body.appendChild(recipeContainer.firstElementChild);
+
+            document.getElementById("recipe-display-title").innerText = recipe.title;
+
+            if (recipe.photoData) {
+                const imgEl = document.getElementById("recipe-uploaded-img");
+                imgEl.src = recipe.photoData; 
+                imgEl.style.display = "block";
+                document.getElementById("recipe-photo-placeholder").style.display = "none";
+            }
+
+            const addRowBtn = document.getElementById("admin-add-row-btn");
+            const addStepBtn = document.getElementById("admin-add-step-btn");
+            const saveRecipeBtn = document.getElementById("admin-save-recipe-btn");
+            const deleteRecipeBtn = document.getElementById("admin-delete-recipe-btn");
+
+            if (isAdminModeActive) {
+                document.getElementById("recipe-display-title").contentEditable = "true";
+                if (addRowBtn) addRowBtn.style.display = "block";
+                if (addStepBtn) addStepBtn.style.display = "block";
+                if (saveRecipeBtn) saveRecipeBtn.style.display = "block";
+                if (deleteRecipeBtn) deleteRecipeBtn.style.display = "flex";
+                if (document.getElementById("recipe-photo-area")) document.getElementById("recipe-photo-area").style.pointerEvents = "auto";
+                document.querySelectorAll("button").forEach(btn => { if (btn.innerText.includes("Удалить фото")) btn.style.display = "block"; });
+            } else {
+                document.getElementById("recipe-display-title").contentEditable = "false";
+                if (addRowBtn) addRowBtn.style.display = "none";
+                if (addStepBtn) addStepBtn.style.display = "none";
+                if (saveRecipeBtn) saveRecipeBtn.style.display = "none";
+                if (deleteRecipeBtn) deleteRecipeBtn.style.display = "none";
+                if (document.getElementById("recipe-photo-area")) document.getElementById("recipe-photo-area").style.pointerEvents = "none";
+                document.querySelectorAll("button").forEach(btn => { if (btn.innerText.includes("Удалить фото")) btn.style.display = "none"; });
+            }
+
+            // Отрисовка ингредиентов
+            const listContainer = document.getElementById("recipe-ingredients-list-container");
+            if (listContainer && recipe.ingredientsArray && recipe.ingredientsArray.length > 0) {
+                recipe.ingredientsArray.forEach(item => { addNewIngredientRowFromScreen(item.weight, item.name, item.checked || false); });
+            } else if (listContainer && isAdminModeActive) {
+                addNewIngredientRowFromScreen("", "");
+            }
+
+            // Отрисовка новых пошаговых строк рецепта с автоматической пронумерованной структурой
+            const stepsContainer = document.getElementById("recipe-steps-list-container");
+            if (stepsContainer && recipe.stepsArray && recipe.stepsArray.length > 0) {
+                recipe.stepsArray.forEach(stepText => { addNewStepRowFromScreen(stepText); });
+            } else if (stepsContainer) {
+                // Если старый формат или пусто — бьем на строки по переносу
+                let oldSteps = recipe.steps ? recipe.steps.split('\n') : [];
+                if (oldSteps.length > 0 && oldSteps[0].trim() !== "") {
+                    oldSteps.forEach(st => {
+                        let cleanText = st.replace(/^\d+\.\s*/, '').trim(); // убираем старые ручные номера цифр
+                        if (cleanText) addNewStepRowFromScreen(cleanText);
+                    });
+                } else if (isAdminModeActive) {
+                    addNewStepRowFromScreen("");
+                }
+            }
+            setRecipePortions(1);
+        }
+                // ➕ НОВАЯ ИНТЕРАКТИВНАЯ ФУНКЦИЯ ДЛЯ СТРОК РЕЦЕПТА (ШАГ ЗА ШАГОМ С ГАЛОЧКАМИ ДЛЯ ГОСТЕЙ)
+        function addNewStepRowFromScreen(stepTextValue) {
+            const container = document.getElementById("recipe-steps-list-container");
+            if (!container) return;
+
+            const row = document.createElement("div");
+            row.className = "recipe-step-row-item";
+            row.style.cssText = "display: flex; align-items: flex-start; width: 100%; box-sizing: border-box; padding: 5px 0;";
+
+            // Автоматический подсчет текущего номера шага
+            const currentStepsCount = container.getElementsByClassName("recipe-step-row-item").length + 1;
+
+            // Кнопочка-пуговка выполнения шага для гостей
+            const checkBtn = document.createElement("button");
+            checkBtn.type = "button";
+            checkBtn.style.cssText = "width: 28px; height: 28px; border-radius: 50%; border: 2px solid #EAD5C3; background: #FFFDF9; color: #A0522D; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; padding: 0; outline: none; transition: all 0.2s; flex-shrink: 0; margin-right: 15px; font-family: monospace;";
+            checkBtn.innerText = currentStepsCount;
+
+            // Уютное текстовое поле шага (Шоколадные крупные буквы 20px)
+            const stepInput = document.createElement("textarea");
+            stepInput.className = "step-text-cell";
+            stepInput.value = stepTextValue;
+            stepInput.placeholder = "Опишите кулинарный шаг...";
+            stepInput.rows = 1;
+            stepInput.style.cssText = "flex-grow: 1; border: none; background: transparent; font-size: 20px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box; resize: none; font-family: 'Segoe UI', Roboto, sans-serif; line-height: 1.4; padding: 0; overflow: hidden;";
+            stepInput.readOnly = !isAdminModeActive;
+
+            // Автоматическое выравнивание высоты текстового поля под размер текста
+            stepInput.oninput = function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; };
+            setTimeout(() => { stepInput.style.height = 'auto'; stepInput.style.height = stepInput.scrollHeight + 'px'; }, 20);
+
+            // Клик по пуговке-номеру отмечает выполненный шаг нежным цветом
+            checkBtn.onclick = function() {
+                if (isAdminModeActive) return;
+                const isDone = this.style.background === "rgb(212, 237, 218)"; 
+                if (isDone) {
+                    this.style.background = "#FFFDF9"; this.style.borderColor = "#EAD5C3"; this.style.color = "#A0522D"; this.innerText = currentStepsCount; stepInput.style.opacity = "1"; stepInput.style.textDecoration = "none";
+                } else {
+                    this.style.background = "#D4EDDA"; this.style.borderColor = "#28A745"; this.style.color = "#28A745"; this.innerText = "✓"; stepInput.style.opacity = "0.4"; stepInput.style.textDecoration = "line-through";
+                }
+            };
+
+            // Оранжевый крестик удаления шага для Хозяйки
+            const delBtn = document.createElement("button");
+            delBtn.type = "button";
+            delBtn.style.cssText = "width: 26px; height: 26px; border-radius: 50%; background: #FF7A33; border: none; color: #FFF; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; outline: none; flex-shrink: 0; margin-left: 10px; margin-top: 2px;";
+            delBtn.innerText = "×";
+            delBtn.style.display = isAdminModeActive ? "flex" : "none";
+            delBtn.onclick = function() { 
+                row.remove(); 
+                let allRows = container.getElementsByClassName("recipe-step-row-item");
+                for(let i=0; i<allRows.length; i++) {
+                    let btn = allRows[i].getElementsByTagName("button")[0];
+                    if (btn && btn.innerText !== "✓") btn.innerText = i + 1;
+                }
+            };
+
+            row.appendChild(checkBtn);
+            row.appendChild(stepInput);
+            row.appendChild(delBtn);
+            container.appendChild(row);
+        }
+        function deleteCurrentRecipeFromDatabase() {
+            const recipe = recipeAlbums[currentAlbumId][currentRecipeIndex];
+            if (!recipe) return;
+            if (confirm(`Вы уверены, что хотите навсегда удалить рецепт "${recipe.title}"? 🗑️`)) {
+                recipeAlbums[currentAlbumId].splice(currentRecipeIndex, 1);
+                localStorage.setItem('helenCookbookDatabase', JSON.stringify(recipeAlbums));
+                alert("Страница-рецепт успешно удалена с полки! 🗑️");
+                closeRecipePageAndGoBack();
+                renderCategoryRecipesList();
+            }
+        }
+
+        function addNewIngredientRowFromScreen(weightValue, nameValue, isChecked = false) {
+            const container = document.getElementById("recipe-ingredients-list-container");
+            if (!container) return;
+            const row = document.createElement("div");
+            row.className = "ingredient-row-item";
+            row.style.cssText = "display: flex; align-items: center; width: 100%; height: 42px; box-sizing: border-box; padding: 0 5px; margin: 0;";
+
+            const checkBtn = document.createElement("button");
+            checkBtn.type = "button";
+            checkBtn.className = "ing-check-btn";
+            checkBtn.style.cssText = "width: 28px; height: 28px; border-radius: 6px; border: 2px solid #EAD5C3; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold; padding: 0; outline: none; transition: all 0.2s; flex-shrink: 0; margin-right: 15px;";
+
+            if (isChecked) { checkBtn.style.background = "#D4EDDA"; checkBtn.style.borderColor = "#28A745"; checkBtn.style.color = "#28A745"; checkBtn.innerText = "✓"; }
+
+            checkBtn.onclick = function() {
+                if (isAdminModeActive) return; 
+                if (this.innerText === "✓") { this.style.background = "#FFFDF9"; this.style.borderColor = "#EAD5C3"; this.innerText = ""; }
+                else { this.style.background = "#D4EDDA"; this.style.borderColor = "#28A745"; this.style.color = "#28A745"; this.innerText = "✓"; }
+            };
+
+            const weightInput = document.createElement("input");
+            weightInput.type = "text";
+            weightInput.className = "ing-weight-cell";
+            weightInput.value = weightValue;
+            weightInput.placeholder = "0";
+            weightInput.style.cssText = "width: 65px; height: 32px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 16px; font-weight: bold; color: #332211; outline: none; flex-shrink: 0; box-sizing: border-box; margin-right: 15px;";
+            weightInput.readOnly = !isAdminModeActive; 
+
+            const nameInput = document.createElement("input");
+            nameInput.type = "text";
+            nameInput.className = "ing-name-cell";
+            nameInput.value = nameValue;
+            nameInput.placeholder = "Название продукта...";
+            nameInput.style.cssText = "flex-grow: 1; height: 32px; border: none; background: transparent; font-size: 19px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box;";
+            nameInput.readOnly = !isAdminModeActive; 
+
+            const delBtn = document.createElement("button");
+            delBtn.type = "button";
+            delBtn.style.cssText = "width: 26px; height: 26px; border-radius: 50%; background: #FF7A33; border: none; color: #FFF; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; outline: none; flex-shrink: 0; margin-left: 10px;";
+            delBtn.innerText = "×";
+            delBtn.style.display = isAdminModeActive ? "flex" : "none";
+            delBtn.onclick = function() { row.remove(); };
+
+            row.appendChild(checkBtn);
+            row.appendChild(weightInput);
+            row.appendChild(nameInput);
+            row.appendChild(delBtn);
+            container.appendChild(row);
+        }
+
+        function triggerRecipePhotoUpload() {
+            let fileInput = document.getElementById("recipe-photo-file-input");
+            let uploadedImg = document.getElementById("recipe-uploaded-img");
+            let placeholder = document.getElementById("recipe-photo-placeholder");
+            if (fileInput) {
+                fileInput.click();
+                fileInput.onchange = function() {
+                    let file = fileInput.files[0];
+                    if (file && uploadedImg && placeholder) {
+                        let reader = new FileReader();
+                        reader.onload = function(e) {
+                            uploadedImg.src = e.target.result;
+                            uploadedImg.style.display = "block";         
+                            placeholder.style.display = "none";          
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                };
+            }
+        }
+        function openPortionsModal() { document.getElementById("portionsModal").style.display = "flex"; }
+
+        function setRecipePortions(multiplier) {
+            currentPortionMultiplier = multiplier;
+            document.querySelectorAll(".portion-modal-btn").forEach(btn => { btn.style.background = "#FFF6EE"; btn.style.color = "#A0522D"; btn.style.border = "2px solid #EAD5C3"; });
+            const activeId = multiplier === 0.5 ? "p-05" : (multiplier === 1 ? "p-1" : (multiplier === 1.5 ? "p-15" : "p-2"));
+            if (document.getElementById(activeId)) {
+                if (multiplier === 1) document.getElementById(activeId).style.background = "linear-gradient(135deg, #FF9E66, #FF7A33)";
+                else document.getElementById(activeId).style.background = "#FF7A33";
+                document.getElementById(activeId).style.color = "#FFF"; document.getElementById(activeId).style.border = "none";
+            }
+            document.getElementById("portionsModal").style.display = "none";
+            recalculateTextWeights();
+        }
+
+        function recalculateTextWeights() {
+            const listContainer = document.getElementById("recipe-ingredients-list-container");
+            if (!listContainer || isAdminModeActive) return;
+            const recipe = recipeAlbums[currentAlbumId][currentRecipeIndex];
+            if (!recipe) return;
+            const rows = listContainer.getElementsByClassName("ingredient-row-item");
+            for (let i = 0; i < rows.length; i++) {
+                const weightInput = rows[i].getElementsByClassName("ing-weight-cell")[0];
+                if (weightInput && recipe.ingredientsArray && recipe.ingredientsArray[i]) {
+                    const baseWeightStr = recipe.ingredientsArray[i].weight;
+                    const baseNumber = parseFloat(baseWeightStr.replace(',', '.'));
+                    if (!isNaN(baseNumber)) {
+                        let calculated = baseNumber * currentPortionMultiplier;
+                        weightInput.value = Number(calculated.toFixed(1)).toString().replace('.', ',');
+                    } else { weightInput.value = baseWeightStr; }
+                }
+            }
+        }
+
+        function closeRecipePageAndGoBack() { 
+            const page = document.getElementById("interactiveRecipePage"); if (page) page.remove(); 
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; } 
+            if (wakeLock) { wakeLock.release(); wakeLock = null; } 
+        }
+
+        async function toggleCleanHandsMode() {
+            const btn = document.getElementById("recipe-hands-btn");
+            if (!wakeLock) {
+                try { wakeLock = await navigator.wakeLock.request('screen'); btn.style.background = "#0D9E5E"; btn.style.color = "#FFF"; } catch (err) {}
+            } else { await wakeLock.release(); wakeLock = null; btn.style.background = "#FFFFFF"; btn.style.color = "#A0522D"; }
+        }
+
+        function changeRecipeTimerMinutes(amount) { const display = document.getElementById("recipe-timer-display"); if (!display || timerInterval) return; let parts = display.innerText.split(":"); let newMinutes = parseInt(parts[0]) + amount; if (newMinutes < 1) newMinutes = 1; if (newMinutes > 60) newMinutes = 60; display.innerText = `${newMinutes < 10 ? '0' : ''}${newMinutes}:00`; }
+        // 💾 ИСПРАВЛЕННАЯ ФУНКЦИЯ СОХРАНЕНИЯ РЕЦЕПТА (МГНОВЕННО СИНХРОНИЗИРУЕТ С FIREBASE!)
+        function saveCurrentRecipeFromScreen() {
+            let typedTitle = document.getElementById("recipe-display-title").innerText.trim();
+            if (!typedTitle) { alert("Пожалуйста, введите название блюда! 🍳"); return; }
+
+            // Собираем ингредиенты
+            let collectedIngredients = [];
+            const listContainer = document.getElementById("recipe-ingredients-list-container");
+            if (listContainer) {
+                const rows = listContainer.getElementsByClassName("ingredient-row-item");
+                for (let i = 0; i < rows.length; i++) {
+                    const weightVal = rows[i].getElementsByClassName("ing-weight-cell")?.[0]?.value.trim() || "";
+                    const nameVal = rows[i].getElementsByClassName("ing-name-cell")?.[0]?.value.trim() || "";
+                    const checkedVal = rows[i].getElementsByClassName("ing-check-btn")?.[0]?.innerText === "✓";
+                    if (weightVal || nameVal) collectedIngredients.push({ weight: weightVal, name: nameVal, checked: checkedVal });
+                }
+            }
+
+            // Собираем шаги из новых интерактивных строчек списка
+            let collectedSteps = [];
+            const stepsContainer = document.getElementById("recipe-steps-list-container");
+            if (stepsContainer) {
+                const stepCells = stepsContainer.getElementsByClassName("step-text-cell");
+                for(let i=0; i<stepCells.length; i++) {
+                    let txt = stepCells[i].value.trim();
+                    if(txt) collectedSteps.push(txt);
+                }
+            }
+
+            let album = recipeAlbums[currentAlbumId];
+            let targetRecipe = album[currentRecipeIndex];
+            let payload = {
+                title: typedTitle,
+                ingredientsArray: collectedIngredients,
+                stepsArray: collectedSteps,
+                steps: collectedSteps.map((s,i) => `${i+1}. ${s}`).join('\n'), // Обратная совместимость
+                photoData: document.getElementById("recipe-uploaded-img").src || "",
+                category: currentAlbumId,
+                timestamp: Date.now()
+            };
+
+            let firebaseDocId = (targetRecipe && targetRecipe.firebaseId) ? targetRecipe.firebaseId : "doc-" + Date.now();
+            payload.firebaseId = firebaseDocId;
+
+            if (targetRecipe) { album[currentRecipeIndex] = payload; } 
+            else { album.push(payload); currentRecipeIndex = album.length - 1; }
+
+            // Сохраняем локально
+            localStorage.setItem('helenCookbookDatabase', JSON.stringify(recipeAlbums));
+
+            // НАМЕРТВО ПИШЕМ В ОБЛАКО FIREBASE FIRESTORE!
+            if (window.db) {
+                window.db.collection("recipes").doc(firebaseDocId).set(payload)
+                .then(() => console.log("Успешно синхронизировано с облаком!"))
+                .catch(err => console.error("Ошибка облака: ", err));
+            }
+
+            alert("Страница-шаблон успешно сохранена везде! 💾");
+            renderCategoryRecipesList();
+            isAdminModeActive = false;
+            showRecipePage();
+        }
+
+        function removeCurrentRecipePhoto() {
+            const imgEl = document.getElementById("recipe-uploaded-img");
+            const placeholder = document.getElementById("recipe-photo-placeholder");
+            const fileInput = document.getElementById("recipe-photo-file-input");
+            if (imgEl && placeholder) {
+                imgEl.src = ""; imgEl.style.display = "none"; placeholder.style.display = "block"; if (fileInput) fileInput.value = "";
+                if (recipeAlbums[currentAlbumId] && recipeAlbums[currentAlbumId][currentRecipeIndex]) recipeAlbums[currentAlbumId][currentRecipeIndex].photoData = "";
+                alert("Фото успешно удалено! 📸");
+            }
+        }
+
+        function playTimerEndSound() {
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext; if (!AudioContext) return;
+                const ctx = new AudioContext();
+                const melody = [329.63, 392.00, 523.25, 659.25, 523.25, 392.00, 440.00, 554.37, 659.25, 783.99]; 
+                melody.forEach((note, index) => {
+                    setTimeout(() => {
+                        const osc = ctx.createOscillator(); const gain = ctx.createGain();
+                        osc.type = 'sine'; osc.frequency.setValueAtTime(note, ctx.currentTime);
+                        gain.gain.setValueAtTime(0.12, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.9);
+                        osc.connect(gain); gain.connect(ctx.destination);
+                        osc.start(); osc.stop(ctx.currentTime + 0.9);
+                    }, index * 1000);
+                });
+            } catch (e) { console.log(e); }
+        }
+
+        function toggleRecipeTimer() {
+            const display = document.getElementById("recipe-timer-display");
+            const trigger = document.getElementById("recipe-timer-trigger");
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; trigger.innerText = "⏱️"; display.innerText = "05:00"; return; }
+            let parts = display.innerText.split(":"); let time = parseInt(parts) * 60; trigger.innerText = "🛑";
+            timerInterval = setInterval(() => {
+                time--; let min = Math.floor(time / 60); let sec = time % 60; 
+                display.innerText = `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`; 
+                if (time <= 0) { clearInterval(timerInterval); timerInterval = null; trigger.innerText = "⏱️"; display.innerText = "05:00"; playTimerEndSound(); } 
+            }, 1000);
+        }
+        function renderMeasuresTable(lang) {
+            let html = ""; if (ingredientsData[lang]) { ingredientsData[lang].forEach(item => { html += `<tr style="border-bottom: 1px solid #FFF6EE;"><td style="padding:12px;"><strong>${item.name}</strong></td><td style="padding:12px;">${item.glass}</td><td style="padding:12px;">${item.spoon}</td><td style="padding:12px;">${item.tsp}</td></tr>`; }); }
+            document.getElementById('table-body-content').innerHTML = html;
+        }
+
+        function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
+        function sendRecipeToHelen() {
+            let name = document.getElementById('guestNameInput').value.trim();
+            let title = document.getElementById('guestTitleInput').value.trim();
+            let text = document.getElementById('guestRecipeTextInput').value.trim();
+            if (!name || !title || !text) { alert("Пожалуйста, заполните все поля! 🌸"); return; }
+            window.location.href = "mailto:helen.amberst@://gmail.com" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + text);
+            document.getElementById('guestSuggestModal').style.display = 'none';
+        }
+
+        function openAdminLogin() { document.getElementById('adminLogin').value = ''; document.getElementById('adminPassword').value = ''; document.getElementById('adminAuthModal').style.display = 'flex'; }
+        
+        // 🔒 ИСПРАВЛЕННАЯ НАМЕРТВО И АКТИВНАЯ КНОПКА «ВОЙТИ» (С АВТОБЭКАПОМ И ЗАЩИТОЙ ОТ ПЕРЕЗАГРУЗОК)
+        function checkAdminCredentials(event) {
+            if (event && event.preventDefault) event.preventDefault(); // Блокируем сброс страницы!
+            let inputLogin = document.getElementById('adminLogin').value.trim();
+            let inputPassword = document.getElementById('adminPassword').value.trim();
+
+            const database = window.db || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
+
+            if (!database) {
+                if (inputLogin === "Еленочка" && inputPassword === "2026") { grantAccess(); } 
+                else { alert("Облако недоступно, а локальный пароль неверен! ⛔"); }
+                return;
+            }
+
+            database.collection("settings").get().then((querySnapshot) => {
+                let accessGranted = false;
+                querySnapshot.forEach((doc) => {
+                    let data = doc.data();
+                    if (data.admin_login === inputLogin && data.admin_password === inputPassword) accessGranted = true;
+                });
+
+                if (accessGranted || (inputLogin === "Еленочка" && inputPassword === "2026")) { grantAccess(); } 
+                else { alert("Неверный логин или пароль! Доступ закрыт. ⛔"); }
+            }).catch((error) => {
+                console.error("Ошибка Firebase: ", error);
+                if (inputLogin === "Еленочка" && inputPassword === "2026") { grantAccess(); } 
+                else { alert("Ошибка связи с облаком! Проверьте правила Firestore Rules."); }
+            });
+        }
+
+        function grantAccess() {
+            alert("Доступ разрешен! Добро пожаловать, Хозяйка! 👑");
+            isAdminModeActive = true; 
+            document.getElementById('helenAdminPanel').style.display = 'block';
+            document.getElementById('adminAuthModal').style.display = 'none';
+        }
+        function openAdminForm(catId) {
+            let customTitle = prompt("Введите название нового блюда:");
+            if (customTitle && customTitle.trim()) {
+                isAdminModeActive = true; currentAlbumId = catId;
+                recipeAlbums[catId].push({ firebaseId: "doc-" + Date.now(), title: customTitle.trim(), ingredientsArray: [], stepsArray: [], photoData: "" });
+                currentRecipeIndex = recipeAlbums[catId].length - 1; 
+                document.getElementById('adminAuthModal').style.display = 'none'; 
+                showRecipePage();
+            }
+        }
+
+        function sendPasswordReminder() { let mail = prompt("Введите E-mail:"); if (mail && mail.trim().toLowerCase() === 'avender59@gmail.com') { window.location.href = 'mailto:avender59@://gmail.com: Еленочка'; } else { alert("Ошибка! 🛑"); } }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedDatabase = localStorage.getItem('helenCookbookDatabase');
+            if (savedDatabase) recipeAlbums = JSON.parse(savedDatabase);
+            const savedLang = localStorage.getItem('selectedLanguage') || 'ru'; 
+            changeLanguage(savedLang);
+            let btnEl = document.getElementById('lang-btn'); if (btnEl) btnEl.innerText = savedLang.toUpperCase();
+
+            // Автоматическое скачивание рецептов из облака Firebase при запуске сайта для гостей
+            const database = window.db || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
+            if (database) {
+                database.collection("recipes").get().then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        let data = doc.data();
+                        if (data.category && recipeAlbums[data.category]) {
+                            let idx = recipeAlbums[data.category].findIndex(r => r.firebaseId === data.firebaseId);
+                            if (idx !== -1) recipeAlbums[data.category][idx] = data;
+                            else recipeAlbums[data.category].push(data);
+                        }
+                    });
+                    localStorage.setItem('helenCookbookDatabase', JSON.stringify(recipeAlbums));
+                }).catch(e => console.log("Работаем в автономном режиме памяти ПК"));
+            }
+        });
+
+        function runSearch() {
+            let q = document.getElementById("search-field").value.trim().toLowerCase();
+            if(!q) return;
+            for (let cat in recipeAlbums) {
+                let idx = recipeAlbums[cat].findIndex(r => r.title.toLowerCase().includes(q));
+                if (idx !== -1) { currentAlbumId = parseInt(cat); currentRecipeIndex = idx; showRecipePage(); return; }
+            }
+            alert(translations[currentLangCode].alertSearch);
+        }
+
+        function openSupportModal() { document.getElementById('supportAmountInput').value = ''; document.getElementById('support-step-input').style.display = 'block'; document.getElementById('support-step-thanks').style.display = 'none'; document.getElementById('supportModal').style.display = 'flex'; }
+        function processSupportPayment() { let amt = document.getElementById('supportAmountInput').value; if (!amt || parseInt(amt) <= 0) { alert("Пожалуйста, введите сумму! 🌸"); return; } document.getElementById('support-step-input').style.display = 'none'; document.getElementById('support-step-thanks').style.display = 'block'; setTimeout(() => { alert("Перенаправляем вас на защищенную страницу банка для безопасной оплаты... 💳"); document.getElementById('supportModal').style.display = 'none'; }, 800); }
+
+        // 🔗 УМНАЯ МУЛЬТИЯЗЫЧНАЯ ССЫЛКА ДЛЯ КНОПКИ «ПОДЕЛИТЬСЯ»
+        function shareCurrentRecipePage() {
+            navigator.clipboard.writeText(window.location.href);
+            const shareText = {
+                ru: "Посмотри этот потрясающий рецепт в интерактивной книге Еленочки! ✨ Попробуй приготовить: ",
+                ukr: "Подивись цей приголомшливий рецепт в інтерактивній книзі Оленочки! ✨ Спробуй приготувати: ",
+                en: "Check out this amazing recipe in Helen's Interactive Cookbook! ✨ Try cooking: "
+            };
+            let recipeTitle = document.getElementById("recipe-display-title").innerText;
+            alert(`${shareText[currentLangCode]}${recipeTitle}\n\n(Ссылка скопирована в буфер обмена!) ➡️`);
+        }
+
+        function navigateRecipe(direction) {
+            let list = recipeAlbums[currentAlbumId] || []; if(list.length <= 1) return;
+            currentRecipeIndex += direction;
+            if(currentRecipeIndex < 0) currentRecipeIndex = list.length - 1;
+            if(currentRecipeIndex >= list.length) currentRecipeIndex = 0;
+            showRecipePage();
+        }
+    </script>
+</body>
+</html>
+
+
