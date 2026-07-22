@@ -650,7 +650,10 @@
             recipeContainer.innerHTML = template.innerHTML;
             document.body.appendChild(recipeContainer.firstElementChild);
                     // 🌍 Переводим название рецепта на лету через Google API
-        const targetLang = currentLangCode || 'ru';
+        const langBtnEl = document.getElementById("lang-btn");
+        const currentLangText = langBtnEl ? langBtnEl.innerText.trim().toLowerCase() : "ru";
+        const targetLang = currentLangText === "ukr" ? "uk" : (currentLangText === "en" ? "en" : "ru");
+
         let displayTitle = recipe.title;
         if (targetLang !== 'ru' && typeof translateTextOnTheFly === 'function') {
             displayTitle = await translateTextOnTheFly(recipe.title, targetLang);
