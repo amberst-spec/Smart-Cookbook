@@ -692,14 +692,7 @@
             recipeContainer.innerHTML = template.innerHTML;
             document.body.appendChild(recipeContainer.firstElementChild);
                     // 🌍 Переводим название рецепта на лету через Google API
-        const langBtnEl = document.getElementById("lang-btn");
-        const currentLangText = langBtnEl ? langBtnEl.innerText.trim().toLowerCase() : "ru";
-        const targetLang = currentLangText === "ukr" ? "uk" : (currentLangText === "en" ? "en" : "ru");
-
-        let displayTitle = recipe.title;
-        if (targetLang !== 'ru' && typeof translateTextOnTheFly === 'function') {
-            displayTitle = await translateTextOnTheFly(recipe.title, targetLang);
-        }
+            let displayTitle = recipe.title;
 
             document.getElementById("recipe-display-title").innerText = displayTitle;
 
@@ -1210,37 +1203,6 @@
                 else alert("Ссылка на рецепт скопирована! Поделитесь с друзьями. ➡️");
             }
         }
-
-        // 🌍 ГЛОБАЛЬНЫЙ БЕСПЛАТНЫЙ АВТО-ПЕРЕВОДЧИК ЛЮБОГО ТЕКСТА ЧЕРЕЗ GOOGLE API
-        async function translateTextOnTheFly(text, targetLang) {
-            if (!text || targetLang === 'ru') return text;
-
-                        // 🌸 Защита калькулятора порций: если текст содержит цифры или слово порций, не переводим его принудительно
-            if (text.toString().includes("порций") || text.toString().includes("servings")) return text;
-           
-            // Если язык украинский, переводим на 'uk', если английский — на 'en'
-            const target = targetLang === 'uk' ? 'uk' : 'en';
-            
-            try {
-                // Обращаемся напрямую к бесплатному каналу перевода Google
-                const url = `https://googleapis.com{target}&dt=t&q=${encodeURIComponent(text)}`;
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                // Собираем переведённый текст по кусочкам
-                if (data && data[0]) {
-                    let translatedText = "";
-                    data[0].forEach(sentence => {
-                        if (sentence[0]) translatedText += sentence[0];
-                    });
-                    return translatedText;
-                }
-            } catch (e) {
-                console.error("Ошибка автоперевода Google:", e);
-            }
-            return text; // Если интернет мигнёт, вернётся исходный русский текст
-        }
-
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
         function sendRecipeToHelen() {
