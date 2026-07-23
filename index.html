@@ -1181,31 +1181,22 @@
             
             // Красивый аппетитный стиль: кофейная рамка, кремовый фон, мягкие тени
             googleDiv.style.cssText = `
-                margin: 10px auto;
-                padding: 6px 12px;
-                background: linear-gradient(135deg, #FFF, #FFF6EE);
+                            position: fixed;
+                top: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 4px 12px;
+                background: linear-gradient(135deg, #FFFFFF, #FFF6EE);
                 border: 2px solid #EAD5C3;
                 border-radius: 20px;
-                display: inline-flex;
+                display: flex;
                 align-items: center;
                 justify-content: center;
-                box-shadow: 0 4px 12px rgba(160,82,45,0.06);
-                z-index: 1000;
+                box-shadow: 0 6px 20px rgba(160,82,45,0.15);
+                z-index: 99999;     
             `;
-            
-            // Вставляем виджет на самое видное место вверху страницы
-            if (document.querySelector('.header-top')) {
-                document.querySelector('.header-top').appendChild(googleDiv);
-            } else {
-                document.body.insertBefore(googleDiv, document.body.firstChild);
-            }
-            
-            // Подключаем сам официальный скрипт Google в память сайта
-            const googleScript = document.createElement('script');
-            googleScript.src = '//://google.com';
-            document.body.appendChild(googleScript);
-        });
-
+            document.body.appendChild(googleDiv);
+          
         // Настройка языков: включаем русский как основной и добавляем самые актуальные мировые языки
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
