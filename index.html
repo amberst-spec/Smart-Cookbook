@@ -1169,62 +1169,7 @@
                 else alert("Ссылка на рецепт скопирована! Поделитесь с друзьями. ➡️");
             }
         }
-                // =========================================================================
-        // 🌍 МЕЖДУНАРОДНЫЙ КУЛИНАРНЫЙ ПЕРЕВОДЧИК GOOGLE WIDGET (СОЧНЫЙ ДИЗАЙН КНИГИ)
-        // =========================================================================
-        
-        // Создаем стильный контейнер для виджета Google в шапочке сайта
-        window.addEventListener('DOMContentLoaded', () => {
-            const topBar = document.querySelector('.header-top') || document.body;
-            const googleDiv = document.createElement('div');
-            googleDiv.id = 'google_translate_element';
-            
-            // Красивый аппетитный стиль: кофейная рамка, кремовый фон, мягкие тени
-            googleDiv.style.cssText = `
-                            position: fixed;
-                top: 15px;
-                left: 50%;
-                transform: translateX(-50%);
-                padding: 4px 12px;
-                background: linear-gradient(135deg, #FFFFFF, #FFF6EE);
-                border: 2px solid #EAD5C3;
-                border-radius: 20px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                box-shadow: 0 6px 20px rgba(160,82,45,0.15);
-                z-index: 99999;     
-            `;
-            document.body.appendChild(googleDiv);
-          
-        // Настройка языков: включаем русский как основной и добавляем самые актуальные мировые языки
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'ru',
-                includedLanguages: 'en,uk,ru,de,pl,fr,es,it', // Английский, Украинский, Русский, Немецкий, Польский, Французский, Испанский, Итальянский
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: false
-            }, 'google_translate_element');
-            
-            // Стилизуем внутренности выпадающего списка Google под кофейный дизайн кулинарной книги
-            setTimeout(() => {
-                const selectEl = document.querySelector('.goog-te-combo');
-                if (selectEl) {
-                    selectEl.style.cssText = `
-                        background: transparent;
-                        border: none;
-                        color: #A0522D;
-                        font-family: inherit;
-                        font-size: 15px;
-                        font-weight: bold;
-                        outline: none;
-                        cursor: pointer;
-                        padding: 2px 5px;
-                    `;
-                }
-            }, 1000);
-        }
- 
+      
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
         function sendRecipeToHelen() {
             let name = document.getElementById('guestNameInput').value.trim();
@@ -1236,6 +1181,7 @@
         }
 
         function openAdminLogin() { document.getElementById('adminLogin').value = ''; document.getElementById('adminPassword').value = ''; document.getElementById('adminAuthModal').style.display = 'flex'; }
+        });
 
                 // 🔒 УМНАЯ ДИАГНОСТИЧЕСКАЯ ФУНКЦИЯ ВХОДА ЧЕРЕЗ ОБЛАКО (С МАРКЕРАМИ ОШИБОК)
        
