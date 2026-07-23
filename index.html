@@ -753,21 +753,7 @@
             const stepInput = document.createElement("textarea");
             stepInput.className = "step-text-cell";
             stepInput.value = stepTextValue;
-                    // 🌍 Приказ переводчику: если гость выбрал EN или UKR, переводим текст шага прямо в поле textarea
-        const checkStepLangBtn = document.getElementById("lang-btn");
-        let activeStepLangText = checkStepLangBtn ? checkStepLangBtn.innerText.trim().toUpperCase() : "RU";
-        let finalStepTargetLang = activeStepLangText === "UKR" ? "uk" : (activeStepLangText === "EN" ? "en" : "ru");
-        
-        if (finalStepTargetLang !== 'ru' && stepTextValue && typeof translateTextOnTheFly === 'function') {
-            translateTextOnTheFly(stepTextValue, finalStepTargetLang).then(translatedStep => {
-                if (translatedStep) {
-                    stepInput.value = translatedStep;
-                    // Автоматически подравниваем высоту поля под новый переведенный текст
-                    if (typeof stepInput.oninput === 'function') stepInput.oninput();
-                }
-            }).catch(err => console.error("Ошибка автоперевода шага:", err));
-        }
-
+   
             stepInput.placeholder = "Опишите кулинарный шаг...";
             stepInput.rows = 1;
             stepInput.style.cssText = "flex-grow: 1; border: none; background: transparent; font-size: 20px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box; resize: none; font-family: 'Segoe UI', Roboto, sans-serif; line-height: 1.4; padding: 0; overflow: hidden;";
@@ -852,17 +838,6 @@
             nameInput.type = "text";
             nameInput.className = "ing-name-cell";
             nameInput.value = nameValue;
-                    // 🌍 Приказ переводчику: если гость выбрал EN или UKR, переводим название продукта на лету прямо в поле input
-        const checkLangBtn = document.getElementById("lang-btn");
-        let activeLangText = checkLangBtn ? checkLangBtn.innerText.trim().toUpperCase() : "RU";
-        let finalTargetLang = activeLangText === "UKR" ? "uk" : (activeLangText === "EN" ? "en" : "ru");
-        
-        if (finalTargetLang !== 'ru' && nameValue && typeof translateTextOnTheFly === 'function') {
-            translateTextOnTheFly(nameValue, finalTargetLang).then(translated => {
-                if (translated) nameInput.value = translated;
-            }).catch(err => console.error("Ошибка автоперевода ингредиента:", err));
-        }
-
             nameInput.placeholder = "Название продукта...";
             nameInput.style.cssText = "flex-grow: 1; height: 32px; border: none; background: transparent; font-size: 19px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box;";
             nameInput.readOnly = !isAdminModeActive; 
@@ -1194,38 +1169,71 @@
                 else alert("Ссылка на рецепт скопирована! Поделитесь с друзьями. ➡️");
             }
         }
-
-        // 🌍 ГЛОБАЛЬНЫЙ БЕСПЛАТНЫЙ АВТО-ПЕРЕВОДЧИК ЛЮБОГО ТЕКСТА ЧЕРЕЗ GOOGLE API
-        async function translateTextOnTheFly(text, targetLang) {
-            if (!text || targetLang === 'ru') return text;
-
-                        // 🌸 Защита калькулятора порций: если текст содержит цифры или слово порций, не переводим его принудительно
-            if (text.toString().includes("порций") || text.toString().includes("servings")) return text;
-           
-            // Если язык украинский, переводим на 'uk', если английский — на 'en'
-            const target = targetLang === 'uk' ? 'uk' : 'en';
+                // =========================================================================
+        // 🌍 МЕЖДУНАРОДНЫЙ КУЛИНАРНЫЙ ПЕРЕВОДЧИК GOOGLE WIDGET (СОЧНЫЙ ДИЗАЙН КНИГИ)
+        // =========================================================================
+        
+        // Создаем стильный контейнер для виджета Google в шапочке сайта
+        window.addEventListener('DOMContentLoaded', () => {
+            const topBar = document.querySelector('.header-top') || document.body;
+            const googleDiv = document.createElement('div');
+            googleDiv.id = 'google_translate_element';
             
-            try {
-                // Обращаемся напрямую к бесплатному каналу перевода Google
-                const url = `https://googleapis.com{target}&dt=t&q=${encodeURIComponent(text)}`;
-                const response = await fetch(url);
-                const data = await response.json();
-                
-                // Собираем переведённый текст по кусочкам
-                if (data && data[0]) {
-                    let translatedText = "";
-                    data[0].forEach(sentence => {
-                        if (sentence[0]) translatedText += sentence[0];
-                    });
-                    return translatedText;
-                }
-            } catch (e) {
-                console.error("Ошибка автоперевода Google:", e);
+            // Красивый аппетитный стиль: кофейная рамка, кремовый фон, мягкие тени
+            googleDiv.style.cssText = `
+                margin: 10px auto;
+                padding: 6px 12px;
+                background: linear-gradient(135deg, #FFF, #FFF6EE);
+                border: 2px solid #EAD5C3;
+                border-radius: 20px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 12px rgba(160,82,45,0.06);
+                z-index: 1000;
+            `;
+            
+            // Вставляем виджет на самое видное место вверху страницы
+            if (document.querySelector('.header-top')) {
+                document.querySelector('.header-top').appendChild(googleDiv);
+            } else {
+                document.body.insertBefore(googleDiv, document.body.firstChild);
             }
-            return text; // Если интернет мигнёт, вернётся исходный русский текст
+            
+            // Подключаем сам официальный скрипт Google в память сайта
+            const googleScript = document.createElement('script');
+            googleScript.src = '//://google.com';
+            document.body.appendChild(googleScript);
+        });
+
+        // Настройка языков: включаем русский как основной и добавляем самые актуальные мировые языки
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ru',
+                includedLanguages: 'en,uk,ru,de,pl,fr,es,it', // Английский, Украинский, Русский, Немецкий, Польский, Французский, Испанский, Итальянский
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+            
+            // Стилизуем внутренности выпадающего списка Google под кофейный дизайн кулинарной книги
+            setTimeout(() => {
+                const selectEl = document.querySelector('.goog-te-combo');
+                if (selectEl) {
+                    selectEl.style.cssText = `
+                        background: transparent;
+                        border: none;
+                        color: #A0522D;
+                        font-family: inherit;
+                        font-size: 15px;
+                        font-weight: bold;
+                        outline: none;
+                        cursor: pointer;
+                        padding: 2px 5px;
+                    `;
+                }
+            }, 1000);
         }
-
-
+ 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
         function sendRecipeToHelen() {
             let name = document.getElementById('guestNameInput').value.trim();
