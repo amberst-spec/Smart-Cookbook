@@ -728,30 +728,19 @@
 
             // Отрисовка ингредиентов
             const listContainer = document.getElementById("recipe-ingredients-list-container");
-            if (listContainer && recipe.ingredientsArray && recipe.ingredientsArray.length > 0) {
-                            for (const item of recipe.ingredientsArray) {
-                    let displayName = item.name;
-                    if (targetLang !== 'ru' && typeof translateTextOnTheFly === 'function') {
-                        displayName = await translateTextOnTheFly(item.name, targetLang);
-                    }
-                    addNewIngredientRowFromScreen(item.weight, displayName, item.checked || false);
-                }
+                    if (listContainer && recipe.ingredientsArray && recipe.ingredientsArray.length > 0) {
+            recipe.ingredientsArray.forEach(item => {
+                addNewIngredientRowFromScreen(item.weight, item.name, item.checked || false);
+            });
+        } else if (listContainer && isAdminModeActive) {
+            addNewIngredientRowFromScreen("", "");
+        }
 
-            } else if (listContainer && isAdminModeActive) {
-                addNewIngredientRowFromScreen("", "");
-            }
-
-            // Отрисовка новых пошаговых строк рецепта с автоматической пронумерованной структурой
-            const stepsContainer = document.getElementById("recipe-steps-list-container");
-            if (stepsContainer && recipe.stepsArray && recipe.stepsArray.length > 0) {
-                            for (const stepText of recipe.stepsArray) {
-                    let displayStep = stepText;
-                    if (targetLang !== 'ru' && typeof translateTextOnTheFly === 'function') {
-                        displayStep = await translateTextOnTheFly(stepText, targetLang);
-                    }
-                    addNewStepRowFromScreen(displayStep);
-                }
-
+        if (stepsContainer && recipe.stepsArray && recipe.stepsArray.length > 0) {
+            recipe.stepsArray.forEach(stepText => {
+                addNewStepRowFromScreen(stepText);
+            });
+    
             } else if (stepsContainer) {
                 // Если старый формат или пусто — бьем на строки по переносу
                 let oldSteps = recipe.steps ? recipe.steps.split('\n') : [];
