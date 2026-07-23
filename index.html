@@ -753,6 +753,21 @@
             const stepInput = document.createElement("textarea");
             stepInput.className = "step-text-cell";
             stepInput.value = stepTextValue;
+                    // 🌍 Приказ переводчику: если гость выбрал EN или UKR, переводим текст шага прямо в поле textarea
+        const checkStepLangBtn = document.getElementById("lang-btn");
+        let activeStepLangText = checkStepLangBtn ? checkStepLangBtn.innerText.trim().toUpperCase() : "RU";
+        let finalStepTargetLang = activeStepLangText === "UKR" ? "uk" : (activeStepLangText === "EN" ? "en" : "ru");
+        
+        if (finalStepTargetLang !== 'ru' && stepTextValue && typeof translateTextOnTheFly === 'function') {
+            translateTextOnTheFly(stepTextValue, finalStepTargetLang).then(translatedStep => {
+                if (translatedStep) {
+                    stepInput.value = translatedStep;
+                    // Автоматически подравниваем высоту поля под новый переведенный текст
+                    if (typeof stepInput.oninput === 'function') stepInput.oninput();
+                }
+            }).catch(err => console.error("Ошибка автоперевода шага:", err));
+        }
+
             stepInput.placeholder = "Опишите кулинарный шаг...";
             stepInput.rows = 1;
             stepInput.style.cssText = "flex-grow: 1; border: none; background: transparent; font-size: 20px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box; resize: none; font-family: 'Segoe UI', Roboto, sans-serif; line-height: 1.4; padding: 0; overflow: hidden;";
@@ -837,6 +852,17 @@
             nameInput.type = "text";
             nameInput.className = "ing-name-cell";
             nameInput.value = nameValue;
+                    // 🌍 Приказ переводчику: если гость выбрал EN или UKR, переводим название продукта на лету прямо в поле input
+        const checkLangBtn = document.getElementById("lang-btn");
+        let activeLangText = checkLangBtn ? checkLangBtn.innerText.trim().toUpperCase() : "RU";
+        let finalTargetLang = activeLangText === "UKR" ? "uk" : (activeLangText === "EN" ? "en" : "ru");
+        
+        if (finalTargetLang !== 'ru' && nameValue && typeof translateTextOnTheFly === 'function') {
+            translateTextOnTheFly(nameValue, finalTargetLang).then(translated => {
+                if (translated) nameInput.value = translated;
+            }).catch(err => console.error("Ошибка автоперевода ингредиента:", err));
+        }
+
             nameInput.placeholder = "Название продукта...";
             nameInput.style.cssText = "flex-grow: 1; height: 32px; border: none; background: transparent; font-size: 19px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box;";
             nameInput.readOnly = !isAdminModeActive; 
