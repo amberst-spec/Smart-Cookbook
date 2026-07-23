@@ -311,6 +311,48 @@
             <button type="button" id="text-guestSendBtn" onclick="sendRecipeToHelen()" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 13px 35px; font-size: 17px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 92%; box-shadow: 0 5px 12px rgba(255,122,51,0.15);">Отправить 🌸</button>
         </div>
     </div>
+            <!-- 🌍 НЕВИДИМЫЙ АВТОМАТИЧЕСКИЙ ПЕРЕВОДЧИК СТРАНИЦЫ-ШАБЛОНА -->
+        <div id="google_translate_element" style="display:none !important;"></div>
+        <script>
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'ru',
+                includedLanguages: 'en,uk,ru',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        // Каждую секунду проверяем заголовок книги и невидимо переключаем язык
+        setInterval(() => {
+            const titleEl = document.getElementById("text-title");
+            const googleCombo = document.querySelector('.goog-te-combo');
+            if (!titleEl || !googleCombo) return;
+
+            const titleText = titleEl.innerText.trim();
+            let targetLang = 'ru';
+
+            // Ваша золотая и полная логика проверки заголовка:
+            if (titleText.includes("Interactive Cookbook:")) {
+                targetLang = 'en'; // Включаем английский
+            } else if (titleText.includes("Інтерактивна книга рецептів:")) {
+                targetLang = 'uk'; // Включаем украинский
+            } else if (titleText.includes("Интерактивная книга рецептов:")) {
+                targetLang = 'ru'; // Железно возвращаем родной русский язык
+            }
+
+            if (googleCombo.value !== targetLang) {
+                googleCombo.value = targetLang;
+                googleCombo.dispatchEvent(new Event('change'));
+            }
+
+            // Прячем серую полосу Google, если она пытается вылезти вверху экрана
+            const googleFrame = document.querySelector('.goog-te-banner-frame');
+            if (googleFrame) googleFrame.style.display = 'none';
+            document.body.style.top = '0px';
+        }, 1000);
+        </script>
+        <script src="//://google.com"></script>
 
     <!-- 🥄 ВСПЛЫВАЮЩЕЕ ОКНО ТАБЛИЦЫ МЕР И ВЕСОВ -->
     <div id="measuresModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 500; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('measuresModal').style.display='none'">
