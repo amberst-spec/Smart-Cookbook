@@ -338,17 +338,19 @@
             };
         }
 
-        window.switchAdminRecipeLanguage = function(newLang) {
+                    window.switchAdminRecipeLanguage = function(newLang) {
             if (window.currentAdminLang === newLang) return;
             const titleInput = document.getElementById("recipe-display-title");
             const oldLang = window.currentAdminLang;
             
+            // 1. ПЕРЕД ПЕРЕКЛЮЧЕНИЕМ: Сохраняем всё, что написано на экране в текущем языке
             if (titleInput) {
                 window.recipeTranslationsCache[oldLang].title = titleInput.innerText.trim();
             }
             
+            // Сохраняем динамические ингредиенты
             window.recipeTranslationsCache[oldLang].ingredients = [];
-            document.querySelectorAll('.ingredient-row').forEach(row => {
+            document.querySelectorAll('.ingredient-row-item').forEach(row => {
                 const weightEl = row.querySelector('.ing-weight-cell');
                 const nameEl = row.querySelector('.ing-name-cell');
                 if (nameEl) {
@@ -359,14 +361,16 @@
                 }
             });
 
+            // Сохраняем динамические шаги приготовления
             window.recipeTranslationsCache[oldLang].steps = [];
-            document.querySelectorAll('.step-row').forEach(row => {
+            document.querySelectorAll('.step-row-item').forEach(row => {
                 const stepEl = row.querySelector('.step-text-cell');
                 if (stepEl) {
                     window.recipeTranslationsCache[oldLang].steps.push(stepEl.value || stepEl.innerText || '');
                 }
             });
 
+            // 2. МЕНЯЕМ АКТИВНЫЙ ЯЗЫК НА КНОПКАХ БЛАНКА
             window.currentAdminLang = newLang;
             ['ru', 'en', 'uk'].forEach(lang => {
                 const tab = document.getElementById(`tab-lang-${lang}`);
@@ -382,6 +386,44 @@
                     }
                 }
             });
+
+            // 3. ПОСЛЕ ПЕРЕКЛЮЧЕНИЯ: Достаем из памяти слова нового языка и выводим на экран бланка
+            const cache = window.recipeTranslationsCache[newLang];
+            if (titleInput) {
+                titleInput.innerText = cache.title || '';
+            }
+
+            // Обновляем строчки ингредиентов
+            const ingRows = document.querySelectorAll('.ingredient-row-item');
+            ingRows.forEach((row, index) => {
+                const weightEl = row.querySelector('.ing-weight-cell');
+                const nameEl = row.querySelector('.ing-name-cell');
+                const savedIng = cache.ingredients[index];
+                
+                if (savedIng) {
+                    if (weightEl) { if(weightEl.tagName === 'INPUT') weightEl.value = savedIng.weight; else weightEl.innerText = savedIng.weight; }
+                    if (nameEl) { if(nameEl.tagName === 'INPUT') nameEl.value = savedIng.name; else nameEl.innerText = savedIng.name; }
+                } else {
+                    if (weightEl) { if(weightEl.tagName === 'INPUT') weightEl.value = ''; else weightEl.innerText = ''; }
+                    if (nameEl) { if(nameEl.tagName === 'INPUT') nameEl.value = ''; else nameEl.innerText = ''; }
+                }
+            });
+
+            // Обновляем строчки шагов приготовления
+            const stepRows = document.querySelectorAll('.step-row-item');
+            stepRows.forEach((row, index) => {
+                const stepEl = row.querySelector('.step-text-cell');
+                const savedStepText = cache.steps[index];
+                
+                if (stepEl) {
+                    if (typeof savedStepText !== 'undefined') {
+                        if(stepEl.tagName === 'TEXTAREA' || stepEl.tagName === 'INPUT') stepEl.value = savedStepText; else stepEl.innerText = savedStepText;
+                    } else {
+                        if(stepEl.tagName === 'TEXTAREA' || stepEl.tagName === 'INPUT') stepEl.value = ''; else stepEl.innerText = '';
+                    }
+                }
+            });
+        };
 
             const cache = window.recipeTranslationsCache[newLang];
             if (titleInput) {
