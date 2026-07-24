@@ -325,6 +325,85 @@
 
                  <!-- 🌍 НЕВИДИМЫЙ АВТОМАТИЧЕСКИЙ ПЕРЕВОДЧИК СТРАНИЦЫ-ШАБЛОНА -->
         <div id="google_translate_element" style="display:none !important;"></div>
+            // =========================================================================
+        // 🔮 СИСТЕМА УПРАВЛЕНИЯ ТРЕМЯ ЯЗЫКАМИ В РЕЖИМЕ ХОЗЯЙКИ (RU / EN / UKR)
+        // =========================================================================
+        window.currentAdminLang = 'ru'; 
+        window.recipeTranslationsCache = {
+            ru: { title: '', ingredients: [], steps: [] },
+            en: { title: '', ingredients: [], steps: [] },
+            uk: { title: '', ingredients: [], steps: [] }
+        };
+
+        window.switchAdminRecipeLanguage = function(newLang) {
+            if (window.currentAdminLang === newLang) return;
+            const titleInput = document.getElementById("recipe-display-title");
+            const oldLang = window.currentAdminLang;
+            
+            if (titleInput) {
+                window.recipeTranslationsCache[oldLang].title = titleInput.innerText.trim();
+            }
+            
+            window.recipeTranslationsCache[oldLang].ingredients = [];
+            document.querySelectorAll('.ingredient-row').forEach(row => {
+                const weightEl = row.querySelector('.ing-weight-cell');
+                const nameEl = row.querySelector('.ing-name-cell');
+                if (nameEl) {
+                    window.recipeTranslationsCache[oldLang].ingredients.push({
+                        weight: weightEl ? (weightEl.value || weightEl.innerText || '') : '',
+                        name: nameEl.value || nameEl.innerText || ''
+                    });
+                }
+            });
+
+            window.recipeTranslationsCache[oldLang].steps = [];
+            document.querySelectorAll('.step-row').forEach(row => {
+                const stepEl = row.querySelector('.step-text-cell');
+                if (stepEl) {
+                    window.recipeTranslationsCache[oldLang].steps.push(stepEl.value || stepEl.innerText || '');
+                }
+            });
+
+            window.currentAdminLang = newLang;
+            ['ru', 'en', 'uk'].forEach(lang => {
+                const tab = document.getElementById(`tab-lang-${lang}`);
+                if (tab) {
+                    if (lang === newLang) {
+                        tab.style.background = "#A0522D";
+                        tab.style.color = "#FFFFFF";
+                        tab.style.borderColor = "#A0522D";
+                    } else {
+                        tab.style.background = "#FFFFFF";
+                        tab.style.color = "#5C2D0C";
+                        tab.style.borderColor = "#EAD5C3";
+                    }
+                }
+            });
+
+            const cache = window.recipeTranslationsCache[newLang];
+            if (titleInput) {
+                titleInput.innerText = cache.title || '';
+            }
+
+            const ingRows = document.querySelectorAll('.ingredient-row');
+            cache.ingredients.forEach((ing, index) => {
+                if (ingRows[index]) {
+                    const weightEl = ingRows[index].querySelector('.ing-weight-cell');
+                    const nameEl = ingRows[index].querySelector('.ing-name-cell');
+                    if (weightEl) { if(weightEl.tagName === 'INPUT') weightEl.value = ing.weight; else weightEl.innerText = ing.weight; }
+                    if (nameEl) { if(nameEl.tagName === 'INPUT') nameEl.value = ing.name; else nameEl.innerText = ing.name; }
+                }
+            });
+
+            const stepRows = document.querySelectorAll('.step-row');
+            cache.steps.forEach((stepText, index) => {
+                if (stepRows[index]) {
+                    const stepEl = stepRows[index].querySelector('.step-text-cell');
+                    if (stepEl) { if(stepEl.tagName === 'TEXTAREA' || stepEl.tagName === 'INPUT') stepEl.value = stepText; else stepEl.innerText = stepText; }
+                }
+            });
+        };
+
         <script>
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
