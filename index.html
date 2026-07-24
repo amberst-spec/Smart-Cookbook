@@ -587,7 +587,14 @@
                         </div>
 
                         <!-- Линованный блокнот ингредиентов -->
-                        <div id="recipe-ingredients-list-container" style="display: flex; flex-direction: column; gap: 14px; width: 100%; min-height: 40px; margin-bottom: 25px; padding: 5px; box-sizing: border-box; background-image: linear-gradient(#FFEAD9 1px, transparent 1px); background-size: 100% 42px; line-height: 42px;"></div>
+                        <div id="recipe-ingredients-list-container" style="display: flex; flex-direction: column; gap: 14px; width: 100%; min-height: 40px; margin-bottom: 25px; padding: 5px;">
+    <!-- 📄 Первая базовая строка ингредиента (Всегда на бланке) -->
+    <div class="ingredient-row" style="display: flex; align-items: center; margin-bottom: 5px;">
+        <input type="number" class="ing-weight-cell" placeholder="0" style="width: 70px; height: 36px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 21px; font-weight: bold; color: #5D4037; outline: none; box-sizing: border-box; font-family: inherit;">
+        <input type="text" class="ing-name-cell" placeholder="Название продукта..." style="flex-grow: 1; height: 36px; margin-left: 12px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; padding: 0 10px; font-size: 21px; font-weight: bold; color: #5D4037; outline: none; box-sizing: border-box; font-family: inherit;">
+    </div>
+</div>
+
 
                         <!-- Кнопка добавления строк ингредиентов -->
                         <button type="button" id="admin-add-row-btn" onclick="addNewIngredientRowFromScreen('', '')" style="display: none; background: #FFF6EE; border: 2px dashed #FF7A33; color: #FF7A33; padding: 12px; font-size: 17px; font-weight: bold; border-radius: 16px; cursor: pointer; width: 100%; margin-top: -10px; margin-bottom: 25px; outline: none;">➕ Добавить продукт</button>
