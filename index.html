@@ -703,7 +703,20 @@
             recipeContainer.innerHTML = template.innerHTML;
             document.body.appendChild(recipeContainer.firstElementChild);
                     // 🌍 Переводим название рецепта на лету через Google API
-            let displayTitle = recipe.title;
+        let displayTitle = recipe.title;
+        
+        //создаем невидимого текстового двойника для перевода названия
+        const hiddenTitleSpan = document.createElement("span");
+        hiddenTitleSpan.innerText = recipe.title;
+        hiddenTitleSpan.style.display = "none";
+        document.body.appendChild(hiddenTitleSpan);
+
+        //Следим за переводом букв внутри двойника и обновляем красивое название на бланке
+        const titleObserver = new MutationObserver(() => {
+            document.getElementById("recipe-display-title").innerText = hiddenTitleSpan.innerText;
+        });
+        titleObserver.observe(hiddenTitleSpan, { childList: true, characterData: true, subtree: true });
+
 
             document.getElementById("recipe-display-title").innerText = displayTitle;
 
