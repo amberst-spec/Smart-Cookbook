@@ -758,6 +758,10 @@
             recipe.ingredientsArray.forEach(item => {
                 addNewIngredientRowFromScreen(item.weight, item.name, item.checked || false);
             });
+             } else if (listContainer && isAdminModeActive) {
+            addNewIngredientRowFromScreen("", "");
+        }
+
        
         if (stepsContainer && recipe.stepsArray && recipe.stepsArray.length > 0) {
             recipe.stepsArray.forEach(stepText => {
