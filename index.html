@@ -325,6 +325,8 @@
 
                  <!-- 🌍 НЕВИДИМЫЙ АВТОМАТИЧЕСКИЙ ПЕРЕВОДЧИК СТРАНИЦЫ-ШАБЛОНА -->
         <div id="google_translate_element" style="display:none !important;"></div>
+    <script>
+
             // =========================================================================
         // 🔮 СИСТЕМА УПРАВЛЕНИЯ ТРЕМЯ ЯЗЫКАМИ В РЕЖИМЕ ХОЗЯЙКИ (RU / EN / UKR)
         // =========================================================================
@@ -355,7 +357,7 @@
                     });
                 }
             });
-
+      
             window.recipeTranslationsCache[oldLang].steps = [];
             document.querySelectorAll('.step-row').forEach(row => {
                 const stepEl = row.querySelector('.step-text-cell');
@@ -392,10 +394,7 @@
                     const nameEl = ingRows[index].querySelector('.ing-name-cell');
                     if (weightEl) { if(weightEl.tagName === 'INPUT') weightEl.value = ing.weight; else weightEl.innerText = ing.weight; }
                     if (nameEl) { if(nameEl.tagName === 'INPUT') nameEl.value = ing.name; else nameEl.innerText = ing.name; }
-                }
-            });
-
-            const stepRows = document.querySelectorAll('.step-row');
+               const stepRows = document.querySelectorAll('.step-row');
             cache.steps.forEach((stepText, index) => {
                 if (stepRows[index]) {
                     const stepEl = stepRows[index].querySelector('.step-text-cell');
@@ -403,6 +402,7 @@
                 }
             });
         };
+        </script>
 
         <script>
         function googleTranslateElementInit() {
