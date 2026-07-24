@@ -816,7 +816,7 @@
         } else {
             stepInput = document.createElement("span");
             stepInput.innerText = stepTextValue;
-            stepInput.style.cssText = "flex-grow: 1; font-size: 20px; color: #5C2D0C; font-weight: 600; text-align: left; padding: 4px 8px; line-height: 1.4; display: inline-block; white-space: pre-wrap;";
+            stepInput.style.cssText = "flex-grow: 1; font-size: 20px; color: #5C2D0C; font-weight: 600; text-align: left; padding: 4px 8px; line-height: 1.4; display: inline-block; white-space: pre-wrap; font-family: inherit;";
         }
         stepInput.className = "step-text-cell";
 
@@ -895,7 +895,7 @@
         } else {
             weightInput = document.createElement("span");
             weightInput.innerText = weightValue ? weightValue : "";
-            weightInput.style.cssText = "width: 65px; text-align: center; font-size: 16px; font-weight: bold; color: #A0522D; display: inline-block;";
+            weightInput.style.cssText = "width: 65px; text-align: center; font-size: 19px; font-weight: 600; color: #5C2D0C; display: inline-block; font-family: inherit;";
         }
         weightInput.className = "ing-weight-cell";
 
@@ -911,7 +911,7 @@
         } else {
             nameInput = document.createElement("span");
             nameInput.innerText = nameValue;
-            nameInput.style.cssText = "flex: 1; margin-left: 10px; font-size: 16px; color: #5D4037; text-align: left; display: inline-block;";
+           nameInput.style.cssText = "flex: 1; margin-left: 10px; font-size: 19px; color: #5C2D0C; font-weight: 600; text-align: left; display: inline-block; font-family: inherit;";
         }
         nameInput.className = "ing-name-cell";
 
