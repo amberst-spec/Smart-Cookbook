@@ -874,7 +874,7 @@
             stepInput.rows = 1;
             stepInput.value = stepTextValue;
             stepInput.readOnly = false;
-            stepInput.style.cssText = "flex-grow: 1; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; font-size: 20px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box; resize: none; padding: 4px 8px; font-family: inherit;";
+            stepInput.style.cssText = "flex-grow: 1; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; font-size: 20px; color: #8B4513; font-weight: 600; text-align: left; padding: 6px 10px; line-height: 1.4; outline: none; box-sizing: border-box; font-family: inherit;";
 
             // Автоматическое выравнивание высоты рамки под размер текста в режиме админа
             stepInput.oninput = function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; };
@@ -882,7 +882,7 @@
         } else {
             stepInput = document.createElement("span");
             stepInput.innerText = stepTextValue;
-            stepInput.style.cssText = "flex-grow: 1; font-size: 20px; color: #5C2D0C; font-weight: 600; text-align: left; padding: 4px 8px; line-height: 1.4; display: inline-block; white-space: pre-wrap; font-family: inherit;";
+            stepInput.style.cssText = "flex-grow: 1; font-size: 20px; color: #8B4513; font-weight: 600; text-align: left; padding: 4px 8px; line-height: 1.4; display: inline-block; white-space: pre-wrap; font-family: inherit;";
         }
         stepInput.className = "step-text-cell";
 
@@ -956,14 +956,15 @@
             weightInput.value = weightValue;
             weightInput.placeholder = "0";
             weightInput.readOnly = false;
-            weightInput.style.cssText = "width: 65px; height: 32px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 16px; font-weight: bold; color: #5D4037; outline: none;";
+            weightInput.style.cssText = "width: 70px; height: 36px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 21px; font-weight: bold; color: #8B4513; outline: none; box-sizing: border-box; font-family: inherit;";
                 } else {
             weightInput = document.createElement("input");
             weightInput.type = "text";
             weightInput.value = weightValue;
             weightInput.placeholder = "0";
             weightInput.readOnly = true;
-            weightInput.style.cssText = "width: 70px; height: 36px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 21px; font-weight: bold; color: #5D4037; outline: none; box-sizing: border-box; font-family: inherit;";
+            weightInput.style.cssText = "width: 70px; height: 36px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 21px; font-weight: bold; color: #8B4513; outline: none; box-sizing: border-box; font-family: inherit;";
+
         }
 
         weightInput.className = "ing-weight-cell";
@@ -976,12 +977,12 @@
             nameInput.value = nameValue;
             nameInput.placeholder = "Название продукта...";
             nameInput.readOnly = false;
-            nameInput.style.cssText = "flex-grow: 1; height: 32px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; padding: 0 8px; font-size: 16px; color: #5D4037; outline: none; margin-left: 10px;";
+            nameInput.style.cssText = "flex-grow: 1; height: 36px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; padding: 0 10px; font-size: 21px; font-weight: bold; color: #8B4513; outline: none; box-sizing: border-box; font-family: inherit;";
+
         } else {
             nameInput = document.createElement("span");
             nameInput.innerText = nameValue;
-            nameInput.style.cssText = "flex: 1; margin-left: 12px; font-size: 21px; color: #A0522D; font-weight: bold; text-align: left; display: inline-block; font-family: inherit;";
-            nameInput.style.cssText = "flex: 1; margin-left: 12px; font-size: 21px; color: #5D4037; font-weight: bold; text-align: left; display: inline-block; font-family: inherit;";
+            nameInput.style.cssText = "flex: 1; margin-left: 12px; font-size: 21px; color: #8B4513; font-weight: bold; text-align: left; display: inline-block; font-family: inherit;";
 
         }
         nameInput.className = "ing-name-cell";
