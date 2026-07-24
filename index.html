@@ -728,6 +728,8 @@
 
             // Отрисовка ингредиентов
             const listContainer = document.getElementById("recipe-ingredients-list-container");
+            const stepsContainer = document.getElementById("recipe-steps-list-container");
+
                     if (listContainer && recipe.ingredientsArray && recipe.ingredientsArray.length > 0) {
             recipe.ingredientsArray.forEach(item => {
                 addNewIngredientRowFromScreen(item.weight, item.name, item.checked || false);
