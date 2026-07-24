@@ -497,6 +497,12 @@
                 </div>
                 <!-- 👑 НАКЛАДНАЯ КРЕМОВАЯ РАМОЧКА ДЛЯ РЕЦЕПТА (Свиток) -->
                 <div class="recipe-scroll-box" style="width: 100%; max-width: 720px; background: #FFFDFB; margin: 10px auto 30px auto; padding: 25px 20px; border-radius: 26px; box-shadow: 0 15px 45px rgba(160, 82, 45, 0.05); border: 2px solid #EAD5C3; box-sizing: border-box;">
+                            <!-- 📑 ПАНЕЛЬ ВЫБОРА ЯЗЫКА ДЛЯ ЗАПОЛНЕНИЯ РЕЦЕПТА (Только в режиме Хозяйки) -->
+        <div id="admin-lang-tabs" style="display: none; justify-content: center; gap: 10px; margin-bottom: 20px;">
+            <button type="button" onclick="switchAdminRecipeLanguage('ru')" id="tab-lang-ru" style="padding: 6px 16px; border: 2px solid #A0522D; border-radius: 12px; background: #A0522D; color: #FFFFFF; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s;">RU</button>
+            <button type="button" onclick="switchAdminRecipeLanguage('en')" id="tab-lang-en" style="padding: 6px 16px; border: 2px solid #EAD5C3; border-radius: 12px; background: #FFFFFF; color: #5C2D0C; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s;">EN</button>
+            <button type="button" onclick="switchAdminRecipeLanguage('uk')" id="tab-lang-uk" style="padding: 6px 16px; border: 2px solid #EAD5C3; border-radius: 12px; background: #FFFFFF; color: #5C2D0C; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s;">UKR</button>
+        </div>
 
                     <!-- Рукописное название кулинарного шедевра пером -->
                     <h2 id="recipe-display-title" contenteditable="false" style="font-family: 'Caveat', cursive; font-size: 38px; color: #A0522D; font-weight: normal; margin: 0 0 18px 0; text-align: center; border-bottom: 2px dashed #EAD5C3; padding-bottom: 5px; outline: none;"></h2>
