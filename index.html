@@ -800,17 +800,25 @@
             checkBtn.innerText = currentStepsCount;
 
             // Уютное текстовое поле шага (Шоколадные крупные буквы 20px)
-            const stepInput = document.createElement("textarea");
-            stepInput.className = "step-text-cell";
-            stepInput.value = stepTextValue;
+                    // 🥣 Создаем текст шага (Адаптивный: текст для гостя, текстовое поле для админа)
+        let stepInput;
+        if (isAdminModeActive) {
+            stepInput = document.createElement("textarea");
             stepInput.placeholder = "Опишите кулинарный шаг...";
             stepInput.rows = 1;
-            stepInput.style.cssText = "flex-grow: 1; border: none; background: transparent; font-size: 20px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box; resize: none; font-family: 'Segoe UI', Roboto, sans-serif; line-height: 1.4; padding: 0; overflow: hidden;";
-            stepInput.readOnly = !isAdminModeActive;
-
-            // Автоматическое выравнивание высоты текстового поля под размер текста
+            stepInput.value = stepTextValue;
+            stepInput.readOnly = false;
+            stepInput.style.cssText = "flex-grow: 1; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; font-size: 20px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box; resize: none; padding: 4px 8px; font-family: inherit;";
+            
+            // Автоматическое выравнивание высоты рамки под размер текста в режиме админа
             stepInput.oninput = function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; };
             setTimeout(() => { stepInput.style.height = 'auto'; stepInput.style.height = stepInput.scrollHeight + 'px'; }, 20);
+        } else {
+            stepInput = document.createElement("span");
+            stepInput.innerText = stepTextValue;
+            stepInput.style.cssText = "flex-grow: 1; font-size: 20px; color: #5C2D0C; font-weight: 600; text-align: left; padding: 4px 8px; line-height: 1.4; display: inline-block; white-space: pre-wrap;";
+        }
+        stepInput.className = "step-text-cell";
 
             // Клик по пуговке-номеру отмечает выполненный шаг нежным цветом
             checkBtn.onclick = function() {
@@ -875,21 +883,37 @@
                 else { this.style.background = "#D4EDDA"; this.style.borderColor = "#28A745"; this.style.color = "#28A745"; this.innerText = "✓"; }
             };
 
-            const weightInput = document.createElement("input");
+                 // ⚖️ Создаем вес продукта (Адаптивный: текст для гостя, инпут для админа)
+        let weightInput;
+        if (isAdminModeActive) {
+            weightInput = document.createElement("input");
             weightInput.type = "text";
-            weightInput.className = "ing-weight-cell";
             weightInput.value = weightValue;
             weightInput.placeholder = "0";
-            weightInput.style.cssText = "width: 65px; height: 32px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 16px; font-weight: bold; color: #332211; outline: none; flex-shrink: 0; box-sizing: border-box; margin-right: 15px;";
-            weightInput.readOnly = !isAdminModeActive; 
+            weightInput.readOnly = false;
+            weightInput.style.cssText = "width: 65px; height: 32px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 16px; font-weight: bold; color: #A0522D; outline: none;";
+        } else {
+            weightInput = document.createElement("span");
+            weightInput.innerText = weightValue ? weightValue : "";
+            weightInput.style.cssText = "width: 65px; text-align: center; font-size: 16px; font-weight: bold; color: #A0522D; display: inline-block;";
+        }
+        weightInput.className = "ing-weight-cell";
 
-            const nameInput = document.createElement("input");
+        // 🍎 Создаем название продукта (Адаптивный: текст для гостя, инпут для админа)
+        let nameInput;
+        if (isAdminModeActive) {
+            nameInput = document.createElement("input");
             nameInput.type = "text";
-            nameInput.className = "ing-name-cell";
             nameInput.value = nameValue;
             nameInput.placeholder = "Название продукта...";
-            nameInput.style.cssText = "flex-grow: 1; height: 32px; border: none; background: transparent; font-size: 19px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box;";
-            nameInput.readOnly = !isAdminModeActive; 
+            nameInput.readOnly = false;
+            nameInput.style.cssText = "flex-grow: 1; height: 32px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; padding: 0 8px; font-size: 16px; color: #5D4037; outline: none; margin-left: 10px;";
+        } else {
+            nameInput = document.createElement("span");
+            nameInput.innerText = nameValue;
+            nameInput.style.cssText = "flex: 1; margin-left: 10px; font-size: 16px; color: #5D4037; text-align: left; display: inline-block;";
+        }
+        nameInput.className = "ing-name-cell";
 
             const delBtn = document.createElement("button");
             delBtn.type = "button";
