@@ -311,6 +311,7 @@
             <button type="button" id="text-guestSendBtn" onclick="sendRecipeToHelen()" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 13px 35px; font-size: 17px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 92%; box-shadow: 0 5px 12px rgba(255,122,51,0.15);">Отправить 🌸</button>
         </div>
     </div>
+
             <!-- 🌍 НЕВИДИМЫЙ АВТОМАТИЧЕСКИЙ ПЕРЕВОДЧИК СТРАНИЦЫ-ШАБЛОНА -->
         <div id="google_translate_element" style="display:none !important;"></div>
         <script>
@@ -326,27 +327,37 @@
         // Каждую секунду проверяем заголовок книги и невидимо переключаем язык
         setInterval(() => {
             const titleEl = document.getElementById("text-title");
-            const googleCombo = document.querySelector('.goog-te-combo');
-            if (!titleEl || !googleCombo) return;
+            if (!titleEl) return;
 
             const titleText = titleEl.innerText.trim();
             let targetLang = 'ru';
 
-            // Ваша золотая и полная логика проверки заголовка:
+            // Ваша золотая логика проверки заголовка:
             if (titleText.includes("Interactive Cookbook:")) {
                 targetLang = 'en'; // Включаем английский
             } else if (titleText.includes("Інтерактивна книга рецептів:")) {
                 targetLang = 'uk'; // Включаем украинский
             } else if (titleText.includes("Интерактивная книга рецептов:")) {
-                targetLang = 'ru'; // Железно возвращаем родной русский язык
+                targetLang = 'ru'; // Возвращаем русский
             }
 
-            if (googleCombo.value !== targetLang) {
-                googleCombo.value = targetLang;
-                googleCombo.dispatchEvent(new Event('change'));
+            // Ищем выпадающий список Google на странице
+            const googleCombo = document.querySelector('.goog-te-combo');
+            
+            // Если Google уже загрузился и язык в нём не совпадает — переключаем!
+            if (googleCombo) {
+                if (googleCombo.value !== targetLang) {
+                    googleCombo.value = targetLang;
+                    googleCombo.dispatchEvent(new Event('change'));
+                }
+            } else {
+                // Подстраховка: если Google ещё грузится, принудительно подталкиваем его инициализацию
+                if (typeof googleTranslateElementInit === 'function' && !window.googleTranslateInitDone) {
+                    try { googleTranslateElementInit(); window.googleTranslateInitDone = true; } catch(e){}
+                }
             }
 
-            // Прячем серую полосу Google, если она пытается вылезти вверху экрана
+            // Полностью прячем верхнюю плашку Google, чтобы не ломала шапку сайта
             const googleFrame = document.querySelector('.goog-te-banner-frame');
             if (googleFrame) googleFrame.style.display = 'none';
             document.body.style.top = '0px';
