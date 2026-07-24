@@ -325,17 +325,19 @@
 
                  <!-- 🌍 НЕВИДИМЫЙ АВТОМАТИЧЕСКИЙ ПЕРЕВОДЧИК СТРАНИЦЫ-ШАБЛОНА -->
         <div id="google_translate_element" style="display:none !important;"></div>
-    <script>
-
+ 
             // =========================================================================
         // 🔮 СИСТЕМА УПРАВЛЕНИЯ ТРЕМЯ ЯЗЫКАМИ В РЕЖИМЕ ХОЗЯЙКИ (RU / EN / UKR)
         // =========================================================================
-        window.currentAdminLang = 'ru'; 
-        window.recipeTranslationsCache = {
-            ru: { title: '', ingredients: [], steps: [] },
-            en: { title: '', ingredients: [], steps: [] },
-            uk: { title: '', ingredients: [], steps: [] }
-        };
+               // Инициализируем языковые кармашки в глобальной памяти сайта
+        if (!window.recipeTranslationsCache) {
+            window.currentAdminLang = 'ru'; 
+            window.recipeTranslationsCache = {
+                ru: { title: '', ingredients: [], steps: [] },
+                en: { title: '', ingredients: [], steps: [] },
+                uk: { title: '', ingredients: [], steps: [] }
+            };
+        }
 
         window.switchAdminRecipeLanguage = function(newLang) {
             if (window.currentAdminLang === newLang) return;
@@ -402,9 +404,7 @@
                 }
             });
         };
-        </script>
-
-        <script>
+   >
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'ru',
