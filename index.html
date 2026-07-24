@@ -204,7 +204,8 @@
             👩‍🍳 Поделиться рецептом 🔍
         </button>
 
-        <div id="lang-btn" class="lang-switcher">RU</div>
+       <div id="lang-btn" class="lang-switcher" onclick="document.documentElement.lang = this.innerText.trim() === 'EN' ? 'en' : (this.innerText.trim() === 'UKR' ? 'uk' : 'ru');">RU</div>
+
     </div>
 
     <div class="main-container">
