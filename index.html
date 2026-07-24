@@ -313,7 +313,7 @@
         </div>
     </div>
 
-            <!-- 🌍 НЕВИДИМЫЙ АВТОМАТИЧЕСКИЙ ПЕРЕВОДЧИК СТРАНИЦЫ-ШАБЛОНА -->
+                 <!-- 🌍 НЕВИДИМЫЙ АВТОМАТИЧЕСКИЙ ПЕРЕВОДЧИК СТРАНИЦЫ-ШАБЛОНА -->
         <div id="google_translate_element" style="display:none !important;"></div>
         <script>
         function googleTranslateElementInit() {
@@ -325,7 +325,7 @@
             }, 'google_translate_element');
         }
 
-        // Каждую секунду проверяем заголовок книги и невидимо переключаем язык
+        // Каждую секунду проверяем заголовок книги и принудительно переводим поля ввода
         setInterval(() => {
             const titleEl = document.getElementById("text-title");
             if (!titleEl) return;
@@ -333,30 +333,38 @@
             const titleText = titleEl.innerText.trim();
             let targetLang = 'ru';
 
-            // Ваша золотая логика проверки заголовка:
             if (titleText.includes("Interactive Cookbook:")) {
-                targetLang = 'en'; // Включаем английский
+                targetLang = 'en';
+            } else if (titleText.includes("Template page coming soon:")) {
+                targetLang = 'en';
             } else if (titleText.includes("Інтерактивна книга рецептів:")) {
-                targetLang = 'uk'; // Включаем украинский
+                targetLang = 'uk';
             } else if (titleText.includes("Интерактивная книга рецептов:")) {
-                targetLang = 'ru'; // Возвращаем русский
+                targetLang = 'ru';
             }
 
-            // Ищем выпадающий список Google на странице
             const googleCombo = document.querySelector('.goog-te-combo');
-            
-            // Если Google уже загрузился и язык в нём не совпадает — переключаем!
-            if (googleCombo) {
-                if (googleCombo.value !== targetLang) {
-                    googleCombo.value = targetLang;
-                    googleCombo.dispatchEvent(new Event('change'));
-                }
-            } else {
-                // Подстраховка: если Google ещё грузится, принудительно подталкиваем его инициализацию
-                if (typeof googleTranslateElementInit === 'function' && !window.googleTranslateInitDone) {
-                    try { googleTranslateElementInit(); window.googleTranslateInitDone = true; } catch(e){}
-                }
+            if (googleCombo && googleCombo.value !== targetLang) {
+                googleCombo.value = targetLang;
+                googleCombo.dispatchEvent(new Event('change'));
             }
+
+            // ХИТРЫЙ ТРЮК: Если выбран не русский, берем текст из подсказок placeholder и переводим поля ввода!
+            if (targetLang !== 'ru') {
+                document.querySelectorAll('#interactiveRecipePage input, #interactiveRecipePage textarea').forEach(el => {
+                    // Используем placeholder как скрытого текстового двойника, которого Google умеет переводить!
+                    if (el.placeholder && el.placeholder !== el.value && !el.dataset.translated) {
+                        el.value = el.placeholder; 
+                    }
+                });
+            }
+
+            const googleFrame = document.querySelector('.goog-te-banner-frame');
+            if (googleFrame) googleFrame.style.display = 'none';
+            document.body.style.top = '0px';
+        }, 1000);
+        </script>
+        <script src="//://google.com"></script>
 
             // Полностью прячем верхнюю плашку Google, чтобы не ломала шапку сайта
             const googleFrame = document.querySelector('.goog-te-banner-frame');
