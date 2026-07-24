@@ -8,7 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
- 
+
     <style>
         /* Подключаем уютный рукописный шрифт */
         @font-face {
@@ -225,7 +225,7 @@
         <!-- Сочное журнальное описание под фотографией обложки -->
         <p class="book-description" id="text-desc">
             <strong>🧼 Режим «Чистые руки». Встроенный таймер.</strong><br>
-     
+
             «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта».
         </p>
         <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
@@ -283,7 +283,7 @@
             <h3 style="font-size: 22px; color: #A0522D; margin: 0 0 20px 0; font-weight: bold;">🫘 Вход в кулинарную админку</h3>
             <input type="text" id="adminLogin" placeholder="Логин" style="width: 92%; padding: 12px; margin-bottom: 15px; border: 2px solid #EAD5C3; border-radius: 18px; outline: none; font-size: 16px; background: #FFF6EE; text-align: center; font-weight: 500;">
             <input type="password" id="adminPassword" placeholder="Пароль" style="width: 92%; padding: 12px; margin-bottom: 22px; border: 2px solid #EAD5C3; border-radius: 18px; outline: none; font-size: 16px; background: #FFF6EE; text-align: center; font-weight: 500;">
-            
+
             <!-- Исправленная кнопка вызова, предотвращающая перезагрузку страницы -->
             <button type="button" onclick="checkAdminCredentials(event)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 14px 30px; font-size: 18px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 92%; box-shadow: 0 5px 12px rgba(255,122,51,0.15);">Войти</button>
 
@@ -325,8 +325,8 @@
 
                  <!-- 🌍 НЕВИДИМЫЙ АВТОМАТИЧЕСКИЙ ПЕРЕВОДЧИК СТРАНИЦЫ-ШАБЛОНА -->
         <div id="google_translate_element" style="display:none !important;"></div>
- 
-            
+
+
               <!-- 🌍 СИСТЕМА УПРАВЛЕНИЯ ТРЕМЯ ЯЗЫКАМИ В РЕЖИМЕ ХОЗЯЙКИ (RU / EN / UKR) -->
         <script>
         if (!window.recipeTranslationsCache) {
@@ -338,19 +338,17 @@
             };
         }
 
-                    window.switchAdminRecipeLanguage = function(newLang) {
+        window.switchAdminRecipeLanguage = function(newLang) {
             if (window.currentAdminLang === newLang) return;
             const titleInput = document.getElementById("recipe-display-title");
             const oldLang = window.currentAdminLang;
-            
-            // 1. ПЕРЕД ПЕРЕКЛЮЧЕНИЕМ: Сохраняем всё, что написано на экране в текущем языке
+
             if (titleInput) {
                 window.recipeTranslationsCache[oldLang].title = titleInput.innerText.trim();
             }
-            
-            // Сохраняем динамические ингредиенты
+
             window.recipeTranslationsCache[oldLang].ingredients = [];
-            document.querySelectorAll('.ingredient-row-item').forEach(row => {
+            document.querySelectorAll('.ingredient-row').forEach(row => {
                 const weightEl = row.querySelector('.ing-weight-cell');
                 const nameEl = row.querySelector('.ing-name-cell');
                 if (nameEl) {
@@ -361,16 +359,14 @@
                 }
             });
 
-            // Сохраняем динамические шаги приготовления
             window.recipeTranslationsCache[oldLang].steps = [];
-            document.querySelectorAll('.step-row-item').forEach(row => {
+            document.querySelectorAll('.step-row').forEach(row => {
                 const stepEl = row.querySelector('.step-text-cell');
                 if (stepEl) {
                     window.recipeTranslationsCache[oldLang].steps.push(stepEl.value || stepEl.innerText || '');
                 }
             });
 
-            // 2. МЕНЯЕМ АКТИВНЫЙ ЯЗЫК НА КНОПКАХ БЛАНКА
             window.currentAdminLang = newLang;
             ['ru', 'en', 'uk'].forEach(lang => {
                 const tab = document.getElementById(`tab-lang-${lang}`);
@@ -386,44 +382,6 @@
                     }
                 }
             });
-
-            // 3. ПОСЛЕ ПЕРЕКЛЮЧЕНИЯ: Достаем из памяти слова нового языка и выводим на экран бланка
-            const cache = window.recipeTranslationsCache[newLang];
-            if (titleInput) {
-                titleInput.innerText = cache.title || '';
-            }
-
-            // Обновляем строчки ингредиентов
-            const ingRows = document.querySelectorAll('.ingredient-row-item');
-            ingRows.forEach((row, index) => {
-                const weightEl = row.querySelector('.ing-weight-cell');
-                const nameEl = row.querySelector('.ing-name-cell');
-                const savedIng = cache.ingredients[index];
-                
-                if (savedIng) {
-                    if (weightEl) { if(weightEl.tagName === 'INPUT') weightEl.value = savedIng.weight; else weightEl.innerText = savedIng.weight; }
-                    if (nameEl) { if(nameEl.tagName === 'INPUT') nameEl.value = savedIng.name; else nameEl.innerText = savedIng.name; }
-                } else {
-                    if (weightEl) { if(weightEl.tagName === 'INPUT') weightEl.value = ''; else weightEl.innerText = ''; }
-                    if (nameEl) { if(nameEl.tagName === 'INPUT') nameEl.value = ''; else nameEl.innerText = ''; }
-                }
-            });
-
-            // Обновляем строчки шагов приготовления
-            const stepRows = document.querySelectorAll('.step-row-item');
-            stepRows.forEach((row, index) => {
-                const stepEl = row.querySelector('.step-text-cell');
-                const savedStepText = cache.steps[index];
-                
-                if (stepEl) {
-                    if (typeof savedStepText !== 'undefined') {
-                        if(stepEl.tagName === 'TEXTAREA' || stepEl.tagName === 'INPUT') stepEl.value = savedStepText; else stepEl.innerText = savedStepText;
-                    } else {
-                        if(stepEl.tagName === 'TEXTAREA' || stepEl.tagName === 'INPUT') stepEl.value = ''; else stepEl.innerText = '';
-                    }
-                }
-            });
-        };
 
             const cache = window.recipeTranslationsCache[newLang];
             if (titleInput) {
@@ -478,7 +436,7 @@
             </table>
         </div>
     </div>
- 
+
     <!-- ☕ ВСПЛЫВАЮЩЕЕ ОКНО «ЧАШЕЧКИ ПОДДЕРЖКИ» -->
     <div id="supportModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 2000; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('supportModal').style.display='none'">
         <div style="background: #FFFDF9; padding: 30px; border-radius: 32px; max-width: 400px; width: 88%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center; box-sizing: border-box;" onclick="event.stopPropagation()">
@@ -811,7 +769,7 @@
 
                     // 🌍 Переводим название рецепта на лету через Google API
         let displayTitle = recipe.title;
-        
+
         //создаем невидимого текстового двойника для перевода названия
         const hiddenTitleSpan = document.createElement("span");
         hiddenTitleSpan.innerText = recipe.title;
@@ -869,12 +827,12 @@
             addNewIngredientRowFromScreen("", "");
         }
 
-       
+
         if (stepsContainer && recipe.stepsArray && recipe.stepsArray.length > 0) {
             recipe.stepsArray.forEach(stepText => {
                 addNewStepRowFromScreen(stepText);
             });
-    
+
             } else if (stepsContainer) {
                 // Если старый формат или пусто — бьем на строки по переносу
                 let oldSteps = recipe.steps ? recipe.steps.split('\n') : [];
@@ -917,7 +875,7 @@
             stepInput.value = stepTextValue;
             stepInput.readOnly = false;
             stepInput.style.cssText = "flex-grow: 1; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; font-size: 20px; color: #5C2D0C; font-weight: 600; outline: none; box-sizing: border-box; resize: none; padding: 4px 8px; font-family: inherit;";
-            
+
             // Автоматическое выравнивание высоты рамки под размер текста в режиме админа
             stepInput.oninput = function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; };
             setTimeout(() => { stepInput.style.height = 'auto'; stepInput.style.height = stepInput.scrollHeight + 'px'; }, 20);
@@ -1022,6 +980,7 @@
         } else {
             nameInput = document.createElement("span");
             nameInput.innerText = nameValue;
+            nameInput.style.cssText = "flex: 1; margin-left: 12px; font-size: 21px; color: #A0522D; font-weight: bold; text-align: left; display: inline-block; font-family: inherit;";
             nameInput.style.cssText = "flex: 1; margin-left: 12px; font-size: 21px; color: #5D4037; font-weight: bold; text-align: left; display: inline-block; font-family: inherit;";
 
         }
@@ -1211,7 +1170,7 @@
                 if (time <= 0) { clearInterval(timerInterval); timerInterval = null; trigger.innerText = "⏱️"; display.innerText = "05:00"; playTimerEndSound(); } 
             }, 1000);
         }
-        
+
         // ТАБЛИЦА МЕР И ВЕСОВ ЕЛЕНОЧКИ
         const ingredientsData = {
             ru: [
@@ -1274,7 +1233,7 @@
             try {
                 const audioPlayer = new Audio();
                 const lang = currentLangCode || 'ru';
-                
+
                 if (lang === 'en') audioPlayer.src = 'thanks_en.mp3';
                 else if (lang === 'uk') audioPlayer.src = 'thanks_ukr.mp3';
                 else audioPlayer.src = 'thanks_ru.mp3';
@@ -1294,7 +1253,7 @@
         function processSupportPayment() {
             let amt = document.getElementById('supportAmountInput').value;
             const lang = currentLangCode || 'ru';
-            
+
             if (!amt || parseInt(amt) <= 0) { 
                 if (lang === 'en') alert("Please enter the amount! 🌸");
                 else if (lang === 'uk') alert("Будь ласка, введіть суму! 🌸");
@@ -1309,7 +1268,7 @@
                 if (lang === 'en') alert("Redirecting you to the secure bank page for safe payment... 💳");
                 else if (lang === 'uk') alert("Перенаправляємо вас на захищену сторінку банку для безпечної оплати... 💳");
                 else alert("Перенаправляем вас на защищенную страницу банка для безопасной оплаты... 💳");
-                
+
                 document.getElementById('supportModal').style.display = 'none';
                 speakThanksInUserLanguage(); // Включается живой голос «Спасибо за Вашу доброту»
             }, 800);
@@ -1344,7 +1303,7 @@
         function shareCurrentRecipePage() {
             const lang = currentLangCode || 'ru';
             const currentUrl = window.location.href;
-            
+
             if (navigator.share) {
                 navigator.share({ title: document.title, url: currentUrl }).catch(console.error);
             } else {
@@ -1368,11 +1327,11 @@
         function openAdminLogin() { document.getElementById('adminLogin').value = ''; document.getElementById('adminPassword').value = ''; document.getElementById('adminAuthModal').style.display = 'flex'; }
 
                 // 🔒 УМНАЯ ДИАГНОСТИЧЕСКАЯ ФУНКЦИЯ ВХОДА ЧЕРЕЗ ОБЛАКО (С МАРКЕРАМИ ОШИБОК)
-       
+
                   // 🔒 ИСПРАВЛЕННАЯ ФУНКЦИЯ ВХОДА: ВОЗВРАЩАЕТ ТРИ КНОПКИ АЛЬБОМОВ И СЧЁТЧИК ПОРЦИЙ
         function checkAdminCredentials(event) {
             if (event && event.preventDefault) event.preventDefault(); // Блокируем перезагрузку страницы
-            
+
             let inputLogin = document.getElementById('adminLogin').value.trim();
             let inputPassword = document.getElementById('adminPassword').value.trim();
 
@@ -1392,20 +1351,20 @@
             database.collection("settings").doc("credentials").get().then((doc) => {
                 if (doc.exists) {
                     let data = doc.data();
-                    
+
                     // Сверяем данные в памяти Google
                     if (data.admin_login === inputLogin && data.admin_password === inputPassword) {
                         alert("Доступ разрешен! Добро пожаловать, Хозяйка! 👑");
-                        
+
                         // Закрываем окошко ввода пароля
-            
+
                                             // 🔥 Мгновенно открываем вашу родную панель с 3 кнопками (🍰 🥣 🥗)
                     isAdminModeActive = true;
                     const adminPanel = document.getElementById('helenAdminPanel');
                     if (adminPanel) {
                         adminPanel.style.display = 'block';
                     }
-                 
+
                     } else {
                         alert("Неверный логин или пароль Хозяйки! Доступ закрыт. ⛔");
                     }
@@ -1436,10 +1395,10 @@
             // Подгружаем локальную память
             const savedDatabase = localStorage.getItem('helenCookbookDatabase');
             if (savedDatabase) recipeAlbums = JSON.parse(savedDatabase);
-            
+
             const savedLang = localStorage.getItem('selectedLanguage') || 'ru'; 
             if (typeof changeLanguage === 'function') changeLanguage(savedLang);
-            
+
             let btnEl = document.getElementById('lang-btn'); 
             if (btnEl) btnEl.innerText = savedLang.toUpperCase();
 
