@@ -892,11 +892,15 @@
             weightInput.placeholder = "0";
             weightInput.readOnly = false;
             weightInput.style.cssText = "width: 65px; height: 32px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 16px; font-weight: bold; color: #A0522D; outline: none;";
-        } else {
-            weightInput = document.createElement("span");
-            weightInput.innerText = weightValue ? weightValue : "";
-           weightInput.style.cssText = "width: 65px; height: 32px; line-height: 28px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 19px; font-weight: 600; color: #5C2D0C; display: inline-block; font-family: inherit; box-sizing: border-box;";
+                } else {
+            weightInput = document.createElement("input");
+            weightInput.type = "text";
+            weightInput.value = weightValue;
+            weightInput.placeholder = "0";
+            weightInput.readOnly = true;
+            weightInput.style.cssText = "width: 65px; height: 32px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 19px; font-weight: 600; color: #5C2D0C; outline: none; box-sizing: border-box;";
         }
+
         weightInput.className = "ing-weight-cell";
 
         // 🍎 Создаем название продукта (Адаптивный: текст для гостя, инпут для админа)
