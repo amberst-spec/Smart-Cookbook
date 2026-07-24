@@ -718,6 +718,12 @@
             const recipeContainer = document.createElement("div");
             recipeContainer.innerHTML = template.innerHTML;
             document.body.appendChild(recipeContainer.firstElementChild);
+                    // Включаем или прячем языковые вкладки в зависимости от режима (Хозяйка/Гость)
+        const adminTabsEl = document.getElementById("admin-lang-tabs");
+        if (adminTabsEl) {
+            adminTabsEl.style.display = (typeof isAdminModeActive !== 'undefined' && isAdminModeActive) ? "flex" : "none";
+        }
+
                     // 🌍 Переводим название рецепта на лету через Google API
         let displayTitle = recipe.title;
         
