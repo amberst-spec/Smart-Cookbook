@@ -1350,7 +1350,25 @@
             document.getElementById('guestSuggestModal').style.display = 'none';
         }
 
-        function openAdminLogin() { document.getElementById('adminLogin').value = ''; document.getElementById('adminPassword').value = ''; document.getElementById('adminAuthModal').style.display = 'flex'; }
+        function openAdminLogin() {
+    // Открываем наше привычное белое окошко
+    document.getElementById('adminAuthModal').style.display = 'flex';
+    
+    // Если Хозяйка уже авторизовалась, сайт сам заполнит рамочки,
+    // чтобы круглые кнопки альбомов внизу мгновенно стали активными!
+    if (window.isAdminModeActive || (typeof isAdminModeActive !== 'undefined' && isAdminModeActive)) {
+        const loginInput = document.getElementById('adminLogin');
+        const passInput = document.getElementById('adminPassword');
+        if (loginInput) loginInput.value = 'admin'; 
+        if (passInput) passInput.value = 'password';
+    } else {
+        // Если вы зашли первый раз — поля будут чистыми для ввода вашего пароля
+        const loginInput = document.getElementById('adminLogin');
+        const passInput = document.getElementById('adminPassword');
+        if (loginInput) loginInput.value = '';
+        if (passInput) passInput.value = '';
+    }
+}
 
                 // 🔒 УМНАЯ ДИАГНОСТИЧЕСКАЯ ФУНКЦИЯ ВХОДА ЧЕРЕЗ ОБЛАКО (С МАРКЕРАМИ ОШИБОК)
 
