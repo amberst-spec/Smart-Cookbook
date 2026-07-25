@@ -1119,15 +1119,33 @@
 
             let album = recipeAlbums[currentAlbumId];
             let targetRecipe = album[currentRecipeIndex];
-            let payload = {
-                title: typedTitle,
-                ingredientsArray: collectedIngredients,
-                stepsArray: collectedSteps,
-                steps: collectedSteps.map((s,i) => `${i+1}. ${s}`).join('\n'), // Обратная совместимость
-                photoData: document.getElementById("recipe-uploaded-img").src || "",
-                category: currentAlbumId,
-                timestamp: Date.now()
-            };
+                let payload = {
+        title: typedTitle,
+        ingredientsArray: collectedIngredients,
+        stepsArray: collectedSteps,
+        steps: collectedSteps.map((s,i) => `${i+1}. ${s}`).join('\n'),
+        photoData: document.getElementById("recipe-uploaded-img").src || "",
+        category: currentAlbumId,
+        timestamp: Date.now(),
+        // 🌟 Сохраняем в Firebase полноценный архив всех трех языков бланка!
+        translations: {
+            ru: {
+                title: window.recipeTranslationsCache.ru.title || typedTitle,
+                ingredients: window.recipeTranslationsCache.ru.ingredients.length ? window.recipeTranslationsCache.ru.ingredients : collectedIngredients.map(i => ({ name: i.name })),
+                steps: window.recipeTranslationsCache.ru.steps.length ? window.recipeTranslationsCache.ru.steps : collectedSteps
+            },
+            en: {
+                title: window.recipeTranslationsCache.en.title || '',
+                ingredients: window.recipeTranslationsCache.en.ingredients || [],
+                steps: window.recipeTranslationsCache.en.steps || []
+            },
+            uk: {
+                title: window.recipeTranslationsCache.uk.title || '',
+                ingredients: window.recipeTranslationsCache.uk.ingredients || [],
+                steps: window.recipeTranslationsCache.uk.steps || []
+            }
+        }
+    };
 
             let firebaseDocId = (targetRecipe && targetRecipe.firebaseId) ? targetRecipe.firebaseId : "doc-" + Date.now();
             payload.firebaseId = firebaseDocId;
