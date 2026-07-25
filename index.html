@@ -1097,7 +1097,7 @@
             let collectedIngredients = [];
             const listContainer = document.getElementById("recipe-ingredients-list-container");
             if (listContainer) {
-                const rows = listContainer.getElementsByClassName("ingredient-row-item");
+            const rows = listContainer.getElementsByClassName("ingredient-row");
                 for (let i = 0; i < rows.length; i++) {
                     const weightVal = rows[i].getElementsByClassName("ing-weight-cell")?.[0]?.value.trim() || "";
                     const nameVal = rows[i].getElementsByClassName("ing-name-cell")?.[0]?.value.trim() || "";
