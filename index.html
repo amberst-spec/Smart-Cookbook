@@ -342,27 +342,28 @@
             };
         }
 
-        window.switchAdminRecipeLanguage = function(newLang) {
+                    window.switchAdminRecipeLanguage = function(newLang) {
             if (window.currentAdminLang === newLang) return;
             const titleInput = document.getElementById("recipe-display-title");
             const oldLang = window.currentAdminLang;
-
+            
+            // 1. ПЕРЕД ПЕРЕКЛЮЧЕНИЕМ: Сохраняем текстовые переводы в текущем языке
             if (titleInput) {
                 window.recipeTranslationsCache[oldLang].title = titleInput.innerText.trim();
             }
-
+            
+            // Сохраняем ТОЛЬКО тексты названий динамических ингредиентов (веса не очищаем!)
             window.recipeTranslationsCache[oldLang].ingredients = [];
             document.querySelectorAll('.ingredient-row').forEach(row => {
-                const weightEl = row.querySelector('.ing-weight-cell');
                 const nameEl = row.querySelector('.ing-name-cell');
                 if (nameEl) {
                     window.recipeTranslationsCache[oldLang].ingredients.push({
-                        weight: weightEl ? (weightEl.value || weightEl.innerText || '') : '',
                         name: nameEl.value || nameEl.innerText || ''
                     });
                 }
             });
 
+            // Сохраняем динамические шаги приготовления
             window.recipeTranslationsCache[oldLang].steps = [];
             document.querySelectorAll('.step-row').forEach(row => {
                 const stepEl = row.querySelector('.step-text-cell');
@@ -371,6 +372,7 @@
                 }
             });
 
+            // 2. МЕНЯЕМ АКТИВНЫЙ ЯЗЫК НА КНОПКАХ БЛАНКА
             window.currentAdminLang = newLang;
             ['ru', 'en', 'uk'].forEach(lang => {
                 const tab = document.getElementById(`tab-lang-${lang}`);
@@ -387,25 +389,24 @@
                 }
             });
 
-                        const cache = window.recipeTranslationsCache[newLang];
+            // 3. ПОСЛЕ ПЕРЕКЛЮЧЕНИЯ: Выводим из памяти переведенные тексты, оставляя цифры нетронутыми
+            const cache = window.recipeTranslationsCache[newLang];
             if (titleInput) {
                 titleInput.innerText = cache.title || '';
             }
 
-            // Обновляем строчки ингредиентов
+            // Обновляем ТОЛЬКО строчки названий ингредиентов (цифры веса остаются на экране!)
             const ingRows = document.querySelectorAll('.ingredient-row');
             ingRows.forEach((row, index) => {
-                const weightEl = row.querySelector('.ing-weight-cell');
                 const nameEl = row.querySelector('.ing-name-cell');
                 const savedIng = cache.ingredients[index];
                 
-                if (savedIng) {
-                    if (weightEl) { if(weightEl.tagName === 'INPUT') weightEl.value = savedIng.weight; else weightEl.innerText = savedIng.weight; }
-                    if (nameEl) { if(nameEl.tagName === 'INPUT') nameEl.value = savedIng.name; else nameEl.innerText = savedIng.name; }
-                } else {
-                    // Если для этого языка строка пустая, очищаем рамочки экрана бланка
-                    if (weightEl) { if(weightEl.tagName === 'INPUT') weightEl.value = ''; else weightEl.innerText = ''; }
-                    if (nameEl) { if(nameEl.tagName === 'INPUT') nameEl.value = ''; else nameEl.innerText = ''; }
+                if (nameEl) {
+                    if (savedIng) {
+                        if (nameEl.tagName === 'INPUT') nameEl.value = savedIng.name; else nameEl.innerText = savedIng.name;
+                    } else {
+                        if (nameEl.tagName === 'INPUT') nameEl.value = ''; else nameEl.innerText = '';
+                    }
                 }
             });
 
