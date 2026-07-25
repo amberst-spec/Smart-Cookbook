@@ -757,11 +757,31 @@
                 alert(translations[currentLangCode].alertMsg); 
                 return; 
             }
-            list.forEach((recipe, index) => {
-                const btn = document.createElement("button");
-                btn.className = "category-card";
-                btn.style.cssText = "background: linear-gradient(135deg, #FFB385, #FF8B47); padding: 14px 30px; font-size: 18px; margin: 5px 0; width: 100%; border-radius: 20px; box-shadow: 0 4px 10px rgba(255,122,51,0.15);";
-                btn.innerText = recipe.title;
+              list.forEach((recipe, index) => {
+        // Определяем, какой язык прямо сейчас выбран на главной обложке у кексика
+        let activeLang = 'ru';
+        const mainLangBtn = document.getElementById('lang-btn');
+        if (mainLangBtn) {
+            const btnText = mainLangBtn.innerText.trim().toUpperCase();
+            if (btnText.includes('EN')) activeLang = 'en';
+            else if (btnText.includes('UKR') || btnText.includes('UA')) activeLang = 'uk';
+        }
+
+        const btn = document.createElement("button");
+        btn.className = "category-card";
+        btn.style.cssText = "background: linear-gradient(135deg, #FFB385, #FF8B47); padding: 14px 30px; font-size: 18px; margin: 5px 0; width: 100%; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); color: #FFFFFF; font-weight: bold; border: none; cursor: pointer;";
+        
+        // ЖЕЛЕЗНАЯ ЛОГИКА: выводим на кнопку строго тот язык, который нажал гость
+        let displayTitle = recipe.title; // По умолчанию базовое имя
+        if (activeLang === 'ru' && recipe.translations && recipe.translations.ru && recipe.translations.ru.title) {
+            displayTitle = recipe.translations.ru.title;
+        } else if (activeLang === 'en' && recipe.translations && recipe.translations.en && recipe.translations.en.title) {
+            displayTitle = recipe.translations.en.title;
+        } else if (activeLang === 'uk' && recipe.translations && recipe.translations.uk && recipe.translations.uk.title) {
+            displayTitle = recipe.translations.uk.title;
+        }
+        btn.innerText = displayTitle;
+
                 btn.onclick = () => { 
                     currentRecipeIndex = index; 
                     document.getElementById('categoryRecipesModal').style.display = 'none'; 
