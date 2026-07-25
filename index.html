@@ -974,6 +974,7 @@
             weightInput.value = weightValue;
             weightInput.placeholder = "0";
             weightInput.readOnly = false;
+            weightInput.className = "ing-weight-cell";
             weightInput.style.cssText = "width: 70px; height: 36px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 21px; font-weight: bold; color: #8B4513; outline: none; box-sizing: border-box; font-family: inherit;";
                 } else {
             weightInput = document.createElement("input");
@@ -981,11 +982,10 @@
             weightInput.value = weightValue;
             weightInput.placeholder = "0";
             weightInput.readOnly = true;
+            weightInput.className = "ing-weight-cell";
             weightInput.style.cssText = "width: 70px; height: 36px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 21px; font-weight: bold; color: #8B4513; outline: none; box-sizing: border-box; font-family: inherit;";
 
         }
-
-        weightInput.className = "ing-weight-cell";
 
         // 🍎 Создаем название продукта (Адаптивный: текст для гостя, инпут для админа)
         let nameInput;
@@ -1059,7 +1059,7 @@
             if (!listContainer || isAdminModeActive) return;
             const recipe = recipeAlbums[currentAlbumId][currentRecipeIndex];
             if (!recipe) return;
-            const rows = listContainer.getElementsByClassName("ingredient-row-item");
+            const rows = listContainer.getElementsByClassName("ingredient-row");
             for (let i = 0; i < rows.length; i++) {
                 const weightInput = rows[i].getElementsByClassName("ing-weight-cell")[0];
                 if (weightInput && recipe.ingredientsArray && recipe.ingredientsArray[i]) {
