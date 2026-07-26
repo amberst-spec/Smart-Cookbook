@@ -846,7 +846,7 @@
         // Ищем кнопку порций по её точной текстовой подсказке на бланке
         const portionsBtn = Array.from(document.querySelectorAll("button")).find(el => el.textContent.includes("Порции") || el.textContent.includes("Portions") || el.textContent.includes("Порції"));
         // Находим плашку «Чистые руки» по её родному идентификатору или системному классу
-        const cleanHandsBtn = document.getElementById("clean-hands-toggle-btn") || document.querySelector(".clean-hands-btn") || Array.from(document.querySelectorAll("button")).find(el => el.textContent.includes("руки") || el.textContent.includes("Hands"));
+        const cleanHandsBtn = document.getElementById("text-recipeCleanHands") || document.querySelector(".clean-hands-btn");
         const timerLabel = document.querySelector(".timer-label, .timer-container span");
         if (activeLang === 'en') {
             if (ingredientsHeader) ingredientsHeader.innerText = "📋 Ingredients list (Check-list):";
