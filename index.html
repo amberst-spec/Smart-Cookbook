@@ -814,16 +814,12 @@
             };
         }
 
-        // Если выбран RU — возвращаем чистые оригинальные русские тексты
-        if (activeLang === 'ru') {
-            recipe.title = recipe._originalRu.title;
-            recipe.ingredientsArray = JSON.parse(JSON.stringify(recipe._originalRu.ingredientsArray));
-            recipe.stepsArray = JSON.parse(JSON.stringify(recipe._originalRu.stepsArray));
-        } else if (recipe.translations && recipe.translations[activeLang] && recipe.translations[activeLang].title) {
-            // Если выбран EN/UKR и для него сохранен перевод, подставляем его кармашек
+                // Если в рецепте сохранен перевод на выбранный активный язык, подставляем его кармашек
+        if (recipe.translations && recipe.translations[activeLang] && recipe.translations[activeLang].title) {
             recipe.title = recipe.translations[activeLang].title;
+            
             if (recipe.translations[activeLang].ingredients && recipe.translations[activeLang].ingredients.length) {
-                recipe.ingredientsArray = recipe._originalRu.ingredientsArray.map((ing, idx) => {
+                recipe.ingredientsArray = recipe.ingredientsArray.map((ing, idx) => {
                     const transIng = recipe.translations[activeLang].ingredients[idx];
                     return transIng && transIng.name ? { ...ing, name: transIng.name } : { ...ing, name: '' };
                 });
@@ -831,8 +827,15 @@
             if (recipe.translations[activeLang].steps && recipe.translations[activeLang].steps.length) {
                 recipe.stepsArray = recipe.translations[activeLang].steps;
             }
+        } else if (activeLang === 'ru') {
+            // Если кармашка перевода ru еще нет, оставляем базовые оригинальные тексты
+            if (recipe._originalRu) {
+                recipe.title = recipe._originalRu.title;
+                recipe.ingredientsArray = JSON.parse(JSON.stringify(recipe._originalRu.ingredientsArray));
+                recipe.stepsArray = JSON.parse(JSON.stringify(recipe._originalRu.stepsArray));
+            }
         }
-
+    
             const template = document.getElementById("recipePageTemplate");
             const recipeContainer = document.createElement("div");
             recipeContainer.innerHTML = template.innerHTML;
