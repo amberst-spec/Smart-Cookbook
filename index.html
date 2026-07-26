@@ -840,6 +840,31 @@
             const recipeContainer = document.createElement("div");
             recipeContainer.innerHTML = template.innerHTML;
             document.body.appendChild(recipeContainer.firstElementChild);
+                    // 🎨 РУЧНОЙ ПЕРЕВОД ИНТЕРФЕЙСА БЛАНКА РЕЦЕПТА (Для гостя и Хозяйки)
+        const ingredientsHeader = document.querySelector("#interactiveRecipePage h3, #recipePageTemplate h3, .recipe-card h3");
+        const stepsHeader = document.querySelectorAll("#interactiveRecipePage h3, .recipe-card h3")[1] || document.querySelector(".steps-section h3");
+        const portionsBtn = document.querySelector(".portions-btn, button[onclick*='Portions']");
+        const cleanHandsBtn = document.querySelector(".clean-hands-btn, button[onclick*='CleanHands']");
+        const timerLabel = document.querySelector(".timer-label, .timer-container span");
+
+        if (activeLang === 'en') {
+            if (ingredientsHeader) ingredientsHeader.innerText = "📋 Ingredients list (Check-list):";
+            if (stepsHeader) stepsHeader.innerText = "📜 Step-by-step preparation:";
+            if (portionsBtn) portionsBtn.innerHTML = "🍳 Portions";
+            if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 'Clean Hands' Mode";
+        } else if (activeLang === 'uk') {
+            if (ingredientsHeader) ingredientsHeader.innerText = "📋 Список інгредієнтів (Чек-лист):";
+            if (stepsHeader) stepsHeader.innerText = "📜 Покрокове приготування:";
+            if (portionsBtn) portionsBtn.innerHTML = "🍳 Порції";
+            if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 Режим 'Чисті руки'";
+        } else {
+            // По умолчанию возвращаем красивый оригинальный русский текст
+            if (ingredientsHeader) ingredientsHeader.innerText = "📋 Список ингредиентов (Чек-лист):";
+            if (stepsHeader) stepsHeader.innerText = "📜 Пошаговое приготовление:";
+            if (portionsBtn) portionsBtn.innerHTML = "🍳 Порции";
+            if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 Режим 'Чистые руки'";
+        }
+
                     // Включаем или прячем языковые вкладки в зависимости от режима (Хозяйка/Гость)
         const adminTabsEl = document.getElementById("admin-lang-tabs");
         if (adminTabsEl) {
