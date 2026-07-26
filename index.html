@@ -713,6 +713,53 @@
             if (document.getElementById('guestTitleInput')) document.getElementById('guestTitleInput').placeholder = translations[lang].guestTitleInput;
             if (document.getElementById('guestRecipeTextInput')) document.getElementById('guestRecipeTextInput').placeholder = translations[lang].guestRecipeTextInput;
 
+                    // 🌟 СКРЫВАЕМ ЛИШНИЕ ЭТАЖИ ЯЗЫКОВ В ОКНЕ ГОСТЯ И АКТИВИРУЕМ КНОПКУ SEND
+        const currentModalLang = lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru');
+        
+        // Находим все текстовые подписи и рамочки ввода в форме гостя
+        const formLabels = document.querySelectorAll('#shareRecipeModal label, #shareRecipeModal p, #shareRecipeModal span');
+        const formInputs = document.querySelectorAll('#shareRecipeModal input, #shareRecipeModal textarea');
+        
+        // Делаем поле имени полностью необязательным для заполнения
+        const gNameInput = document.getElementById('guestNameInput');
+        if (gNameInput) gNameInput.removeAttribute('required');
+
+        // Сканируем форму и прячем чужие языковые поля, оставляя только родные
+        formInputs.forEach(input => {
+            const placeholderText = input.placeholder || '';
+            // Проверяем, относится ли поле к чужому языку
+            const isUkField = placeholderText.includes('(UKR)') || input.id && input.id.toLowerCase().includes('ukr');
+            const isEnField = placeholderText.includes('(EN)') || input.id && input.id.toLowerCase().includes('en') || placeholderText.includes('Recipe');
+            const isRuField = !isUkField && !isEnField && (placeholderText.includes('Рецепт') || placeholderText.includes('ингредиенты'));
+
+            let shouldShow = true;
+            if (currentModalLang === 'ukr' && (isEnField || isRuField)) shouldShow = false;
+            if (currentModalLang === 'en' && (isUkField || isRuField)) shouldShow = false;
+            if (currentModalLang === 'ru' && (isUkField || isEnField)) shouldShow = false;
+
+            // Если поле имени, оставляем его всегда видимым вверху формы
+            if (input.id === 'guestNameInput') shouldShow = true;
+
+            // Прячем или показываем саму рамочку ввода и её подпись
+            input.style.display = shouldShow ? 'block' : 'none';
+            if (!shouldShow) input.removeAttribute('required'); // Снимаем обязательность с невидимых полей!
+            
+            // Ищем текстовую подпись перед этой рамочкой и тоже управляем её видимостью
+            let prevLabel = input.previousElementSibling;
+            if (prevLabel && (prevLabel.tagName === 'LABEL' || prevLabel.tagName === 'P')) {
+                prevLabel.style.display = shouldShow ? 'block' : 'none';
+            }
+        });
+
+        // Принудительно зажигаем и разблокируем кнопку отправки, так как родные поля гость заполнит без труда
+        const shareSubmitBtn = document.getElementById('share-submit-btn') || document.querySelector('#shareRecipeModal button[type="submit"]');
+        if (shareSubmitBtn) {
+            shareSubmitBtn.removeAttribute('disabled');
+            shareSubmitBtn.style.opacity = '1';
+            shareSubmitBtn.style.background = 'linear-gradient(135deg, #FFB385, #FF8B47)';
+            shareSubmitBtn.style.pointerEvents = 'auto';
+        }
+
             let searchFieldEl = document.getElementById('search-field');
             if (searchFieldEl) searchFieldEl.placeholder = translations[lang].searchPlaceholder;
             if (document.getElementById('text-wish')) document.getElementById('text-wish').innerText = wishTranslations[lang];
