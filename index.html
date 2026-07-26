@@ -841,12 +841,13 @@
             recipeContainer.innerHTML = template.innerHTML;
             document.body.appendChild(recipeContainer.firstElementChild);
                     // 🎨 РУЧНОЙ ПЕРЕВОД ИНТЕРФЕЙСА БЛАНКА РЕЦЕПТА (Для гостя и Хозяйки)
-        const ingredientsHeader = document.querySelector("#interactiveRecipePage h3, #recipePageTemplate h3, .recipe-card h3");
+                const ingredientsHeader = document.querySelector("#interactiveRecipePage h3, #recipePageTemplate h3, .recipe-card h3");
         const stepsHeader = document.querySelectorAll("#interactiveRecipePage h3, .recipe-card h3")[1] || document.querySelector(".steps-section h3");
-        const portionsBtn = document.querySelector(".portions-btn, button[onclick*='Portions']");
-        const cleanHandsBtn = document.querySelector(".clean-hands-btn, button[onclick*='CleanHands']");
+        // Ищем кнопку порций по её точной текстовой подсказке на бланке
+        const portionsBtn = Array.from(document.querySelectorAll("button")).find(el => el.textContent.includes("Порции") || el.textContent.includes("Portions") || el.textContent.includes("Порції"));
+        // Находим плашку «Чистые руки» по её родному идентификатору или системному классу
+        const cleanHandsBtn = document.getElementById("clean-hands-toggle-btn") || document.querySelector(".clean-hands-btn") || Array.from(document.querySelectorAll("button")).find(el => el.textContent.includes("руки") || el.textContent.includes("Hands"));
         const timerLabel = document.querySelector(".timer-label, .timer-container span");
-
         if (activeLang === 'en') {
             if (ingredientsHeader) ingredientsHeader.innerText = "📋 Ingredients list (Check-list):";
             if (stepsHeader) stepsHeader.innerText = "📜 Step-by-step preparation:";
