@@ -713,14 +713,41 @@
             if (document.getElementById('guestTitleInput')) document.getElementById('guestTitleInput').placeholder = translations[lang].guestTitleInput;
             if (document.getElementById('guestRecipeTextInput')) document.getElementById('guestRecipeTextInput').placeholder = translations[lang].guestRecipeTextInput;
 
-                    // 🔓 ПОЛНАЯ РАЗБЛОКИРОВКА ФОРМЫ ГОСТЯ И ОТКЛЮЧЕНИЕ ПРОВЕРОК БРАУЗЕРА
+                    // 🔓 ПОЛНАЯ РАЗБЛОКИРОВКА И СКРЫТИЕ ЛИШНИХ ЭТАЖИ ЯЗЫКОВ В ОКНЕ ГОСТЯ
+        const currentModalLang = lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru');
         const guestFormEl = document.querySelector('#shareRecipeModal form') || document.getElementById('shareForm');
         if (guestFormEl) guestFormEl.setAttribute('novalidate', 'true');
 
+        // Находим все поля ввода в форме гостя по их ID
+        const ruTitle = document.getElementById('guestTitleInput') || document.querySelector('input[placeholder*="RU"]');
+        const ruText = document.getElementById('guestRecipeTextInput') || document.querySelector('textarea[placeholder*="RU"]');
+        const enTitle = document.querySelector('input[placeholder*="EN"]') || document.querySelector('input[placeholder*="Dish"]');
+        const enText = document.querySelector('textarea[placeholder*="EN"]') || document.querySelector('textarea[placeholder*="ingredients"]');
+        const ukTitle = document.querySelector('input[placeholder*="UKR"]') || document.querySelector('input[placeholder*="страви"]');
+        const ukText = document.querySelector('textarea[placeholder*="UKR"]') || document.querySelector('textarea[placeholder*="кроки"]');
+        
         // Снимаем обязательность заполнения (required) абсолютно со всех полей формы гостя
-        document.querySelectorAll('#shareRecipeModal input, #shareRecipeModal textarea').forEach(el => {
-            if (el) el.removeAttribute('required');
-        });
+        const gNameInput = document.getElementById('guestNameInput');
+        if (gNameInput) gNameInput.removeAttribute('required');
+        [ruTitle, ruText, enTitle, enText, ukTitle, ukText].forEach(el => { if(el) el.removeAttribute('required'); });
+
+        // Функция скрытия поля вместе с его текстовой подписью (label)
+        const toggleFieldVisibility = (el, show) => {
+            if (!el) return;
+            el.style.display = show ? 'block' : 'none';
+            let prev = el.previousElementSibling;
+            if (prev && (prev.tagName === 'LABEL' || prev.tagName === 'P')) {
+                prev.style.display = show ? 'block' : 'none';
+            }
+        };
+
+        // Прячем чужие этажи и оставляем только нужный язык на экране гостя!
+        toggleFieldVisibility(ruTitle, currentModalLang === 'ru');
+        toggleFieldVisibility(ruText, currentModalLang === 'ru');
+        toggleFieldVisibility(enTitle, currentModalLang === 'en');
+        toggleFieldVisibility(enText, currentModalLang === 'en');
+        toggleFieldVisibility(ukTitle, currentModalLang === 'ukr');
+        toggleFieldVisibility(ukText, currentModalLang === 'ukr');
 
         // Делаем кнопку отправки всегда яркой, активной и кликабельной со старта
         const shareSubmitBtn = document.getElementById('share-submit-btn') || document.querySelector('#shareRecipeModal button[type="submit"]');
@@ -731,13 +758,11 @@
             shareSubmitBtn.style.pointerEvents = 'auto';
         }
 
-        // 📋 РУЧНОЙ ПЕРЕВОД ОКНА КОПИРОВАНИЯ ССЫЛКИ РЕЦЕПТА (Из первого скриншота)
-        const currentModalLang = lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru');
+        // 📋 РУЧНОЙ ПЕРЕВОД ОКНА КОПИРОВАНИЯ ССЫЛКИ РЕЦЕПТА
         window.shareBtnAlertText = "(Ссылка скопирована в буфер обмена)";
         if (currentModalLang === 'en') window.shareBtnAlertText = "(Link copied to clipboard)";
         else if (currentModalLang === 'ukr') window.shareBtnAlertText = "(Посилання скопійовано в буфер обміну)";
-
-  
+      
             let searchFieldEl = document.getElementById('search-field');
             if (searchFieldEl) searchFieldEl.placeholder = translations[lang].searchPlaceholder;
             if (document.getElementById('text-wish')) document.getElementById('text-wish').innerText = wishTranslations[lang];
