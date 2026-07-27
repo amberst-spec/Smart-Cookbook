@@ -306,26 +306,34 @@
         </div>
     </div>
     <!-- 📝 МУЛЬТИЯЗЫЧНОЕ ГОСТЕВОЕ ОКНО-БЛАНК ЕЛЕНОЧКИ -->
-    <div id="guestSuggestModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 550; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('guestSuggestModal').style.display='none'">
-        <div style="background: #FFFFFF; padding: 26px; border-radius: 32px; max-width: 440px; width: 90%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; max-height: 85vh; overflow-y: auto;">
-            <span style="position: absolute; top: 14px; right: 20px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('guestSuggestModal').style.display='none'">×</span>
-            <h3 id="text-guestModalTitle" style="font-size: 20px; color: #A0522D; margin: 0 0 18px 0; font-weight: bold;">📝 Поделиться Любимым рецептом 🥰</h3>
-            <input type="text" id="guestNameInput" placeholder="Ваше имя" style="width: 92%; padding: 12px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFF6EE; text-align: center; font-size: 15px; font-weight: 500;">
-                        <!-- Поля для ввода на Русском языке (RU) -->
-            <input type="text" id="guestTitleInput_RU" placeholder="Название вашего блюда (RU)" style="width: 92%; padding: 12px; margin-bottom: 8px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C;">
-            <textarea id="guestRecipeTextInput_RU" placeholder="Впишите ингредиенты и шаги (RU)..." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
-
+    <div id="guestSuggestModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 550; display: flex; justify-content: center; align-items: center; box-sizing: border-box; padding: 10px;">
+    <div style="background: #FFFFFF; padding: 25px; border-radius: 32px; max-width: 440px; width: 100%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; max-height: 90vh; display: flex; flex-direction: column; box-sizing: border-box;">
+        
+        <!-- Крестик закрытия и заголовок окна (Всегда на виду вверху карточки) -->
+        <span style="position: absolute; top: 14px; right: 20px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold; z-index: 10;" onclick="document.getElementById('guestSuggestModal').style.display='none';">×</span>
+        <h3 id="text-guestModalTitle" style="font-size: 20px; color: #A0522D; margin: 0 0 15px 0; font-weight: bold; padding-right: 25px;">🧁 Поделиться Любимым рецептом</h3>
+        
+        <!-- 🌍 УМНАЯ АВТО-АДАПТИВНАЯ ЗОНА: Сама сжимается под любой монитор ПК или ноутбук! -->
+        <div style="overflow-y: auto; flex: 1; padding-right: 5px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 8px; min-height: 0;">
+            <input type="text" id="guestNameInput" placeholder="Ваше имя" style="width: 100%; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; box-sizing: border-box;">
+            
+            <!-- Поля для ввода на русском языке (RU) -->
+            <input type="text" id="guestTitleInput_RU" placeholder="Название вашего блюда (RU)" style="width: 100%; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; box-sizing: border-box;">
+            <textarea id="guestRecipeTextInput_RU" placeholder="Впишите ингредиенты и шаги (RU)..." style="width: 100%; height: 80px; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; resize: none; box-sizing: border-box;"></textarea>
+            
             <!-- Поля для ввода на Английском языке (EN) -->
-            <input type="text" id="guestTitleInput_EN" placeholder="Dish Title (EN)" style="width: 92%; padding: 12px; margin-bottom: 8px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C;">
-            <textarea id="guestRecipeTextInput_EN" placeholder="Write ingredients and steps (EN)..." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
-
+            <input type="text" id="guestTitleInput_EN" placeholder="Dish Title (EN)" style="width: 100%; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; box-sizing: border-box;">
+            <textarea id="guestRecipeTextInput_EN" placeholder="Write ingredients and steps (EN)..." style="width: 100%; height: 80px; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; resize: none; box-sizing: border-box;"></textarea>
+            
             <!-- Поля для ввода на Украинском языке (UKR) -->
-            <input type="text" id="guestTitleInput_UKR" placeholder="Назва вашої страви (UKR)" style="width: 92%; padding: 12px; margin-bottom: 8px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C;">
-            <textarea id="guestRecipeTextInput_UKR" placeholder="Впишіть інгредієнти та кроки (UKR)..." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 18px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
-
-            <button type="button" id="text-guestSendBtn" onclick="sendRecipeToHelen()" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 13px 35px; font-size: 17px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 92%; box-shadow: 0 5px 12px rgba(255,122,51,0.15);">Отправить 🌸</button>
+            <input type="text" id="guestTitleInput_UKR" placeholder="Назва вашої страви (UKR)" style="width: 100%; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; box-sizing: border-box;">
+            <textarea id="guestRecipeTextInput_UKR" placeholder="Впишіть інгредієнти та кроки (UKR)..." style="width: 100%; height: 80px; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; resize: none; box-sizing: border-box;"></textarea>
         </div>
+        
+        <!-- Кнопка отправить (Всегда жестко зафиксирована внизу экрана на любом разрешении!) -->
+        <button type="button" id="text-guestSendBtn" onclick="sendRecipeToHelen()" style="background: linear-gradient(135deg,#FFB385,#FF8B47); color: #FFF; border: none; padding: 13px 35px; font-size: 16px; font-weight: bold; border-radius: 20px; width: 100%; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); box-sizing: border-box; flex-shrink: 0;">Отправить ✉️</button>
     </div>
+</div>
 
                  <!-- 🌍 НЕВИДИМЫЙ АВТОМАТИЧЕСКИЙ ПЕРЕВОДЧИК СТРАНИЦЫ-ШАБЛОНА -->
         <div id="google_translate_element" style="display:none !important;"></div>
