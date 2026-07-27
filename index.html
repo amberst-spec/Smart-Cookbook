@@ -216,7 +216,7 @@
         <svg onclick="openAdminLogin()" viewBox="0 0 24 24" style="position: absolute; right: 4%; top: 280px; width: 34px; height: 34px; fill: #8B4513; cursor: pointer; z-index: 100; opacity: 0.9; filter: drop-shadow(0 3px 5px rgba(93,64,55,0.2)); user-select: none;">
             <path d="M19.5,6C17.2,3.7 13.9,2.7 10.7,3.3C7.5,3.9 4.8,6.1 3.5,9.1C2.2,12.1 2.3,15.5 3.9,18.4C5.5,21.3 8.3,23.1 11.6,23.3C11.9,23.3 12.2,23.3 12.5,23.3C15.6,23 18.5,21.2 20.2,18.4C22,15.6 22.1,12.1 20.8,9.1C20.5,8 20.1,7 19.5,6M12,21.3C9.3,21.1 6.9,19.6 5.6,17.2C4.3,14.8 4.2,12 5.3,9.5C6.4,7 8.6,5.2 11.2,4.7C12.3,4.5 13.5,4.6 14.6,5C12.5,6.5 10.8,8.7 9.8,11.2C8.7,13.8 8.5,16.7 9.4,19.5C10.2,20.5 11.1,21 12,21.3M15.4,18C14.7,15.2 14.9,12.2 16,9.5C17,6.9 18.7,4.8 20.8,3.3C21.7,5.1 21.8,7.3 21.2,9.3C20.1,12 20,14.8 21.2,17.3C20.2,18.8 18.7,19.9 17,20.4C16.4,19.8 15.8,18.9 15.4,18Z"/>
         </svg>
-         
+
         <!-- Крупный заголовок книги рецептов -->
         <h1 class="main-title" id="text-title">Интерактивная книга рецептов:</h1>
         <div style="font-size: 26px; color: #D2691E; font-weight: bold; margin-bottom: 25px;" id="text-subtitle">
@@ -306,35 +306,26 @@
         </div>
     </div>
     <!-- 📝 МУЛЬТИЯЗЫЧНОЕ ГОСТЕВОЕ ОКНО-БЛАНК ЕЛЕНОЧКИ -->
-   <div id="guestSuggestModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 550; justify-content: center; align-items: center; box-sizing: border-box; padding: 10px;">
+    <div id="guestSuggestModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 550; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('guestSuggestModal').style.display='none'">
+        <div style="background: #FFFFFF; padding: 26px; border-radius: 32px; max-width: 440px; width: 90%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center;" onclick="event.stopPropagation()">
+            <span style="position: absolute; top: 14px; right: 20px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('guestSuggestModal').style.display='none'">×</span>
+            <h3 id="text-guestModalTitle" style="font-size: 20px; color: #A0522D; margin: 0 0 18px 0; font-weight: bold;">📝 Поделиться Любимым рецептом 🥰</h3>
+            <input type="text" id="guestNameInput" placeholder="Ваше имя" style="width: 92%; padding: 12px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFF6EE; text-align: center; font-size: 15px; font-weight: 500;">
+                        <!-- Поля для ввода на Русском языке (RU) -->
+            <input type="text" id="guestTitleInput_RU" placeholder="Название вашего блюда (RU)" style="width: 92%; padding: 12px; margin-bottom: 8px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C;">
+            <textarea id="guestRecipeTextInput_RU" placeholder="Впишите ингредиенты и шаги (RU)..." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
 
-    <div style="background: #FFFFFF; padding: 25px; border-radius: 32px; max-width: 440px; width: 100%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; max-height: 90vh; display: flex; flex-direction: column; box-sizing: border-box;">
-        
-        <!-- Крестик закрытия и заголовок окна (Всегда на виду вверху карточки) -->
-        <span style="position: absolute; top: 14px; right: 20px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold; z-index: 10;" onclick="document.getElementById('guestSuggestModal').style.display='none';">×</span>
-        <h3 id="text-guestModalTitle" style="font-size: 20px; color: #A0522D; margin: 0 0 15px 0; font-weight: bold; padding-right: 25px;">🧁 Поделиться Любимым рецептом</h3>
-        
-        <!-- 🌍 УМНАЯ АВТО-АДАПТИВНАЯ ЗОНА: Сама сжимается под любой монитор ПК или ноутбук! -->
-        <div style="overflow-y: auto; flex: 1; padding-right: 5px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 8px; min-height: 0;">
-            <input type="text" id="guestNameInput" placeholder="Ваше имя" style="width: 100%; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; box-sizing: border-box;">
-            
-            <!-- Поля для ввода на русском языке (RU) -->
-            <input type="text" id="guestTitleInput_RU" placeholder="Название вашего блюда (RU)" style="width: 100%; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; box-sizing: border-box;">
-            <textarea id="guestRecipeTextInput_RU" placeholder="Впишите ингредиенты и шаги (RU)..." style="width: 100%; height: 80px; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; resize: none; box-sizing: border-box;"></textarea>
-            
             <!-- Поля для ввода на Английском языке (EN) -->
-            <input type="text" id="guestTitleInput_EN" placeholder="Dish Title (EN)" style="width: 100%; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; box-sizing: border-box;">
-            <textarea id="guestRecipeTextInput_EN" placeholder="Write ingredients and steps (EN)..." style="width: 100%; height: 80px; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; resize: none; box-sizing: border-box;"></textarea>
-            
+            <input type="text" id="guestTitleInput_EN" placeholder="Dish Title (EN)" style="width: 92%; padding: 12px; margin-bottom: 8px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C;">
+            <textarea id="guestRecipeTextInput_EN" placeholder="Write ingredients and steps (EN)..." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
+
             <!-- Поля для ввода на Украинском языке (UKR) -->
-            <input type="text" id="guestTitleInput_UKR" placeholder="Назва вашої страви (UKR)" style="width: 100%; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; box-sizing: border-box;">
-            <textarea id="guestRecipeTextInput_UKR" placeholder="Впишіть інгредієнти та кроки (UKR)..." style="width: 100%; height: 80px; padding: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; resize: none; box-sizing: border-box;"></textarea>
+            <input type="text" id="guestTitleInput_UKR" placeholder="Назва вашої страви (UKR)" style="width: 92%; padding: 12px; margin-bottom: 8px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C;">
+            <textarea id="guestRecipeTextInput_UKR" placeholder="Впишіть інгредієнти та кроки (UKR)..." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 18px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
+
+            <button type="button" id="text-guestSendBtn" onclick="sendRecipeToHelen()" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 13px 35px; font-size: 17px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 92%; box-shadow: 0 5px 12px rgba(255,122,51,0.15);">Отправить 🌸</button>
         </div>
-        
-        <!-- Кнопка отправить (Всегда жестко зафиксирована внизу экрана на любом разрешении!) -->
-        <button type="button" id="text-guestSendBtn" onclick="sendRecipeToHelen()" style="background: linear-gradient(135deg,#FFB385,#FF8B47); color: #FFF; border: none; padding: 13px 35px; font-size: 16px; font-weight: bold; border-radius: 20px; width: 100%; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); box-sizing: border-box; flex-shrink: 0;">Отправить ✉️</button>
     </div>
-</div>
 
                  <!-- 🌍 НЕВИДИМЫЙ АВТОМАТИЧЕСКИЙ ПЕРЕВОДЧИК СТРАНИЦЫ-ШАБЛОНА -->
         <div id="google_translate_element" style="display:none !important;"></div>
@@ -355,12 +346,12 @@
             if (window.currentAdminLang === newLang) return;
             const titleInput = document.getElementById("recipe-display-title");
             const oldLang = window.currentAdminLang;
-            
+
             // 1. ПЕРЕД ПЕРЕКЛЮЧЕНИЕМ: Сохраняем текстовые переводы в текущем языке
             if (titleInput) {
                 window.recipeTranslationsCache[oldLang].title = titleInput.innerText.trim();
             }
-            
+
             // Сохраняем ТОЛЬКО тексты названий динамических ингредиентов (веса не очищаем!)
             window.recipeTranslationsCache[oldLang].ingredients = [];
             document.querySelectorAll('.ingredient-row').forEach(row => {
@@ -409,7 +400,7 @@
             ingRows.forEach((row, index) => {
                 const nameEl = row.querySelector('.ing-name-cell');
                 const savedIng = cache.ingredients[index];
-                
+
                 if (nameEl) {
                     if (savedIng) {
                         if (nameEl.tagName === 'INPUT') nameEl.value = savedIng.name; else nameEl.innerText = savedIng.name;
@@ -424,7 +415,7 @@
             stepRows.forEach((row, index) => {
                 const stepEl = row.querySelector('.step-text-cell');
                 const savedStepText = cache.steps[index];
-                
+
                 if (stepEl) {
                     if (typeof savedStepText !== 'undefined') {
                         if(stepEl.tagName === 'TEXTAREA' || stepEl.tagName === 'INPUT') stepEl.value = savedStepText; else stepEl.innerText = savedStepText;
@@ -722,6 +713,7 @@
             if (document.getElementById('guestTitleInput')) document.getElementById('guestTitleInput').placeholder = translations[lang].guestTitleInput;
             if (document.getElementById('guestRecipeTextInput')) document.getElementById('guestRecipeTextInput').placeholder = translations[lang].guestRecipeTextInput;
 
+                    // 🔓 ПОЛНАЯ РАЗБЛОКИРОВКА ФОРМЫ ГОСТЯ И ОТКЛЮЧЕНИЕ ПРОВЕРОК БРАУЗЕРА
                     // 🔓 ПОЛНАЯ РАЗБЛОКИРОВКА И СКРЫТИЕ ЛИШНИХ ЭТАЖИ ЯЗЫКОВ В ОКНЕ ГОСТЯ
         const currentModalLang = lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru');
         const guestFormEl = document.querySelector('#shareRecipeModal form') || document.getElementById('shareForm');
@@ -736,6 +728,9 @@
         const ukText = document.querySelector('textarea[placeholder*="UKR"]') || document.querySelector('textarea[placeholder*="кроки"]');
         
         // Снимаем обязательность заполнения (required) абсолютно со всех полей формы гостя
+        document.querySelectorAll('#shareRecipeModal input, #shareRecipeModal textarea').forEach(el => {
+            if (el) el.removeAttribute('required');
+        });
         const gNameInput = document.getElementById('guestNameInput');
         if (gNameInput) gNameInput.removeAttribute('required');
         [ruTitle, ruText, enTitle, enText, ukTitle, ukText].forEach(el => { if(el) el.removeAttribute('required'); });
@@ -767,10 +762,14 @@
             shareSubmitBtn.style.pointerEvents = 'auto';
         }
 
+        // 📋 РУЧНОЙ ПЕРЕВОД ОКНА КОПИРОВАНИЯ ССЫЛКИ РЕЦЕПТА (Из первого скриншота)
+        const currentModalLang = lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru');
         // 📋 РУЧНОЙ ПЕРЕВОД ОКНА КОПИРОВАНИЯ ССЫЛКИ РЕЦЕПТА
         window.shareBtnAlertText = "(Ссылка скопирована в буфер обмена)";
         if (currentModalLang === 'en') window.shareBtnAlertText = "(Link copied to clipboard)";
         else if (currentModalLang === 'ukr') window.shareBtnAlertText = "(Посилання скопійовано в буфер обміну)";
+
+  
       
             let searchFieldEl = document.getElementById('search-field');
             if (searchFieldEl) searchFieldEl.placeholder = translations[lang].searchPlaceholder;
@@ -829,7 +828,7 @@
         const btn = document.createElement("button");
         btn.className = "category-card";
         btn.style.cssText = "background: linear-gradient(135deg, #FFB385, #FF8B47); padding: 14px 30px; font-size: 18px; margin: 5px 0; width: 100%; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); color: #FFFFFF; font-weight: bold; border: none; cursor: pointer;";
-        
+
         // ЖЕЛЕЗНАЯ ЛОГИКА: выводим на кнопку строго тот язык, который нажал гость
         let displayTitle = recipe.title; // По умолчанию базовое имя
         if (activeLang === 'ru' && recipe.translations && recipe.translations.ru && recipe.translations.ru.title) {
@@ -863,7 +862,7 @@
             if (btnText.includes('EN')) activeLang = 'en';
             else if (btnText.includes('UKR') || btnText.includes('UA')) activeLang = 'uk';
         }
-        
+
         // Делаем глубокую копию оригинальных русских данных, чтобы не перетереть их при переключениях
         if (!recipe._originalRu) {
             recipe._originalRu = {
@@ -876,7 +875,7 @@
                 // Если в рецепте сохранен перевод на выбранный активный язык, подставляем его кармашек
         if (recipe.translations && recipe.translations[activeLang] && recipe.translations[activeLang].title) {
             recipe.title = recipe.translations[activeLang].title;
-            
+
             if (recipe.translations[activeLang].ingredients && recipe.translations[activeLang].ingredients.length) {
                 recipe.ingredientsArray = recipe.ingredientsArray.map((ing, idx) => {
                     const transIng = recipe.translations[activeLang].ingredients[idx];
@@ -894,7 +893,7 @@
                 recipe.stepsArray = JSON.parse(JSON.stringify(recipe._originalRu.stepsArray));
             }
         }
-    
+
             const template = document.getElementById("recipePageTemplate");
             const recipeContainer = document.createElement("div");
             recipeContainer.innerHTML = template.innerHTML;
@@ -1496,63 +1495,21 @@
                 else alert("Ссылка на рецепт скопирована! Поделитесь с друзьями. ➡️");
             }
         }
-        function shareRecipeBook() {
-    const modal = document.getElementById('guestSuggestModal');
-    if (modal) modal.style.display = 'flex';
-}
 
-function sendRecipeToHelen() {
-    const nameInput = document.getElementById('guestNameInput') || document.querySelector('#guestSuggestModal input[type="text"]');
-    let name = (nameInput && nameInput.value) ? nameInput.value.trim() : "Гость";
-    
-    let title = "";
-    let text = "";
-    
-    // Собираем данные строго из нашего окна guestSuggestModal
-    const allInputs = Array.from(document.querySelectorAll('#guestSuggestModal input'));
-    const allTextareas = Array.from(document.querySelectorAll('#guestSuggestModal textarea'));
-    
-    allInputs.forEach(input => {
-        if (input && input.id !== 'guestNameInput' && input.value.trim() && input.style.display !== 'none' && input.type !== 'hidden') {
-            title = input.value.trim();
+        function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
+        function sendRecipeToHelen() {
+            let name = document.getElementById('guestNameInput').value.trim();
+            let title = document.getElementById('guestTitleInput').value.trim();
+            let text = document.getElementById('guestRecipeTextInput').value.trim();
+            if (!name || !title || !text) { alert("Пожалуйста, заполните все поля! 🌸"); return; }
+            window.location.href = "mailto:helen.amberst@://gmail.com" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + text);
+            document.getElementById('guestSuggestModal').style.display = 'none';
         }
-    });
-    
-    allTextareas.forEach(textarea => {
-        if (textarea && textarea.value.trim() && textarea.style.display !== 'none') {
-            text = textarea.value.trim();
-        }
-    });
-    
-    // Проверяем, заполнил ли гость форму
-    if (!title || !text) {
-        let alertMsg = "Пожалуйста, введите название и text рецепта! 💮";
-        const mainLangBtn = document.getElementById('lang-btn');
-        if (mainLangBtn) {
-            const btnText = mainLangBtn.innerText.trim().toUpperCase();
-            if (btnText.includes('EN')) alertMsg = "Please fill in the dish name and recipe text! 💮";
-            else if (btnText.includes('UKR') || btnText.includes('UA')) alertMsg = "Будь ласка, введіть назву та текст рецепту! 💮";
-        }
-        alert(alertMsg);
-        return;
-    }
-    
-    // Отправляем готовое письмо на почту helen.amberst
-    window.location.href = "mailto:helen.amberst@gmail.com" + "?subject=" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + title + "\n\n" + text);
-    
-    const modal = document.getElementById('guestSuggestModal');
-    if (modal) modal.style.display = 'none';
-}
- 
-    // Закрываем белое окошко после успешного клика
-    const modal = document.getElementById('guestSuggestModal') || document.getElementById('shareRecipeModal');
-    if (modal) modal.style.display = 'none';
-}
 
         function openAdminLogin() {
     // Открываем наше привычное белое окошко
     document.getElementById('adminAuthModal').style.display = 'flex';
-    
+
     // Если Хозяйка уже авторизовалась, сайт сам заполнит рамочки,
     // чтобы круглые кнопки альбомов внизу мгновенно стали активными!
     if (window.isAdminModeActive || (typeof isAdminModeActive !== 'undefined' && isAdminModeActive)) {
@@ -1703,4 +1660,3 @@ function sendRecipeToHelen() {
     </script>
 </body>
 </html>
-
