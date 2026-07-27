@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
+<голова>
     <meta charset="UTF-8">
-    <title>Helen Smart Cookbook</title>
+    <title>Кулинарная книга Хелен Смарт</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-    <style>
-        /* Подключаем уютный рукописный шрифт */
+
+    <стиль>
+        /* Подключаем удобный рукописный шрифт */
         @font-face {
-            font-family: 'Caveat';
+            font-family: 'Предостережение';
             src: local('Caveat'), local('Caveat Regular'), local('Caveat-Regular'), local('Caveat-Bold');
         }
 
-        /* Кремовый фон и базовый масштаб книги */
-        body {
-            background-color: #FFF6EE; 
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
+        /* Кремовый фон и базовые масштабы книг */
+        тело {
+            background-color: #FFF6EE;
+            семейство шрифтов: «Segoe UI», Roboto, без засечек;
+            отступ: 0;
             padding: 25px;
-            color: #332211; 
+            цвет: #332211;
             font-size: 18px;
         }
 
-        /* Белая воздушная шапка сайта во всю ширину */
+        /* Белая воздушная шапка сайта во всех источниках */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             max-width: 1200px;
             margin: 0 auto 30px auto;
-            background: #FFFFFF; 
+            фон: #FFFFFF;
             padding: 18px 35px;
             border-radius: 40px;
-            box-shadow: 0 6px 20px rgba(160, 82, 45, 0.05); 
+            box-shadow: 0 6px 20px rgba(160, 82, 45, 0.05);
         }
 
         /* Переключатель языков */
         .lang-switcher {
             font-size: 18px;
             font-weight: bold;
-            background: #FFF;
+            фон: #FFF;
             padding: 10px 24px;
             border-radius: 30px;
             border: 2px solid #EAD5C3;
-            cursor: pointer;
-            color: #A0522D;
-            transition: all 0.2s;
+            курсор: указатель;
+            цвет: #A0522D;
+            переход: все 0,2 с;
         }
 
-        /* Главный журнальный контейнер */
+        /*Главный журнальный контейнер */
         .main-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -61,16 +62,16 @@
         .main-title {
             font-size: 42px;
             font-weight: bold;
-            color: #A0522D; 
+            цвет: #A0522D;
             margin-top: 30px;
             margin-bottom: 8px;
         }
 
         /* Крупная журнальная обложка */
         .cover-image {
-            width: 100%;
+            ширина: 100%;
             max-width: 960px;
-            height: auto;
+            высота: авто;
             max-height: 440px;
             object-fit: cover;
             margin: 25px auto 35px auto;
@@ -83,8 +84,8 @@
             font-size: 22px;
             max-width: 850px;
             margin: 0 auto 45px auto;
-            line-height: 1.6;
-            color: #554433;
+            межстрочный интервал: 1.6;
+            цвет: #554433;
             padding: 0 25px;
         }
 
@@ -93,7 +94,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
+            зазор: 30 пикселей;
             margin-bottom: 50px;
             padding: 0 20px;
         }
@@ -106,10 +107,10 @@
             box-shadow: 0 10px 25px rgba(255, 122, 51, 0.35), inset 0 -6px 0 rgba(0,0,0,0.18);
             font-size: 24px;
             font-weight: bold;
-            color: #FFFFFF;
-            cursor: pointer;
-            transition: all 0.1s ease;
-            border: none;
+            цвет: #FFFFFF;
+            курсор: указатель;
+            переход: все 0,1 с плавностью;
+            граница: отсутствует;
         }
         .category-card:hover {
             background: linear-gradient(135deg, #FFAE7A, #FF8B47);
@@ -122,61 +123,61 @@
         }
 
         .footer-copyright {
-            margin-top: 70px; 
-            padding: 30px; 
-            font-size: 18px; 
-            color: #A0522D; 
+            margin-top: 70px;
+            padding: 30px;
+            font-size: 18px;
+            цвет: #A0522D;
             border-top: 2px solid #EAD5C3;
         }
 
         /* Крупный декор для полей ПК и ноутбуков */
         .decor-left, .decor-right {
             display: none;
-            position: fixed;
-            top: 50%;
+            положение: фиксированное;
+            верхний предел: 50%;
             transform: translateY(-50%);
-            z-index: -1; 
-            opacity: 0.9; 
+            z-индекс: -1;
+            Прозрачность: 0,9;
             pointer-events: none;
-            animation: fadeInDecor 0.8s ease-in-out forwards;
+            анимация: fadeInDecor 0.8s плавное появление-исчезание вперед;
         }
 
         @keyframes fadeInDecor {
-            from { opacity: 0; }
+            из { opacity: 0; }
             to { opacity: 0.9; }
         }
 
         @media (min-width: 992px) {
             .decor-left {
                 display: block;
-                left: 60px; 
-                width: 480px; 
+                слева: 60 ​​пикселей;
+                ширина: 480 пикселей;
                 filter: drop-shadow(-12px 12px 20px rgba(139, 69, 19, 0.15));
             }
             .decor-right {
                 display: block;
-                right: 120px; 
-                width: 380px; 
+                справа: 120 пикселей;
+                ширина: 380 пикселей;
                 filter: drop-shadow(12px 12px 20px rgba(139, 69, 19, 0.12));
             }
             /* Крупный воздушный фоновый узор из чашек */
             body::before {
-                content: "";
-                position: fixed;
-                top: 0; left: 0; width: 100%; height: 100%;
-                z-index: -2;
+                содержание: "";
+                положение: фиксированное;
+                верх: 0; левый: 0; ширина: 100%; высота: 100%;
+                z-индекс: -2;
                 background-image: url("pattern.png");
                 background-position: center center;
                 background-repeat: no-repeat;
                 background-size: cover;
-                opacity: 0.25;
+                Прозрачность: 0,25;
                 pointer-events: none;
             }
         }
     </style>
 </head>
-<body>
-    <!-- Уютные кофейные сердечки, зафиксированные строго на своих местах -->
+<тело>
+    <!-- Уютные кофейные сердечки, строго закрепленные на наших углах -->
     <div style="position: fixed; right: 0; top: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10; color: #8B4513;">
         <span style="position: fixed; right: 440px; top: 40%; font-size: 35px; opacity: 0.65;">🤎</span>
         <span style="position: fixed; right: 460px; top: 60%; font-size: 28px; opacity: 0.55;">🤎</span>
@@ -196,9 +197,9 @@
         </div>
 
         <!-- Кнопка "Поделиться" для вызова гостевого бланка предложений -->
-        <button id="text-share-btn" onclick="shareRecipeBook()" 
-                style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; color: #A0522D; padding: 10px 22px; font-size: 16px; font-weight: bold; border-radius: 22px; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.06); display: flex; align-items: center; gap: 8px; font-family: sans-serif; margin: 0 20px; transition: all 0.2s ease;" 
-                onmouseover="this.style.background='#FFF6EE'; this.style.transform='scale(1.02)'" 
+        <button id="text-share-btn" onclick="shareRecipeBook()"
+                style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; color: #A0522D; padding: 10px 22px; font-size: 16px; font-weight: bold; border-radius: 22px; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.06); display: flex; align-items: center; gap: 8px; font-family: sans-serif; margin: 0 20px; transition: all 0.2s ease;"
+                onmouseover="this.style.background='#FFF6EE'; this.style.transform='scale(1.02)'"
                 onmouseout="this.style.background='#FFF'; this.style.transform='scale(1)'">
             👩‍🍳 Поделиться рецептом 🔍
         </button>
@@ -208,14 +209,14 @@
     </div>
 
     <div class="main-container">
-        <!-- Картинки декора на левом и правом полях ПК -->
+        <!-- Картинки декора на левых и правых полях ПК -->
         <img src="left.png" class="decor-left" alt="Декор слева">
         <img src="right.png" class="decor-right" alt="Декор справа">
         <!-- ☕ СЕКРЕТНОЕ ШОКОЛАДНОЕ ЗЕРНЫШКО ОКОЛО КЕКСИКА ДЛЯ УПРАВЛЕНИЯ КНИГОЙ -->
         <svg onclick="openAdminLogin()" viewBox="0 0 24 24" style="position: absolute; right: 4%; top: 280px; width: 34px; height: 34px; fill: #8B4513; cursor: pointer; z-index: 100; opacity: 0.9; filter: drop-shadow(0 3px 5px rgba(93,64,55,0.2)); user-select: none;">
             <path d="M19.5,6C17.2,3.7 13.9,2.7 10.7,3.3C7.5,3.9 4.8,6.1 3.5,9.1C2.2,12.1 2.3,15.5 3.9,18.4C5.5,21.3 8.3,23.1 11.6,23.3C11.9,23.3 12.2,23.3 12.5,23.3C15.6,23 18.5,21.2 20.2,18.4C22,15.6 22.1,12.1 20.8,9.1C20.5,8 20.1,7 19.5,6M12,21.3C9.3,21.1 6.9,19.6 5.6,17.2C4.3,14.8 4.2,12 5.3,9.5C6.4,7 8.6,5.2 11.2,4.7C12.3,4.5 13.5,4.6 14.6,5C12.5,6.5 10.8,8.7 9.8,11.2C8.7,13.8 8.5,16.7 9.4,19.5C10.2,20.5 11.1,21 12,21.3M15.4,18C14.7,15.2 14.9,12.2 16,9.5C17,6.9 18.7,4.8 20.8,3.3C21.7,5.1 21.8,7.3 21.2,9.3C20.1,12 20,14.8 21.2,17.3C20.2,18.8 18.7,19.9 17,20.4C16.4,19.8 15.8,18.9 15.4,18Z"/>
         </svg>
-
+         
         <!-- Крупный заголовок книги рецептов -->
         <h1 class="main-title" id="text-title">Интерактивная книга рецептов:</h1>
         <div style="font-size: 26px; color: #D2691E; font-weight: bold; margin-bottom: 25px;" id="text-subtitle">
@@ -229,7 +230,7 @@
         <p class="book-description" id="text-desc">
             <strong>🧼 Режим «Чистые руки». Встроенный таймер.</strong><br>
 
-            «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта».
+            «Интуитивный кулинарный формат. Несколько порций запускайте таймеры и отмечайте шаги прямо на странице рецепта».
         </p>
         <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
         <div style="width: 360px; height: 110px; overflow: hidden; position: relative; margin: -475px 95px 365px auto; z-index: 15; opacity: 0.6; pointer-events: none;">
@@ -248,13 +249,13 @@
             ✨ Желаем вам вдохновения на кухне и приятного аппетита!
         </p>
 
-        <!-- Крупные клавиши кулинарных разделов и круглая кнопка-пуговка мер веса -->
+        <!-- Крупная клавиша кулинарных разделов и круглая кнопка-измерение веса -->
         <div class="categories-grid" id="main-categories-buttons">
             <button class="category-card" id="cat-1" onclick="openRecipeCategory(1)">🍰 Выпечка</button>
             <button class="category-card" id="cat-2" onclick="openRecipeCategory(2)">🥣 Основные блюда</button>
             <button class="category-card" id="cat-3" onclick="openRecipeCategory(3)">🥗 Салаты</button>
 
-            <!-- Круглая укрупненная кнопочка ложечки мер веса -->
+            <!-- Круглая укрупненная кнопочка ложечки мера веса -->
             <button type="button" id="btn-measures" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; width: 64px; height: 64px; border-radius: 50%; font-size: 24px; color: #A0522D; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.1); display: flex; align-items: center; justify-content: center; padding: 0; outline: none;">
                 <span>🥄</span>
             </button>
@@ -266,11 +267,11 @@
         </div>
     </div>
 
-    <!-- Скрытый кофейный вход Еленочки (Админка) строго на своем месте -->
+    <!-- Покрытый растительным входом Еленочки (Админка) строго на своем месте -->
     <div style="position: fixed; right: 235px; top: 38%; z-index: 20; pointer-events: auto;">
         <span id="secret-admin-heart" style="font-size: 33px; opacity: 0.85; cursor: pointer; color: #8B4513;" onclick="openAdminLogin()">🤎</span>
     </div>
-    <!-- 📂 КРАСИВОЕ ВСПЛЫВАЮЩЕЕ ОКНО-ПАПКА ДЛЯ ВЫВОДА СПИСКА НАЗВАНИЙ РЕЦЕПТОВ -->
+    <!-- 📂 КРАСИВОЕ ВСПЛИВАЮЩЕЕ ОКНО-ПАПКА ДЛЯ ВЫВОДА СПИСКА НАЗВАННЫХ РЕЦЕПТОВ -->
     <div id="categoryRecipesModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 450; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('categoryRecipesModal').style.display='none'">
         <div style="background: #FFFDF9; padding: 30px; border-radius: 32px; max-width: 520px; width: 94%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center;" onclick="event.stopPropagation()">
             <span style="position: absolute; top: 14px; right: 22px; font-size: 26px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('categoryRecipesModal').style.display='none'">×</span>
@@ -283,16 +284,16 @@
     <div id="adminAuthModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 500; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('adminAuthModal').style.display='none'">
         <div style="background: #FFFFFF; padding: 30px; border-radius: 32px; max-width: 360px; width: 88%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center;" onclick="event.stopPropagation()">
             <span style="position: absolute; top: 15px; right: 22px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('adminAuthModal').style.display='none'">×</span>
-            <h3 style="font-size: 22px; color: #A0522D; margin: 0 0 20px 0; font-weight: bold;">🫘 Вход в кулинарную админку</h3>
+            <h3 style="font-size: 22px; color: #A0522D; Margin: 0 0 20px 0; Font-weight: Bold;">🫘 Вход в кулинарную админку</h3>
             <input type="text" id="adminLogin" placeholder="Логин" style="width: 92%; padding: 12px; margin-bottom: 15px; border: 2px solid #EAD5C3; border-radius: 18px; outline: none; font-size: 16px; background: #FFF6EE; text-align: center; font-weight: 500;">
             <input type="password" id="adminPassword" placeholder="Пароль" style="width: 92%; padding: 12px; margin-bottom: 22px; border: 2px solid #EAD5C3; border-radius: 18px; outline: none; font-size: 16px; background: #FFF6EE; text-align: center; font-weight: 500;">
 
             <!-- Исправленная кнопка вызова, предотвращающая перезагрузку страницы -->
             <button type="button" onclick="checkAdminCredentials(event)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 14px 30px; font-size: 18px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 92%; box-shadow: 0 5px 12px rgba(255,122,51,0.15);">Войти</button>
 
-            <!-- Личный кабинет Елены с круглыми кнопками-папками -->
+            <!-- Личный кабинет Елены с буквенными кнопками-папками -->
             <div id="helenAdminPanel" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px dashed #EAD5C3; text-align: center;">
-                <h4 style="font-size: 16px; color: #A0522D; margin: 0 0 15px 0; font-weight: bold;">Создать шаблон в категории:</h4>
+                <h4 style="font-size: 16px; color: #A0522D; Margin: 0 0 15px 0; Font-weight: Bold;">Создать шаблон в категории:</h4>
                 <div style="display: flex; justify-content: center; gap: 20px;">
                     <button type="button" onclick="openAdminForm(1)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🍰</button>
                     <button type="button" onclick="openAdminForm(2)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🥣</button>
@@ -308,19 +309,19 @@
     <div id="guestSuggestModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 550; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('guestSuggestModal').style.display='none'">
         <div style="background: #FFFFFF; padding: 26px; border-radius: 32px; max-width: 440px; width: 90%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center;" onclick="event.stopPropagation()">
             <span style="position: absolute; top: 14px; right: 20px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('guestSuggestModal').style.display='none'">×</span>
-            <h3 id="text-guestModalTitle" style="font-size: 20px; color: #A0522D; margin: 0 0 18px 0; font-weight: bold;">📝 Поделиться Любимым рецептом 🥰</h3>
+            <h3 id="text-guestModalTitle" style="font-size: 20px; color: #A0522D; Margin: 0 0 18px 0; Font-weight: Bold;">📝 Поделиться Любимым рецептом 🥰</h3>
             <input type="text" id="guestNameInput" placeholder="Ваше имя" style="width: 92%; padding: 12px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFF6EE; text-align: center; font-size: 15px; font-weight: 500;">
-                        <!-- Поля для ввода на Русском языке (RU) -->
+                        <!-- Поля для ввода на русском языке (RU) -->
             <input type="text" id="guestTitleInput_RU" placeholder="Название вашего блюда (RU)" style="width: 92%; padding: 12px; margin-bottom: 8px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C;">
-            <textarea id="guestRecipeTextInput_RU" placeholder="Впишите ингредиенты и шаги (RU)..." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
+            <textarea id="guestRecipeTextInput_RU" placeholder="Впишите рецепты и шаги (RU)...." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
 
-            <!-- Поля для ввода на Английском языке (EN) -->
-            <input type="text" id="guestTitleInput_EN" placeholder="Dish Title (EN)" style="width: 92%; padding: 12px; margin-bottom: 8px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C;">
-            <textarea id="guestRecipeTextInput_EN" placeholder="Write ingredients and steps (EN)..." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
+            <!-- Поле для ввода на английском языке (EN) -->
+            <input type="text" id="guestTitleInput_EN" placeholder="Название блюда (EN)" style="width: 92%; padding: 12px; margin-bottom: 8px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C;">
+            <textarea id="guestRecipeTextInput_EN" placeholder="Напишите ингредиенты и шаги (EN)...." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 12px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
 
             <!-- Поля для ввода на Украинском языке (UKR) -->
-            <input type="text" id="guestTitleInput_UKR" placeholder="Назва вашої страви (UKR)" style="width: 92%; padding: 12px; margin-bottom: 8px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C;">
-            <textarea id="guestRecipeTextInput_UKR" placeholder="Впишіть інгредієнти та кроки (UKR)..." style="width: 92%; height: 80px; padding: 14px; margin-bottom: 18px; border: 2px solid #EAD5C3; border-radius: 15px; outline: none; background: #FFFFFF; font-size: 16px; color: #5C2D0C; resize: none; font-family: inherit;"></textarea>
+            <input type="text" id="guestTitleInput_UKR" Placeholder="Название вашей страви (UKR)" style="width: 92%; отступ: 12 пикселей; маржа-дно: 8 пикселей; граница: 2 пикселя сплошная #EAD5C3; граница-радиус: 15 пикселей; контур: нет; фон: #FFFFFF; размер шрифта: 16 пикселей; цвет: #5C2D0C;">
+            <textarea id="guestRecipeTextInput_UKR" Placeholder="Вписать ингредиенты та кроки (UKR)..." style="ширина: 92%; высота: 80 пикселей; отступ: 14 пикселей; поле снизу: 18 пикселей; граница: 2 пикселя сплошной #EAD5C3; граница-радиус: 15 пикселей; контур: нет; фон: #FFFFFF; размер шрифта: 16 пикселей; цвет: #5C2D0C; изменение размера: нет; семейство шрифтов: наследовать;"></textarea>
 
             <button type="button" id="text-guestSendBtn" onclick="sendRecipeToHelen()" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 13px 35px; font-size: 17px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 92%; box-shadow: 0 5px 12px rgba(255,122,51,0.15);">Отправить 🌸</button>
         </div>
@@ -330,14 +331,14 @@
         <div id="google_translate_element" style="display:none !important;"></div>
 
 
-              <!-- 🌍 СИСТЕМА УПРАВЛЕНИЯ ТРЕМЯ ЯЗЫКАМИ В РЕЖИМЕ ХОЗЯЙКИ (RU / EN / UKR) -->
+              <!-- 🌍 СИСТЕМА УПРАВЛЕНИЯ ТРЕМЯ ЯЗЫКАМИ В РЕЖИМЕ ХОЗЯЙКИ (RU/EN/UKR) -->
         <script>
         if (!window.recipeTranslationsCache) {
-            window.currentAdminLang = 'ru'; 
+            window.currentAdminLang = 'ru';
             window.recipeTranslationsCache = {
                 ru: { title: '', ingredients: [], steps: [] },
                 en: { title: '', ingredients: [], steps: [] },
-                uk: { title: '', ingredients: [], steps: [] }
+                Великобритания: { title: '', ingredients: [], steps: [] }
             };
         }
 
@@ -345,24 +346,24 @@
             if (window.currentAdminLang === newLang) return;
             const titleInput = document.getElementById("recipe-display-title");
             const oldLang = window.currentAdminLang;
-
-            // 1. ПЕРЕД ПЕРЕКЛЮЧЕНИЕМ: Сохраняем текстовые переводы в текущем языке
+            
+            // 1. ПЕРЕД ПЕРЕКЛЮЧЕНИЕМ: Сохраняем текстовые переводы в современном языке
             if (titleInput) {
                 window.recipeTranslationsCache[oldLang].title = titleInput.innerText.trim();
             }
-
-            // Сохраняем ТОЛЬКО тексты названий динамических ингредиентов (веса не очищаем!)
+            
+            // Сохраняем ТОЛЬКО тексты названий движущих ингредиентов (веса не очищаем!)
             window.recipeTranslationsCache[oldLang].ingredients = [];
             document.querySelectorAll('.ingredient-row').forEach(row => {
                 const nameEl = row.querySelector('.ing-name-cell');
                 if (nameEl) {
                     window.recipeTranslationsCache[oldLang].ingredients.push({
-                        name: nameEl.value || nameEl.innerText || ''
+                        имя: nameEl.value || nameEl.innerText || ''
                     });
                 }
             });
 
-            // Сохраняем динамические шаги приготовления
+            // Сохраняем медленные шаги подготовки
             window.recipeTranslationsCache[oldLang].steps = [];
             document.querySelectorAll('.step-row').forEach(row => {
                 const stepEl = row.querySelector('.step-text-cell');
@@ -375,12 +376,12 @@
             window.currentAdminLang = newLang;
             ['ru', 'en', 'uk'].forEach(lang => {
                 const tab = document.getElementById(`tab-lang-${lang}`);
-                if (tab) {
+                если (таб) {
                     if (lang === newLang) {
                         tab.style.background = "#A0522D";
                         tab.style.color = "#FFFFFF";
                         tab.style.borderColor = "#A0522D";
-                    } else {
+                    } еще {
                         tab.style.background = "#FFFFFF";
                         tab.style.color = "#5C2D0C";
                         tab.style.borderColor = "#EAD5C3";
@@ -388,23 +389,23 @@
                 }
             });
 
-            // 3. ПОСЛЕ ПЕРЕКЛЮЧЕНИЯ: Выводим из памяти переведенные тексты, оставляя цифры нетронутыми
+            // 3. ПОСЛЕ ПЕРЕКЛЮЧЕНИЯ: Выводим из памяти переведенные тексты, включающие нетронутые цифры.
             const cache = window.recipeTranslationsCache[newLang];
             if (titleInput) {
                 titleInput.innerText = cache.title || '';
             }
 
-            // Обновляем ТОЛЬКО строчки названий ингредиентов (цифры веса остаются на экране!)
+            // Обновляем ТОЛЬКО строчки с названиями ингредиентов (цифры весят на экране!)
             const ingRows = document.querySelectorAll('.ingredient-row');
             ingRows.forEach((row, index) => {
                 const nameEl = row.querySelector('.ing-name-cell');
                 const savedIng = cache.ingredients[index];
-
+                
                 if (nameEl) {
                     if (savedIng) {
-                        if (nameEl.tagName === 'INPUT') nameEl.value = savedIng.name; else nameEl.innerText = savedIng.name;
-                    } else {
-                        if (nameEl.tagName === 'INPUT') nameEl.value = ''; else nameEl.innerText = '';
+                        if (nameEl.tagName === 'INPUT') nameEl.value = saveIng.name; еще nameEl.innerText = saveIng.name;
+                    } еще {
+                        if (nameEl.tagName === 'INPUT') nameEl.value = ''; еще nameEl.innerText = '';
                     }
                 }
             });
@@ -414,11 +415,11 @@
             stepRows.forEach((row, index) => {
                 const stepEl = row.querySelector('.step-text-cell');
                 const savedStepText = cache.steps[index];
-
+                
                 if (stepEl) {
                     if (typeof savedStepText !== 'undefined') {
                         if(stepEl.tagName === 'TEXTAREA' || stepEl.tagName === 'INPUT') stepEl.value = savedStepText; else stepEl.innerText = savedStepText;
-                    } else {
+                    } еще {
                         if(stepEl.tagName === 'TEXTAREA' || stepEl.tagName === 'INPUT') stepEl.value = ''; else stepEl.innerText = '';
                     }
                 }
@@ -436,11 +437,11 @@
         </script>
         <script src="//://google.com"></script>
 
-    <!-- 🥄 ВСПЛЫВАЮЩЕЕ ОКНО ТАБЛИЦЫ МЕР И ВЕСОВ -->
+    <!-- 🥄 ВСПЛИВАЮЩЕЕ ОКНО ТАБЛИЦЫ МЕР И ВЕСОВ -->
     <div id="measuresModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 500; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('measuresModal').style.display='none'">
         <div style="background: #FFFDF9; padding: 30px; border-radius: 32px; max-width: 520px; width: 94%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative;" onclick="event.stopPropagation()">
             <span style="position: absolute; top: 15px; right: 22px; font-size: 26px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('measuresModal').style.display='none'">×</span>
-            <h3 style="font-size: 22px; color: #A0522D; margin: 0 0 20px 0; text-align: center; font-weight: bold;">🥄 Таблица мер и весов</h3>
+            <h3 style="font-size: 22px; color: #A0522D; Margin: 0 0 20px 0; text-align: center; Font-weight: Bold;">🥄 Таблица мер и весов</h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 17px; font-weight: 500;">
                 <thead>
                     <tr style="background: #FFF6EE; color: #A0522D; border-bottom: 2px solid #EAD5C3;">
@@ -455,13 +456,13 @@
         </div>
     </div>
 
-    <!-- ☕ ВСПЛЫВАЮЩЕЕ ОКНО «ЧАШЕЧКИ ПОДДЕРЖКИ» -->
+    <!-- ☕ ВСПЛИВАЮЩЕЕ ОКНО «ЧАШЕЧКИ ПОДДЕРЖКИ» -->
     <div id="supportModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 2000; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('supportModal').style.display='none'">
         <div style="background: #FFFDF9; padding: 30px; border-radius: 32px; max-width: 400px; width: 88%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center; box-sizing: border-box;" onclick="event.stopPropagation()">
             <span style="position: absolute; top: 15px; right: 22px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('supportModal').style.display='none'">×</span>
             <div id="support-step-input" style="display: block;">
-                <h3 id="text-supportTitle" style="font-size: 20px; color: #A0522D; margin: 0 0 18px 0; font-weight: bold;">☕ Спасибо Автору книги</h3>
-                <input type="number" id="supportAmountInput" min="1" oninput="if(this.value<1)this.value=1;" placeholder="Введите сумму..." style="width: 88%; padding: 14px; margin-bottom: 22px; border: 2px solid #EAD5C3; border-radius: 18px; outline: none; font-size: 18px; background: #FFF6EE; text-align: center; font-weight: bold; color: #332211; box-sizing: border-box;">
+                <h3 id="text-supportTitle" style="font-size: 20px; цвет: #A0522D; поля: 0 0 18px 0; шрифта: жирный;">☕ Спасибо Автору книги</h3>
+                <input type="number" id="supportAmountInput" min="1" oninput="if(this.value<1)this.value=1;" placeholder="Ввести сумму..." style="width: 88%; padding: 14px; margin-bottom: 22px; border: 2px solid #EAD5C3; border-radius: 18px; outline: none; font-size: 18px; background: #FFF6EE; text-align: center; font-weight: bold; color: #332211; box-sizing: border-box;">
                 <button type="button" onclick="processSupportPayment()" id="text-supportPayBtn" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 14px 35px; font-size: 18px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 88%; box-shadow: 0 5px 12px rgba(255,122,51,0.15); box-sizing: border-box;">Оплатить 💳</button>
             </div>
             <div id="support-step-thanks" style="display: none; padding: 25px 0;">
@@ -469,15 +470,15 @@
             </div>
         </div>
     </div>
-    <style>
+    <стиль>
         @keyframes bounceCup { from { transform: translateY(0); } to { transform: translateY(-10px); } }
     </style>
 
-    <!-- ⚖️ ВСПЛЫВАЮЩЕЕ ОКНО ПОРЦИЙ -->
+    <!-- ⚖️ ВСПЛИВАЮЩЕЕ ОКНО ПОРЦИЙ -->
     <div id="portionsModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.4); z-index: 950; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('portionsModal').style.display='none'">
         <div style="background: #FFFDF9; padding: 30px; border-radius: 32px; max-width: 360px; width: 90%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.15); border: 2px solid #EAD5C3; position: relative; text-align: center;" onclick="event.stopPropagation()">
             <span style="position: absolute; top: 14px; right: 20px; font-size: 24px; cursor: pointer; color: #A0522D; font-weight: bold;" onclick="document.getElementById('portionsModal').style.display='none'">×</span>
-            <h3 id="text-portionsModalTitle" style="font-size: 20px; color: #A0522D; margin: 0 0 18px 0; font-weight: bold;">⚖️ Выберите количество порций:</h3>
+            <h3 id="text-portionsModalTitle" style="font-size: 20px; color: #A0522D; Margin: 0 0 18px 0; Font-weight: Bold;">⚖️ Выберите количество порций:</h3>
             <div style="display: flex; justify-content: center; gap: 14px; margin-bottom: 5px;">
                 <button type="button" onclick="setRecipePortions(0.5)" class="portion-modal-btn" id="p-05" style="background: #FFF6EE; border: 2px solid #EAD5C3; border-radius: 50%; width: 56px; height: 56px; font-size: 16px; font-weight: bold; color: #A0522D; cursor: pointer; outline: none; transition: all 0.2s; display: flex; align-items: center; justify-content: center; padding: 0;">0.5</button>
                 <button type="button" onclick="setRecipePortions(1)" class="portion-modal-btn" id="p-1" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); border: none; border-radius: 50%; width: 56px; height: 56px; font-size: 16px; font-weight: bold; color: #FFF; cursor: pointer; outline: none; transition: all 0.2s; display: flex; align-items: center; justify-content: center; padding: 0;">1</button>
@@ -509,7 +510,7 @@
             <div style="width: 100%; min-height: 100%; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; position: relative; z-index: 605;">
 
                 <!-- 📜 ШОКОЛАДНЫЙ ПОЛЗУНОК СКРОЛЛА -->
-                <style>
+                <стиль>
                     #interactiveRecipePage::-webkit-scrollbar { width: 12px; }
                     #interactiveRecipePage::-webkit-scrollbar-track { background: transparent; }
                     #interactiveRecipePage::-webkit-scrollbar-thumb { background: #8B4513; border-radius: 10px; border: 2px solid #FFF6EE; }
@@ -519,14 +520,14 @@
                 <!-- ☕ ПАРЯЩАЯ ЧАШЕЧКА ПОДДЕРЖКИ (СЛОЙ 9999, ОСТАЕТСЯ НА МЕСТЕ ПРИ СКРОЛЛЕ) -->
                 <div onclick="openSupportModal()" style="position: fixed; left: 50%; margin-left: 275px; bottom: 45px; z-index: 9999; width: 95px; height: 95px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none;">
                     <svg viewBox="0 0 100 100" style="position: absolute; width: 100%; height: 100%; animation: rotateText 12s linear infinite;">
-                        <path id="cupTextPath" d="M 15,50 A 35,35 0 1,1 85,50" fill="none" />
+                        <path id="cupTextPath" d="M 15,50 A 35,35 0 ​​1,1 85,50" fill="none" />
                         <text font-family="'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="bold" fill="#8B4513" text-anchor="middle">
                             <textPath href="#cupTextPath" startOffset="50%" id="text-supportRainbow">Понравилось? Поддержи! ✨</textPath>
                         </text>
                     </svg>
                     <span style="font-size: 36px; background: #FFFFFF; border: 2px solid #EAD5C3; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(139,69,19,0.18);">☕</span>
                 </div>
-                <style>
+                <стиль>
                     @keyframes rotateText { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
                 </style>
 
@@ -568,13 +569,13 @@
                     <!-- Рукописное название кулинарного шедевра пером -->
                     <h2 id="recipe-display-title" contenteditable="false" style="font-family: 'Caveat', cursive; font-size: 38px; color: #A0522D; font-weight: normal; margin: 0 0 18px 0; text-align: center; border-bottom: 2px dashed #EAD5C3; padding-bottom: 5px; outline: none;"></h2>
 
-                    <!-- Фотоаппарат для загрузки и отображения фотографии блюда -->
+                    <!-- Фотоаппарат для загрузки и просмотра фотографий -->
                     <div id="recipe-photo-area" onclick="triggerRecipePhotoUpload()" style="width: 100%; height: 260px; background: #FFF6EE; border-radius: 18px; margin-bottom: 12px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px dashed #EAD5C3; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#FFEAD9'" onmouseout="this.style.background='#FFF6EE'">
                         <input type="file" id="recipe-photo-file-input" accept="image/*" style="display: none;">
                         <img id="recipe-uploaded-img" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
                         <div id="recipe-photo-placeholder" style="text-align: center; color: #A0522D; padding: 15px;">
                             <span style="font-size: 40px; display: block; margin-bottom: 6px;">📸</span>
-                            <span id="text-addPhotoLabel" style="font-size: 15px; font-weight: bold;">Нажмите, чтобы добавить аппетитное фото блюда 🏠</span>
+                            <span id="text-addPhotoLabel" style="font-size: 15px; шрифт-вес: жирный;">Нажмите, чтобы добавить аппетитное фото блюд 🏠</span>
                         </div>
                     </div>
 
@@ -582,9 +583,9 @@
                     <button type="button" onclick="event.stopPropagation(); removeCurrentRecipePhoto()" style="background: #FFF6EE; border: 2px dashed #FF7A33; color: #FF7A33; padding: 6px 14px; font-size: 14px; font-weight: bold; border-radius: 12px; cursor: pointer; margin-bottom: 22px; display: block; margin-left: auto; margin-right: auto; outline: none;">🗑️ Удалить фото</button>
 
                     <div style="text-align: left;">
-                        <!-- Заголовок ингредиентов и Порции -->
+                        <!-- Заголовок ингредиентов и порции -->
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #FFEAD9; padding-bottom: 10px; margin-bottom: 18px; flex-wrap: wrap; gap: 12px;">
-                            <h3 id="text-recipeIngredientsTitle" style="font-size: 21px; color: #A0522D; margin: 0; font-weight: bold;">📋 Список ингредиентов (Чек-лист):</h3>
+                            <h3 id="text-recipeIngredientsTitle" style="font-size: 21px; цвет: #A0522D; поля: 0; шрифт-вес: жирный;">📋 Список ингредиентов (Чек-лист):</h3>
                             <button type="button" onclick="openPortionsModal()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; padding: 7px 18px; font-size: 16px; font-weight: bold; color: #A0522D; border-radius: 18px; cursor: pointer; display: flex; align-items: center; gap: 6px; outline: none; box-shadow: 0 4px 10px rgba(160,82,45,0.06);">
                                 <span>⚖️</span> <span id="text-btnPortions">Порции</span>
                             </button>
@@ -603,10 +604,10 @@
                         <div id="recipe-steps-list-container" style="display: flex; flex-direction: column; gap: 16px; width: 100%; margin-bottom: 30px; padding: 5px; box-sizing: border-box;"></div>
 
                         <!-- Крупная кнопка добавления шагов для Хозяйки -->
-                        <button type="button" id="admin-add-step-btn" onclick="addNewStepRowFromScreen('')" style="display: none; background: #FFF6EE; border: 2px dashed #A0522D; color: #A0522D; padding: 12px; font-size: 17px; font-weight: bold; border-radius: 16px; cursor: pointer; width: 100%; margin-top: -10px; margin-bottom: 25px; outline: none;">➕ Добавить шаг приготовления</button>
+                        <button type="button" id="admin-add-step-btn" onclick="addNewStepRowFromScreen('')" style="display: none; background: #FFF6EE; border: 2px dashed #A0522D; color: #A0522D; padding: 12px; font-size: 17px; font-weight: bold; border-radius: 16px; cursor: pointer; width: 100%; margin-top: -10px; margin-bottom: 25px; outline: none;">➕ Добавить шаг подготовки</button>
 
-                        <!-- Крупная оранжевая кнопка сохранения Хозяйки -->
-                        <button type="button" id="admin-save-recipe-btn" onclick="saveCurrentRecipeFromScreen()" style="display: none; background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 16px; font-size: 19px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 100%; box-shadow: 0 6px 18px rgba(255,122,51,0.25);">💾 Сохранить страницу-шаблон</button>
+                        <!-- Крупная оранжевая кнопка сохранение Хозяйки -->
+                        <button type="button" id="admin-save-recipe-btn" onclick="saveCurrentRecipeFromScreen()" style="display: none; background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 16px; font-size: 19px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 100%; box-shadow: 0 6px 18px rgba(255,122,51,0.25);">💾 Сохранить page-shablon</button>
                     </div>
                 </div>
 
@@ -619,17 +620,17 @@
         let recipeAlbums = {
             1: [], // Полка 1: Выпечка 🍰
             2: [], // Полка 2: Основные блюда 🥣
-            3: []  // Полка 3: Салаты 🥗
+            3: [] // Полка 3: Салаты 🥗
         };
 
         // Состояния кулинарного движка Еленочки
-        let currentAlbumId = 1;      
+        пусть currentAlbumId = 1;      
         let currentRecipeIndex = 0;  
         let currentLangCode = 'ru';
-        let currentPortionMultiplier = 1;
+        пусть currentPortionMultiplier = 1;
         let wakeLock = null;
         let timerInterval = null;
-        let isAdminModeActive = false; 
+        let isAdminModeActive = false;
 
         // Инициализация Firebase с вашими новыми подтвержденными ключами
         const firebaseConfig = {
@@ -638,62 +639,62 @@
   projectId: "helen-smart-cookbook",
   storageBucket: "helen-smart-cookbook.firebasestorage.app",
   messagingSenderId: "986225882700",
-  appId: "1:986225882700:web:c85966a73d513960be26e9"
+  appID: "1:986225882700:web:c85966a73d513960be26e9"
 };
 
         if (typeof firebase !== 'undefined') {
-            try {
+            пытаться {
                 firebase.initializeApp(firebaseConfig);
                 window.db = firebase.app().firestore();
 
                 console.log("Ура! База данных успешно подключена глобально! 🌐");
             } catch (e) {
-                console.error("Ошибка инициализации Firebase: ", e);
+                console.error("Ошибка идеи Firebase: ", e);
             }
         }
 
         // Мультиязычный словарь с подсказками
         const translations = {
-            ru: {
-                menu: "📖 Menu", title: "Интерактивная книга рецептов:", subtitle: "Умная кухня с таймером",
-                desc: "<strong>🧼 Режим «Чистые руки». Встроенный таймер.</strong><br>«Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта».",
-                "cat-1": "🍰 Выпечка", "cat-2": "🥣 Основные блюда", "cat-3": "🥗 Салаты", copyright: "© 2026 Интерактивная книга рецептов. Создано с любовью и заботой.",
+            ру: {
+                меню: "📖 Меню", заголовок: "Интерактивная книга рецептов:", подзаголовок: "Умная кухня с таймером",
+                desc: "<strong>🧼 Режим «Чистые руки». Встроенный таймер.</strong><br>«Интуитивный кулинарный формат. Определяйте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта».",
+                "кот-1": "🍰 Выпечка", "кот-2": "🥣 Основные блюда", "кот-3": "🥗 Салаты", авторские права: "© 2026 Интерактивная книга рецептов. Создано с любовью и заботой.",
                 searchPlaceholder: "Поиск рецептов...", alertMsg: "Этот кулинарный раздел находится в процессе наполнения вкусными рецептами Еленочки! Загляните чуточку позже 🌸", alertSearch: "Рецепт не найден.",
-                recipeCleanHands: "Режим «Чистые руки»", recipeIngredientsTitle: "📋 Список ингредиентов (Чек-лист):", recipeStepsTitle: "👩‍🍳 Пошаговое приготовление:",
-                guestModalTitle: "📝 Поделиться Любимым рецептом 🥰", addPhotoLabel: "Нажмите, чтобы добавить аппетитное фото блюда 🏠",
+                рецептCleanHands: "Режим «Чистые руки»", рецептИнгредиентыНазвание: "📋 Список ингредиентов (Чек-лист):", рецептШагиНазвание: "👩‍🍳 Пошаговое приготовление:",
+                GuestModalTitle: "📝 Поделиться любимым рецептом 🥰", addPhotoLabel: "Нажмите, чтобы добавить аппетитное фото блюд 🏠",
                 supportTitle: "☕ Спасибо за поддержку 🌸", supportPayBtn: "Оплатить 💳", supportRainbow: "Понравилось? Поддержи! ✨",
-                voiceThanks: "Спасибо огромное за вашу поддержку! Приятного вам аппетита! 🌸",
-                btnPortions: "Порции", portionsModalTitle: "⚖️ Выберите количество порций:", "share-btn": "👩‍🍳 Поделиться рецептом 🔍",
-                guestNameInput: "Ваше имя", guestTitleInput: "Название вашего блюда", guestRecipeTextInput: "Впишите сюда ингредиенты и подробные шаги вашего рецепта...", guestSendBtn: "Отправить 🌸"
+                голосСпасибо: "Спасибо огромное за вашу поддержку! Приятного вам аппетита! 🌸",
+                btnPortions: "Порции", partsModalTitle: "⚖️ Выберите количество порций:", "share-btn": "👩‍🍳 Поделиться рецептом 🔍",
+                GuestNameInput: "Ваше имя", GuestTitleInput: "Название ваших блюд", GuestRecipeTextInput: "Впишите сюда ингредиенты и продолжите шаги вашего рецепта...", GuestSendBtn: "Отправить 🌸"
             },
             ukr: {
-                menu: "📖 Меню", title: "Інтерактивна книга рецептів:", subtitle: "Розумна кухня с таймером",
-                desc: "<strong>🧼 Режим «Чисті руки». Вбудований таймер.</strong><br>«Інтуїтивний кулінарний формат. Вибирайте кількість порцій, запускайте таймери та відзначайте кроки прямо на сторінці рецепта».",
-                "cat-1": "🍰 Випічка", "cat-2": "🥣 Основні страви", "cat-3": "🥗 Салати", copyright: "© 2026 Интерактивная книга рецептов. Створено з любов'ю та турботою.",
-                searchPlaceholder: "Пошук рецептів...", alertMsg: "Цей кулінарний розділ знаходиться в процесі наповнення смачними рецептами Оленочки! Завітайте трохи пізніше 🌸", alertSearch: "Рецепт не знайдено.",
-                recipeCleanHands: "Режим «Чисті руки»", recipeIngredientsTitle: "📋 Список інгредієнтів (Чек-лист):", recipeStepsTitle: "👩‍🍳 Покрокове приготування:",
-                guestModalTitle: "📝 Поділитися Улюбленим рецептом 🥰", addPhotoLabel: "Натисніть, щоб додати апетитне фото страви 🏠",
+                меню: "📖 Меню", заголовок: "Интерактивная книга рецептов:", подзаголовок: "Разумная кухня с таймером",
+                desc: "<strong>🧼 Режим «Чистые руки». Включены таймеры.</strong><br>«Интуитивный кухонный формат. Выбирайте количество порций, запускайте таймеры и указывайте кроки прямо на странице рецепта».",
+                "кот-1": "🍰 Випічка", "кот-2": "🥣 Основні страви", "кот-3": "🥗 Салати", авторские права: "© 2026 Интерактивная книга рецептов. Створено з любовью та турботою.",
+                searchPlaceholder: "Пошук рецептов...", alertMsg: "Цей кулинарный розділ знаходиться в процессе повторения смачных рецептов Оленочки! Задайте тройку пізніше 🌸", alertSearch: "Рецепт не найдено.",
+                рецептCleanHands: «Режим «Чистые руки»», рецептИнгредиентыНазвание: «📋 Список ингредиентов (Чек-лист):», рецептШагиНазвание: «👩‍🍳 Покрокове приготовления:",
+                GuestModalTitle: "📝 Подписаться на любимый рецепт 🥰", addPhotoLabel: "Натисніть, если хотите добавить фото страви 🏠",
                 supportTitle: "☕ Дякую за Підтримку", supportPayBtn: "Оплатити 💳", supportRainbow: "Сподобалось? Підтримай! ✨",
-                voiceThanks: "Щиро дякую за вашу підтримку! Смачного вам! 🌸",
-                btnPortions: "Порції", portionsModalTitle: "⚖️ Оберіть кількість порцій:", "share-btn": "👩‍🍳 Поділитися рецептом 🔍",
-                guestNameInput: "Ваше ім'я", guestTitleInput: "Назва вашої страви", guestRecipeTextInput: "Впішіть сюди інгредієнти та докладні кроки вашого рецепту...", guestSendBtn: "Надіслати 🌸"
+                голосСпасибо: "Щиро дякую за вашу підтримку! Смачного вам! 🌸",
+                btnPortions: "Порции", partsModalTitle: "⚖️ Обеспечьте количество порций:", "share-btn": "👩‍🍳 Поділитися рецептом 🔍",
+                GuestNameInput: "Ваше имя", GuestTitleInput: "Название вашей страви", GuestRecipeTextInput: "Введите материалы и докладные кроки вашего рецепта...", GuestSendBtn: "Надислати 🌸"
             },
-            en: {
-                menu: "📖 Menu", title: "Interactive Cookbook:", subtitle: "Smart Kitchen with Timer",
-                desc: "<strong>🧼 'Clean Hands' Mode. Built-in Timer.</strong><br>'Intuitive cooking format. Choose the number of servings, start built-in timers, and check off steps right on the recipe page.'",
-                "cat-1": "🍰 Baking", "cat-2": "🥣 Savoury", "cat-3": "🥗 Salads", copyright: "© 2026 Interactive Cookbook. Made with love and care.",
-                searchPlaceholder: "Search recipes...", alertMsg: "This culinary section is in the process of being filled with Helen's delicious recipes! Check back a bit later 🌸", alertSearch: "Recipe not found.",
-                recipeCleanHands: "'Clean Hands' Mode", recipeIngredientsTitle: "📋 Ingredients List (Check-list):", recipeStepsTitle: "👩‍🍳 Step-by-Step Cooking:",
-                guestModalTitle: "📝 Share Your Favorite Recipe 🥰", addPhotoLabel: "Click to add an appetizing photo of the dish 🏠",
-                supportTitle: "☕ A huge hug for your kindness! 🥰", supportPayBtn: "Pay 💳", supportRainbow: "Liked it? Support! ✨",
-                voiceThanks: "Thank you so much for your support! Enjoy your meal! 🌸",
-                btnPortions: "Servings", portionsModalTitle: "⚖️ Choose number of servings:", "share-btn": "👩‍🍳 Share Recipe 🔍",
-                guestNameInput: "Your name", guestTitleInput: "Name of your dish", guestRecipeTextInput: "Enter here the ingredients and detailed steps of your recipe...", guestSendBtn: "Send 🌸"
+            эн: {
+                меню: "📖 Меню", заголовок: "Интерактивная кулинарная книга", подзаголовок: "Умная кухня с таймером",
+                Описание: "<strong>🧼 Режим «Чистые руки». Встроенный таймер.</strong><br>«Интуитивно понятный формат приготовления. Выберите количество порций, запустите встроенные таймеры и отмечайте выполненные шаги прямо на странице рецепта.»
+                "cat-1": "🍰 Выпечка", "cat-2": "🥣 Закуски", "cat-3": "🥗 Салаты", авторские права: "© 2026 Interactive Cookbook. Сделано с любовью и заботой."
+                searchPlaceholder: "Поиск рецептов...", alertMsg: "Этот кулинарный раздел заполняется восхитительными рецептами Хелен! Загляните позже 🌸", alertSearch: "Рецепт не найден."
+                recipeCleanHands: "Режим 'Чистые руки'", recipeIngredientsTitle: "📋 Список ингредиентов (контрольный список):", recipeStepsTitle: "👩‍🍳 Пошаговое приготовление:",
+                guestModalTitle: "📝 Поделитесь своим любимым рецептом 🥰", addPhotoLabel: "Нажмите, чтобы добавить аппетитное фото блюда 🏠",
+                supportTitle: "☕ Огромное спасибо за вашу доброту! 🥰", supportPayBtn: "Оплатить 💳", supportRainbow: "Понравилось? Поддержите! ✨",
+                voiceThanks: "Большое спасибо за вашу поддержку! Приятного аппетита! 🌸",
+                btnPortions: "Порции", portionsModalTitle: "⚖️ Выберите количество порций:", "share-btn": "👩‍🍳 Поделиться рецептом 🔍",
+                guestNameInput: "Ваше имя", guestTitleInput: "Название вашего блюда", guestRecipeTextInput: "Введите здесь ингредиенты и подробные шаги приготовления вашего рецепта...", guestSendBtn: "Отправить 🌸"
             }
         };
 
-        const wishTranslations = { ru: "✨ Желаем вам вдохновения на кухне и приятного аппетита!", ukr: "✨ Бажаємо вам натхнення на кухні та приємного апетиту!", en: "✨ Wishing you inspiration in the kitchen and bon appétit!" };
-        const watermarkTranslations = { ru: "✨ От Еленочки с любовью ✨", ukr: "✨ Від Оленочки з любов'ю ✨", en: "✨ From Helen with love ✨" };
+        const willTranslations = { ru: "✨ Желаем вам вдохновения на кухне и приятного аппетита!", ukr: "✨ Бажаємо вам натхнення на кухню и приятного аппетита!", en: "✨ Желаю вам вдохновения на кухне и приятного аппетита!" };
+        const WatermarkTranslations = { ru: "✨ От Еленочки с любовью ✨", ukr: "✨ Від Оленочки с любовью ✨", en: "✨ От Елены с любовью ✨" };
                 // УМНАЯ ФУНКЦИЯ ПЕРЕВОДА ИНТЕРФЕЙСА И ПРИНУДИТЕЛЬНОГО ПЕРЕВОДА СВИТКА РЕЦЕПТА
         function changeLanguage(lang) {
             currentLangCode = lang;
@@ -713,44 +714,13 @@
             if (document.getElementById('guestRecipeTextInput')) document.getElementById('guestRecipeTextInput').placeholder = translations[lang].guestRecipeTextInput;
 
                     // 🔓 ПОЛНАЯ РАЗБЛОКИРОВКА ФОРМЫ ГОСТЯ И ОТКЛЮЧЕНИЕ ПРОВЕРОК БРАУЗЕРА
-                    // 🔓 ПОЛНАЯ РАЗБЛОКИРОВКА И СКРЫТИЕ ЛИШНИХ ЭТАЖИ ЯЗЫКОВ В ОКНЕ ГОСТЯ
-        const currentModalLang = lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru');
         const guestFormEl = document.querySelector('#shareRecipeModal form') || document.getElementById('shareForm');
         if (guestFormEl) guestFormEl.setAttribute('novalidate', 'true');
 
-        // Находим все поля ввода в форме гостя по их ID
-        const ruTitle = document.getElementById('guestTitleInput') || document.querySelector('input[placeholder*="RU"]');
-        const ruText = document.getElementById('guestRecipeTextInput') || document.querySelector('textarea[placeholder*="RU"]');
-        const enTitle = document.querySelector('input[placeholder*="EN"]') || document.querySelector('input[placeholder*="Dish"]');
-        const enText = document.querySelector('textarea[placeholder*="EN"]') || document.querySelector('textarea[placeholder*="ingredients"]');
-        const ukTitle = document.querySelector('input[placeholder*="UKR"]') || document.querySelector('input[placeholder*="страви"]');
-        const ukText = document.querySelector('textarea[placeholder*="UKR"]') || document.querySelector('textarea[placeholder*="кроки"]');
-        
-        // Снимаем обязательность заполнения (required) абсолютно со всех полей формы гостя
+        // Снимаем обязательность заполнения (обязательно) абсолютно для всех полей формы гостей
         document.querySelectorAll('#shareRecipeModal input, #shareRecipeModal textarea').forEach(el => {
             if (el) el.removeAttribute('required');
         });
-        const gNameInput = document.getElementById('guestNameInput');
-        if (gNameInput) gNameInput.removeAttribute('required');
-        [ruTitle, ruText, enTitle, enText, ukTitle, ukText].forEach(el => { if(el) el.removeAttribute('required'); });
-
-        // Функция скрытия поля вместе с его текстовой подписью (label)
-        const toggleFieldVisibility = (el, show) => {
-            if (!el) return;
-            el.style.display = show ? 'block' : 'none';
-            let prev = el.previousElementSibling;
-            if (prev && (prev.tagName === 'LABEL' || prev.tagName === 'P')) {
-                prev.style.display = show ? 'block' : 'none';
-            }
-        };
-
-        // Прячем чужие этажи и оставляем только нужный язык на экране гостя!
-        toggleFieldVisibility(ruTitle, currentModalLang === 'ru');
-        toggleFieldVisibility(ruText, currentModalLang === 'ru');
-        toggleFieldVisibility(enTitle, currentModalLang === 'en');
-        toggleFieldVisibility(enText, currentModalLang === 'en');
-        toggleFieldVisibility(ukTitle, currentModalLang === 'ukr');
-        toggleFieldVisibility(ukText, currentModalLang === 'ukr');
 
         // Делаем кнопку отправки всегда яркой, активной и кликабельной со старта
         const shareSubmitBtn = document.getElementById('share-submit-btn') || document.querySelector('#shareRecipeModal button[type="submit"]');
@@ -762,57 +732,55 @@
         }
 
         // 📋 РУЧНОЙ ПЕРЕВОД ОКНА КОПИРОВАНИЯ ССЫЛКИ РЕЦЕПТА (Из первого скриншота)
-        const currentModalLang = lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru');
-        // 📋 РУЧНОЙ ПЕРЕВОД ОКНА КОПИРОВАНИЯ ССЫЛКИ РЕЦЕПТА
+        const currentModalLang = lang === 'ukr' ? 'ukr': (lang === 'en' ? 'en' : 'ru');
         window.shareBtnAlertText = "(Ссылка скопирована в буфер обмена)";
-        if (currentModalLang === 'en') window.shareBtnAlertText = "(Link copied to clipboard)";
-        else if (currentModalLang === 'ukr') window.shareBtnAlertText = "(Посилання скопійовано в буфер обміну)";
+        if (currentModalLang === 'en') window.shareBtnAlertText = "(Ссылка скопирована в буфер обмена)";
+        else if (currentModalLang === 'ukr') window.shareBtnAlertText = "(Посилання скопировано в буфер обміну)";
 
   
-      
             let searchFieldEl = document.getElementById('search-field');
             if (searchFieldEl) searchFieldEl.placeholder = translations[lang].searchPlaceholder;
             if (document.getElementById('text-wish')) document.getElementById('text-wish').innerText = wishTranslations[lang];
             if (document.getElementById('text-watermark')) document.getElementById('text-watermark').textContent = watermarkTranslations[lang];
 
-            // Заставляем Google Translate переводить динамические ручные тексты
-            try {
+            // Заставляем Google Translate переводить активные ручные тексты
+            пытаться {
                 const googleSelect = document.querySelector('.goog-te-combo');
-                if (googleSelect) { 
-                    googleSelect.value = lang === 'ukr' ? 'uk' : lang; 
-                    googleSelect.dispatchEvent(new Event('change')); 
+                if (googleSelect) {
+                    googleSelect.value = lang === 'ukr' ? 'uk': язык;
+                    googleSelect.dispatchEvent(new Event('change'));
                 }
             } catch (e) {}
             localStorage.setItem('selectedLanguage', lang);
         }
 
         document.getElementById('lang-btn').addEventListener('click', function() {
-            const languages = ['ru', 'ukr', 'en'];
+            const Languages ​​= ['ru', 'ukr', 'en'];
             let nextIndex = (languages.indexOf(currentLangCode) + 1) % languages.length;
             this.innerText = languages[nextIndex].toUpperCase();
             changeLanguage(languages[nextIndex]);
         });
 
-        function openRecipeCategory(catId) { 
-            currentAlbumId = catId; 
+        function openRecipeCategory(catId) {
+            currentAlbumId = catId;
             const modalTitles = {
                 ru: { 1: "🍰 Выпечка", 2: "🥣 Основные блюда", 3: "🥗 Салаты" },
                 ukr: { 1: "🍰 Випічка", 2: "🥣 Основні страви", 3: "🥗 Салати" },
-                en: { 1: "🍰 Baking", 2: "🥣 Savoury", 3: "🥗 Salads" }
+                en: { 1: "🍰 Выпечка", 2: "🥣 Несладкое", 3: "🥗 Салаты" }
             };
             const titleEl = document.getElementById("category-modal-title");
             if (titleEl) titleEl.innerText = modalTitles[currentLangCode][catId];
-            renderCategoryRecipesList(); 
+            renderCategoryRecipesList();
         }
 
         function renderCategoryRecipesList() {
             const container = document.getElementById("category-modal-recipes-list");
-            if (!container) return; 
+            if (!container) return;
             container.innerHTML = "";
             const list = recipeAlbums[currentAlbumId];
-            if (!list || list.length === 0) { 
-                alert(translations[currentLangCode].alertMsg); 
-                return; 
+            if (!list || list.length === 0) {
+                alert(translations[currentLangCode].alertMsg);
+                возвращаться;
             }
               list.forEach((recipe, index) => {
         // Определяем, какой язык прямо сейчас выбран на главной обложке у кексика
@@ -827,9 +795,9 @@
         const btn = document.createElement("button");
         btn.className = "category-card";
         btn.style.cssText = "background: linear-gradient(135deg, #FFB385, #FF8B47); padding: 14px 30px; font-size: 18px; margin: 5px 0; width: 100%; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); color: #FFFFFF; font-weight: bold; border: none; cursor: pointer;";
-
-        // ЖЕЛЕЗНАЯ ЛОГИКА: выводим на кнопку строго тот язык, который нажал гость
-        let displayTitle = recipe.title; // По умолчанию базовое имя
+        
+        // ЖЕЛЕЗНАЯ ЛОГИКА: выводим на кнопку строго тот язык, который нажал гостя
+        пусть displayTitle = рецепт.title; // По умолчанию базовое имя
         if (activeLang === 'ru' && recipe.translations && recipe.translations.ru && recipe.translations.ru.title) {
             displayTitle = recipe.translations.ru.title;
         } else if (activeLang === 'en' && recipe.translations && recipe.translations.en && recipe.translations.en.title) {
@@ -839,10 +807,10 @@
         }
         btn.innerText = displayTitle;
 
-                btn.onclick = () => { 
-                    currentRecipeIndex = index; 
-                    document.getElementById('categoryRecipesModal').style.display = 'none'; 
-                    showRecipePage(); 
+                btn.onclick = () => {
+                    currentRecipeIndex = index;
+                    document.getElementById('categoryRecipesModal').style.display = 'none';
+                    showRecipePage();
                 };
                 container.appendChild(btn);
             });
@@ -850,22 +818,22 @@
         }
 
         // 🌟 ОРИГИНАЛЬНАЯ ФУНКЦИЯ ОТКРЫТИЯ СТРАНИЦЫ С НОВЫМИ ИНТЕРАКТИВНЫМИ ШАГАМИ
-        async function showRecipePage() {
+        асинхронная функция showRecipePage() {
             if (document.getElementById("interactiveRecipePage")) document.getElementById("interactiveRecipePage").remove();
             const recipe = recipeAlbums[currentAlbumId][currentRecipeIndex];
-                    // 🌍 УМНЫЙ АВТОВЫБОР ЯЗЫКА ДЛЯ ГОСТЯ: смотрим, какой язык выбран на главной обложке
-        let activeLang = 'ru'; 
+                    // 🌍 УМНЫЙ АВТОВЫБОР ЯЗЫКА ДЛЯ ГОСТЯ: смотрим, какой язык выбран на главном обложке
+        let activeLang = 'ru';
         const mainLangBtn = document.getElementById('lang-btn');
         if (mainLangBtn) {
             const btnText = mainLangBtn.innerText.trim().toUpperCase();
             if (btnText.includes('EN')) activeLang = 'en';
             else if (btnText.includes('UKR') || btnText.includes('UA')) activeLang = 'uk';
         }
-
-        // Делаем глубокую копию оригинальных русских данных, чтобы не перетереть их при переключениях
+        
+        // Делаем глубокую реставрацию оригинальных русских данных, чтобы не перетирать их при переключениях
         if (!recipe._originalRu) {
             recipe._originalRu = {
-                title: recipe.title,
+                заголовок: recipe.title,
                 ingredientsArray: JSON.parse(JSON.stringify(recipe.ingredientsArray || [])),
                 stepsArray: JSON.parse(JSON.stringify(recipe.stepsArray || []))
             };
@@ -874,7 +842,7 @@
                 // Если в рецепте сохранен перевод на выбранный активный язык, подставляем его кармашек
         if (recipe.translations && recipe.translations[activeLang] && recipe.translations[activeLang].title) {
             recipe.title = recipe.translations[activeLang].title;
-
+            
             if (recipe.translations[activeLang].ingredients && recipe.translations[activeLang].ingredients.length) {
                 recipe.ingredientsArray = recipe.ingredientsArray.map((ing, idx) => {
                     const transIng = recipe.translations[activeLang].ingredients[idx];
@@ -885,41 +853,41 @@
                 recipe.stepsArray = recipe.translations[activeLang].steps;
             }
         } else if (activeLang === 'ru') {
-            // Если кармашка перевода ru еще нет, оставляем базовые оригинальные тексты
+            // Если кармашка перевода ru еще нет, предоставляем базовые оригинальные тексты
             if (recipe._originalRu) {
                 recipe.title = recipe._originalRu.title;
                 recipe.ingredientsArray = JSON.parse(JSON.stringify(recipe._originalRu.ingredientsArray));
                 recipe.stepsArray = JSON.parse(JSON.stringify(recipe._originalRu.stepsArray));
             }
         }
-
+    
             const template = document.getElementById("recipePageTemplate");
             const recipeContainer = document.createElement("div");
-            recipeContainer.innerHTML = template.innerHTML;
+            рецептКонтейнер.innerHTML = шаблон.innerHTML;
             document.body.appendChild(recipeContainer.firstElementChild);
-                    // 🎨 РУЧНОЙ ПЕРЕВОД ИНТЕРФЕЙСА БЛАНКА РЕЦЕПТА (Для гостя и Хозяйки)
+                    // 🎨 РУЧНОЙ ПЕРЕВОД ИНТЕРФЕЙСА БЛАНКА РЕЦЕПТА (Для гостей и Хозяйки)
                 const ingredientsHeader = document.querySelector("#interactiveRecipePage h3, #recipePageTemplate h3, .recipe-card h3");
         const stepsHeader = document.querySelectorAll("#interactiveRecipePage h3, .recipe-card h3")[1] || document.querySelector(".steps-section h3");
-        // Ищем кнопку порций по её точной текстовой подсказке на бланке
-        const portionsBtn = Array.from(document.querySelectorAll("button")).find(el => el.textContent.includes("Порции") || el.textContent.includes("Portions") || el.textContent.includes("Порції"));
-        // Находим плашку «Чистые руки» по её родному идентификатору или системному классу
+        // Ищем кнопку порций по ее точной текстовой подсказке на бланке
+        const portionsBtn = Array.from(document.querySelectorAll("button")).find(el => el.textContent.includes("Порции") || el.textContent.includes("Порции") || el.textContent.includes("Порції"));
+        // Находим плашку «Чистые руки» по ее родному идентификатору или системному классу
         const cleanHandsBtn = document.getElementById("text-recipeCleanHands") || document.querySelector(".clean-hands-btn");
-        const timerLabel = document.querySelector(".timer-label, .timer-container span");
+        const timerLabel = document.querySelector(".timer-label", ".timer-container span");
         if (activeLang === 'en') {
-            if (ingredientsHeader) ingredientsHeader.innerText = "📋 Ingredients list (Check-list):";
-            if (stepsHeader) stepsHeader.innerText = "📜 Step-by-step preparation:";
-            if (portionsBtn) portionsBtn.innerHTML = "🍳 Portions";
-            if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 'Clean Hands' Mode";
-        } else if (activeLang === 'uk') {
-            if (ingredientsHeader) ingredientsHeader.innerText = "📋 Список інгредієнтів (Чек-лист):";
-            if (stepsHeader) stepsHeader.innerText = "📜 Покрокове приготування:";
-            if (portionsBtn) portionsBtn.innerHTML = "🍳 Порції";
-            if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 Режим 'Чисті руки'";
-        } else {
-            // По умолчанию возвращаем красивый оригинальный русский текст
-            if (ingredientsHeader) ingredientsHeader.innerText = "📋 Список ингредиентов (Чек-лист):";
-            if (stepsHeader) stepsHeader.innerText = "📜 Пошаговое приготовление:";
+            if (ingredientsHeader) ingredientsHeader.innerText = "📋 Список ингредиентов (контрольный список):";
+            if (stepsHeader) stepsHeader.innerText = "📜 Пошаговая подготовка:";
             if (portionsBtn) portionsBtn.innerHTML = "🍳 Порции";
+            if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 Режим 'Чистые руки'";
+        } else if (activeLang === 'uk') {
+            if (ingredientsHeader) IngredientsHeader.innerText = "📋 Список ингредиентов (Чек-лист):";
+            if (stepsHeader) StepsHeader.innerText = "📜 Покрокове приготовления:";
+            if (portionsBtn) partsBtn.innerHTML = "🍳 Порції";
+            if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 Режим 'Чистые руки'";
+        } еще {
+            // По умолчанию возвращается красивый оригинальный русский текст
+            if (ingredientsHeader) IngredientsHeader.innerText = "📋 Список ингредиентов (Чек-лист):";
+            if (stepsHeader) StepsHeader.innerText = "📜 Пошаговое приготовление:";
+            if (portionsBtn) partsBtn.innerHTML = "🍳 Порции";
             if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 Режим 'Чистые руки'";
         }
 
@@ -929,16 +897,16 @@
             adminTabsEl.style.display = (typeof isAdminModeActive !== 'undefined' && isAdminModeActive) ? "flex" : "none";
         }
 
-                    // 🌍 Переводим название рецепта на лету через Google API
+                    // 🌍 Переводим название рецепта на лето через Google API
         let displayTitle = recipe.title;
 
-        //создаем невидимого текстового двойника для перевода названия
+        //создаем незаметного текстового двойника для перевода названия
         const hiddenTitleSpan = document.createElement("span");
-        hiddenTitleSpan.innerText = recipe.title;
+        HiddenTitleSpan.innerText = рецепт.титул;
         hiddenTitleSpan.style.display = "none";
         document.body.appendChild(hiddenTitleSpan);
 
-        //Следим за переводом букв внутри двойника и обновляем красивое название на бланке
+        //Следем за переводом буквы внутри двойника и обновляем красивое название на бланке
         const titleObserver = new MutationObserver(() => {
             document.getElementById("recipe-display-title").innerText = hiddenTitleSpan.innerText;
         });
@@ -949,7 +917,7 @@
 
             if (recipe.photoData) {
                 const imgEl = document.getElementById("recipe-uploaded-img");
-                imgEl.src = recipe.photoData; 
+                imgEl.src = recipe.photoData;
                 imgEl.style.display = "block";
                 document.getElementById("recipe-photo-placeholder").style.display = "none";
             }
@@ -967,7 +935,7 @@
                 if (deleteRecipeBtn) deleteRecipeBtn.style.display = "flex";
                 if (document.getElementById("recipe-photo-area")) document.getElementById("recipe-photo-area").style.pointerEvents = "auto";
                 document.querySelectorAll("button").forEach(btn => { if (btn.innerText.includes("Удалить фото")) btn.style.display = "block"; });
-            } else {
+            } еще {
                 document.getElementById("recipe-display-title").contentEditable = "false";
                 if (addRowBtn) addRowBtn.style.display = "none";
                 if (addStepBtn) addStepBtn.style.display = "none";
@@ -996,11 +964,11 @@
             });
 
             } else if (stepsContainer) {
-                // Если старый формат или пусто — бьем на строки по переносу
+                // Если старый формат или пусто — бежим на строки при переносе
                 let oldSteps = recipe.steps ? recipe.steps.split('\n') : [];
                 if (oldSteps.length > 0 && oldSteps[0].trim() !== "") {
                     oldSteps.forEach(st => {
-                        let cleanText = st.replace(/^\d+\.\s*/, '').trim(); // убираем старые ручные номера цифр
+                        let cleanText = st.replace(/^\d+\.\s*/, '').trim(); // выбираем старые ручные номера цифр
                         if (cleanText) addNewStepRowFromScreen(cleanText);
                     });
                 } else if (isAdminModeActive) {
@@ -1021,29 +989,29 @@
             // Автоматический подсчет текущего номера шага
             const currentStepsCount = container.getElementsByClassName("recipe-step-row-item").length + 1;
 
-            // Кнопочка-пуговка выполнения шага для гостей
+            // Кнопочка-пуговка выполнения шага для гостя
             const checkBtn = document.createElement("button");
             checkBtn.type = "button";
             checkBtn.style.cssText = "width: 28px; height: 28px; border-radius: 50%; border: 2px solid #EAD5C3; background: #FFFDF9; color: #A0522D; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; padding: 0; outline: none; transition: all 0.2s; flex-shrink: 0; margin-right: 15px; font-family: monospace;";
             checkBtn.innerText = currentStepsCount;
 
             // Уютное текстовое поле шага (Шоколадные крупные буквы 20px)
-                    // 🥣 Создаем текст шага (Адаптивный: текст для гостя, текстовое поле для админа)
+                    // 🥣 Создаем текст шага (Адаптивный: текст для гостей, текстовое поле для администратора)
         let stepInput;
         if (isAdminModeActive) {
             stepInput = document.createElement("textarea");
-            stepInput.placeholder = "Опишите кулинарный шаг...";
+            StepInput.placeholder = "Опишите кулинарный шаг...";
             stepInput.rows = 1;
             stepInput.value = stepTextValue;
             stepInput.readOnly = false;
             stepInput.style.cssText = "flex-grow: 1; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; font-size: 20px; color: #8B4513; font-weight: 600; text-align: left; padding: 6px 10px; line-height: 1.4; outline: none; box-sizing: border-box; font-family: inherit;";
 
-            // Автоматическое выравнивание высоты рамки под размер текста в режиме админа
+            // Автоматическое соревнование высоты рамки под размер текста в режиме администратора
             stepInput.oninput = function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; };
             setTimeout(() => { stepInput.style.height = 'auto'; stepInput.style.height = stepInput.scrollHeight + 'px'; }, 20);
-        } else {
+        } еще {
             stepInput = document.createElement("span");
-            stepInput.innerText = stepTextValue;
+            StepInput.innerText = StepTextValue;
             stepInput.style.cssText = "flex-grow: 1; font-size: 20px; color: #8B4513; font-weight: 600; text-align: left; padding: 4px 8px; line-height: 1.4; display: inline-block; white-space: pre-wrap; font-family: inherit;";
         }
         stepInput.className = "step-text-cell";
@@ -1051,22 +1019,22 @@
             // Клик по пуговке-номеру отмечает выполненный шаг нежным цветом
             checkBtn.onclick = function() {
                 if (isAdminModeActive) return;
-                const isDone = this.style.background === "rgb(212, 237, 218)"; 
+                const isDone = this.style.background === "rgb(212, 237, 218)";
                 if (isDone) {
                     this.style.background = "#FFFDF9"; this.style.borderColor = "#EAD5C3"; this.style.color = "#A0522D"; this.innerText = currentStepsCount; stepInput.style.opacity = "1"; stepInput.style.textDecoration = "none";
-                } else {
+                } еще {
                     this.style.background = "#D4EDDA"; this.style.borderColor = "#28A745"; this.style.color = "#28A745"; this.innerText = "✓"; stepInput.style.opacity = "0.4"; stepInput.style.textDecoration = "line-through";
                 }
             };
 
-            // Оранжевый крестик удаления шага для Хозяйки
+            // Оранжевый крестик для удаления шага для Хозяйки
             const delBtn = document.createElement("button");
             delBtn.type = "button";
             delBtn.style.cssText = "width: 26px; height: 26px; border-radius: 50%; background: #FF7A33; border: none; color: #FFF; font-size: 16px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; outline: none; flex-shrink: 0; margin-left: 10px; margin-top: 2px;";
             delBtn.innerText = "×";
             delBtn.style.display = isAdminModeActive ? "flex" : "none";
-            delBtn.onclick = function() { 
-                row.remove(); 
+            delBtn.onclick = function() {
+                row.remove();
                 let allRows = container.getElementsByClassName("recipe-step-row-item");
                 for(let i=0; i<allRows.length; i++) {
                     let btn = allRows[i].getElementsByTagName("button")[0];
@@ -1081,7 +1049,7 @@
         }
         function deleteCurrentRecipeFromDatabase() {
             const recipe = recipeAlbums[currentAlbumId][currentRecipeIndex];
-            if (!recipe) return;
+            если (!рецепт) вернуть;
             if (confirm(`Вы уверены, что хотите навсегда удалить рецепт "${recipe.title}"? 🗑️`)) {
                 recipeAlbums[currentAlbumId].splice(currentRecipeIndex, 1);
                 localStorage.setItem('helenCookbookDatabase', JSON.stringify(recipeAlbums));
@@ -1105,12 +1073,12 @@
             if (isChecked) { checkBtn.style.background = "#D4EDDA"; checkBtn.style.borderColor = "#28A745"; checkBtn.style.color = "#28A745"; checkBtn.innerText = "✓"; }
 
             checkBtn.onclick = function() {
-                if (isAdminModeActive) return; 
+                if (isAdminModeActive) return;
                 if (this.innerText === "✓") { this.style.background = "#FFFDF9"; this.style.borderColor = "#EAD5C3"; this.innerText = ""; }
                 else { this.style.background = "#D4EDDA"; this.style.borderColor = "#28A745"; this.style.color = "#28A745"; this.innerText = "✓"; }
             };
 
-                 // ⚖️ Создаем вес продукта (Адаптивный: текст для гостя, инпут для админа)
+                 // ⚖️ Создаем вес продукта (Адаптивный: текст для гостей, вход для администратора)
         let weightInput;
         if (isAdminModeActive) {
             weightInput = document.createElement("input");
@@ -1120,7 +1088,7 @@
             weightInput.readOnly = false;
             weightInput.className = "ing-weight-cell";
             weightInput.style.cssText = "width: 70px; height: 36px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; text-align: center; font-size: 21px; font-weight: bold; color: #8B4513; outline: none; box-sizing: border-box; font-family: inherit;";
-                } else {
+                } еще {
             weightInput = document.createElement("input");
             weightInput.type = "text";
             weightInput.value = weightValue;
@@ -1131,7 +1099,7 @@
 
         }
 
-        // 🍎 Создаем название продукта (Адаптивный: текст для гостя, инпут для админа)
+        // 🍎 Создаем название продукта (Адаптивный: текст для гостей, вход для администратора)
         let nameInput;
         if (isAdminModeActive) {
             nameInput = document.createElement("input");
@@ -1141,7 +1109,7 @@
             nameInput.readOnly = false;
             nameInput.style.cssText = "flex-grow: 1; height: 36px; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; padding: 0 10px; font-size: 21px; font-weight: bold; color: #8B4513; outline: none; box-sizing: border-box; font-family: inherit;";
 
-        } else {
+        } еще {
             nameInput = document.createElement("span");
             nameInput.innerText = nameValue;
             nameInput.style.cssText = "flex: 1; margin-left: 12px; font-size: 21px; color: #8B4513; font-weight: bold; text-align: left; display: inline-block; font-family: inherit;";
@@ -1202,7 +1170,7 @@
             const listContainer = document.getElementById("recipe-ingredients-list-container");
             if (!listContainer || isAdminModeActive) return;
             const recipe = recipeAlbums[currentAlbumId][currentRecipeIndex];
-            if (!recipe) return;
+            если (!рецепт) вернуть;
             const rows = listContainer.getElementsByClassName("ingredient-row");
             for (let i = 0; i < rows.length; i++) {
                 const weightInput = rows[i].getElementsByClassName("ing-weight-cell")[0];
@@ -1217,13 +1185,13 @@
             }
         }
 
-        function closeRecipePageAndGoBack() { 
-            const page = document.getElementById("interactiveRecipePage"); if (page) page.remove(); 
-            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; } 
-            if (wakeLock) { wakeLock.release(); wakeLock = null; } 
+        function closeRecipePageAndGoBack() {
+            const page = document.getElementById("interactiveRecipePage"); if (page) page.remove();
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            if (wakeLock) { wakeLock.release(); wakeLock = null; }
         }
 
-        async function toggleCleanHandsMode() {
+        асинхронная функция toggleCleanHandsMode() {
             const btn = document.getElementById("recipe-hands-btn");
             if (!wakeLock) {
                 try { wakeLock = await navigator.wakeLock.request('screen'); btn.style.background = "#0D9E5E"; btn.style.color = "#FFF"; } catch (err) {}
@@ -1231,10 +1199,10 @@
         }
 
         function changeRecipeTimerMinutes(amount) { const display = document.getElementById("recipe-timer-display"); if (!display || timerInterval) return; let parts = display.innerText.split(":"); let newMinutes = parseInt(parts[0]) + amount; if (newMinutes < 1) newMinutes = 1; if (newMinutes > 60) newMinutes = 60; display.innerText = `${newMinutes < 10 ? '0' : ''}${newMinutes}:00`; }
-        // 💾 ИСПРАВЛЕННАЯ ФУНКЦИЯ СОХРАНЕНИЯ РЕЦЕПТА (МГНОВЕННО СИНХРОНИЗИРУЕТ С FIREBASE!)
+        // 💾 ИСПРАВЛЕННАЯ ФУНКЦИЯ СОХРАНЕНИЯ РЕЦЕПТА (МГНОВЕННО СИНХРОНИЗИРУЕТ С FIRBASE!)
         function saveCurrentRecipeFromScreen() {
             let typedTitle = document.getElementById("recipe-display-title").innerText.trim();
-            if (!typedTitle) { alert("Пожалуйста, введите название блюда! 🍳"); return; }
+            if (!typedTitle) { alert("Пожалуйста, введите название блюда! 🍳"); возвращаться; }
 
             // Собираем ингредиенты
             let collectedIngredients = [];
@@ -1263,29 +1231,29 @@
             let album = recipeAlbums[currentAlbumId];
             let targetRecipe = album[currentRecipeIndex];
                 let payload = {
-        title: typedTitle,
+        заголовок: typedTitle,
         ingredientsArray: collectedIngredients,
         stepsArray: collectedSteps,
-        steps: collectedSteps.map((s,i) => `${i+1}. ${s}`).join('\n'),
+        шаги: collectedSteps.map((s,i) => `${i+1}. ${s}`).join('\n'),
         photoData: document.getElementById("recipe-uploaded-img").src || "",
-        category: currentAlbumId,
-        timestamp: Date.now(),
-        // 🌟 Сохраняем в Firebase полноценный архив всех трех языков бланка!
-        translations: {
-            ru: {
+        категория: currentAlbumId,
+        метка времени: Date.now(),
+        // 🌟 Сохраняем в Firebase полноценный архив всех трех языковых бланков!
+        переводы: {
+            ру: {
                 title: window.recipeTranslationsCache.ru.title || typedTitle,
                 ingredients: window.recipeTranslationsCache.ru.ingredients.length ? window.recipeTranslationsCache.ru.ingredients : collectedIngredients.map(i => ({ name: i.name })),
-                steps: window.recipeTranslationsCache.ru.steps.length ? window.recipeTranslationsCache.ru.steps : collectedSteps
+                шаги: window.recipeTranslationsCache.ru.steps.length ? window.recipeTranslationsCache.ru.steps : collectedSteps
             },
-            en: {
+            эн: {
                 title: window.recipeTranslationsCache.en.title || '',
-                ingredients: window.recipeTranslationsCache.en.ingredients || [],
-                steps: window.recipeTranslationsCache.en.steps || []
+                ингредиенты: window.recipeTranslationsCache.en.ingredients || [],
+                шаги: window.recipeTranslationsCache.en.steps || []
             },
-            uk: {
+            Великобритания: {
                 title: window.recipeTranslationsCache.uk.title || '',
-                ingredients: window.recipeTranslationsCache.uk.ingredients || [],
-                steps: window.recipeTranslationsCache.uk.steps || []
+                ингредиенты: window.recipeTranslationsCache.uk.ingredients || [],
+                шаги: window.recipeTranslationsCache.uk.steps || []
             }
         }
     };
@@ -1293,7 +1261,7 @@
             let firebaseDocId = (targetRecipe && targetRecipe.firebaseId) ? targetRecipe.firebaseId : "doc-" + Date.now();
             payload.firebaseId = firebaseDocId;
 
-            if (targetRecipe) { album[currentRecipeIndex] = payload; } 
+            if (targetRecipe) { album[currentRecipeIndex] = payload; }
             else { album.push(payload); currentRecipeIndex = album.length - 1; }
 
             // Сохраняем локально
@@ -1306,7 +1274,7 @@
                 .catch(err => console.error("Ошибка облака: ", err));
             }
 
-            alert("Страница-шаблон успешно сохранена везде! 💾");
+            alert("Страница-шаблон успешно сохраняется везде! 💾");
             renderCategoryRecipesList();
             isAdminModeActive = false;
             showRecipePage();
@@ -1324,10 +1292,10 @@
         }
 
         function playTimerEndSound() {
-            try {
+            пытаться {
                 const AudioContext = window.AudioContext || window.webkitAudioContext; if (!AudioContext) return;
                 const ctx = new AudioContext();
-                const melody = [329.63, 392.00, 523.25, 659.25, 523.25, 392.00, 440.00, 554.37, 659.25, 783.99]; 
+                const melody = [329.63, 392.00, 523.25, 659.25, 523.25, 392.00, 440.00, 554.37, 659.25, 783.99];
                 melody.forEach((note, index) => {
                     setTimeout(() => {
                         const osc = ctx.createOscillator(); const gain = ctx.createGain();
@@ -1346,43 +1314,43 @@
             if (timerInterval) { clearInterval(timerInterval); timerInterval = null; trigger.innerText = "⏱️"; display.innerText = "05:00"; return; }
             let parts = display.innerText.split(":"); let time = parseInt(parts) * 60; trigger.innerText = "🛑";
             timerInterval = setInterval(() => {
-                time--; let min = Math.floor(time / 60); let sec = time % 60; 
-                display.innerText = `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`; 
-                if (time <= 0) { clearInterval(timerInterval); timerInterval = null; trigger.innerText = "⏱️"; display.innerText = "05:00"; playTimerEndSound(); } 
+                время--; пусть min = Math.floor(time / 60); пусть sec = time % 60;
+                display.innerText = `${min < 10 ? '0': ''}${min}:${sec < 10 ? '0' : ''}${sec}`;
+                if (time <= 0) { clearInterval(timerInterval); timerInterval = null; trigger.innerText = "⏱️"; display.innerText = "05:00"; playTimerEndSound(); }
             }, 1000);
         }
 
         // ТАБЛИЦА МЕР И ВЕСОВ ЕЛЕНОЧКИ
         const ingredientsData = {
-            ru: [
-                { name: "Мука пшеничная 🌾", glass: "160 г", spoon: "30 г", tsp: "10 г" },
-                { name: "Сахарный песок 🍬", glass: "200 г", spoon: "25 г", tsp: "8 г" },
-                { name: "Соль поваренная 🧂", glass: "320 г", spoon: "30 г", tsp: "10 г" },
-                { name: "Сода пищевая 🧁", glass: "—", spoon: "28 г", tsp: "12 г" },
-                { name: "Масло сливочное 🧈", glass: "240 г", spoon: "20 г", tsp: "8 г" },
-                { name: "Масло растительное 🌻", glass: "230 г", spoon: "17 г", tsp: "5 г" },
-                { name: "Какао-порошок 🍫", glass: "—", spoon: "25 г", tsp: "9 г" },
-                { name: "Мёд натуральный 🍯", glass: "325 г", spoon: "35 г", tsp: "12 г" }
+            ру: [
+                {название: "Мука пшеничная 🌾", стакан: "160 г", ложка: "30 г", чайная ложка: "10 г" },
+                {название: "Сахарный песок 🍬", стакан: "200 г", ложка: "25 г", чайная ложка: "8 г" },
+                { название: "Соль поваренная 🧂", стакан: "320 г", ложка: "30 г", чайная ложка: "10 г" },
+                {название: "Сода пищевая 🧁", стакан: "—", ложка: "28 г", чайная ложка: "12 г" },
+                {название: "Масло сливочное 🧈", стакан: "240 г", ложка: "20 г", чайная ложка: "8 г" },
+                {название: "Масло растительное 🌻", стакан: "230 г", ложка: "17 г", чайная ложка: "5 г" },
+                { название: "Какао-порошок 🍫", стакан: "—", ложка: "25 г", чайная ложка: "9 г" },
+                { название: "Мёд натуральный 🍯", стакан: "325 г", ложка: "35 г", чайная ложка: "12 г" }
             ],
             ukr: [
-                { name: "Борошно пшеничне 🌾", glass: "160 г", spoon: "30 г", tsp: "10 г" },
-                { name: "Цукор-пісок 🍬", glass: "200 г", spoon: "25 г", tsp: "8 г" },
-                { name: "Сіль кухонна 🧂", glass: "320 г", spoon: "30 г", tsp: "10 г" },
-                { name: "Сода харчова 🧁", glass: "—", spoon: "28 г", tsp: "12 г" },
-                { name: "Масло вершкове 🧈", glass: "240 г", spoon: "20 г", tsp: "8 г" },
-                { name: "Олія рослинна 🌻", glass: "230 г", spoon: "17 г", tsp: "5 г" },
-                { name: "Какао-порошок 🍫", glass: "—", spoon: "25 г", tsp: "9 г" },
-                { name: "Мед натуральний 🍯", glass: "325 г", spoon: "35 г", tsp: "12 г" }
+                {название: "Борошно пшеничне 🌾", стакан: "160 г", ложка: "30 г", чайная ложка: "10 г" },
+                {название: "Цукор-пісок 🍬", стакан: "200 г", ложка: "25 г", чайная ложка: "8 г" },
+                {название: "Сіль кухни 🧂", стакан: "320 г", ложка: "30 г", чайная ложка: "10 г" },
+                {название: "Сода харчова 🧁", стакан: "—", ложка: "28 г", чайная ложка: "12 г" },
+                {название: "Масло вершкове 🧈", стакан: "240 г", ложка: "20 г", чайная ложка: "8 г" },
+                {название: "Олія рослинна 🌻", стакан: "230 г", ложка: "17 г", чайная ложка: "5 г" },
+                { название: "Какао-порошок 🍫", стакан: "—", ложка: "25 г", чайная ложка: "9 г" },
+                { название: "Мед натуральный 🍯", стакан: "325 г", ложка: "35 г", чайная ложка: "12 г" }
             ],
-            en: [
-                { name: "Wheat Flour 🌾", glass: "160 g", spoon: "30 g", tsp: "10 g" },
-                { name: "Granulated Sugar 🍬", glass: "200 g", spoon: "25 g", tsp: "8 g" },
-                { name: "Baking Salt 🧂", glass: "320 g", spoon: "30 g", tsp: "10 g" },
-                { name: "Baking Soda 🧁", glass: "—", spoon: "28 g", tsp: "12 g" },
-                { name: "Butter (melted) 🧈", glass: "240 g", spoon: "20 g", tsp: "8 g" },
-                { name: "Vegetable Oil 🌻", glass: "230 g", spoon: "17 g", tsp: "5 g" },
-                { name: "Cocoa Powder 🍫", glass: "—", spoon: "25 g", tsp: "9 g" },
-                { name: "Natural Honey 🍯", glass: "325 g", spoon: "35 g", tsp: "12 g" }
+            эн: [
+                { name: "Пшеничная мука 🌾", glass: "160 g", spoon: "30 g", tsp: "10 g" },
+                { name: "Гранированный сахар 🍬", glass: "200 g", spoon: "25 g", tsp: "8 g" },
+                { name: "Пищевая соль 🧂", glass: "320 g", spoon: "30 g", tsp: "10 g" },
+                { name: "Пищевая сода 🧁", glass: "—", spoon: "28 g", tsp: "12 g" },
+                { name: "Растопленное масло 🧈", glass: "240 g", spoon: "20 g", tsp: "8 g" },
+                { name: "Растительное масло 🌻", glass: "230 g", spoon: "17 g", tsp: "5 g" },
+                { name: "Какао-порошок 🍫", glass: "—", spoon: "25 g", tsp: "9 g" },
+                { name: "Натуральный мед 🍯", glass: "325 g", spoon: "35 g", tsp: "12 g" }
             ]
         };
 
@@ -1391,10 +1359,10 @@
             document.getElementById('table-body-content').innerHTML = html;
         }
 
-                // 🥄 ФУНКЦИИ ДЛЯ ОТКРЫТИЯ И ЗАКРЫТИЯ МОДАЛЬНОГО ОКНА ЛОЖЕЧКИ
+                // 🥄 ФУНКЦИИ ДЛЯ ОТКРЫТИЯ И ЗАКРЫТИЯ МОДАЛЬНОГО ОКНА ЛОЖКИ
         function openMeasuresModal() {
             const modal = document.getElementById("measuresModal");
-            if (modal) {
+            если (модальный) {
                 modal.style.display = "flex";
                 renderMeasuresTable(currentLangCode || 'ru');
             }
@@ -1411,15 +1379,15 @@
 
         // 🎙️ ЖИВОЙ ЧЕЛОВЕЧЕСКИЙ ГОЛОС ДЛЯ ЧАШЕЧКИ (ГОЛОС ДЕВУШКИ ИЗ MP3 ФАЙЛОВ)
         function speakThanksInUserLanguage() {
-            try {
+            пытаться {
                 const audioPlayer = new Audio();
                 const lang = currentLangCode || 'ru';
 
                 if (lang === 'en') audioPlayer.src = 'thanks_en.mp3';
                 else if (lang === 'uk') audioPlayer.src = 'thanks_ukr.mp3';
-                else audioPlayer.src = 'thanks_ru.mp3';
+                иначе audioPlayer.src = 'thanks_ru.mp3';
 
-                audioPlayer.play().catch(err => console.log("Аудиофайл пока не положен в папку:", err));
+                audioPlayer.play().catch(err => console.log("Аудиофайл пока не расположен в приложении:", err));
             } catch (e) { console.log("Воспроизведение звука недоступно:", e); }
         }
 
@@ -1435,23 +1403,23 @@
             let amt = document.getElementById('supportAmountInput').value;
             const lang = currentLangCode || 'ru';
 
-            if (!amt || parseInt(amt) <= 0) { 
-                if (lang === 'en') alert("Please enter the amount! 🌸");
+            if (!amt || parseInt(amt) <= 0) {
+                if (lang === 'en') alert("Пожалуйста, введите сумму! 🌸");
                 else if (lang === 'uk') alert("Будь ласка, введіть суму! 🌸");
                 else alert("Пожалуйста, введите сумму! 🌸");
-                return; 
+                возвращаться;
             }
 
             document.getElementById('support-step-input').style.display = 'none';
             document.getElementById('support-step-thanks').style.display = 'block';
 
             setTimeout(() => {
-                if (lang === 'en') alert("Redirecting you to the secure bank page for safe payment... 💳");
-                else if (lang === 'uk') alert("Перенаправляємо вас на захищену сторінку банку для безпечної оплати... 💳");
+                if (lang === 'en') alert("Перенаправляем вас на защищенную страницу банка для безопасной оплаты... 💳");
+                else if (lang === 'uk') alert("Перенаправим вас на закрытую страницу банка для безпечной оплаты... 💳");
                 else alert("Перенаправляем вас на защищенную страницу банка для безопасной оплаты... 💳");
 
                 document.getElementById('supportModal').style.display = 'none';
-                speakThanksInUserLanguage(); // Включается живой голос «Спасибо за Вашу доброту»
+                говоритьСпасибоInUserLanguage(); // Включается живой голос «Спасибо за Вашу доброту»
             }, 800);
         }
 
@@ -1463,19 +1431,19 @@
             const mainPageUrl = `https://github.io{lang}`;
 
              if (lang === 'en') {
-                linkEl.innerHTML = `✨ Created in the <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Interactive Cookbook with a Timer</a>. Want your own? Click here! 📖`;
+                linkEl.innerHTML = `✨ Создано в <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Интерактивной кулинарной книге с таймером</a>. Хотите свою собственную? Нажмите здесь! 📖`;
             } else if (lang === 'uk') {
-                linkEl.innerHTML = `✨ Створено в <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Інтерактивна книга рецептiв з таймером</a>. Хочете таку ж? Натисніть сюди! 📖`;
-            } else {
-                linkEl.innerHTML = `✨ Создано в <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Интерактивная книга рецептов с Таймером</a>. Хотите такую же? Нажмите сюда! 📖`;
+                linkEl.innerHTML = `✨ Создано в <a href="${mainPageUrl}" style="color: #FF7A33; шрифт-вес: жирный; текст-декорация: нет;">Интерактивная книга рецептов с таймером</a>. Хотите так же? Натисніть сюди! 📖`;
+            } еще {
+                linkEl.innerHTML = `✨ Создано в <a href="${mainPageUrl}" style="color: #FF7A33; шрифт-вес: жирный; текст-декорация: нет;">Интерактивная книга рецептов с Таймером</a>. Хотите такое же? Нажмите сюда! 📖`;
             }
 
-                        // 🎯 Локальный перевод заголовка окна порций
+                        // 🎯 Локальный перевод заголовка оконных порций
             const portionsTitleEl = document.getElementById("text-portionsModalTitle");
             if (portionsTitleEl) {
-                if (lang === 'en') portionsTitleEl.innerText = "Select number of servings:";
-                else if (lang === 'uk') portionsTitleEl.innerText = "Виберіть кількість порцій:";
-                else portionsTitleEl.innerText = "Выберите количество порций:";
+                if (lang === 'en') portionsTitleEl.innerText = "Выберите количество порций:";
+                else if (lang === 'uk') partsTitleEl.innerText = "Выберите количество порций:";
+                else partsTitleEl.innerText = "Выберите количество порций:";
             }
 
         }
@@ -1487,10 +1455,10 @@
 
             if (navigator.share) {
                 navigator.share({ title: document.title, url: currentUrl }).catch(console.error);
-            } else {
+            } еще {
                 navigator.clipboard.writeText(currentUrl);
-                if (lang === 'en') alert("Recipe link copied! Share it with your friends. ➡️");
-                else if (lang === 'uk') alert("Посилання на рецепт скопійовано! Поділіться з друзями. ➡️");
+                if (lang === 'en') alert("Ссылка на рецепт скопирована! Поделитесь ею с друзьями. ➡️");
+                else if (lang === 'uk') alert("Посилання по рецепту скопировано! Подиліться с друзями. ➡️");
                 else alert("Ссылка на рецепт скопирована! Поделитесь с друзьями. ➡️");
             }
         }
@@ -1500,7 +1468,7 @@
             let name = document.getElementById('guestNameInput').value.trim();
             let title = document.getElementById('guestTitleInput').value.trim();
             let text = document.getElementById('guestRecipeTextInput').value.trim();
-            if (!name || !title || !text) { alert("Пожалуйста, заполните все поля! 🌸"); return; }
+            if (!name || !title || !text) { alert("Пожалуйста, заполните все поля! 🌸"); возвращаться; }
             window.location.href = "mailto:helen.amberst@://gmail.com" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + text);
             document.getElementById('guestSuggestModal').style.display = 'none';
         }
@@ -1508,16 +1476,16 @@
         function openAdminLogin() {
     // Открываем наше привычное белое окошко
     document.getElementById('adminAuthModal').style.display = 'flex';
-
+    
     // Если Хозяйка уже авторизовалась, сайт сам заполнит рамочки,
-    // чтобы круглые кнопки альбомов внизу мгновенно стали активными!
+    // чтобы круглые кнопки альбомов внезапно стали активными!
     if (window.isAdminModeActive || (typeof isAdminModeActive !== 'undefined' && isAdminModeActive)) {
         const loginInput = document.getElementById('adminLogin');
         const passInput = document.getElementById('adminPassword');
-        if (loginInput) loginInput.value = 'admin'; 
+        if (loginInput) loginInput.value = 'admin';
         if (passInput) passInput.value = 'password';
-    } else {
-        // Если вы зашли первый раз — поля будут чистыми для ввода вашего пароля
+    } еще {
+        // Если вы зашли первый раз — поля будут чистыми для ввода вашего текста
         const loginInput = document.getElementById('adminLogin');
         const passInput = document.getElementById('adminPassword');
         if (loginInput) loginInput.value = '';
@@ -1529,21 +1497,21 @@
 
                   // 🔒 ИСПРАВЛЕННАЯ ФУНКЦИЯ ВХОДА: ВОЗВРАЩАЕТ ТРИ КНОПКИ АЛЬБОМОВ И СЧЁТЧИК ПОРЦИЙ
         function checkAdminCredentials(event) {
-            if (event && event.preventDefault) event.preventDefault(); // Блокируем перезагрузку страницы
+            if (event && event.preventDefault) event.preventDefault(); // Блокируемая перезагрузка страницы
 
             let inputLogin = document.getElementById('adminLogin').value.trim();
             let inputPassword = document.getElementById('adminPassword').value.trim();
 
             if (!inputLogin || !inputPassword) {
                 alert("Пожалуйста, заполните все поля! 🌸");
-                return;
+                возвращаться;
             }
 
             const database = window.db;
 
-            if (!database) {
+            если (!база данных) {
                 alert("Облако временно недоступно. Проверьте подключение к интернету! 🌐");
-                return;
+                возвращаться;
             }
 
             // Безопасный запрос в закрытый сейф Firebase Firestore
@@ -1566,46 +1534,46 @@
                         adminPanel.style.display = 'block';
                     }
 
-                    } else {
+                    } еще {
                         alert("Неверный логин или пароль Хозяйки! Доступ закрыт. ⛔");
                     }
-                } else {
-                    alert("Критическая ошибка configuration облака. Проверьте Firebase! 🫘");
+                } еще {
+                    alert("Критическая ошибка конфигурации облаков. Проверьте Firebase! 🫘");
                 }
             }).catch((error) => {
                 console.error("Ошибка сети Firestore: ", error);
-                alert("Ошибка связи с облаком! Проверьте интернет. 🌐");
+                alert("Ошибка связи с облаком! Проверить интернет. 🌐");
             });
         }
 
         function openAdminForm(catId) {
-            let customTitle = prompt("Введите название нового блюда:");
+            let customTitle = Prompt("Введите название нового блюда:");
             if (customTitle && customTitle.trim()) {
                 isAdminModeActive = true; currentAlbumId = catId;
                 recipeAlbums[catId].push({ firebaseId: "doc-" + Date.now(), title: customTitle.trim(), ingredientsArray: [], stepsArray: [], photoData: "" });
-                currentRecipeIndex = recipeAlbums[catId].length - 1; 
-                document.getElementById('adminAuthModal').style.display = 'none'; 
+                currentRecipeIndex = recipeAlbums[catId].length - 1;
+                document.getElementById('adminAuthModal').style.display = 'none';
                 showRecipePage();
             }
         }
 
-        function sendPasswordReminder() { let mail = prompt("Введите E-mail:"); if (mail && mail.trim().toLowerCase() === 'avender59@gmail.com') { window.location.href = 'mailto:avender59@://gmail.com: Еленочка'; } else { alert("Ошибка! 🛑"); } }
+        function sendPasswordReminder() { let mail = Prompt("Введите E-mail:"); if (mail && mail.trim().toLowerCase() === 'avender59@gmail.com') { window.location.href = 'mailto:avender59@://gmail.com: Еленочка'; } else { alert("Ошибка! 🛑"); } }
 
                // 🔄 ПОЛНАЯ АВТОМАТИЧЕСКАЯ СИНХРОНИЗАЦИЯ С ОБЛАКОМ ПРИ СТАРТЕ КНИГИ
         window.addEventListener('DOMContentLoaded', () => {
             // Подгружаем локальную память
-            const savedDatabase = localStorage.getItem('helenCookbookDatabase');
+            const saveDatabase = localStorage.getItem('helenCookbookDatabase');
             if (savedDatabase) recipeAlbums = JSON.parse(savedDatabase);
 
-            const savedLang = localStorage.getItem('selectedLanguage') || 'ru'; 
+            const savedLang = localStorage.getItem('selectedLanguage') || 'ru';
             if (typeof changeLanguage === 'function') changeLanguage(savedLang);
 
-            let btnEl = document.getElementById('lang-btn'); 
-            if (btnEl) btnEl.innerText = savedLang.toUpperCase();
+            let btnEl = document.getElementById('lang-btn');
+            если (btnEl) btnEl.innerText = saveLang.toUpperCase();
 
             // 🌐 ГЛАВНЫЙ КАНАЛ СВЯЗИ: Принудительно будим Firebase Firestore при запуске сайта
             const database = window.db || (typeof firebase !== 'undefined' ? firebase.app().firestore() : null);
-            if (database) {
+            если (база данных) {
                 database.collection("recipes").get().then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
                         let data = doc.data();
@@ -1635,15 +1603,15 @@
         }
 
         function openSupportModal() { document.getElementById('supportAmountInput').value = ''; document.getElementById('support-step-input').style.display = 'block'; document.getElementById('support-step-thanks').style.display = 'none'; document.getElementById('supportModal').style.display = 'flex'; }
-        function processSupportPayment() { let amt = document.getElementById('supportAmountInput').value; if (!amt || parseInt(amt) <= 0) { alert("Пожалуйста, введите сумму! 🌸"); return; } document.getElementById('support-step-input').style.display = 'none'; document.getElementById('support-step-thanks').style.display = 'block'; setTimeout(() => { alert("Перенаправляем вас на защищенную страницу банка для безопасной оплаты... 💳"); document.getElementById('supportModal').style.display = 'none'; }, 800); }
+        functionprocessSupportPayment() { let amt = document.getElementById('supportAmountInput').value; if (!amt || parseInt(amt) <= 0) { alert("Пожалуйста, введите сумму! 🌸"); возвращаться; } document.getElementById('support-step-input').style.display = 'none'; document.getElementById('support-step-thanks').style.display = 'block'; setTimeout(() => { alert("Перенаправляем вас на защищенную страницу банка для безопасной оплаты... 💳"); document.getElementById('supportModal').style.display = 'none'; }, 800); }
 
         // 🔗 УМНАЯ МУЛЬТИЯЗЫЧНАЯ ССЫЛКА ДЛЯ КНОПКИ «ПОДЕЛИТЬСЯ»
         function shareCurrentRecipePage() {
             navigator.clipboard.writeText(window.location.href);
             const shareText = {
                 ru: "Посмотри этот потрясающий рецепт в интерактивной книге Еленочки! ✨ Попробуй приготовить: ",
-                ukr: "Подивись цей приголомшливий рецепт в інтерактивній книзі Оленочки! ✨ Спробуй приготувати: ",
-                en: "Check out this amazing recipe in Helen's Interactive Cookbook! ✨ Try cooking: "
+                укр: "Подисьсь цей приголомшивий рецепт в інтерактивній книзі Оленочки! ✨ Спробуй приготови: ",
+                en: "Посмотрите этот потрясающий рецепт в интерактивной кулинарной книге Хелен! ✨ Попробуйте приготовить: "
             };
             let recipeTitle = document.getElementById("recipe-display-title").innerText;
             alert(`${shareText[currentLangCode]}${recipeTitle}\n\n(Ссылка скопирована в буфер обмена!) ➡️`);
