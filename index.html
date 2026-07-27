@@ -1489,14 +1489,45 @@
         }
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
-        function sendRecipeToHelen() {
-            let name = document.getElementById('guestNameInput').value.trim();
-            let title = document.getElementById('guestTitleInput').value.trim();
-            let text = document.getElementById('guestRecipeTextInput').value.trim();
-            if (!name || !title || !text) { alert("Пожалуйста, заполните все поля! 🌸"); return; }
-            window.location.href = "mailto:helen.amberst@://gmail.com" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + text);
-            document.getElementById('guestSuggestModal').style.display = 'none';
+       function sendRecipeToHelen() {
+    let name = document.getElementById('guestNameInput').value.trim() || "Гость";
+    
+    // Умный сбор данных: берем текст из тех полей, которые сейчас заполнены на экране гостя
+    let title = "";
+    let text = "";
+    
+    // Сканируем все возможные языковые рамочки названия и ингредиентов
+    const titleInputs = [
+        document.getElementById('guestTitleInput'),
+        document.querySelector('input[placeholder*="EN"]'), document.querySelector('input[placeholder*="Dish"]'),
+        document.querySelector('input[placeholder*="UKR"]'), document.querySelector('input[placeholder*="страви"]')
+    ];
+    const textInputs = [
+        document.getElementById('guestRecipeTextInput'),
+        document.querySelector('textarea[placeholder*="EN"]'), document.querySelector('textarea[placeholder*="ingredients"]'),
+        document.querySelector('textarea[placeholder*="UKR"]'), document.querySelector('textarea[placeholder*="кроки"]')
+    ];
+    
+    titleInputs.forEach(el => { if (el && el.value.trim() && el.style.display !== 'none') title = el.value.trim(); });
+    textInputs.forEach(el => { if (el && el.value.trim() && el.style.display !== 'none') text = el.value.trim(); });
+    
+    // Если гость совсем ничего не ввёл в активные поля, аккуратно подскажем ему
+    if (!title || !text) {
+        let alertMsg = "Пожалуйста, введите название и текст рецепта! 💮";
+        const mainLangBtn = document.getElementById('lang-btn');
+        if (mainLangBtn) {
+            const btnText = mainLangBtn.innerText.trim().toUpperCase();
+            if (btnText.includes('EN')) alertMsg = "Please fill in the dish name and recipe text! 💮";
+            else if (btnText.includes('UKR') || btnText.includes('UA')) alertMsg = "Будь ласка, введіть назву та текст рецепту! 💮";
         }
+        alert(alertMsg);
+        return;
+    }
+    
+    // Отправляем готовое письмо на вашу почту helen.amberst
+    window.location.href = "mailto:helen.amberst@gmail.com" + "?subject=" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + title + "\n\n" + text);
+    document.getElementById('guestSuggestModal').style.display = 'none';
+}
 
         function openAdminLogin() {
     // Открываем наше привычное белое окошко
