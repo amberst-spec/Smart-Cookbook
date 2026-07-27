@@ -1496,8 +1496,7 @@
                 else alert("Ссылка на рецепт скопирована! Поделитесь с друзьями. ➡️");
             }
         }
-
-  function shareRecipeBook() {
+        function shareRecipeBook() {
     const modal = document.getElementById('guestSuggestModal');
     if (modal) modal.style.display = 'flex';
 }
@@ -1525,8 +1524,9 @@ function sendRecipeToHelen() {
         }
     });
     
+    // Проверяем, заполнил ли гость форму
     if (!title || !text) {
-        let alertMsg = "Пожалуйста, введите название и текст рецепта! 💮";
+        let alertMsg = "Пожалуйста, введите название и text рецепта! 💮";
         const mainLangBtn = document.getElementById('lang-btn');
         if (mainLangBtn) {
             const btnText = mainLangBtn.innerText.trim().toUpperCase();
@@ -1537,15 +1537,13 @@ function sendRecipeToHelen() {
         return;
     }
     
+    // Отправляем готовое письмо на почту helen.amberst
     window.location.href = "mailto:helen.amberst@gmail.com" + "?subject=" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + title + "\n\n" + text);
     
     const modal = document.getElementById('guestSuggestModal');
     if (modal) modal.style.display = 'none';
 }
-
-    // 🚀 ОТПРАВЛЯЕМ! Браузер мгновенно откроет почту с готовым шаблоном письма
-    window.location.href = "mailto:helen.amberst@gmail.com" + "?subject=" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + title + "\n\n" + text);
-    
+ 
     // Закрываем белое окошко после успешного клика
     const modal = document.getElementById('guestSuggestModal') || document.getElementById('shareRecipeModal');
     if (modal) modal.style.display = 'none';
