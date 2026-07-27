@@ -1490,28 +1490,43 @@
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
        function sendRecipeToHelen() {
-    let name = document.getElementById('guestNameInput').value.trim() || "Гость";
+    // Автоматически берем имя автора, либо пишем "Гость", если поле пустое
+    const nameInput = document.getElementById('guestNameInput') || document.querySelector('#guestSuggestModal input[type="text"]');
+    let name = (nameInput && nameInput.value) ? nameInput.value.trim() : "Гость";
     
-    // Умный сбор данных: берем текст из тех полей, которые сейчас заполнены на экране гостя
     let title = "";
     let text = "";
     
-    // Сканируем все возможные языковые рамочки названия и ингредиентов
-    const titleInputs = [
-        document.getElementById('guestTitleInput'),
-        document.querySelector('input[placeholder*="EN"]'), document.querySelector('input[placeholder*="Dish"]'),
-        document.querySelector('input[placeholder*="UKR"]'), document.querySelector('input[placeholder*="страви"]')
-    ];
-    const textInputs = [
-        document.getElementById('guestRecipeTextInput'),
-        document.querySelector('textarea[placeholder*="EN"]'), document.querySelector('textarea[placeholder*="ingredients"]'),
-        document.querySelector('textarea[placeholder*="UKR"]'), document.querySelector('textarea[placeholder*="кроки"]')
-    ];
+    // БРОНЕБОЙНЫЙ СБОР: собираем данные из всех видимых полей, которые гость видит на экране
+    const allInputs = Array.from(document.querySelectorAll('#guestSuggestModal input, #shareRecipeModal input'));
+    const allTextareas = Array.from(document.querySelectorAll('#guestSuggestModal textarea, #shareRecipeModal textarea'));
     
-    titleInputs.forEach(el => { if (el && el.value.trim() && el.style.display !== 'none') title = el.value.trim(); });
-    textInputs.forEach(el => { if (el && el.value.trim() && el.style.display !== 'none') text = el.value.trim(); });
+    // Берем название блюда из первой же открытой и заполненной текстовой рамочки
+    allInputs.forEach(input => {
+        if (input && input.id !== 'guestNameInput' && input.value.trim() && input.style.display !== 'none' && input.type !== 'hidden') {
+            title = input.value.trim();
+        }
+    });
     
-    // Если гость совсем ничего не ввёл в активные поля, аккуратно подскажем ему
+    // Берем текст рецепта из открытого текстового поля
+    allTextareas.forEach(textarea => {
+        if (textarea && textarea.value.trim() && textarea.style.display !== 'none') {
+            text = textarea.value.trim();
+        }
+    });
+    
+    // Если по какой-то причине автоматика не нашла текст (например, из-за внешних стилей фреймворка),
+    // делаем финальную супер-попытку собрать вообще любой непустой текст из формы
+    if (!title) {
+        const activeTitleEl = allInputs.find(el => el.id !== 'guestNameInput' && el.value.trim() && el.type !== 'hidden');
+        if (activeTitleEl) title = activeTitleEl.value.trim();
+    }
+    if (!text) {
+        const activeTextEl = allTextareas.find(el => el.value.trim());
+        if (activeTextEl) text = activeTextEl.value.trim();
+    }
+    
+    // Проверяем, заполнил ли гость форму
     if (!title || !text) {
         let alertMsg = "Пожалуйста, введите название и текст рецепта! 💮";
         const mainLangBtn = document.getElementById('lang-btn');
@@ -1524,9 +1539,12 @@
         return;
     }
     
-    // Отправляем готовое письмо на вашу почту helen.amberst
+    // 🚀 ОТПРАВЛЯЕМ! Браузер мгновенно откроет почту с готовым шаблоном письма
     window.location.href = "mailto:helen.amberst@gmail.com" + "?subject=" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + title + "\n\n" + text);
-    document.getElementById('guestSuggestModal').style.display = 'none';
+    
+    // Закрываем белое окошко после успешного клика
+    const modal = document.getElementById('guestSuggestModal') || document.getElementById('shareRecipeModal');
+    if (modal) modal.style.display = 'none';
 }
 
         function openAdminLogin() {
