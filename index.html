@@ -1543,24 +1543,6 @@ function sendRecipeToHelen() {
     if (modal) modal.style.display = 'none';
 }
 
-    if (!text) {
-        const activeTextEl = allTextareas.find(el => el.value.trim());
-        if (activeTextEl) text = activeTextEl.value.trim();
-    }
-    
-    // Проверяем, заполнил ли гость форму
-    if (!title || !text) {
-        let alertMsg = "Пожалуйста, введите название и текст рецепта! 💮";
-        const mainLangBtn = document.getElementById('lang-btn');
-        if (mainLangBtn) {
-            const btnText = mainLangBtn.innerText.trim().toUpperCase();
-            if (btnText.includes('EN')) alertMsg = "Please fill in the dish name and recipe text! 💮";
-            else if (btnText.includes('UKR') || btnText.includes('UA')) alertMsg = "Будь ласка, введіть назву та текст рецепту! 💮";
-        }
-        alert(alertMsg);
-        return;
-    }
-    
     // 🚀 ОТПРАВЛЯЕМ! Браузер мгновенно откроет почту с готовым шаблоном письма
     window.location.href = "mailto:helen.amberst@gmail.com" + "?subject=" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + title + "\n\n" + text);
     
