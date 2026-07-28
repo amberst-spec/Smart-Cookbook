@@ -875,6 +875,8 @@
         async function showRecipePage() {
             if (document.getElementById("interactiveRecipePage")) document.getElementById("interactiveRecipePage").remove();
             const recipe = recipeAlbums[currentAlbumId][currentRecipeIndex];
+                window.location.hash = "recipe-" + currentAlbumId + "-" + currentRecipeIndex;
+
                     // 🌍 УМНЫЙ АВТОВЫБОР ЯЗЫКА ДЛЯ ГОСТЯ: смотрим, какой язык выбран на главной обложке
         let activeLang = 'ru'; 
         const mainLangBtn = document.getElementById('lang-btn');
