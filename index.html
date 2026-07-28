@@ -1495,26 +1495,19 @@
         }
 
         // ➡️ ФУНКЦИЯ ДЛЯ СТРЕЛОЧКИ «ПОДЕЛИТЬСЯ» В ШАПКЕ
-     function shareCurrentRecipePage() {
+        function shareCurrentRecipePage() {
     const currentUrl = window.location.href;
     const recipeTitle = document.getElementById('text-recipeTitle') ? document.getElementById('text-recipeTitle').innerText.trim() : 'Рецепт';
     
-    // 🌍 Запускаем чистое окно со списком мессенджеров (Telegram, WhatsApp, VK, Viber) без чужого текста
+    // 🌍 Вызываем меню телефона со всеми мессенджерами (Telegram, WhatsApp, VK)
     if (navigator.share) {
         navigator.share({
             title: recipeTitle,
             url: currentUrl
         }).catch(err => console.log('Отмена отправки'));
     } else {
-        // Запасной вариант копирования ссылки для старых компьютеров
-        navigator.clipboard.writeText(currentUrl).then(() => {
-            const mainLangBtn = document.getElementById('lang-btn');
-            const btnText = mainLangBtn ? mainLangBtn.innerText.trim().toUpperCase() : 'RU';
-            
-            if (btnText.includes('EN')) alert("Recipe link copied! Share it with your friends. 📋");
-            else if (btnText.includes('UKR') || btnText.includes('UA')) alert("Посилання на рецепт скопійовано! Поділіться з друзями. 📋");
-            else alert("Ссылка на рецепт скопирована! Поделитесь с друзьями. 📋");
-        });
+        // Если это старый ПК — тихо копируем ссылку в память без раздражающих окон
+        navigator.clipboard.writeText(currentUrl);
     }
 }
 
