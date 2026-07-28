@@ -1496,19 +1496,29 @@
         }
 
         // ➡️ ФУНКЦИЯ ДЛЯ СТРЕЛОЧКИ «ПОДЕЛИТЬСЯ» В ШАПКЕ
-        function shareCurrentRecipePage() {
-            const lang = currentLangCode || 'ru';
-            const currentUrl = window.location.href;
-
-            if (navigator.share) {
-                navigator.share({ title: document.title, url: currentUrl }).catch(console.error);
-            } else {
-                navigator.clipboard.writeText(currentUrl);
-                if (lang === 'en') alert("Recipe link copied! Share it with your friends. ➡️");
-                else if (lang === 'uk') alert("Посилання на рецепт скопійовано! Поділіться з друзями. ➡️");
-                else alert("Ссылка на рецепт скопирована! Поделитесь с друзьями. ➡️");
-            }
-        }
+       function shareCurrentRecipePage() {
+    const currentUrl = window.location.href;
+    const recipeTitle = document.getElementById('text-recipeTitle') ? document.getElementById('text-recipeTitle').innerText.trim() : 'Рецепт';
+    
+    // 🌍 Вызываем родное окно телефона/ПК с выбором мессенджеров (Telegram, WhatsApp, VK и др.)
+    if (navigator.share) {
+        navigator.share({
+            title: recipeTitle,
+            text: 'Посмотрите этот классный рецепт в интерактивной книге! 🧁',
+            url: currentUrl
+        }).catch(err => console.log('Отмена отправки'));
+    } else {
+        // Запасной вариант для старых ПК (просто копируем и выдаем красивую надпись на языках)
+        navigator.clipboard.writeText(currentUrl).then(() => {
+            const mainLangBtn = document.getElementById('lang-btn');
+            const btnText = mainLangBtn ? mainLangBtn.innerText.trim().toUpperCase() : 'RU';
+            
+            if (btnText.includes('EN')) alert("Recipe link copied! Share it with your friends. 📋");
+            else if (btnText.includes('UKR') || btnText.includes('UA')) alert("Посилання на рецепт скопійовано! Поділіться з друзями. 📋");
+            else alert("Ссылка на рецепт скопирована! Поделитесь с друзьями. 📋");
+        });
+    }
+}
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
         function sendRecipeToHelen() {
