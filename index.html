@@ -1503,23 +1503,44 @@
             }
         }
 
-        // ➡️ ФУНКЦИЯ ДЛЯ СТРЕЛОЧКИ «ПОДЕЛИТЬСЯ» В ШАПКЕ
         function shareCurrentRecipePage() {
-    const currentUrl = window.location.href;
-    const recipeTitle = document.getElementById('text-recipeTitle') ? document.getElementById('text-recipeTitle').innerText.trim() : 'Рецепт';
+    // 🚀 Автоматически берём точный адрес страницы с хвостиком рецепта
+    const exactRecipeUrl = window.location.href;
+    const recipeTitleEl = document.getElementById('text-recipeTitle') || document.querySelector('.recipe-display-title');
+    const recipeTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
     
-    // 🌍 Вызываем меню телефона со всеми мессенджерами (Telegram, WhatsApp, VK)
-    if (navigator.share) {
+    // Текст сообщения для мессенджеров
+    const textMsg = "Посмотри этот потрясающий рецепт в интерактивной книге! 🧁 " + recipeTitle;
+
+    // 📱 Если человек сидит с телефона и у него есть нативная поддержка обмена — используем её
+    if (navigator.share && /Android|iPhone|iPad/i.test(navigator.userAgent)) {
         navigator.share({
             title: recipeTitle,
-            url: currentUrl
-        }).catch(err => console.log('Отмена отправки'));
+            url: exactRecipeUrl
+        }).catch(err => console.log('Отмена'));
     } else {
-        // Если это старый ПК — тихо копируем ссылку в память без раздражающих окон
-        navigator.clipboard.writeText(currentUrl);
+        // 🖥️ Если человек сидит с ПК (где Windows выдает пустое окно) — запускаем универсальный пульт мессенджеров!
+        // Создаем красивое встроенное окошко выбора прямо поверх рецепта
+        let shareModal = document.createElement('div');
+        shareModal.style = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 10000; font-family: sans-serif;";
+        shareModal.id = "customShareModal";
+        
+        shareModal.innerHTML = `
+            <div style="background: #FFF6EE; padding: 25px; border-radius: 15px; border: 2px solid #D2B48C; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); max-width: 320px; width: 90%;">
+                <h3 style="margin-top: 0; color: #5C3A21; font-size: 20px;">Поделиться рецептом 🧁</h3>
+                <div style="display: flex; flex-direction: column; gap: 12px; margin: 20px 0;">
+                    <a href="https://t.me{encodeURIComponent(exactRecipeUrl)}&text=${encodeURIComponent(textMsg)}" target="_blank" style="background: #0088cc; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; display: block;">Telegram</a>
+                    <a href="https://whatsapp.com{encodeURIComponent(textMsg + ' ' + exactRecipeUrl)}" target="_blank" style="background: #25D366; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; display: block;">WhatsApp</a>
+                    <a href="viber://forward?text=${encodeURIComponent(textMsg + ' ' + exactRecipeUrl)}" style="background: #7360F2; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; display: block;">Viber</a>
+                    <a href="https://vk.com{encodeURIComponent(exactRecipeUrl)}&title=${encodeURIComponent(recipeTitle)}" target="_blank" style="background: #4C75A3; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; display: block;">ВКонтакте</a>
+                </div>
+                <button onclick="document.getElementById('customShareModal').remove()" style="background: #D2B48C; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">Закрыть</button>
+            </div>
+        `;
+        document.body.appendChild(shareModal);
     }
 }
-
+       
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
         function sendRecipeToHelen() {
             let name = document.getElementById('guestNameInput').value.trim();
