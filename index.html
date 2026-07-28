@@ -584,8 +584,20 @@
                         <button type="button" id="recipe-timer-trigger" onclick="toggleRecipeTimer()" style="background: transparent; border: none; cursor: pointer; font-size: 18px; padding: 0;">⏱️</button>
                     </div>
 
-                    <button type="button" onclick="shareCurrentRecipePage()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; color: #A0522D; width: 42px; height: 42px; border-radius: 50%; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0; box-shadow: 0 4px 10px rgba(160,82,45,0.05);" title="Поделиться рецептом">➡️</button>
-                </div>
+                            <button type="button" onclick="shareCurrentRecipePage()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #D2B48C; color: #5C3A21; height: 42px; padding: 0 15px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(93,64,55,0.1); transition: transform 0.1s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+            <!-- 🌐 Тот самый оригинальный международный значок системы передачи данных -->
+            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: #5C3A21; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+            <!-- 🏷️ Умный текст кнопки, который будет сам переводиться на нужный язык -->
+            <span id="text-shareBtn">Поделиться</span>
+        </button>
+    </div>
+                 
                 <!-- 👑 НАКЛАДНАЯ КРЕМОВАЯ РАМОЧКА ДЛЯ РЕЦЕПТА (Свиток) -->
                 <div class="recipe-scroll-box" style="width: 100%; max-width: 720px; background: #FFFDFB; margin: 10px auto 30px auto; padding: 25px 20px; border-radius: 26px; box-shadow: 0 15px 45px rgba(160, 82, 45, 0.05); border: 2px solid #EAD5C3; box-sizing: border-box;">
                             <!-- 📑 ПАНЕЛЬ ВЫБОРА ЯЗЫКА ДЛЯ ЗАПОЛНЕНИЯ РЕЦЕПТА (Только в режиме Хозяйки) -->
