@@ -1492,23 +1492,21 @@
                 else if (lang === 'uk') portionsTitleEl.innerText = "Виберіть кількість порцій:";
                 else portionsTitleEl.innerText = "Выберите количество порций:";
             }
-
         }
 
         // ➡️ ФУНКЦИЯ ДЛЯ СТРЕЛОЧКИ «ПОДЕЛИТЬСЯ» В ШАПКЕ
-       function shareCurrentRecipePage() {
+     function shareCurrentRecipePage() {
     const currentUrl = window.location.href;
     const recipeTitle = document.getElementById('text-recipeTitle') ? document.getElementById('text-recipeTitle').innerText.trim() : 'Рецепт';
     
-    // 🌍 Вызываем родное окно телефона/ПК с выбором мессенджеров (Telegram, WhatsApp, VK и др.)
+    // 🌍 Запускаем чистое окно со списком мессенджеров (Telegram, WhatsApp, VK, Viber) без чужого текста
     if (navigator.share) {
         navigator.share({
             title: recipeTitle,
-            text: 'Посмотрите этот классный рецепт в интерактивной книге! 🧁',
             url: currentUrl
         }).catch(err => console.log('Отмена отправки'));
     } else {
-        // Запасной вариант для старых ПК (просто копируем и выдаем красивую надпись на языках)
+        // Запасной вариант копирования ссылки для старых компьютеров
         navigator.clipboard.writeText(currentUrl).then(() => {
             const mainLangBtn = document.getElementById('lang-btn');
             const btnText = mainLangBtn ? mainLangBtn.innerText.trim().toUpperCase() : 'RU';
