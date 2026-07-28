@@ -1516,20 +1516,15 @@
         }
 
         function shareCurrentRecipePage() {
-    // 🏷️ Находим точное текстовое название рецепта, которое сейчас горит на экране (Торт / Cake / Торт)
     const recipeTitleEl = document.getElementById('text-recipeTitle') || document.querySelector('.recipe-display-title') || document.querySelector('h1') || document.querySelector('h2');
     const rawTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
-    
-    // Очищаем название от лишних пробелов, чтобы адрес получился красивым и без ошибок
     const cleanTitle = encodeURIComponent(rawTitle);
     
-    // 🚀 ПРИНУДИТЕЛЬНО склеиваем уникальный адрес страницы именно с этим названием рецепта на нужном языке!
+    // 🚀 Принудительно склеиваем уникальный адрес именно с текстовым названием рецепта на нужном языке!
     const exactRecipeUrl = window.location.origin + window.location.pathname + "#" + cleanTitle;
-    
-    // Записываем этот красивый адрес в адресную строку браузера телефона
     window.location.hash = cleanTitle;
 
-    // 🌍 Запускаем ТУ САМУЮ официальную международную программу обмена данными на устройстве
+    // 🌍 Запускаем оригинальную, встроенную в систему программу обмена данными на устройстве гостя
     if (navigator.share) {
         navigator.share({
             title: rawTitle,
