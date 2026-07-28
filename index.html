@@ -1652,19 +1652,22 @@
 
         function openSupportModal() { document.getElementById('supportAmountInput').value = ''; document.getElementById('support-step-input').style.display = 'block'; document.getElementById('support-step-thanks').style.display = 'none'; document.getElementById('supportModal').style.display = 'flex'; }
         function processSupportPayment() { let amt = document.getElementById('supportAmountInput').value; if (!amt || parseInt(amt) <= 0) { alert("Пожалуйста, введите сумму! 🌸"); return; } document.getElementById('support-step-input').style.display = 'none'; document.getElementById('support-step-thanks').style.display = 'block'; setTimeout(() => { alert("Перенаправляем вас на защищенную страницу банка для безопасной оплаты... 💳"); document.getElementById('supportModal').style.display = 'none'; }, 800); }
-
-        // 🔗 УМНАЯ МУЛЬТИЯЗЫЧНАЯ ССЫЛКА ДЛЯ КНОПКИ «ПОДЕЛИТЬСЯ»
         function shareCurrentRecipePage() {
-            navigator.clipboard.writeText(window.location.href);
-            const shareText = {
-                ru: "Посмотри этот потрясающий рецепт в интерактивной книге Еленочки! ✨ Попробуй приготовить: ",
-                ukr: "Подивись цей приголомшливий рецепт в інтерактивній книзі Оленочки! ✨ Спробуй приготувати: ",
-                en: "Check out this amazing recipe in Helen's Interactive Cookbook! ✨ Try cooking: "
-            };
-            let recipeTitle = document.getElementById("recipe-display-title").innerText;
-            alert(`${shareText[currentLangCode]}${recipeTitle}\n\n(Ссылка скопирована в буфер обмена!) ➡️`);
-        }
-
+    const currentUrl = window.location.href;
+    const recipeTitle = document.getElementById('text-recipeTitle') ? document.getElementById('text-recipeTitle').innerText.trim() : 'Рецепт';
+    
+    // 🌍 Принудительно вызываем официальное меню телефона со всеми мессенджерами (Telegram, WhatsApp, VK)
+    if (navigator.share) {
+        navigator.share({
+            title: recipeTitle,
+            url: currentUrl
+        }).catch(err => console.log('Отмена отправки'));
+    } else {
+        // Если это старый ПК — тихо копируем ссылку на рецепт в память без раздражающих окон
+        navigator.clipboard.writeText(currentUrl);
+    }
+}
+  
         function navigateRecipe(direction) {
             let list = recipeAlbums[currentAlbumId] || []; if(list.length <= 1) return;
             currentRecipeIndex += direction;
