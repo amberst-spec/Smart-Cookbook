@@ -1479,8 +1479,7 @@
 
             document.getElementById('support-step-input').style.display = 'none';
             document.getElementById('support-step-thanks').style.display = 'block';
-
-            function openShareModal() {
+function openShareModal() {
     const exactRecipeUrl = window.location.href;
     const recipeTitleEl = document.getElementById('text-recipeTitle') || document.querySelector('.recipe-display-title') || document.querySelector('h1') || document.querySelector('h2');
     const recipeTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
@@ -1496,7 +1495,7 @@
         return;
     }
 
-    // 💻 Если гость зашел с компьютера (ПК) — открываем те самые официальные мини-окна обмена соцсетей!
+    // 💻 Если гость зашел с компьютера (ПК) — открываем официальные мини-окна обмена соцсетей!
     if (document.getElementById('customShareModal')) return;
 
     const modal = document.createElement('div');
@@ -1508,7 +1507,7 @@
             <h4 style="margin: 0 0 18px 0; color: #5C3A21; font-size: 18px; font-weight: bold;">Поделиться рецептом 🧁</h4>
             <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px;">
                 
-                <!-- 🔵 Тот самый официальный вызов окна ВКонтакте -->
+                <!-- 🔵 Официальное окно ВКонтакте -->
                 <div onclick="window.open('https://vk.com' + encodeURIComponent('${exactRecipeUrl}') + '&title=' + encodeURIComponent('${recipeTitle}'), '_blank', 'width=650,height=610,resizable=yes')" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; color: #4C75A3; font-size: 12px; font-weight: bold; gap: 5px;">
                     <span style="background: #4C75A3; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">ВК</span>ВКонтакте
                 </div>
@@ -1544,6 +1543,7 @@
     `;
     document.body.appendChild(modal);
 }
+
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
         function sendRecipeToHelen() {
