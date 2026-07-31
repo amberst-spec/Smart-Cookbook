@@ -584,20 +584,40 @@
                         <button type="button" id="recipe-timer-trigger" onclick="toggleRecipeTimer()" style="background: transparent; border: none; cursor: pointer; font-size: 18px; padding: 0;">⏱️</button>
                     </div>
 
-                            <button type="button" onclick="shareCurrentRecipePage()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #D2B48C; color: #5C3A21; height: 42px; padding: 0 15px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(93,64,55,0.1); transition: transform 0.1s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
-            <!-- 🌐 Тот самый оригинальный международный значок системы передачи данных -->
-            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: #5C3A21; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;">
-                <circle cx="18" cy="5" r="3"></circle>
-                <circle cx="6" cy="12" r="3"></circle>
-                <circle cx="18" cy="19" r="3"></circle>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-            </svg>
-            <!-- 🏷️ Умный текст кнопки, который будет сам переводиться на нужный язык -->
-            <span id="text-shareBtn">Поделиться</span>
-        </button>
-    </div>
-                 
+                            <!-- 🌍 УМНЫЙ МЕЖДУНАРОДНЫЙ ПУЛЬТ ОБМЕНА (Автоматически подстраивается под ПК и Телефоны) -->
+        <div class="share-container" style="display: inline-flex; align-items: center; vertical-align: middle;">
+            
+            <!-- 💻 Этот блок с цветными иконками мессенджеров увидят ТОЛЬКО пользователи на компьютерах (ПК) -->
+            <div class="pc-share-buttons" style="display: flex; align-items: center; gap: 8px;">
+                <button type="button" onclick="window.open('https://vk.com' + encodeURIComponent(window.location.href), '_blank')" style="background: #4C75A3; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="ВКонтакте">ВК</button>
+                <button type="button" onclick="window.open('https://ok.ru' + encodeURIComponent(window.location.href), '_blank')" style="background: #EE8208; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="Одноклассники">ОК</button>
+                <button type="button" onclick="window.open('https://t.me' + encodeURIComponent(window.location.href), '_blank')" style="background: #0088cc; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="Telegram">ТГ</button>
+                <button type="button" onclick="window.open('https://whatsapp.com' + encodeURIComponent(window.location.href), '_blank')" style="background: #25D366; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="WhatsApp">ВА</button>
+                <button type="button" onclick="window.open('viber://forward?text=' + encodeURIComponent(window.location.href), '_blank')" style="background: #7360F2; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="Viber">ВБ</button>
+                <button type="button" onclick="window.open('https://facebook.com' + encodeURIComponent(window.location.href), '_blank')" style="background: #1877F2; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="Facebook">ФБ</button>
+            </div>
+
+            <!-- 📱 Эту стандартную живую кнопку увидят ТОЛЬКО пользователи на мобильных телефонах -->
+            <button type="button" class="mobile-share-btn" onclick="shareCurrentRecipePage()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #D2B48C; color: #5C3A21; height: 42px; padding: 0 15px; border-radius: 10px; cursor: pointer; display: none; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(93,64,55,0.1);">
+                <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: #5C3A21; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                <span id="text-shareBtn">Поделиться</span>
+            </button>
+        </div>
+
+        <!-- Маленький умный переключатель видимости кнопок для ПК и Телефона -->
+        <style>
+            @media screen and (max-width: 768px) {
+                .pc-share-buttons { display: none !important; }
+                .mobile-share-btn { display: flex !important; }
+            }
+        </style>
+              
                 <!-- 👑 НАКЛАДНАЯ КРЕМОВАЯ РАМОЧКА ДЛЯ РЕЦЕПТА (Свиток) -->
                 <div class="recipe-scroll-box" style="width: 100%; max-width: 720px; background: #FFFDFB; margin: 10px auto 30px auto; padding: 25px 20px; border-radius: 26px; box-shadow: 0 15px 45px rgba(160, 82, 45, 0.05); border: 2px solid #EAD5C3; box-sizing: border-box;">
                             <!-- 📑 ПАНЕЛЬ ВЫБОРА ЯЗЫКА ДЛЯ ЗАПОЛНЕНИЯ РЕЦЕПТА (Только в режиме Хозяйки) -->
