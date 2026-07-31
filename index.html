@@ -1663,29 +1663,28 @@
                             else recipeAlbums[data.category].push(data);
                         }
                     });
+                    });
+
                     localStorage.setItem('helenCookbookDatabase', JSON.stringify(recipeAlbums));
                     console.log("Облачная база рецептов успешно синхронизирована! 🪐");
                 }).catch(e => {
                     console.log("Автономный режим памяти ПК активен: ", e);
+                    const urlParams = new URLSearchParams(window.location.search);
+        const targetCat = urlParams.get('cat');
+        const targetRecipe = urlParams.get('recipe');
 
-                                // 🚀 УМНЫЙ ПЕРЕХОД ПО ССЫЛКЕ ИЗ МЕССЕНДЖЕРА
-            const urlParams = new URLSearchParams(window.location.search);
-            const targetCat = urlParams.get('cat');
-            const targetRecipe = urlParams.get('recipe');
+        if (targetCat !== null && targetRecipe !== null) {
+            currentAlbumId = parseInt(targetCat);
+            currentRecipeIndex = parseInt(targetRecipe);
+            setTimeout(() => {
+                if (recipeAlbums[currentAlbumId] && recipeAlbums[currentAlbumId][currentRecipeIndex]) {
+                    showRecipePage();
+                }
+            }, 1000); 
+        }
+    });
 
-            if (targetCat !== null && targetRecipe !== null) {
-                currentAlbumId = parseInt(targetCat);
-                currentRecipeIndex = parseInt(targetRecipe);
-                setTimeout(() => {
-                    if (recipeAlbums[currentAlbumId] && recipeAlbums[currentAlbumId][currentRecipeIndex]) {
-                        showRecipePage();
-                    }
-                }, 1000); 
-           
-        });
-                });
-
-
+             
                 function shareCurrentRecipePage() {
     // 1. Находим точное название открытого рецепта
     const recipeTitleEl = document.getElementById('recipe-display-title') || document.querySelector('.recipe-display-title');
