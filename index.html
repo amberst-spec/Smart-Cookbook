@@ -1667,8 +1667,21 @@
                     console.log("Облачная база рецептов успешно синхронизирована! 🪐");
                 }).catch(e => {
                     console.log("Автономный режим памяти ПК активен: ", e);
-                });
-            }
+
+                                // 🚀 УМНЫЙ ПЕРЕХОД ПО ССЫЛКЕ ИЗ МЕССЕНДЖЕРА
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetCat = urlParams.get('cat');
+            const targetRecipe = urlParams.get('recipe');
+
+            if (targetCat !== null && targetRecipe !== null) {
+                currentAlbumId = parseInt(targetCat);
+                currentRecipeIndex = parseInt(targetRecipe);
+                setTimeout(() => {
+                    if (recipeAlbums[currentAlbumId] && recipeAlbums[currentAlbumId][currentRecipeIndex]) {
+                        showRecipePage();
+                    }
+                }, 1000); 
+           
         });
 
 
@@ -1685,18 +1698,32 @@
         function openSupportModal() { document.getElementById('supportAmountInput').value = ''; document.getElementById('support-step-input').style.display = 'block'; document.getElementById('support-step-thanks').style.display = 'none'; document.getElementById('supportModal').style.display = 'flex'; }
         function processSupportPayment() { let amt = document.getElementById('supportAmountInput').value; if (!amt || parseInt(amt) <= 0) { alert("Пожалуйста, введите сумму! 🌸"); return; } document.getElementById('support-step-input').style.display = 'none'; document.getElementById('support-step-thanks').style.display = 'block'; setTimeout(() => { alert("Перенаправляем вас на защищенную страницу банка для безопасной оплаты... 💳"); document.getElementById('supportModal').style.display = 'none'; }, 800); }
         function shareCurrentRecipePage() {
-    const currentUrl = window.location.href;
-    const recipeTitle = document.getElementById('text-recipeTitle') ? document.getElementById('text-recipeTitle').innerText.trim() : 'Рецепт';
 
-    // 🌍 Принудительно вызываем официальное меню телефона со всеми мессенджерами (Telegram, WhatsApp, VK)
+            function shareCurrentRecipePage() {
+    // 1. Находим точное название открытого рецепта
+    const recipeTitleEl = document.getElementById('recipe-display-title') || document.querySelector('.recipe-display-title');
+    const rawTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
+    
+    // 2. Формируем правильный адрес для мессенджеров (например: сайт/?cat=1&recipe=3)
+    const baseUrl = window.location.origin + window.location.pathname;
+    const exactRecipeUrl = `${baseUrl}?cat=${currentAlbumId}&recipe=${currentRecipeIndex}`;
+    
+    // 3. Текст, который уйдет вместе со ссылкой
+    const shareText = `🧁 Интерактивная книга рецептов с Таймером! Рецепт: "${rawTitle}"`;
+
+    // 4. Запускаем оригинальное меню обмена данными
     if (navigator.share) {
         navigator.share({
-            title: recipeTitle,
-            url: currentUrl
-        }).catch(err => console.log('Отмена отправки'));
+            title: rawTitle,
+            text: shareText,
+            url: exactRecipeUrl
+        })
+        .then(() => console.log('Успешно отправлено!'))
+        .catch(err => console.log('Отмена отправки'));
     } else {
-        // Если это старый ПК — тихо копируем ссылку на рецепт в память без раздражающих окон
-        navigator.clipboard.writeText(currentUrl);
+        // Если это ПК, просто копируем умную ссылку в буфер обмена
+        navigator.clipboard.writeText(exactRecipeUrl);
+        alert(`${rawTitle} (Ссылка скопирована в буфер обмена)`);
     }
 }
 
