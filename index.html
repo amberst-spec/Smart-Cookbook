@@ -1651,7 +1651,7 @@
             let btnEl = document.getElementById('lang-btn'); 
             if (btnEl) btnEl.innerText = savedLang.toUpperCase();
 
-            // 🌐 ГЛАВНЫЙ КАНАЛ СВЯЗИ: Принудительно будим Firebase Firestore при запуске сайта
+                        // 🌐 ГЛАВНЫЙ КАНАЛ СВЯЗИ: Принудительно будим Firebase Firestore при запуске сайта
             const database = window.db || (typeof firebase !== 'undefined' ? firebase.app().firestore() : null);
             if (database) {
                 database.collection("recipes").get().then((querySnapshot) => {
@@ -1663,28 +1663,29 @@
                             else recipeAlbums[data.category].push(data);
                         }
                     });
-                    });
-
                     localStorage.setItem('helenCookbookDatabase', JSON.stringify(recipeAlbums));
                     console.log("Облачная база рецептов успешно синхронизирована! 🪐");
                 }).catch(e => {
                     console.log("Автономный режим памяти ПК активен: ", e);
-                    const urlParams = new URLSearchParams(window.location.search);
-        const targetCat = urlParams.get('cat');
-        const targetRecipe = urlParams.get('recipe');
+                });
+            }
 
-        if (targetCat !== null && targetRecipe !== null) {
-            currentAlbumId = parseInt(targetCat);
-            currentRecipeIndex = parseInt(targetRecipe);
-            setTimeout(() => {
-                if (recipeAlbums[currentAlbumId] && recipeAlbums[currentAlbumId][currentRecipeIndex]) {
-                    showRecipePage();
-                }
-            }, 1000); 
-        }
-    });
+            // 🚀 УМНЫЙ ПЕРЕХОД ПО ССЫЛКЕ ИЗ МЕССЕНДЖЕРА
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetCat = urlParams.get('cat');
+            const targetRecipe = urlParams.get('recipe');
 
-             
+            if (targetCat !== null && targetRecipe !== null) {
+                currentAlbumId = parseInt(targetCat);
+                currentRecipeIndex = parseInt(targetRecipe);
+                setTimeout(() => {
+                    if (recipeAlbums[currentAlbumId] && recipeAlbums[currentAlbumId][currentRecipeIndex]) {
+                        showRecipePage();
+                    }
+                }, 1000); 
+            }
+        });
+              
                 function shareCurrentRecipePage() {
     // 1. Находим точное название открытого рецепта
     const recipeTitleEl = document.getElementById('recipe-display-title') || document.querySelector('.recipe-display-title');
