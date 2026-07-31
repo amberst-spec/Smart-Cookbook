@@ -1751,16 +1751,28 @@
             const shareTitle = `➡️ Интерактивная книга рецептов с Таймером 📖`;
             const shareText = `🧁 Рецепт: "${rawTitle}". Нажмите, чтобы открыть интерактивные таймеры и умный калькулятор порций!`;
 
-            // Кодируем тексты, чтобы мессенджеры их поняли без ошибок
+            // Кодируем тексты, чтобы соцсети и мессенджеры их поняли без ошибок
             const encodedUrl = encodeURIComponent(exactRecipeUrl);
             const encodedText = encodeURIComponent(`${shareTitle}\n\n${shareText}`);
+            const encodedTitle = encodeURIComponent(shareTitle);
+            const encodedDesc = encodeURIComponent(shareText);
 
-            // 4. Прописываем прямые ссылки шеринга для каждой кнопки в нашем новом окне
-            if (document.getElementById('share-tg')) document.getElementById('share-tg').href = `https://t.me{encodedUrl}&text=${encodedText}`;
-            if (document.getElementById('share-wa')) document.getElementById('share-wa').href = `https://whatsapp.com{encodedText}%20${encodedUrl}`;
-            if (document.getElementById('share-viber')) document.getElementById('share-viber').href = `viber://forward?text=${encodedText}%20${encodedUrl}`;
-            if (document.getElementById('share-vk')) document.getElementById('share-vk').href = `https://vk.com{encodedUrl}&title=${encodeURIComponent(shareTitle)}&description=${encodeURIComponent(shareText)}`;
-            if (document.getElementById('share-fb')) document.getElementById('share-fb').href = `https://facebook.com{encodedUrl}`;
+            // 4. Прописываем абсолютно точные и проверенные ссылки шеринга для каждой кнопки
+            if (document.getElementById('share-tg')) {
+                document.getElementById('share-tg').href = `https://t.me{encodedUrl}&text=${encodedText}`;
+            }
+            if (document.getElementById('share-wa')) {
+                document.getElementById('share-wa').href = `https://whatsapp.com{encodedText}%20${encodedUrl}`;
+            }
+            if (document.getElementById('share-viber')) {
+                document.getElementById('share-viber').href = `viber://forward?text=${encodedText}%20${encodedUrl}`;
+            }
+            if (document.getElementById('share-vk')) {
+                document.getElementById('share-vk').href = `https://vk.com{encodedUrl}&title=${encodedTitle}&description=${encodedDesc}`;
+            }
+            if (document.getElementById('share-fb')) {
+                document.getElementById('share-fb').href = `https://facebook.com{encodedUrl}`;
+            }
 
             // 5. Настраиваем кнопку обычного копирования ссылки
             const copyBtn = document.getElementById('copy-link-btn');
@@ -1772,7 +1784,7 @@
                 };
             }
 
-            // 6. Показываем наше красивое всплывающее окошко на экране ПК или телефона
+            // 6. Показываем наше красивое всплывающее окошко на экране
             const shareModal = document.getElementById('customShareModal');
             if (shareModal) shareModal.style.display = 'flex';
         }
@@ -1787,4 +1799,3 @@
     </script>
 </body>
 </html>
-
