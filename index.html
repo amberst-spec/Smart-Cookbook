@@ -584,39 +584,18 @@
                         <button type="button" id="recipe-timer-trigger" onclick="toggleRecipeTimer()" style="background: transparent; border: none; cursor: pointer; font-size: 18px; padding: 0;">⏱️</button>
                     </div>
 
-                            <!-- 🌍 УМНЫЙ МЕЖДУНАРОДНЫЙ ПУЛЬТ ОБМЕНА (Автоматически подстраивается под ПК и Телефоны) -->
-        <div class="share-container" style="display: inline-flex; align-items: center; vertical-align: middle;">
-            
-            <!-- 💻 Этот блок с цветными иконками мессенджеров увидят ТОЛЬКО пользователи на компьютерах (ПК) -->
-            <div class="pc-share-buttons" style="display: flex; align-items: center; gap: 8px;">
-                <button type="button" onclick="window.open('https://vk.com' + encodeURIComponent(window.location.href), '_blank')" style="background: #4C75A3; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="ВКонтакте">ВК</button>
-                <button type="button" onclick="window.open('https://ok.ru' + encodeURIComponent(window.location.href), '_blank')" style="background: #EE8208; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="Одноклассники">ОК</button>
-                <button type="button" onclick="window.open('https://t.me' + encodeURIComponent(window.location.href), '_blank')" style="background: #0088cc; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="Telegram">ТГ</button>
-                <button type="button" onclick="window.open('https://whatsapp.com' + encodeURIComponent(window.location.href), '_blank')" style="background: #25D366; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="WhatsApp">ВА</button>
-                <button type="button" onclick="window.open('viber://forward?text=' + encodeURIComponent(window.location.href), '_blank')" style="background: #7360F2; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="Viber">ВБ</button>
-                <button type="button" onclick="window.open('https://facebook.com' + encodeURIComponent(window.location.href), '_blank')" style="background: #1877F2; border: none; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; color: white; font-weight: bold; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.15);" title="Facebook">ФБ</button>
-            </div>
+                            <!-- 🌐 ОФИЦИАЛЬНАЯ КНОПКА ОБМЕНА -->
+        <button type="button" onclick="openShareModal()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #D2B48C; color: #5C3A21; height: 42px; padding: 0 15px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(93,64,55,0.1);">
+            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: #5C3A21; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+            <span id="text-shareBtn">Поделиться</span>
+        </button>
 
-            <!-- 📱 Эту стандартную живую кнопку увидят ТОЛЬКО пользователи на мобильных телефонах -->
-            <button type="button" class="mobile-share-btn" onclick="shareCurrentRecipePage()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #D2B48C; color: #5C3A21; height: 42px; padding: 0 15px; border-radius: 10px; cursor: pointer; display: none; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(93,64,55,0.1);">
-                <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: #5C3A21; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;">
-                    <circle cx="18" cy="5" r="3"></circle>
-                    <circle cx="6" cy="12" r="3"></circle>
-                    <circle cx="18" cy="19" r="3"></circle>
-                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                </svg>
-                <span id="text-shareBtn">Поделиться</span>
-            </button>
-        </div>
-
-        <!-- Маленький умный переключатель видимости кнопок для ПК и Телефона -->
-        <style>
-            @media screen and (max-width: 768px) {
-                .pc-share-buttons { display: none !important; }
-                .mobile-share-btn { display: flex !important; }
-            }
-        </style>
               
                 <!-- 👑 НАКЛАДНАЯ КРЕМОВАЯ РАМОЧКА ДЛЯ РЕЦЕПТА (Свиток) -->
                 <div class="recipe-scroll-box" style="width: 100%; max-width: 720px; background: #FFFDFB; margin: 10px auto 30px auto; padding: 25px 20px; border-radius: 26px; box-shadow: 0 15px 45px rgba(160, 82, 45, 0.05); border: 2px solid #EAD5C3; box-sizing: border-box;">
@@ -1535,25 +1514,41 @@
             }
         }
 
-        function shareCurrentRecipePage() {
-    const recipeTitleEl = document.getElementById('text-recipeTitle') || document.querySelector('.recipe-display-title') || document.querySelector('h1') || document.querySelector('h2');
-    const rawTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
-    const cleanTitle = encodeURIComponent(rawTitle);
-    
-    // 🚀 Принудительно склеиваем уникальный адрес именно с текстовым названием рецепта на нужном языке!
-    const exactRecipeUrl = window.location.origin + window.location.pathname + "#" + cleanTitle;
-    window.location.hash = cleanTitle;
-
-    // 🌍 Запускаем оригинальную, встроенную в систему программу обмена данными на устройстве гостя
-    if (navigator.share) {
+        function openShareModal() {
+    // 📱 Если гость на телефоне — запускаем стандартное системное меню смартфона со всеми контактами в личку!
+    if (navigator.share && /Android|iPhone|iPad/i.test(navigator.userAgent)) {
         navigator.share({
-            title: rawTitle,
-            url: exactRecipeUrl
-        }).catch(err => console.log('Отмена отправки'));
-    } else {
-        // Запасной вариант для старых ПК — тихо копируем точную ссылку на рецепт в буфер
-        navigator.clipboard.writeText(exactRecipeUrl);
+            title: document.getElementById('text-recipeTitle')?.innerText.trim() || 'Рецепт',
+            url: window.location.href
+        }).catch(err => console.log('Отмена'));
+        return;
     }
+
+    // 💻 Если гость на ПК — открываем красивое стандартное окно соцсетей по центру экрана
+    if (document.getElementById('customShareModal')) return;
+    
+    const exactRecipeUrl = window.location.href;
+    const textMsg = "Посмотри этот потрясающий рецепт! 🧁";
+
+    const modal = document.createElement('div');
+    modal.id = 'customShareModal';
+    modal.style = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; z-index: 99999;";
+    
+    modal.innerHTML = `
+        <div style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); width: 280px; text-align: center; font-family: sans-serif; border: 2px solid #D2B48C;">
+            <h4 style="margin: 0 0 15px 0; color: #5C3A21; font-size: 16px;">Поделиться рецептом</h4>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px;">
+                <a href="https://vk.com{encodeURIComponent(exactRecipeUrl)}" target="_blank" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #4C75A3; font-size: 12px; font-weight: bold; gap: 4px;"><span style="background: #4C75A3; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">ВК</span>ВК</a>
+                <a href="https://ok.ru{encodeURIComponent(exactRecipeUrl)}" target="_blank" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #EE8208; font-size: 12px; font-weight: bold; gap: 4px;"><span style="background: #EE8208; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">ОК</span>ОК</a>
+                <a href="https://t.me{encodeURIComponent(exactRecipeUrl)}" target="_blank" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #0088cc; font-size: 12px; font-weight: bold; gap: 4px;"><span style="background: #0088cc; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">ТГ</span>Telegram</a>
+                <a href="https://whatsapp.com{encodeURIComponent(exactRecipeUrl)}" target="_blank" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #25D366; font-size: 12px; font-weight: bold; gap: 4px;"><span style="background: #25D366; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">ВА</span>WhatsApp</a>
+                <a href="viber://forward?text=${encodeURIComponent(textMsg + ' ' + exactRecipeUrl)}" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #7360F2; font-size: 12px; font-weight: bold; gap: 4px;"><span style="background: #7360F2; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">ВБ</span>Viber</a>
+                <a href="https://facebook.com{encodeURIComponent(exactRecipeUrl)}" target="_blank" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #1877F2; font-size: 12px; font-weight: bold; gap: 4px;"><span style="background: #1877F2; color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px;">ФБ</span>Facebook</a>
+            </div>
+            <button onclick="document.getElementById('customShareModal').remove()" style="background: #D2B48C; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px;">Закрыть</button>
+        </div>
+    `;
+    document.body.appendChild(modal);
 }
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
