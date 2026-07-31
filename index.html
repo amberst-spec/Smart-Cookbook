@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Helen Smart Cookbook</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- 🎨 МАГИЯ КАРТОЧКИ ДЛЯ МЕССЕНДЖЕРОВ (Viber, Telegram, VK): превращает ссылку в живую страницу с фото! -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://github.io">
@@ -233,19 +233,19 @@
         <!-- Картинки декора на левом и правом полях ПК -->
         <img src="left.png" class="decor-left" alt="Декор слева">
         <img src="right.png" class="decor-right" alt="Декор справа">
-        
+
         <!-- 🧁 ТО САМОЕ ЗЁРНЫШКО: Сохраняет свою родную функцию открытия окна гостя! -->
         <div class="main-container" style="position: relative;">
         <!-- Картинки декора на левом и правом полях ПК -->
         <img src="left.png" class="decor-left" alt="Декор слева">
         <img src="right.png" class="decor-right" alt="Декор справа">
-        
+
         <!-- 🧁 ВАШЕ ИДЕАЛЬНОЕ ГЛЯНЦЕВОЕ ЗЁРНЫШКО: Открывает окно добавления рецептов, выглядит безупречно и привязано к основе намертво! -->
     <span onclick="document.getElementById('guestSuggestModal').style.display='flex';" style="position: fixed; right: 10%; top: 48%; font-size: 35px; opacity: 0.65; cursor: pointer; z-index: 100; user-select: none; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.15)'" onmouseout="this.style.transform='scale(1)'">🤎</span>
 
 
         </div>
-      
+
         <!-- Крупный заголовок книги рецептов -->
         <h1 class="main-title" id="text-title">Интерактивная книга рецептов:</h1>
         <div style="font-size: 26px; color: #D2691E; font-weight: bold; margin-bottom: 25px;" id="text-subtitle">
@@ -375,12 +375,12 @@
             if (window.currentAdminLang === newLang) return;
             const titleInput = document.getElementById("recipe-display-title");
             const oldLang = window.currentAdminLang;
-            
+
             // 1. ПЕРЕД ПЕРЕКЛЮЧЕНИЕМ: Сохраняем текстовые переводы в текущем языке
             if (titleInput) {
                 window.recipeTranslationsCache[oldLang].title = titleInput.innerText.trim();
             }
-            
+
             // Сохраняем ТОЛЬКО тексты названий динамических ингредиентов (веса не очищаем!)
             window.recipeTranslationsCache[oldLang].ingredients = [];
             document.querySelectorAll('.ingredient-row').forEach(row => {
@@ -429,7 +429,7 @@
             ingRows.forEach((row, index) => {
                 const nameEl = row.querySelector('.ing-name-cell');
                 const savedIng = cache.ingredients[index];
-                
+
                 if (nameEl) {
                     if (savedIng) {
                         if (nameEl.tagName === 'INPUT') nameEl.value = savedIng.name; else nameEl.innerText = savedIng.name;
@@ -444,7 +444,7 @@
             stepRows.forEach((row, index) => {
                 const stepEl = row.querySelector('.step-text-cell');
                 const savedStepText = cache.steps[index];
-                
+
                 if (stepEl) {
                     if (typeof savedStepText !== 'undefined') {
                         if(stepEl.tagName === 'TEXTAREA' || stepEl.tagName === 'INPUT') stepEl.value = savedStepText; else stepEl.innerText = savedStepText;
@@ -584,8 +584,8 @@
                         <button type="button" id="recipe-timer-trigger" onclick="toggleRecipeTimer()" style="background: transparent; border: none; cursor: pointer; font-size: 18px; padding: 0;">⏱️</button>
                     </div>
 
-                            <!-- 🌐 ОФИЦИАЛЬНАЯ КНОПКА ОБМЕНА -->
-        <button type="button" onclick="openShareModal()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #D2B48C; color: #5C3A21; height: 42px; padding: 0 15px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(93,64,55,0.1);">
+                            <button type="button" onclick="shareCurrentRecipePage()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #D2B48C; color: #5C3A21; height: 42px; padding: 0 15px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(93,64,55,0.1); transition: transform 0.1s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+            <!-- 🌐 Тот самый оригинальный международный значок системы передачи данных -->
             <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: #5C3A21; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;">
                 <circle cx="18" cy="5" r="3"></circle>
                 <circle cx="6" cy="12" r="3"></circle>
@@ -593,10 +593,11 @@
                 <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
                 <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
             </svg>
+            <!-- 🏷️ Умный текст кнопки, который будет сам переводиться на нужный язык -->
             <span id="text-shareBtn">Поделиться</span>
         </button>
+    </div>
 
-              
                 <!-- 👑 НАКЛАДНАЯ КРЕМОВАЯ РАМОЧКА ДЛЯ РЕЦЕПТА (Свиток) -->
                 <div class="recipe-scroll-box" style="width: 100%; max-width: 720px; background: #FFFDFB; margin: 10px auto 30px auto; padding: 25px 20px; border-radius: 26px; box-shadow: 0 15px 45px rgba(160, 82, 45, 0.05); border: 2px solid #EAD5C3; box-sizing: border-box;">
                             <!-- 📑 ПАНЕЛЬ ВЫБОРА ЯЗЫКА ДЛЯ ЗАПОЛНЕНИЯ РЕЦЕПТА (Только в режиме Хозяйки) -->
@@ -765,7 +766,7 @@
         const enText = document.querySelector('textarea[placeholder*="EN"]') || document.querySelector('textarea[placeholder*="ingredients"]');
         const ukTitle = document.querySelector('input[placeholder*="UKR"]') || document.querySelector('input[placeholder*="страви"]');
         const ukText = document.querySelector('textarea[placeholder*="UKR"]') || document.querySelector('textarea[placeholder*="кроки"]');
-        
+
         // Снимаем обязательность заполнения (required) абсолютно со всех полей формы гостя
         const gNameInput = document.getElementById('guestNameInput');
         if (gNameInput) gNameInput.removeAttribute('required');
@@ -802,7 +803,7 @@
         window.shareBtnAlertText = "(Ссылка скопирована в буфер обмена)";
         if (currentModalLang === 'en') window.shareBtnAlertText = "(Link copied to clipboard)";
         else if (currentModalLang === 'ukr') window.shareBtnAlertText = "(Посилання скопійовано в буфер обміну)";
-      
+
             let searchFieldEl = document.getElementById('search-field');
             if (searchFieldEl) searchFieldEl.placeholder = translations[lang].searchPlaceholder;
             if (document.getElementById('text-wish')) document.getElementById('text-wish').innerText = wishTranslations[lang];
@@ -860,7 +861,7 @@
         const btn = document.createElement("button");
         btn.className = "category-card";
         btn.style.cssText = "background: linear-gradient(135deg, #FFB385, #FF8B47); padding: 14px 30px; font-size: 18px; margin: 5px 0; width: 100%; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); color: #FFFFFF; font-weight: bold; border: none; cursor: pointer;";
-        
+
         // ЖЕЛЕЗНАЯ ЛОГИКА: выводим на кнопку строго тот язык, который нажал гость
         let displayTitle = recipe.title; // По умолчанию базовое имя
         if (activeLang === 'ru' && recipe.translations && recipe.translations.ru && recipe.translations.ru.title) {
@@ -896,7 +897,7 @@
             if (btnText.includes('EN')) activeLang = 'en';
             else if (btnText.includes('UKR') || btnText.includes('UA')) activeLang = 'uk';
         }
-        
+
         // Делаем глубокую копию оригинальных русских данных, чтобы не перетереть их при переключениях
         if (!recipe._originalRu) {
             recipe._originalRu = {
@@ -909,7 +910,7 @@
                 // Если в рецепте сохранен перевод на выбранный активный язык, подставляем его кармашек
         if (recipe.translations && recipe.translations[activeLang] && recipe.translations[activeLang].title) {
             recipe.title = recipe.translations[activeLang].title;
-            
+
             if (recipe.translations[activeLang].ingredients && recipe.translations[activeLang].ingredients.length) {
                 recipe.ingredientsArray = recipe.ingredientsArray.map((ing, idx) => {
                     const transIng = recipe.translations[activeLang].ingredients[idx];
@@ -927,7 +928,7 @@
                 recipe.stepsArray = JSON.parse(JSON.stringify(recipe._originalRu.stepsArray));
             }
         }
-    
+
             const template = document.getElementById("recipePageTemplate");
             const recipeContainer = document.createElement("div");
             recipeContainer.innerHTML = template.innerHTML;
@@ -1479,70 +1480,68 @@
 
             document.getElementById('support-step-input').style.display = 'none';
             document.getElementById('support-step-thanks').style.display = 'block';
-function openShareModal() {
-    const exactRecipeUrl = window.location.href;
+
+            setTimeout(() => {
+                if (lang === 'en') alert("Redirecting you to the secure bank page for safe payment... 💳");
+                else if (lang === 'uk') alert("Перенаправляємо вас на захищену сторінку банку для безпечної оплати... 💳");
+                else alert("Перенаправляем вас на защищенную страницу банка для безопасной оплаты... 💳");
+
+                document.getElementById('supportModal').style.display = 'none';
+                speakThanksInUserLanguage(); // Включается живой голос «Спасибо за Вашу доброту»
+            }, 800);
+        }
+
+        // 🔗 ИНТЕРАКТИВНАЯ СТРОКА ССЫЛКА НАД РЕЦЕПТОМ У ГОСТЕЙ
+        function updateRecipeTopLink(lang) {
+            const linkEl = document.getElementById("recipe-top-link-container");
+            if (!linkEl) return;
+
+            const mainPageUrl = `https://github.io{lang}`;
+
+             if (lang === 'en') {
+                linkEl.innerHTML = `✨ Created in the <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Interactive Cookbook with a Timer</a>. Want your own? Click here! 📖`;
+            } else if (lang === 'uk') {
+                linkEl.innerHTML = `✨ Створено в <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Інтерактивна книга рецептiв з таймером</a>. Хочете таку ж? Натисніть сюди! 📖`;
+            } else {
+                linkEl.innerHTML = `✨ Создано в <a href="${mainPageUrl}" style="color: #FF7A33; font-weight: bold; text-decoration: none;">Интерактивная книга рецептов с Таймером</a>. Хотите такую же? Нажмите сюда! 📖`;
+            }
+
+                        // 🎯 Локальный перевод заголовка окна порций
+            const portionsTitleEl = document.getElementById("text-portionsModalTitle");
+            if (portionsTitleEl) {
+                if (lang === 'en') portionsTitleEl.innerText = "Select number of servings:";
+                else if (lang === 'uk') portionsTitleEl.innerText = "Виберіть кількість порцій:";
+                else portionsTitleEl.innerText = "Выберите количество порций:";
+            }
+        }
+
+        function shareCurrentRecipePage() {
+    // 🏷️ Находим точное текстовое название рецепта, которое сейчас горит на экране (Торт / Cake / Торт)
     const recipeTitleEl = document.getElementById('text-recipeTitle') || document.querySelector('.recipe-display-title') || document.querySelector('h1') || document.querySelector('h2');
-    const recipeTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
-    const textMsg = "Посмотри этот потрясающий рецепт в интерактивной книге! 🧁";
-
-    // 📱 Если гость зашел с телефона — запускаем стандартную системную программу смартфона
-    if (navigator.share && /Android|iPhone|iPad/i.test(navigator.userAgent)) {
-        navigator.share({
-            title: recipeTitle,
-            text: textMsg,
-            url: exactRecipeUrl
-        }).catch(err => console.log('Отмена'));
-    }
-
-    // 💻 Если гость зашел с компьютера (ПК) — открываем официальные мини-окна обмена соцсетей!
-    if (document.getElementById('customShareModal')) return;
-
-    const modal = document.createElement('div');
-    modal.id = 'customShareModal';
-    modal.style = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; z-index: 99999;";
+    const rawTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
     
-    modal.innerHTML = `
-        <div style="background: #FFF6EE; padding: 22px; border-radius: 14px; box-shadow: 0 5px 25px rgba(0,0,0,0.25); width: 300px; text-align: center; font-family: sans-serif; border: 2px solid #D2B48C;">
-            <h4 style="margin: 0 0 18px 0; color: #5C3A21; font-size: 18px; font-weight: bold;">Поделиться рецептом 🧁</h4>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 18px;">
-                
-                <!-- 🔵 Официальное окно ВКонтакте -->
-                <div onclick="window.open('https://vk.com' + encodeURIComponent('${exactRecipeUrl}') + '&title=' + encodeURIComponent('${recipeTitle}'), '_blank', 'width=650,height=610,resizable=yes')" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; color: #4C75A3; font-size: 12px; font-weight: bold; gap: 5px;">
-                    <span style="background: #4C75A3; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">ВК</span>ВКонтакте
-                </div>
+    // Очищаем название от лишних пробелов, чтобы адрес получился красивым и без ошибок
+    const cleanTitle = encodeURIComponent(rawTitle);
 
-                <!-- 🟠 Официальное окно Одноклассников -->
-                <div onclick="window.open('https://ok.ru' + encodeURIComponent('${exactRecipeUrl}') + '&title=' + encodeURIComponent('${recipeTitle}'), '_blank', 'width=650,height=610,resizable=yes')" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; color: #EE8208; font-size: 12px; font-weight: bold; gap: 5px;">
-                    <span style="background: #EE8208; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">ОК</span>Однокл.
-                </div>
+    // 🚀 ПРИНУДИТЕЛЬНО склеиваем уникальный адрес страницы именно с этим названием рецепта на нужном языке!
+    // 🚀 Принудительно склеиваем уникальный адрес именно с текстовым названием рецепта на нужном языке!
+    const exactRecipeUrl = window.location.origin + window.location.pathname + "#" + cleanTitle;
+    
+    // Записываем этот красивый адрес в адресную строку браузера телефона
+    window.location.hash = cleanTitle;
 
-                <!-- 🔵 Официальное окно Telegram -->
-                <div onclick="window.open('https://t.me' + encodeURIComponent('${exactRecipeUrl}') + '&text=' + encodeURIComponent('${textMsg} ${recipeTitle}'), '_blank', 'width=650,height=610,resizable=yes')" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; color: #0088cc; font-size: 12px; font-weight: bold; gap: 5px;">
-                    <span style="background: #0088cc; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">ТГ</span>Telegram
-                </div>
-
-                <!-- 🟢 Официальное веб-окно WhatsApp -->
-                <div onclick="window.open('https://whatsapp.com' + encodeURIComponent('${textMsg} ${recipeTitle} ${exactRecipeUrl}'), '_blank', 'width=650,height=610,resizable=yes')" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; color: #25D366; font-size: 12px; font-weight: bold; gap: 5px;">
-                    <span style="background: #25D366; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">ВА</span>WhatsApp
-                </div>
-
-                <!-- 🟣 Официальный вызов Viber -->
-                <div onclick="window.open('viber://forward?text=' + encodeURIComponent('${textMsg} ${recipeTitle} ${exactRecipeUrl}'), '_blank')" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; color: #7360F2; font-size: 12px; font-weight: bold; gap: 5px;">
-                    <span style="background: #7360F2; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">ВБ</span>Viber
-                </div>
-
-                <!-- 🔵 Официальное окно Facebook -->
-                <div onclick="window.open('https://facebook.com' + encodeURIComponent('${exactRecipeUrl}'), '_blank', 'width=650,height=610,resizable=yes')" style="display: flex; flex-direction: column; align-items: center; cursor: pointer; color: #1877F2; font-size: 12px; font-weight: bold; gap: 5px;">
-                    <span style="background: #1877F2; color: white; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">ФБ</span>Facebook
-                </div>
-
-            </div>
-            <button onclick="document.getElementById('customShareModal').remove()" style="background: #D2B48C; color: white; border: none; padding: 7px 16px; border-radius: 7px; cursor: pointer; font-weight: bold; font-size: 13px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Закрыть</button>
-        </div>
-    `;
-    document.body.appendChild(modal);
+    // 🌍 Запускаем ТУ САМУЮ официальную международную программу обмена данными на устройстве
+    // 🌍 Запускаем оригинальную, встроенную в систему программу обмена данными на устройстве гостя
+    if (navigator.share) {
+        navigator.share({
+            title: rawTitle,
+            url: exactRecipeUrl
+        }).catch(err => console.log('Отмена отправки'));
+    } else {
+        // Запасной вариант для старых ПК — тихо копируем точную ссылку на рецепт в буфер
+        navigator.clipboard.writeText(exactRecipeUrl);
+    }
 }
-
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
         function sendRecipeToHelen() {
@@ -1557,7 +1556,7 @@ function openShareModal() {
         function openAdminLogin() {
     // Открываем наше привычное белое окошко
     document.getElementById('adminAuthModal').style.display = 'flex';
-    
+
     // Если Хозяйка уже авторизовалась, сайт сам заполнит рамочки,
     // чтобы круглые кнопки альбомов внизу мгновенно стали активными!
     if (window.isAdminModeActive || (typeof isAdminModeActive !== 'undefined' && isAdminModeActive)) {
@@ -1688,7 +1687,7 @@ function openShareModal() {
         function shareCurrentRecipePage() {
     const currentUrl = window.location.href;
     const recipeTitle = document.getElementById('text-recipeTitle') ? document.getElementById('text-recipeTitle').innerText.trim() : 'Рецепт';
-    
+
     // 🌍 Принудительно вызываем официальное меню телефона со всеми мессенджерами (Telegram, WhatsApp, VK)
     if (navigator.share) {
         navigator.share({
@@ -1700,7 +1699,7 @@ function openShareModal() {
         navigator.clipboard.writeText(currentUrl);
     }
 }
-  
+
         function navigateRecipe(direction) {
             let list = recipeAlbums[currentAlbumId] || []; if(list.length <= 1) return;
             currentRecipeIndex += direction;
