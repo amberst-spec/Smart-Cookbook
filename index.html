@@ -194,8 +194,7 @@
                 pointer-events: none;
             }
         }
-
-                /* 📱 ИДЕАЛЬНЫЕ КОМПАКТНЫЕ КНОПКИ КАТЕГОРИЙ ДЛЯ ТЕЛЕФОНОВ */
+        /* 📱 ИДЕАЛЬНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ВЕРХУШКИ И КНОПОК ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
             /* 1. Намертво прячем фоновые сердца и кнопку админки */
             div[style*="position: fixed"], 
@@ -208,21 +207,41 @@
                 display: none !important;
             }
 
-            /* Убираем отступы фона страницы */
-            body {
-                padding: 4px !important;
+            /* 2. 🔍 УБИРАЕМ СТРОКУ ПОИСКА НА ТЕЛЕФОНАХ И ПРАВИМ ШАПКУ */
+            /* Находим и прячем мобильный поиск по его стилям или иконке лупы */
+            div[style*="display: flex"] input[type="text"],
+            input[placeholder*="Пошук"],
+            input[placeholder*="Поиск"],
+            input[placeholder*="Search"],
+            div[style*="position: relative"] input {
+                display: none !important;
+            }
+            
+            /* Прячем лупу, которая шла вместе с поиском */
+            input + img, 
+            input + button,
+            img[src*="search"],
+            div[style*="position: absolute"] img[src*="data:image"] {
+                display: none !important;
             }
 
-            /* 2. ⚡ ЮВЕЛИРНО СДУВАЕМ ПУХЛЫЕ ПОЛЯ И ШИРИНУ НАСТОЯЩЕГО КЛАССА КНОПОК */
+            /* Освобождаем верхнюю панель и подтягиваем блок языков вправо */
+            .main-container > div:first-child,
+            div[style*="justify-content: space-between"] {
+                justify-content: flex-end !important;
+                gap: 10px !important;
+            }
+
+            /* 3. ⚡ СДУВАЕМ ПУХЛЫЕ ПОЛЯ И ВЫСОТУ НАСТОЯЩЕГО КЛАССА КНОПОК */
             .category-card {
-                width: 44% !important; /* Идеальная аккуратная ширина, чтобы они стояли по две в ряд */
+                width: 44% !important; /* Идеальная аккуратная ширина по две в ряд */
                 max-width: 145px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 8px 10px !important; /* Сжимаем пухлые поля 24px/55px до изящных мобильных 8px! Высота мгновенно уменьшится! */
-                margin: 3px !important; /* Сближаем кнопки по вертикали */
+                padding: 6px 10px !important; /* Сжимаем пухлые поля по высоте */
+                margin: 2px !important; /* Сближаем кнопки по вертикали */
                 
-                /* Ваш крупный, сочный, жирный и легко читаемый шрифт остается нетронутым */
+                /* Ваш крупный, сочный, жирный и легко читаемый шрифт */
                 font-size: 17px !important; 
                 font-weight: 900 !important; 
                 letter-spacing: 0.3px !important;
@@ -237,11 +256,11 @@
             div[id="main-categories-buttons-categories-grid"],
             #main-categories-buttons-categories-grid {
                 margin-bottom: 5px !important;
-                gap: 5px !important;
+                gap: 4px !important;
                 padding: 0 !important;
             }
 
-            /* 🥄 ТОЧЕЧНОЕ УВЕЛИЧЕНИЕ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ НА ТЕЛЕФОНАХ */
+            /* 4. 🥄 ТОЧЕЧНОЕ УВЕЛИЧЕНИЕ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ НА ТЕЛЕФОНАХ */
             button[onclick*="openAdminLogin"] {
                 font-size: 22px !important; /* Сама круглая рамка останется компактной, а ложечка станет крупной */
                 padding: 6px 10px !important;
