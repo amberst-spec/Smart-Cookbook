@@ -195,13 +195,10 @@
             }
         }
 
-                /* 📱 ТОЛЬКО УМЕНЬШЕНИЕ РАМОК КНОПОК ДЛЯ ТЕЛЕФОНОВ */
+                /* 📱 ХИРУРГИЧЕСКОЕ СЖАТИЕ ВЫДЕЛЕННОЙ ЗОНЫ КНОПОК НА ТЕЛЕФОНАХ */
         @media (max-width: 768px) {
-            /* 1. Скрываем фоновые сердца и кнопку админки */
-            div[style*="position: fixed"][style*="color:"],
-            div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
-            div[style*="position: fixed"][style*="color: #8B4513"],
-            div[style*="position: fixed"][style*="color:#8b4513"],
+            /* 1. 🔒 НАМЕРТВО И БЕЗ ОШЕБОК ПРЯЧЕМ ВСЕ ЛЕТАЮЩИЕ СЕРДЦА И КНОПКУ АДМИНКИ */
+            div[style*="position: fixed"], 
             span[style*="position: fixed"],
             #secret-admin-heart,
             .decor-heart, 
@@ -210,19 +207,28 @@
                 display: none !important;
             }
 
-            /* 2. 💥 УМЕНЬШАЕМ РАМКИ КНОПОК, СОХРАНЯЯ КРУПНЫЙ ШРИФТ */
+            /* 2. Схлопываем до минимума пустые зазоры вокруг оранжевых кнопок (выделенная зона) */
+            .main-container center,
+            .main-container div[style*="display: flex"] {
+                gap: 2px !important; /* Уплотняем зазор между самими кнопками */
+                margin-top: 2px !important; /* Убираем пустую дыру МЕЖДУ текстом и кнопками */
+                margin-bottom: 2px !important; /* Убираем пустую дыру МЕЖДУ кнопками и копирайтом */
+                padding: 0 !important;
+            }
+
+            /* 3. Делаем рамки самих кнопок тонкими по высоте, сохраняя ваш крупный шрифт */
             .main-container button, 
             .main-container center button,
             .main-container a button,
             button[onclick*="openRecipeCategory"] {
-                width: 44% !important; /* Делаем рамки кнопок уже, чтобы они не были огромными */
-                max-width: 160px !important;
+                width: 44% !important; /* Компактная мобильная ширина рамок */
+                max-width: 150px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 10px 5px !important; /* Сжимаем пустые поля внутри кнопок по высоте */
-                margin: 4px !important;
+                padding: 6px 10px !important; /* Ювелирно ужимаем внутреннюю пустоту кнопок по высоте! */
+                margin: 2px !important; /* Сближаем кнопки по вертикали */
                 
-                /* Шрифт остается точно таким же крупным и жирным, как у вас в коде */
+                /* Ваш крупный, сочный и читаемый шрифт остается нетронутым */
                 font-size: 18px !important; 
                 font-weight: 900 !important; 
                 letter-spacing: 0.3px !important;
@@ -232,12 +238,9 @@
                 align-items: center !important;
             }
 
-            /* Сближаем строчки кнопок друг к другу, чтобы убрать лишнюю высоту */
-            .main-container center,
-            .main-container div[style*="display: flex"] {
-                gap: 2px !important;
-                margin-top: 2px !important;
-                margin-bottom: 2px !important;
+            /* Сокращаем пустой зазор в самом низу свитка перед копирайтом */
+            .main-container {
+                padding-bottom: 5px !important;
             }
         }
 
