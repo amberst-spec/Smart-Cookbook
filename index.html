@@ -195,8 +195,9 @@
             }
         }
 
-                /* 📱 НАМЕРТВО ПРЯЧЕМ КОФЕЙНЫЕ СЕРДЦА И КНОПКУ АДМИНКИ НА ТЕЛЕФОНАХ */
+                /* 📱 ИДЕАЛЬНЫЕ КОМПАКТНЫЕ КНОПКИ КАТЕГОРИЙ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
+            /* 1. Намертво прячем фоновые сердца и кнопку админки */
             div[style*="position: fixed"], 
             span[style*="position: fixed"],
             div[style*="color: #8B4513"],
@@ -205,6 +206,47 @@
             #secret-admin-heart,
             .decor-heart, [id*="heart"], [class*="heart"] {
                 display: none !important;
+            }
+
+            /* Убираем отступы фона страницы */
+            body {
+                padding: 4px !important;
+            }
+
+            /* 2. ⚡ ЮВЕЛИРНО СДУВАЕМ ПУХЛЫЕ ПОЛЯ И ШИРИНУ НАСТОЯЩЕГО КЛАССА КНОПОК */
+            .category-card {
+                width: 44% !important; /* Идеальная аккуратная ширина, чтобы они стояли по две в ряд */
+                max-width: 145px !important;
+                height: auto !important;
+                min-height: unset !important;
+                padding: 8px 10px !important; /* Сжимаем пухлые поля 24px/55px до изящных мобильных 8px! Высота мгновенно уменьшится! */
+                margin: 3px !important; /* Сближаем кнопки по вертикали */
+                
+                /* Ваш крупный, сочный, жирный и легко читаемый шрифт остается нетронутым */
+                font-size: 17px !important; 
+                font-weight: 900 !important; 
+                letter-spacing: 0.3px !important;
+                
+                display: inline-flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            /* Ужимаем зазоры невидимой сетки кнопок, убирая лишнюю высоту */
+            .categories-grid, 
+            div[id="main-categories-buttons-categories-grid"],
+            #main-categories-buttons-categories-grid {
+                margin-bottom: 5px !important;
+                gap: 5px !important;
+                padding: 0 !important;
+            }
+
+            /* 🥄 ТОЧЕЧНОЕ УВЕЛИЧЕНИЕ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ НА ТЕЛЕФОНАХ */
+            button[onclick*="openAdminLogin"] {
+                font-size: 22px !important; /* Сама круглая рамка останется компактной, а ложечка станет крупной */
+                padding: 6px 10px !important;
+                width: 44% !important;
+                max-width: 145px !important;
             }
         }
 
