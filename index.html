@@ -1860,19 +1860,17 @@
             showRecipePage();
         }
     </script>
-    
-           <!-- 📱 ПОЛНОЕ УДАЛЕНИЕ ЛЕТАЮЩИХ ДЕКОРАЦИЙ НА ТЕЛЕФОНАХ -->
+        <!-- 📱 ПРИНУДИТЕЛЬНОЕ СКРЫТИЕ КОФЕЙНЫХ СЕРДЕЧЕК НА ТЕЛЕФОНАХ -->
     <style>
         @media (max-width: 768px) {
-            /* Уничтожаем сердечки по любым ключевым словам */
-            .decor-heart, [id*="heart"], [class*="heart"], .heart, span.heart, div.heart {
+            /* Находим блок с кофейным цветом декора и полностью отключаем его на смартфонах */
+            div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
+            div[style*="position: fixed"][style*="color: #8B4513"],
+            div[style*="position: fixed"][style*="color:#8b4513"] {
                 display: none !important;
             }
-            /* Находим абсолютно любые мелкие летающие значки, смайлики или символы на экране */
-            div[style*="position: absolute"][style*="font-size"] {
-                display: none !important;
-            }
-            span[style*="position: absolute"] {
+            /* На всякий случай скрываем сами смайлики коричневых сердец */
+            span[style*="position: fixed"] {
                 display: none !important;
             }
         }
