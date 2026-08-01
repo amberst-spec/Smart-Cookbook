@@ -1860,7 +1860,8 @@
             showRecipePage();
         }
     </script>
-            <!-- 📱 ИДЕАЛЬНОЕ ПРОПОРЦИОНАЛЬНОЕ СЖАТИЕ ГЛАВНОЙ СТРАНИЦЫ ДЛЯ ТЕЛЕФОНОВ -->
+
+        <!-- 📱 КОМПАКТНЫЕ ОРАНЖЕВЫЕ КНОПКИ С КРУПНЫМ ШРИФТОМ ДЛЯ ТЕЛЕФОНОВ -->
     <style>
         @media (max-width: 768px) {
             /* 1. Намертво прячем фоновые сердца и кнопку админки */
@@ -1872,18 +1873,7 @@
                 display: none !important;
             }
 
-            /* 2. Пропорционально и аккуратно уменьшаем элементы без искажения */
-            
-            /* Слегка уменьшаем верхнюю шапку-заголовок, чтобы она не улетала */
-            .main-container h1, 
-            div[style*="font-size: 28px"], 
-            div[style*="font-size:28px"] {
-                font-size: 22px !important;
-                margin-top: 5px !important;
-                margin-bottom: 5px !important;
-            }
-
-            /* Делаем блок с пожеланием более миниатюрным, сохраняя его форму */
+            /* 2. Делаем блок с пожеланием более миниатюрным, сохраняя его оригинальную форму */
             div[style*="background-color: #FFF6EE"][style*="border-radius: 30px"],
             div[style*="background-color: rgb(255, 246, 238)"] {
                 padding: 14px !important;
@@ -1919,22 +1909,40 @@
                 padding: 0 10px !important;
             }
 
-            /* 💥 УМЕНЬШАЕМ КНОПКИ: Возвращаем оранжевым кнопкам их идеальный, аккуратный размер */
+            /* 👑 КОМПАКТНЫЕ ОРАНЖЕВЫЕ КНОПКИ С КРУПНЫМ ШРИФТОМ ДЛЯ ТЕЛЕФОНОВ */
             .main-container button, 
             .main-container center button,
-            .main-container a button {
-                transform: scale(0.9) !important; /* Уменьшаем кнопки на 10%, чтобы они не были на пол-экрана */
-                margin: 2px !important;
+            .main-container a button,
+            button[onclick*="openRecipeCategory"] {
+                width: 75% !important; /* Делаем кнопки чуть уже, чтобы они смотрелись изящно */
+                max-width: 280px !important;
+                height: auto !important;
+                min-height: unset !important;
+                padding: 10px 20px !important; /* Ювелирно сжимаем пустые поля внутри кнопок по высоте */
+                font-size: 16px !important; /* Оставляем шрифт крупным и четким, чтобы буквы отлично читались и вписывались в рамки */
+                font-weight: bold !important;
+                margin: 4px auto !important; /* Сближаем кнопки друг к другу по вертикали */
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
             }
-            
-            /* Ужимаем расстояния между кнопками категорий */
+
+            /* Убираем пустые зазоры между строками кнопок */
             .main-container center,
             .main-container div[style*="display: flex"] {
-                gap: 4px !important;
+                gap: 2px !important;
                 margin-top: 2px !important;
+                margin-bottom: 2px !important;
+            }
+
+            /* Ужимаем финальный пустой отступ в самом низу белого свитка бланка */
+            .main-container {
+                padding-bottom: 12px !important;
             }
         }
     </style>
-
 </body>
 </html>
+
+           
+
