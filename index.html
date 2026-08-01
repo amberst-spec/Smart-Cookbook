@@ -195,7 +195,7 @@
             }
         }
 
-                /* 📱 ИДЕАЛЬНОЕ РАСПОЛОЖЕНИЕ И КРУПНЫЙ ШРИФТ КНОПОК НА ТЕЛЕФОНАХ */
+                /* 📱 ИДЕАЛЬНАЯ РАССТАНОВКА БЛОКОВ ПО ВЫСОТЕ НА ТЕЛЕФОНАХ */
         @media (max-width: 768px) {
             /* 1. Намертво прячем фоновые сердца и кнопку админки */
             div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
@@ -206,43 +206,58 @@
                 display: none !important;
             }
 
-            /* 2. Убираем пустые зазоры под текстом режима "Чистые руки" */
-            div[style*="font-size: 16px; color: #5C3A21; line-height: 1.5; margin-bottom: 25px;"],
-            div[style*="margin-bottom: 25px"] {
-                margin-bottom: 5px !important;
+            /* 2. Чиним общую высоту контейнера */
+            .main-container {
+                display: flex !important;
+                flex-direction: column !important;
+                min-height: 92vh !important; /* Растягиваем бланк, чтобы прижать копирайт вниз */
+                padding-bottom: 60px !important; /* Освобождаем место для прижатого копирайта */
+                position: relative !important;
             }
 
-            /* Сближаем сам блок пожелания с нижним текстом */
-            div[style*="background-color: #FFF6EE"][style*="border-radius: 30px"],
-            div[style*="background-color: rgb(255, 246, 238)"] {
-                margin-bottom: 5px !important;
-                padding: 14px !important;
+            /* 3. НАМЕРТВО ПРИЖИМАЕМ СТРОКУ КОПИРАЙТА К НИЖНЕМУ КРАЮ БЛАНКА */
+            .main-container footer, 
+            div[style*="© 2026"], 
+            p[style*="© 2026"],
+            .main-container > div:last-child {
+                position: absolute !important;
+                bottom: 15px !important; /* Жестко фиксируем в самом низу листа */
+                left: 0 !important;
+                width: 100% !important;
+                text-align: center !important;
+                margin: 0 !important;
+                padding: 0 10px !important;
+                font-size: 13px !important;
+                color: #A0522D !important;
+                z-index: 5 !important;
             }
 
-            /* 3. ОПУСКАЕМ КНОПКИ ВНИЗ И ДЕЛАЕМ ТЕКСТ В 2 РАЗА КРУПНЕЕ */
-            
-            /* Находим контейнер с кнопками и толкаем его вниз на пустое место */
+            /* 4. ВЫСТРАИВАЕМ КНОПКИ КРУПНЫМИ В ПУСТОМ МЕСТЕ (НАД КОПИРАЙТОМ) */
             .main-container center,
             .main-container div[style*="display: flex"] {
-                margin-top: 25px !important; /* Этот отступ красиво сдвинет кнопки пониже к копирайту */
-                margin-bottom: 10px !important;
-                gap: 6px !important; /* Уютный зазор между кнопочками */
+                margin-top: auto !important; /* Авто-отступ плавно опустит кнопки на пустое место */
+                margin-bottom: 25px !important; /* Удерживает их аккуратно НАД копирайтом */
+                gap: 8px !important;
+                display: flex !important;
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+                z-index: 10 !important;
             }
 
             .main-container button, 
             .main-container center button,
             .main-container a button,
             button[onclick*="openRecipeCategory"] {
-                width: 44% !important; /* Идеальный размер, чтобы кнопки аккуратно стояли по две в ряд */
+                width: 44% !important; /* Стоят по две в ряд, очень аккуратно */
                 max-width: 180px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 12px 10px !important; /* Делаем рамки кнопок чуть просторнее под крупный текст */
+                padding: 12px 10px !important; /* Комфортные рамки под крупный шрифт */
                 
-                /* 👑 Увеличиваем шрифт внутри кнопок в 2 раза, делаем его жирным и читаемым */
+                /* КРУПНЫЙ И ЧЕТКИЙ ШРИФТ ВНУТРИ КНОПОК */
                 font-size: 18px !important; 
-                font-weight: 900 !important; /* Максимальная жирность, чтобы текст был сочным */
-                letter-spacing: 0.5px !important;
+                font-weight: 900 !important; /* Жирный, сочный и читаемый */
+                letter-spacing: 0.3px !important;
                 
                 margin: 4px !important;
                 display: inline-flex !important;
@@ -250,13 +265,18 @@
                 align-items: center !important;
             }
 
-            /* 4. ВОЗВРАЩАЕМ РОДНЫЕ ШРИФТЫ: Запрещаем уменьшать надпись «Умная кухня с таймером» */
+            /* 5. ВОЗВРАЩАЕМ РОДНЫЕ ШРИФТЫ ПРИВЕТСТВИЯ И ТЕКСТА «ЧИСТЫЕ РУКИ» */
             .main-container h2,
             .main-container p,
             div[style*="background-color: #FFF6EE"] p {
                 font-size: inherit !important;
                 line-height: inherit !important;
                 margin-bottom: inherit !important;
+            }
+
+            /* Разводим блок пожелания и текст "Чистые руки", чтобы убрать кашу */
+            div[style*="background-color: #FFF6EE"][style*="border-radius: 30px"] {
+                margin-bottom: 12px !important;
             }
         }
 
