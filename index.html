@@ -194,28 +194,40 @@
                 pointer-events: none;
             }
         }
-                /* 📱 УПЛОТНЕНИЕ ЗАЗОРОВ НИЖЕ СЕРЕДИНЫ СТРАНИЦЫ ДЛЯ ТЕЛЕФОНОВ */
+
+                /* 📱 ИДЕАЛЬНЫЙ МОБИЛЬНЫЙ ВИД ДЛЯ ТЕЛЕФОНОВ (СКРЫТИЕ СЕРДЕЧЕК И КРУПНЫЙ ШРИФТ) */
         @media (max-width: 768px) {
-            /* 1. Убираем гигантский пустой отступ (25px) под текстом режима "Чистые руки" */
-            div[style*="font-size: 16px; color: #5C3A21; line-height: 1.5; margin-bottom: 25px;"],
-            div[style*="margin-bottom: 25px"] {
-                margin-bottom: 8px !important; /* Прижимаем кнопки ближе к тексту */
+            /* 1. НАМЕРТВО УНИЧТОЖАЕМ ВСЕ ЛЕТАЮЩИЕ КОФЕЙНЫЕ СЕРДЦА И КНОПКУ АДМИНКИ */
+            div[style*="position: fixed"][style*="color:"],
+            div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
+            div[style*="position: fixed"][style*="color: #8B4513"],
+            div[style*="position: fixed"][style*="color:#8b4513"],
+            span[style*="position: fixed"],
+            #secret-admin-heart,
+            .decor-heart, 
+            [id*="heart"], 
+            [class*="heart"] {
+                display: none !important;
             }
 
-            /* 2. Схлопываем пустоту между самими оранжевыми кнопками */
+            /* 2. Уплотняем зазоры ниже середины страницы, чтобы убрать кашу с текстом */
+            div[style*="font-size: 16px; color: #5C3A21; line-height: 1.5; margin-bottom: 25px;"],
+            div[style*="margin-bottom: 25px"] {
+                margin-bottom: 8px !important;
+            }
+
             .main-container center,
             .main-container div[style*="display: flex"] {
-                gap: 4px !important; /* Делаем зазоры между кнопками плотными и аккуратными */
+                gap: 4px !important;
                 margin-top: 2px !important;
                 margin-bottom: 2px !important;
             }
 
-            /* 3. Убираем лишний пустой зазор в самом низу белого свитка бланка */
             .main-container {
                 padding-bottom: 10px !important;
             }
 
-            /* 4. ЗАПРЕЩАЕМ МЕНЯТЬ ШРИФТЫ: Окончательно возвращаем оригинальный крупный размер мелкой надписи под заголовком */
+            /* 3. ЗАПРЕЩАЕМ МЕНЯТЬ ШРИФТЫ: Сохраняем крупную надпись «Умная кухня с таймером» */
             .main-container h2,
             .main-container p,
             div[style*="background-color: #FFF6EE"] p {
@@ -224,17 +236,17 @@
                 margin-bottom: inherit !important;
             }
 
-            /* 5. 👑 КРУПНЫЙ И ЖИРНЫЙ ТЕКСТ ДЛЯ ОРАНЖЕВЫХ КНОПОК НА ТЕЛЕФОНЕ */
+            /* 4. 👑 ДЕЛАЕМ ТЕКСТ ВНУТРИ КНОПОК КРУПНЫМ, ЖИРНЫМ И СОЧНЫМ */
             .main-container button, 
             .main-container center button,
             .main-container a button,
             button[onclick*="openRecipeCategory"] {
-                font-size: 18px !important; /* Текст стал крупным и сочным, буквы отлично читаются */
-                font-weight: 900 !important; /* Буквы стали максимально жирными, четкими и красивыми */
+                font-size: 18px !important; /* Буквы станут крупными и заметными */
+                font-weight: 900 !important; /* Максимальная жирность для легкого чтения */
                 letter-spacing: 0.3px !important;
             }
         }
-
+             
     </style>
 </head>
 <body>
