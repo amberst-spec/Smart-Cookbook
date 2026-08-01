@@ -1860,7 +1860,8 @@
             showRecipePage();
         }
     </script>
-           <!-- 📱 ПОЛНОЕ ОЧИЩЕНИЕ МОБИЛЬНОГО ЭКРАНА ОТ ДЕКОРА -->
+
+        <!-- 📱 ПРИНУДИТЕЛЬНОЕ СКРЫТИЕ ДЕКОРА И СЕРДЕЧКА АДМИНКИ НА ТЕЛЕФОНАХ -->
     <style>
         @media (max-width: 768px) {
             /* Скрываем большие фоновые кофейные сердца */
@@ -1869,20 +1870,12 @@
             div[style*="position: fixed"][style*="color:#8b4513"] {
                 display: none !important;
             }
-            /* Скрываем фиксированные смайлики */
+            /* Намертво прячем одинокие фиксированные смайлики */
             span[style*="position: fixed"] {
                 display: none !important;
             }
-            /* 👑 ЮВЕЛИРНО: Скрываем упрямое плавающее сердечко админки на телефонах */
-            div[style*="position: absolute"] img[src*="heart"],
-            div[style*="position: absolute"]::after,
-            .main-container span,
-            div[style*="position: absolute"] {
-                /* Если внутри блока приветствия телефона летит одинокий символ сердца - прячем его */
-                text-shadow: none;
-            }
-            /* Находим конкретно это маленькое сердечко возле текста пожелания и выключаем */
-            .main-container div[style*="position: absolute"] {
+            /* 👑 ТОЧЕЧНО: Прячем сердечко входа в админку на смартфонах гостей */
+            #secret-admin-heart {
                 display: none !important;
             }
         }
