@@ -601,8 +601,9 @@
                 <div id="customShareModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(51, 34, 17, 0.5); z-index: 999999; justify-content: center; align-items: center; padding: 10px;" onclick="document.getElementById('customShareModal').style.display='none'">
                     <div style="background: #FFFFFF; padding: 35px 30px; border-radius: 32px; max-width: 380px; width: 90%; box-shadow: 0 25px 55px rgba(160, 82, 45, 0.2); border: 2px solid #EAD5C3; position: relative; text-align: center; font-family: 'Segoe UI', Roboto, sans-serif;" onclick="event.stopPropagation()">
                         <span style="position: absolute; top: 12px; right: 22px; font-size: 28px; cursor: pointer; color: #A0522D; font-weight: bold; line-height: 1; z-index: 10;" onclick="document.getElementById('customShareModal').style.display='none'">×</span>
-                        <h3 style="font-size: 22px; color: #A0522D; margin: 0 0 20px 0; font-weight: bold; font-family: 'Segoe UI', Roboto, sans-serif; border: none; background: transparent; padding: 0;">🧁 Поделиться рецептом</h3>
-                        <p style="font-size: 16px; color: #554433; margin: 0 0 25px 0; line-height: 1.4;">Ссылка на этот интерактивный рецепт с таймером будет скопирована в память вашего компьютера.</p>
+                                               <h3 style="font-size: 20px; color: #A0522D; margin: 5px 0 15px 0; font-weight: bold; font-family: 'Segoe UI', Roboto, sans-serif; border: none; background: transparent; padding: 0; display: block; text-align: center;">🧁 Поделиться / Share / Поділитись</h3>
+                        <p style="font-size: 15px; color: #554433; margin: 0 0 22px 0; line-height: 1.4;">📋 Ссылка скопирована! / Link copied! / Посилання скопійовано!</p>
+
                         
                         <!-- Кнопка копирования ссылки -->
                         <button type="button" id="copy-link-btn" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 16px; font-size: 17px; font-weight: bold; border-radius: 20px; cursor: pointer; width: 100%; outline: none; box-shadow: 0 5px 15px rgba(255,122,51,0.2);">📋 Скопировать ссылку</button>
@@ -952,22 +953,28 @@
         // Находим плашку «Чистые руки» по её родному идентификатору или системному классу
         const cleanHandsBtn = document.getElementById("text-recipeCleanHands") || document.querySelector(".clean-hands-btn");
         const timerLabel = document.querySelector(".timer-label, .timer-container span");
+             // Находим текстовое поле внутри кнопки шеринга по его ID
+        const shareBtnText = document.getElementById("text-shareBtn");
+
         if (activeLang === 'en') {
             if (ingredientsHeader) ingredientsHeader.innerText = "📋 Ingredients list (Check-list):";
             if (stepsHeader) stepsHeader.innerText = "📜 Step-by-step preparation:";
             if (portionsBtn) portionsBtn.innerHTML = "🍳 Portions";
             if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 'Clean Hands' Mode";
+            if (shareBtnText) shareBtnText.innerText = "Share"; // 🇬🇧 Для Английского
         } else if (activeLang === 'uk') {
             if (ingredientsHeader) ingredientsHeader.innerText = "📋 Список інгредієнтів (Чек-лист):";
             if (stepsHeader) stepsHeader.innerText = "📜 Покрокове приготування:";
             if (portionsBtn) portionsBtn.innerHTML = "🍳 Порції";
             if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 Режим 'Чисті руки'";
+            if (shareBtnText) shareBtnText.innerText = "Поділитись"; // 🇺🇦 Для Украинского
         } else {
             // По умолчанию возвращаем красивый оригинальный русский текст
             if (ingredientsHeader) ingredientsHeader.innerText = "📋 Список ингредиентов (Чек-лист):";
             if (stepsHeader) stepsHeader.innerText = "📜 Пошаговое приготовление:";
             if (portionsBtn) portionsBtn.innerHTML = "🍳 Порции";
             if (cleanHandsBtn) cleanHandsBtn.innerHTML = "🧼 Режим 'Чистые руки'";
+            if (shareBtnText) shareBtnText.innerText = "Поделиться"; // 🇷🇺 Для Русского
         }
 
                     // Включаем или прячем языковые вкладки в зависимости от режима (Хозяйка/Гость)
