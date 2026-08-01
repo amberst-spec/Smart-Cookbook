@@ -208,25 +208,33 @@
                 display: none !important;
             }
 
-            /* 2. ⚡ УЖИМАЕМ ПУСТОТУ СТРОГО НИЖЕ СЕРЕДИНЫ (В ВЫДЕЛЕННОЙ ЗОНЕ КНОПОК) */
-            .main-container center,
-            .main-container div[style*="display: flex"] {
-                gap: 2px !important; /* Убираем пустые дыры между кнопками */
-                margin-top: 5px !important; /* Прижимаем кнопки чуть ближе к тексту, убирая пустое поле */
-                margin-bottom: 5px !important; /* Подтягиваем строку копирайта ближе к кнопкам */
+            /* 2. ⚡ ПРИНУДИТЕЛЬНО СХЛОПЫВАЕМ НЕВИДИМЫЕ ОТСТУПЫ ВОКРУГ ЦЕНТРАЛЬНОГО БЛОКА КНОПОК */
+            .main-container center, 
+            main-container center,
+            center {
+                margin-top: -30px !important; /* НАМЕРТВО СЪЕДАЕМ ПУСТОТУ МЕЖДУ ТЕКСТОМ И КНОПКАМИ! */
+                margin-bottom: -15px !important; /* Подтягиваем строчку копирайта снизу вплотную к кнопкам */
                 padding: 0 !important;
             }
 
-            /* 3. ВОЗВРАЩАЕМ ВАШИ ЛЮБИМЫЕ АККУРАТНЫЕ МАЛЕНЬКИЕ КНОК ПКИ С КРУПНЫМ ШРИФТОМ */
+            /* Уплотняем зазоры между самими оранжевыми плашками */
+            .main-container center div,
+            .main-container div[style*="display: flex"] {
+                gap: 3px !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+            }
+
+            /* 3. ВАШИ ЛЮБИМЫЕ АККУРАТНЫЕ МАЛЕНЬКИЕ КНОПКИ */
             .main-container button, 
             .main-container center button,
             .main-container a button,
             button[onclick*="openRecipeCategory"] {
-                width: 44% !important; /* Идеальная аккуратная ширина по две в ряд */
-                max-width: 150px !important;
+                width: 44% !important; /* Идеальная мобильная ширина по две в ряд */
+                max-width: 145px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 8px 10px !important; /* Тонкие изящные рамки по высоте — убираем внутреннюю пустоту кнопок! */
+                padding: 7px 10px !important; /* Тонкие аккуратные рамки по высоте — убираем внутреннюю пустоту! */
                 margin: 2px !important; /* Сближаем кнопки по вертикали */
                 
                 /* Ваш крупный, сочный, жирный и легко читаемый шрифт остается нетронутым */
@@ -239,9 +247,9 @@
                 align-items: center !important;
             }
 
-            /* Убираем пустой воздушный зазор в самом низу белого бланка перед копирайтом */
+            /* Сокращаем пустой воздушный зазор в самом низу белого бланка перед копирайтом */
             .main-container {
-                padding-bottom: 10px !important;
+                padding-bottom: 5px !important;
             }
         }
 
