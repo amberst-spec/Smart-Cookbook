@@ -675,26 +675,30 @@
             }, 'google_translate_element');
         }
 
-                // 🔄 АВТОМАТИЧЕСКОЕ СКРЫТИЕ КНОПОК КАТЕГОРИЙ ВНУТРИ РЕЦЕПТОВ НА ТЕЛЕФОНАХ
+                // 🔄 ИДЕАЛЬНОЕ И ЧУТКОЕ СВЕРХБЫСТРОЕ СКРЫТИЕ И ПОКАЗ КНОПОК НА ТЕЛЕФОНАХ
         function toggleMobileButtons() {
-            // Проверка срабатывает строго на мобильных экранах (меньше 768px)
             if (window.innerWidth <= 768) {
                 const categoriesBlock = document.getElementById('main-categories-buttons');
                 if (!categoriesBlock) return;
                 
-                // Если в адресе открыт рецепт (есть знак # и слово recipe)
-                if (window.location.hash && window.location.hash.includes('recipe')) {
-                    categoriesBlock.style.setProperty('display', 'none', 'important'); // Чисто убираем кнопки со страницы торта
+                // Проверяем, открыт ли сейчас хоть один рецепт на экране
+                const activeRecipe = document.querySelector('.recipe-card[style*="display: block"], .recipe-page[style*="display: block"]');
+                const hasHash = window.location.hash && window.location.hash.includes('recipe');
+                
+                if (hasHash || activeRecipe) {
+                    categoriesBlock.style.setProperty('display', 'none', 'important'); // Чисто убираем кнопки внутри рецепта
                 } else {
-                    categoriesBlock.style.removeProperty('display'); // На главной полностью возвращаем управление родным стилям книги!
+                    categoriesBlock.style.setProperty('display', 'grid', 'important'); // Мгновенно возвращаем красивую сетку на главную!
+                    categoriesBlock.style.removeProperty('display');
                 }
             }
         }
 
-        // Запускаем проверку при каждом переключении страниц, загрузке и кликах
+        // Запускаем проверку намертво при любых изменениях, кликах и прокрутках
         window.addEventListener('hashchange', toggleMobileButtons);
         window.addEventListener('DOMContentLoaded', toggleMobileButtons);
-        document.addEventListener('click', function() { setTimeout(toggleMobileButtons, 60); });
+        window.addEventListener('popstate', toggleMobileButtons); // Ловим нажатие кнопки "Назад" в браузере телефона!
+        document.addEventListener('click', function() { setTimeout(toggleMobileButtons, 30); });
 
     </script>
     <script type="text/javascript" src="https://google.com"></script>
