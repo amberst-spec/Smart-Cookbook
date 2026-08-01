@@ -194,7 +194,8 @@
                 pointer-events: none;
             }
         }
-        /* 📱 ИДЕАЛЬНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ВЕРХУШКИ И КНОПОК ДЛЯ ТЕЛЕФОНОВ */
+
+                /* 📱 ИДЕАЛЬНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ВЕРХУШКИ И КНОПОК ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
             /* 1. Намертво прячем фоновые сердца и кнопку админки */
             div[style*="position: fixed"], 
@@ -207,29 +208,29 @@
                 display: none !important;
             }
 
-            /* 2. 🔍 УБИРАЕМ СТРОКУ ПОИСКА НА ТЕЛЕФОНАХ И ПРАВИМ ШАПКУ */
-            /* Находим и прячем мобильный поиск по его стилям или иконке лупы */
-            div[style*="display: flex"] input[type="text"],
-            input[placeholder*="Пошук"],
-            input[placeholder*="Поиск"],
-            input[placeholder*="Search"],
-            div[style*="position: relative"] input {
+            /* 2. 🔍 УБИРАЕМ СТРОГО ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
+            /* Прячем само овальное текстовое поле ввода поиска */
+            input[type="text"][placeholder*="Пошук"],
+            input[type="text"][placeholder*="Поиск"],
+            input[type="text"][placeholder*="Search"],
+            .main-container input[type="text"] {
                 display: none !important;
             }
             
-            /* Прячем лупу, которая шла вместе с поиском */
-            input + img, 
-            input + button,
+            /* Прячем маленькую лупу, которая привязана к этому полю ввода */
             img[src*="search"],
-            div[style*="position: absolute"] img[src*="data:image"] {
+            div[style*="position: relative"] img[src*="data:image"],
+            input[type="text"] + img {
                 display: none !important;
             }
 
-            /* Освобождаем верхнюю панель и подтягиваем блок языков вправо */
+            /* Чиним контейнер шапки, чтобы кнопка Поделиться и Языки встали ровно и красиво */
             .main-container > div:first-child,
             div[style*="justify-content: space-between"] {
-                justify-content: flex-end !important;
-                gap: 10px !important;
+                display: flex !important;
+                justify-content: space-between !important;
+                gap: 15px !important;
+                width: 100% !important;
             }
 
             /* 3. ⚡ СДУВАЕМ ПУХЛЫЕ ПОЛЯ И ВЫСОТУ НАСТОЯЩЕГО КЛАССА КНОПОК */
