@@ -197,13 +197,17 @@
 
                 /* 📱 ИДЕАЛЬНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ С РАБОЧИМИ КНОПКАМИ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-            /* 1. 🔒 БРОНЕБОЙНОЕ СКРЫТИЕ СЕРДЕЧЕК СТРОГО ПО КОФЕЙНОМУ ЦВЕТУ */
+            /* 1. 🔒 БРОНЕБОЙНОЕ СКРЫТИЕ ВСЕХ СЕРДЕЧЕК (ВКЛЮЧАЯ СЕРДЕЧКО АДМИНКИ) */
             div[style*="color: #8B4513"],
             div[style*="color:#8b4513"],
             div[style*="color: rgb(139, 69, 19)"],
+            div[style*="position: fixed"] a, 
+            a[href*="admin"],
             #secret-admin-heart,
             .decor-heart, [id*="heart"], [class*="heart"] {
                 display: none !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
             }
 
             /* 2. 🔍 УБИРАЕМ СТРОГО ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ЯЗЫКИ ВЕРНУТСЯ ВПРАВО) */
@@ -238,7 +242,27 @@
                 pointer-events: auto !important;
             }
 
-            /* 3. ⚡ СДУВАЕМ ПУХЛЫЕ ПОЛЯ И ВКЛЮЧАЕТ КЛИКАБЕЛЬНОСТЬ КНОПОК */
+            /* 3. 💥 ГЕНИАЛЬНОЕ СЖАТИЕ ВЫСОТЫ: Убираем длинное мелкое описание режима "Чистые руки" */
+            div[style*="font-size: 16px"] p br + text,
+            div[style*="font-size: 16px"] p,
+            .main-container style + div p {
+                margin-bottom: 2px !important;
+            }
+            /* Прячем длинный хвост текста пояснения, оставляя только жирный заголовок режима */
+            div[style*="font-size: 16px; color: #5C3A21"] br,
+            div[style*="font-size: 16px; color: #5C3A21"] strong + br,
+            div[style*="font-size: 16px; color: #5C3A21"] strong + br + font,
+            div[style*="font-size: 16px; color: #5C3A21"] strong + br + text {
+                display: none !important;
+            }
+            /* Оставляем строго саму красивую жирную строчку «⏱️ Режим Чистые руки. Встроенный таймер.» */
+            div[style*="text-align: center"][style*="line-height"] {
+                margin-top: 5px !important;
+                margin-bottom: 5px !important;
+                font-size: 15px !important;
+            }
+
+            /* 4. ⚡ СДУВАЕМ ПУХЛЫЕ ПОЛЯ И СОХРАНЯЕМ РАБОТУ КНОПОК */
             .category-card {
                 width: 44% !important; /* Идеальная аккуратная ширина по две в ряд */
                 max-width: 145px !important;
@@ -256,7 +280,6 @@
                 justify-content: center !important;
                 align-items: center !important;
                 
-                /* 👑 ВЫВОДИМ ОРАНЖЕВЫЕ КНОПКИ НА ПЕРЕДНИЙ ПЛАН ЭКРАНА ДЛЯ НАЖАТИЙ */
                 position: relative !important;
                 z-index: 9999 !important;
                 pointer-events: auto !important;
@@ -271,7 +294,7 @@
                 z-index: 9998 !important;
             }
 
-            /* 4. 🥄 ТОЧЕЧНОЕ УВЕЛИЧЕНИЕ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ НА ТЕЛЕФОНАХ */
+            /* 5. 🥄 ТОЧЕЧНОЕ УВЕЛИЧЕНИЕ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ НА ТЕЛЕФОНАХ */
             button[onclick*="openAdminLogin"] {
                 font-size: 22px !important; /* Увеличиваем только ложечку */
                 padding: 6px 10px !important;
