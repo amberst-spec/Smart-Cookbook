@@ -1575,25 +1575,33 @@
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
                 function sendRecipeToHelen() {
-            // 1. Собираем данные, которые ввел гость
-            let name = document.getElementById('guestNameInput').value.trim();
+            // 1. Находим имя гостя
+            let nameEl = document.getElementById('guestNameInput');
+            let name = nameEl ? nameEl.value.trim() : '';
             
-            // Проверяем, на каком языке сейчас открыта страница, и берем нужные поля
-            let title = document.getElementById('guestTitleInput_RU').value.trim() || 
-                        document.getElementById('guestTitleInput_EN').value.trim() || 
-                        document.getElementById('guestTitleInput_UKR').value.trim();
-                        
-            let text = document.getElementById('guestRecipeTextInput_RU').value.trim() || 
-                       document.getElementById('guestRecipeTextInput_EN').value.trim() || 
-                       document.getElementById('guestRecipeTextInput_UKR').value.trim();
+            // Безопасно собираем название и текст рецепта с любого языка, который сейчас заполнен
+            let titleRU = document.getElementById('guestTitleInput_RU');
+            let textRU = document.getElementById('guestRecipeTextInput_RU');
+            let titleEN = document.getElementById('guestTitleInput_EN');
+            let textEN = document.getElementById('guestRecipeTextInput_EN');
+            let titleUKR = document.getElementById('guestTitleInput_UKR');
+            let textUKR = document.getElementById('guestRecipeTextInput_UKR');
 
-            // 2. Проверяем, заполнена ли анкета
+            let title = (titleRU ? titleRU.value.trim() : '') || 
+                        (titleEN ? titleEN.value.trim() : '') || 
+                        (titleUKR ? titleUKR.value.trim() : '');
+                        
+            let text = (textRU ? textRU.value.trim() : '') || 
+                       (textEN ? textEN.value.trim() : '') || 
+                       (textUKR ? textUKR.value.trim() : '');
+
+            // 2. Проверяем, заполнена ли анкета гостем
             if (!name || !title || !text) { 
                 alert(currentLangCode === 'en' ? "Please fill in all fields! 🌸" : (currentLangCode === 'ukr' ? "Будь ласка, заповніть усі поля! 🌸" : "Пожалуйста, заполните все поля! 🌸")); 
                 return; 
             }
 
-            // 3. Отправляем данные на отдельную "полочку" в Firebase Firestore
+            // 3. Прямая и чистая отправка данных на полочку guest_recipes в Firebase Firestore
             if (window.db) {
                 window.db.collection("guest_recipes").add({
                     guestName: name,
@@ -1603,23 +1611,23 @@
                     dateString: new Date().toLocaleString()
                 })
                 .then(() => {
-                    // Если всё улетело успешно, благодарим гостя на его языке
+                    // Благодарим гостя на нужном языке
                     alert(currentLangCode === 'en' ? "Thank you! Your recipe has been sent to Helen! 🌸" : (currentLangCode === 'ukr' ? "Дякуємо! Ваш рецепт надіслано Оленочці! 🌸" : "Спасибо огромное! Ваш рецепт успешно отправлен Еленочке! 🌸"));
                     
-                    // Очищаем поля формы, чтобы они снова стали чистыми
-                    document.getElementById('guestNameInput').value = '';
-                    document.getElementById('guestTitleInput_RU').value = '';
-                    document.getElementById('guestRecipeTextInput_RU').value = '';
-                    document.getElementById('guestTitleInput_EN').value = '';
-                    document.getElementById('guestRecipeTextInput_EN').value = '';
-                    document.getElementById('guestTitleInput_UKR').value = '';
-                    document.getElementById('guestRecipeTextInput_UKR').value = '';
+                    // Безопасно очищаем только те поля, которые существуют на экране
+                    if (nameEl) nameEl.value = '';
+                    if (titleRU) titleRU.value = '';
+                    if (textRU) textRU.value = '';
+                    if (titleEN) titleEN.value = '';
+                    if (textEN) textEN.value = '';
+                    if (titleUKR) titleUKR.value = '';
+                    if (textUKR) textUKR.value = '';
                     
                     // Закрываем окошко бланка
                     document.getElementById('guestSuggestModal').style.display = 'none';
                 })
                 .catch(err => {
-                    console.error("Ошибка отправки в Firebase: ", err);
+                    console.error("Ошибка сети Firestore: ", err);
                     alert("Ошибка связи с облаком. Проверьте интернет! 🌐");
                 });
             } else {
