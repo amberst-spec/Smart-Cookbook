@@ -1526,33 +1526,45 @@
             }
         }
 
-        function shareCurrentRecipePage() {
-    // 🏷️ Находим точное текстовое название рецепта, которое сейчас горит на экране (Торт / Cake / Торт)
-    const recipeTitleEl = document.getElementById('text-recipeTitle') || document.querySelector('.recipe-display-title') || document.querySelector('h1') || document.querySelector('h2');
-    const rawTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
-    
-    // Очищаем название от лишних пробелов, чтобы адрес получился красивым и без ошибок
-    const cleanTitle = encodeURIComponent(rawTitle);
+                function shareCurrentRecipePage() {
+            // 1. Находим точное название открытого рецепта
+            const recipeTitleEl = document.getElementById('recipe-display-title') || document.querySelector('.recipe-display-title');
+            const rawTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
+            
+            // 2. Формируем правильный адрес (например: сайт/?cat=1&recipe=3)
+            const baseUrl = window.location.origin + window.location.pathname;
+            const exactRecipeUrl = `${baseUrl}?cat=${currentAlbumId}&recipe=${currentRecipeIndex}`;
+            
+            // 3. РЕКЛАМНЫЕ ТЕКСТЫ ДЛЯ ШАПКИ ССЫЛКИ
+            const shareTitle = `➡️ Интерактивная книга рецептов с Таймером 📖`;
+            const shareText = `🧁 Рецепт: "${rawTitle}". Нажмите, чтобы открыть интерактивные таймеры и умный калькулятор порций!`;
 
-    // 🚀 ПРИНУДИТЕЛЬНО склеиваем уникальный адрес страницы именно с этим названием рецепта на нужном языке!
-    // 🚀 Принудительно склеиваем уникальный адрес именно с текстовым названием рецепта на нужном языке!
-    const exactRecipeUrl = window.location.origin + window.location.pathname + "#" + cleanTitle;
-    
-    // Записываем этот красивый адрес в адресную строку браузера телефона
-    window.location.hash = cleanTitle;
+            // 4. Если гость сидит с ТЕЛЕФОНА — сразу открываем его родное встроенное меню мессенджеров
+            if (navigator.share && /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent)) {
+                navigator.share({
+                    title: shareTitle,
+                    text: shareText,
+                    url: exactRecipeUrl
+                })
+                .then(() => console.log('Успешно отправлено с телефона!'))
+                .catch(err => console.log('Отмена отправки на телефоне'));
+                return; 
+            }
 
-    // 🌍 Запускаем ТУ САМУЮ официальную международную программу обмена данными на устройстве
-    // 🌍 Запускаем оригинальную, встроенную в систему программу обмена данными на устройстве гостя
-    if (navigator.share) {
-        navigator.share({
-            title: rawTitle,
-            url: exactRecipeUrl
-        }).catch(err => console.log('Отмена отправки'));
-    } else {
-        // Запасной вариант для старых ПК — тихо копируем точную ссылку на рецепт в буфер
-        navigator.clipboard.writeText(exactRecipeUrl);
-    }
-}
+            // 5. Если гость сидит с ПК — настраиваем кнопку копирования и показываем аккуратное окошко
+            const copyBtn = document.getElementById('copy-link-btn');
+            if (copyBtn) {
+                copyBtn.onclick = function() {
+                    navigator.clipboard.writeText(exactRecipeUrl);
+                    alert(`«${rawTitle}» — ссылка успешно скопирована в буфер обмена!`);
+                    document.getElementById('customShareModal').style.display = 'none';
+                };
+            }
+
+            // Показываем окно только для пользователей компьютеров
+            const shareModal = document.getElementById('customShareModal');
+            if (shareModal) shareModal.style.display = 'flex';
+        }
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
         function sendRecipeToHelen() {
