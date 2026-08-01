@@ -1861,7 +1861,7 @@
         }
     </script>
 
-        <!-- 📱 КОМПАКТНЫЕ ОРАНЖЕВЫЕ КНОПКИ С КРУПНЫМ ШРИФТОМ ДЛЯ ТЕЛЕФОНОВ -->
+        <!-- 📱 ТОЧЕЧНОЕ УДАЛЕНИЕ ПУСТЫХ ЗАЗОРОВ МЕЖДУ БЛОКАМИ ДЛЯ ТЕЛЕФОНОВ -->
     <style>
         @media (max-width: 768px) {
             /* 1. Намертво прячем фоновые сердца и кнопку админки */
@@ -1873,61 +1873,52 @@
                 display: none !important;
             }
 
-            /* 2. Делаем блок с пожеланием более миниатюрным, сохраняя его оригинальную форму */
+            /* 2. Ужимаем пустые воздушные зазоры между всеми блоками бланка */
+            
+            /* Сближаем блок пожелания с нижним текстом */
             div[style*="background-color: #FFF6EE"][style*="border-radius: 30px"],
             div[style*="background-color: rgb(255, 246, 238)"] {
-                padding: 14px !important;
-                margin-bottom: 8px !important;
-                max-width: 92% !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
+                margin-bottom: 6px !important;
+                padding: 16px 14px !important;
             }
 
-            /* Уменьшаем круглую картинку еды внутри пожелания */
-            div[style*="background-color: #FFF6EE"] img,
-            div[style*="background-color: rgb(255, 246, 238)"] img {
-                max-height: 90px !important;
-                width: auto !important;
-                margin-bottom: 4px !important;
-            }
-
-            /* Пропорционально уменьшаем шрифт внутри пожелания */
-            div[style*="background-color: #FFF6EE"] h2,
-            div[style*="background-color: #FFF6EE"] p,
-            div[style*="background-color: rgb(255, 246, 238)"] p {
-                font-size: 14px !important;
-                line-height: 1.25 !important;
-                margin: 3px 0 !important;
-            }
-
-            /* Делаем текст режима "Чистые руки" компактным */
+            /* Находим блок режима "Чистые руки" и ужимаем его отступы сверху и снизу */
             div[style*="background-color: #FFF6EE"] + div,
-            .main-container > div:nth-of-type(2) {
-                font-size: 13px !important;
-                margin-top: 4px !important;
-                margin-bottom: 8px !important;
+            .main-container > div:nth-of-type(2),
+            div[style*="font-size: 16px; color: #5C3A21; line-height: 1.5; margin-bottom: 25px;"] {
+                margin-top: 2px !important;
+                margin-bottom: 8px !important; /* Вместо 25px прижимаем текст ближе к кнопкам */
                 padding: 0 10px !important;
             }
 
-            /* 👑 КОМПАКТНЫЕ ОРАНЖЕВЫЕ КНОПКИ С КРУПНЫМ ШРИФТОМ ДЛЯ ТЕЛЕФОНОВ */
+            /* ЗАПРЕЩАЕМ МЕНЯТЬ ШРИФТЫ: Возвращаем тексту «Умная кухня с таймером» его родной красивый размер */
+            div[style*="background-color: #FFF6EE"] h2,
+            div[style*="background-color: #FFF6EE"] p,
+            div[style*="background-color: rgb(255, 246, 238)"] p {
+                font-size: inherit !important;
+                line-height: inherit !important;
+                margin: inherit !important;
+            }
+
+            /* 3. ВАШИ ИДЕАЛЬНЫЕ КНОПКИ: Сохраняем форму, убираем только пустые дыры между ними */
             .main-container button, 
             .main-container center button,
             .main-container a button,
             button[onclick*="openRecipeCategory"] {
-                width: 75% !important; /* Делаем кнопки чуть уже, чтобы они смотрелись изящно */
+                width: 75% !important;
                 max-width: 280px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 10px 20px !important; /* Ювелирно сжимаем пустые поля внутри кнопок по высоте */
-                font-size: 16px !important; /* Оставляем шрифт крупным и четким, чтобы буквы отлично читались и вписывались в рамки */
+                padding: 10px 20px !important; /* Оставляем ваши красивые аккуратные рамки кнопок */
+                font-size: 16px !important; /* Оставляем ваш крупный, четкий и легко читаемый шрифт */
                 font-weight: bold !important;
-                margin: 4px auto !important; /* Сближаем кнопки друг к другу по вертикали */
+                margin: 3px auto !important; /* Сближаем кнопки друг к другу по вертикали */
                 display: flex !important;
                 justify-content: center !important;
                 align-items: center !important;
             }
 
-            /* Убираем пустые зазоры между строками кнопок */
+            /* Уничтожаем пустые зазоры гибкой сетки между строками кнопок */
             .main-container center,
             .main-container div[style*="display: flex"] {
                 gap: 2px !important;
@@ -1941,6 +1932,7 @@
             }
         }
     </style>
+     
 </body>
 </html>
 
