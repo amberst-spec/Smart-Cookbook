@@ -195,28 +195,62 @@
             }
         }
 
-                /* 📱 УПЛОТНЕНИЕ ЗАЗОРОВ НИЖЕ СЕРЕДИНЫ СТРАНИЦЫ ДЛЯ ТЕЛЕФОНОВ */
+                /* 📱 ИДЕАЛЬНОЕ СЖАТИЕ И МАЛЕНЬКИЕ КНОПКИ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-            /* 1. Убираем гигантский пустой отступ (25px) под текстом режима "Чистые руки" */
+            /* 1. Намертво прячем фоновые сердца и кнопку админки */
+            div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
+            div[style*="position: fixed"][style*="color: #8B4513"],
+            div[style*="position: fixed"][style*="color:#8b4513"],
+            span[style*="position: fixed"],
+            #secret-admin-heart {
+                display: none !important;
+            }
+
+            /* 2. Убираем пустые зазоры под текстом режима "Чистые руки" */
             div[style*="font-size: 16px; color: #5C3A21; line-height: 1.5; margin-bottom: 25px;"],
             div[style*="margin-bottom: 25px"] {
-                margin-bottom: 8px !important; /* Прижимаем кнопки ближе к тексту */
+                margin-bottom: 5px !important; /* Плотно прижимаем блок к кнопкам */
             }
 
-            /* 2. Схлопываем пустоту между самими оранжевыми кнопками */
+            /* Сближаем сам блок пожелания с нижним текстом */
+            div[style*="background-color: #FFF6EE"][style*="border-radius: 30px"],
+            div[style*="background-color: rgb(255, 246, 238)"] {
+                margin-bottom: 5px !important;
+                padding: 14px !important;
+            }
+
+            /* 3. 💥 ВОЗВРАЩАЕМ МАЛЕНЬКИЕ И АККУРАТНЫЕ КНОПКИ: */
+            .main-container button, 
+            .main-container center button,
+            .main-container a button,
+            button[onclick*="openRecipeCategory"] {
+                width: 70% !important; /* Сжимаем кнопки по ширине, чтобы они стали изящными */
+                max-width: 250px !important;
+                height: auto !important;
+                min-height: unset !important;
+                padding: 8px 15px !important; /* Делаем кнопки тонкими и компактными по высоте */
+                font-size: 15px !important; /* Шрифт остается четким и крупным, отлично читается */
+                font-weight: bold !important;
+                margin: 3px auto !important; /* text-align будет выравнивать их по центру */
+                display: flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+            }
+
+            /* Схлопываем пустые дыры в гибкой сетке между кнопками */
             .main-container center,
             .main-container div[style*="display: flex"] {
-                gap: 4px !important; /* Делаем зазоры между кнопками плотными и аккуратными */
-                margin-top: 2px !important;
-                margin-bottom: 2px !important;
+                gap: 2px !important;
+                margin-top: 1px !important;
+                margin-bottom: 1px !important;
             }
 
-            /* 3. Убираем лишний пустой зазор в самом низу белого свитка бланка */
+            /* Сокращаем финальный отступ в самом низу белого бланка, чтобы поднять копирайт */
             .main-container {
                 padding-bottom: 10px !important;
             }
 
-            /* 4. ЗАПРЕЩАЕМ МЕНЯТЬ ШРИФТЫ: Окончательно возвращаем оригинальный крупный размер мелкой надписи под заголовком */
+            /* 4. ВОЗВРАЩАЕМ РОДНЫЕ ШРИФТЫ: Запрещаем уменьшать надпись «Умная кухня с таймером» */
             .main-container h2,
             .main-container p,
             div[style*="background-color: #FFF6EE"] p {
