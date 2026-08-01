@@ -195,11 +195,9 @@
             }
         }
 
-                /* 📱 ИДЕАЛЬНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ВЕРХУШКИ И КНОПОК ДЛЯ ТЕЛЕФОНОВ */
+                /* 📱 ИДЕАЛЬНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ С РАБОЧИМИ КНОПКАМИ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-            /* 1. Намертво прячем фоновые сердца и кнопку админки */
-            div[style*="position: fixed"], 
-            span[style*="position: fixed"],
+            /* 1. 🔒 БРОНЕБОЙНОЕ СКРЫТИЕ СЕРДЕЧЕК СТРОГО ПО КОФЕЙНОМУ ЦВЕТУ */
             div[style*="color: #8B4513"],
             div[style*="color:#8b4513"],
             div[style*="color: rgb(139, 69, 19)"],
@@ -208,32 +206,39 @@
                 display: none !important;
             }
 
-            /* 2. 🔍 УБИРАЕМ СТРОГО ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
-            /* Прячем само овальное текстовое поле ввода поиска */
+            /* 2. 🔍 УБИРАЕМ СТРОГО ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ЯЗЫКИ ВЕРНУТСЯ ВПРАВО) */
             input[type="text"][placeholder*="Пошук"],
             input[type="text"][placeholder*="Поиск"],
             input[type="text"][placeholder*="Search"],
-            .main-container input[type="text"] {
-                display: none !important;
-            }
-            
-            /* Прячем маленькую лупу, которая привязана к этому полю ввода */
+            .main-container input[type="text"],
             img[src*="search"],
-            div[style*="position: relative"] img[src*="data:image"],
             input[type="text"] + img {
                 display: none !important;
             }
-
-            /* Чиним контейнер шапки, чтобы кнопка Поделиться и Языки встали ровно и красиво */
+            
+            /* Чиним контейнер шапки, выводим языки и шеринг на передний план для кликов */
             .main-container > div:first-child,
             div[style*="justify-content: space-between"] {
                 display: flex !important;
                 justify-content: space-between !important;
-                gap: 15px !important;
+                gap: 10px !important;
                 width: 100% !important;
+                position: relative !important;
+                z-index: 9999 !important;
+                pointer-events: auto !important;
             }
 
-            /* 3. ⚡ СДУВАЕМ ПУХЛЫЕ ПОЛЯ И ВЫСОТУ НАСТОЯЩЕГО КЛАССА КНОПОК */
+            /* Выводим сам переключатель языков на передний план */
+            #google_translate_element,
+            .goog-te-gadget,
+            select,
+            div[onclick*="changeLanguage"] {
+                position: relative !important;
+                z-index: 99999 !important;
+                pointer-events: auto !important;
+            }
+
+            /* 3. ⚡ СДУВАЕМ ПУХЛЫЕ ПОЛЯ И ВКЛЮЧАЕТ КЛИКАБЕЛЬНОСТЬ КНОПОК */
             .category-card {
                 width: 44% !important; /* Идеальная аккуратная ширина по две в ряд */
                 max-width: 145px !important;
@@ -242,7 +247,7 @@
                 padding: 6px 10px !important; /* Сжимаем пухлые поля по высоте */
                 margin: 2px !important; /* Сближаем кнопки по вертикали */
                 
-                /* Ваш крупный, сочный, жирный и легко читаемый шрифт */
+                /* Ваш крупный, сочный, жирный шрифт */
                 font-size: 17px !important; 
                 font-weight: 900 !important; 
                 letter-spacing: 0.3px !important;
@@ -250,23 +255,31 @@
                 display: inline-flex !important;
                 justify-content: center !important;
                 align-items: center !important;
+                
+                /* 👑 ВЫВОДИМ ОРАНЖЕВЫЕ КНОПКИ НА ПЕРЕДНИЙ ПЛАН ЭКРАНА ДЛЯ НАЖАТИЙ */
+                position: relative !important;
+                z-index: 9999 !important;
+                pointer-events: auto !important;
             }
 
             /* Ужимаем зазоры невидимой сетки кнопок, убирая лишнюю высоту */
-            .categories-grid, 
-            div[id="main-categories-buttons-categories-grid"],
-            #main-categories-buttons-categories-grid {
+            .categories-grid {
                 margin-bottom: 5px !important;
                 gap: 4px !important;
                 padding: 0 !important;
+                position: relative !important;
+                z-index: 9998 !important;
             }
 
             /* 4. 🥄 ТОЧЕЧНОЕ УВЕЛИЧЕНИЕ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ НА ТЕЛЕФОНАХ */
             button[onclick*="openAdminLogin"] {
-                font-size: 22px !important; /* Сама круглая рамка останется компактной, а ложечка станет крупной */
+                font-size: 22px !important; /* Увеличиваем только ложечку */
                 padding: 6px 10px !important;
                 width: 44% !important;
                 max-width: 145px !important;
+                position: relative !important;
+                z-index: 9999 !important;
+                pointer-events: auto !important;
             }
         }
 
