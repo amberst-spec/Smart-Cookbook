@@ -1860,23 +1860,23 @@
             showRecipePage();
         }
     </script>
-
-        <!-- 📱 ПРИНУДИТЕЛЬНОЕ СКРЫТИЕ ДЕКОРА И СЕРДЕЧКА АДМИНКИ НА ТЕЛЕФОНАХ -->
+        <!-- 📱 УМНОЕ СЖАТИЕ СТРОГО ПО ВЫСОТЕ НА ТЕЛЕФОНАХ -->
     <style>
         @media (max-width: 768px) {
-            /* Скрываем большие фоновые кофейные сердца */
+            /* 1. Намертво прячем фоновые сердца и кнопку админки */
             div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
             div[style*="position: fixed"][style*="color: #8B4513"],
-            div[style*="position: fixed"][style*="color:#8b4513"] {
-                display: none !important;
-            }
-            /* Намертво прячем одинокие фиксированные смайлики */
-            span[style*="position: fixed"] {
-                display: none !important;
-            }
-            /* 👑 ТОЧЕЧНО: Прячем сердечко входа в админку на смартфонах гостей */
+            div[style*="position: fixed"][style*="color:#8b4513"],
+            span[style*="position: fixed"],
             #secret-admin-heart {
                 display: none !important;
+            }
+
+            /* 2. Сжимаем всю главную страницу ИСКЛЮЧИТЕЛЬНО по высоте */
+            .main-container {
+                transform: scaleY(0.88); /* Сплющиваем страницу по вертикали на 12% */
+                transform-origin: top center; /* Точка сжатия находится вверху */
+                margin-bottom: -120px !important; /* Корректируем нижний пустой зазор от сжатия */
             }
         }
     </style>
