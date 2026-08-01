@@ -207,15 +207,15 @@
                 display: none !important;
             }
 
-            /* 2. ⚡ ПРОВЕРЕННОЕ РАЗДЕЛЕНИЕ БЛОКОВ ТЕКСТА НА ТЕЛЕФОНЕ */
+            /* 2. ⚡ ПРИНУДИТЕЛЬНОЕ МОБИЛЬНОЕ РАЗДЕЛЕНИЕ КРУПНЫХ БЛОКОВ ТЕКСТА */
             .desktop-only-text {
-                display: none !important; /* Полностью убираем длинный блок на смартфонах */
+                display: none !important; /* Намертво убираем длинный блок на телефонах */
             }
             .mobile-only-text {
-                display: block !important; /* Включаем красивую компактную строчку с мыльцем */
+                display: block !important; /* Принудительно включаем крупную строчку с мыльцем */
             }
 
-            /* 3. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ЯЗЫКАМ) */
+            /* 3. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
             input[type="text"][placeholder*="Пошук"],
             input[type="text"][placeholder*="Поиск"],
             input[type="text"][placeholder*="Search"],
@@ -225,7 +225,6 @@
                 display: none !important;
             }
             
-            /* Чиним шапку сайта, выводим языки и шеринг на передний план */
             .main-container > div:first-child,
             div[style*="justify-content: space-between"] {
                 display: flex !important;
@@ -245,11 +244,11 @@
 
             /* 4. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ: Компактные и рабочие */
             .category-card {
-                width: 44% !important; /* Стоят по две в ряд */
+                width: 44% !important; 
                 max-width: 145px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 6px 10px !important; /* Ужимаем поля по высоте */
+                padding: 6px 10px !important; 
                 margin: 2px !important; 
                 font-size: 17px !important; 
                 font-weight: 900 !important; 
@@ -282,13 +281,13 @@
             }
         }
 
-        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
+        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (НАМЕРТВО ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
         @media (min-width: 769px) {
             .desktop-only-text {
                 display: block !important;
             }
             .mobile-only-text {
-                display: none !important; /* На ПК короткая строка будет скрыта */
+                display: none !important; /* На ПК крупная мобильная строка будет полностью скрыта */
             }
         }
 
