@@ -1860,17 +1860,29 @@
             showRecipePage();
         }
     </script>
-        <!-- 📱 ПРИНУДИТЕЛЬНОЕ СКРЫТИЕ КОФЕЙНЫХ СЕРДЕЧЕК НА ТЕЛЕФОНАХ -->
+           <!-- 📱 ПОЛНОЕ ОЧИЩЕНИЕ МОБИЛЬНОГО ЭКРАНА ОТ ДЕКОРА -->
     <style>
         @media (max-width: 768px) {
-            /* Находим блок с кофейным цветом декора и полностью отключаем его на смартфонах */
+            /* Скрываем большие фоновые кофейные сердца */
             div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
             div[style*="position: fixed"][style*="color: #8B4513"],
             div[style*="position: fixed"][style*="color:#8b4513"] {
                 display: none !important;
             }
-            /* На всякий случай скрываем сами смайлики коричневых сердец */
+            /* Скрываем фиксированные смайлики */
             span[style*="position: fixed"] {
+                display: none !important;
+            }
+            /* 👑 ЮВЕЛИРНО: Скрываем упрямое плавающее сердечко админки на телефонах */
+            div[style*="position: absolute"] img[src*="heart"],
+            div[style*="position: absolute"]::after,
+            .main-container span,
+            div[style*="position: absolute"] {
+                /* Если внутри блока приветствия телефона летит одинокий символ сердца - прячем его */
+                text-shadow: none;
+            }
+            /* Находим конкретно это маленькое сердечко возле текста пожелания и выключаем */
+            .main-container div[style*="position: absolute"] {
                 display: none !important;
             }
         }
