@@ -194,6 +194,38 @@
                 pointer-events: none;
             }
         }
+
+                /* 📱 УПЛОТНЕНИЕ ЗАЗОРОВ НИЖЕ СЕРЕДИНЫ СТРАНИЦЫ ДЛЯ ТЕЛЕФОНОВ */
+        @media (max-width: 768px) {
+            /* 1. Убираем гигантский пустой отступ (25px) под текстом режима "Чистые руки" */
+            div[style*="font-size: 16px; color: #5C3A21; line-height: 1.5; margin-bottom: 25px;"],
+            div[style*="margin-bottom: 25px"] {
+                margin-bottom: 8px !important; /* Прижимаем кнопки ближе к тексту */
+            }
+
+            /* 2. Схлопываем пустоту между самими оранжевыми кнопками */
+            .main-container center,
+            .main-container div[style*="display: flex"] {
+                gap: 4px !important; /* Делаем зазоры между кнопками плотными и аккуратными */
+                margin-top: 2px !important;
+                margin-bottom: 2px !important;
+            }
+
+            /* 3. Убираем лишний пустой зазор в самом низу белого свитка бланка */
+            .main-container {
+                padding-bottom: 10px !important;
+            }
+
+            /* 4. ЗАПРЕЩАЕМ МЕНЯТЬ ШРИФТЫ: Окончательно возвращаем оригинальный крупный размер мелкой надписи под заголовком */
+            .main-container h2,
+            .main-container p,
+            div[style*="background-color: #FFF6EE"] p {
+                font-size: inherit !important;
+                line-height: inherit !important;
+                margin-bottom: inherit !important;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -1862,85 +1894,5 @@
         }
     </script>
 
-        <!-- 📱 КОМПАКТНЫЕ ОРАНЖЕВЫЕ КНОПКИ С КРУПНЫМ ШРИФТОМ ДЛЯ ТЕЛЕФОНОВ -->
-    <style>
-        @media (max-width: 768px) {
-            /* 1. Намертво прячем фоновые сердца и кнопку админки */
-            div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
-            div[style*="position: fixed"][style*="color: #8B4513"],
-            div[style*="position: fixed"][style*="color:#8b4513"],
-            span[style*="position: fixed"],
-            #secret-admin-heart {
-                display: none !important;
-            }
-
-            /* 2. Делаем блок с пожеланием более миниатюрным, сохраняя его оригинальную форму */
-            div[style*="background-color: #FFF6EE"][style*="border-radius: 30px"],
-            div[style*="background-color: rgb(255, 246, 238)"] {
-                padding: 14px !important;
-                margin-bottom: 8px !important;
-                max-width: 92% !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
-            }
-
-            /* Уменьшаем круглую картинку еды внутри пожелания */
-            div[style*="background-color: #FFF6EE"] img,
-            div[style*="background-color: rgb(255, 246, 238)"] img {
-                max-height: 90px !important;
-                width: auto !important;
-                margin-bottom: 4px !important;
-            }
-
-            /* Пропорционально уменьшаем шрифт внутри пожелания */
-            div[style*="background-color: #FFF6EE"] h2,
-            div[style*="background-color: #FFF6EE"] p,
-            div[style*="background-color: rgb(255, 246, 238)"] p {
-                font-size: 14px !important;
-                line-height: 1.25 !important;
-                margin: 3px 0 !important;
-            }
-
-            /* Делаем текст режима "Чистые руки" компактным */
-            div[style*="background-color: #FFF6EE"] + div,
-            .main-container > div:nth-of-type(2) {
-                font-size: 13px !important;
-                margin-top: 4px !important;
-                margin-bottom: 8px !important;
-                padding: 0 10px !important;
-            }
-
-            /* 👑 КОМПАКТНЫЕ ОРАНЖЕВЫЕ КНОПКИ С КРУПНЫМ ШРИФТОМ ДЛЯ ТЕЛЕФОНОВ */
-            .main-container button, 
-            .main-container center button,
-            .main-container a button,
-            button[onclick*="openRecipeCategory"] {
-                width: 75% !important; /* Делаем кнопки чуть уже, чтобы они смотрелись изящно */
-                max-width: 280px !important;
-                height: auto !important;
-                min-height: unset !important;
-                padding: 10px 20px !important; /* Ювелирно сжимаем пустые поля внутри кнопок по высоте */
-                font-size: 16px !important; /* Оставляем шрифт крупным и четким, чтобы буквы отлично читались и вписывались в рамки */
-                font-weight: bold !important;
-                margin: 4px auto !important; /* Сближаем кнопки друг к другу по вертикали */
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-            }
-
-            /* Убираем пустые зазоры между строками кнопок */
-            .main-container center,
-            .main-container div[style*="display: flex"] {
-                gap: 2px !important;
-                margin-top: 2px !important;
-                margin-bottom: 2px !important;
-            }
-
-            /* Ужимаем финальный пустой отступ в самом низу белого свитка бланка */
-            .main-container {
-                padding-bottom: 12px !important;
-            }
-        }
-    </style>
 </body>
 </html>
