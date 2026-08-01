@@ -281,10 +281,13 @@
             }
         }
 
-        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (НАМЕРТВО ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
+               /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (ВОЗВРАЩАЕМ РОСКОШНЫЙ КРУПНЫЙ ШРИФТ) */
         @media (min-width: 769px) {
             .desktop-only-text {
                 display: block !important;
+                font-size: 20px !important; /* Намертво возвращаем крупный журнальный размер букв на ПК! */
+                line-height: 1.6 !important;
+                font-weight: normal !important;
             }
             .mobile-only-text {
                 display: none !important; /* На ПК крупная мобильная строка будет полностью скрыта */
