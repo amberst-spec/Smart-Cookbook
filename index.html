@@ -195,9 +195,9 @@
             }
         }
 
-                /* 📱 ХИРУРГИЧЕСКАЯ РАССТАНОВКА ЗОНЫ КНОПОК ДЛЯ ТЕЛЕФОНОВ */
+                /* 📱 ХИРУРГИЧЕСКОЕ СЖАТИЕ ЗОНЫ КНОПОК ДЛЯ ТЕЛЕФОНОВ (ВЕРХ В ПОЛНОЙ БЕЗОПАСНОСТИ) */
         @media (max-width: 768px) {
-            /* 1. БРОНЕБОЙНОЕ СКРЫТИЕ ВСЕХ ЛЕТАЮЩИХ КОФЕЙНЫХ СЕРДЦ И КНОПКИ АДМИНКИ */
+            /* 1. Намертво прячем фоновые сердца и кнопку админки */
             div[style*="position: fixed"], 
             span[style*="position: fixed"],
             div[style*="color: #8B4513"],
@@ -208,47 +208,26 @@
                 display: none !important;
             }
 
-            /* Убираем невидимый барьер отступа самого фона страницы */
-            body {
-                padding: 5px !important;
-            }
-
-            /* 2. ОГРАНИЧИВАЕМ РАЗДУТЫЙ БЛАНК КНИГИ ПО ВЫСОТЕ НА ТЕЛЕФОНАХ */
-            .main-container {
-                position: relative !important;
-                padding-bottom: 120px !important; /* Бронируем четкое, компактное место снизу под кнопки */
-                min-height: unset !important;
-                height: auto !important;
-            }
-
-            /* 3. 👑 НАМЕРТВО ФИКСИРУЕМ КНОПКИ В СВОБОДНОЙ НИЖНЕЙ ЗОНЕ (УБИРАЕМ ПУСТОТУ) */
+            /* 2. ⚡ УЖИМАЕМ ПУСТОТУ СТРОГО НИЖЕ СЕРЕДИНЫ (В ВЫДЕЛЕННОЙ ЗОНЕ КНОПОК) */
             .main-container center,
             .main-container div[style*="display: flex"] {
-                position: absolute !important;
-                bottom: 40px !important; /* Удерживаем блок кнопок идеально ровно НАД копирайтом */
-                left: 5% !important;
-                width: 90% !important;
-                display: flex !important;
-                justify-content: center !important;
-                align-items: center !important;
-                flex-wrap: wrap !important;
-                gap: 6px !important;
-                margin: 0 !important;
+                gap: 2px !important; /* Убираем пустые дыры между кнопками */
+                margin-top: 5px !important; /* Прижимаем кнопки чуть ближе к тексту, убирая пустое поле */
+                margin-bottom: 5px !important; /* Подтягиваем строку копирайта ближе к кнопкам */
                 padding: 0 !important;
-                transform: none !important;
             }
 
-            /* 4. СОХРАНЯЕМ ВАШИ ЛЮБИМЫЕ АККУРАТНЫЕ МАЛЕНЬКИЕ КНОПКИ С КРУПНЫМ ШРИФТОМ */
+            /* 3. ВОЗВРАЩАЕМ ВАШИ ЛЮБИМЫЕ АККУРАТНЫЕ МАЛЕНЬКИЕ КНОК ПКИ С КРУПНЫМ ШРИФТОМ */
             .main-container button, 
             .main-container center button,
             .main-container a button,
             button[onclick*="openRecipeCategory"] {
                 width: 44% !important; /* Идеальная аккуратная ширина по две в ряд */
-                max-width: 140px !important;
+                max-width: 150px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 8px 10px !important; /* Тонкие рамки по высоте (убираем пухлые поля) */
-                margin: 2px !important;
+                padding: 8px 10px !important; /* Тонкие изящные рамки по высоте — убираем внутреннюю пустоту кнопок! */
+                margin: 2px !important; /* Сближаем кнопки по вертикали */
                 
                 /* Ваш крупный, сочный, жирный и легко читаемый шрифт остается нетронутым */
                 font-size: 17px !important; 
@@ -260,20 +239,9 @@
                 align-items: center !important;
             }
 
-            /* 5. НАМЕРТВО ПРИЖИМАЕМ СТРОКУ КОПИРАЙТА К САМОМУ НИЗУ ЭКРАНА ПОД КНОПКАМИ */
-            .main-container footer,
-            div[style*="© 2026"],
-            p[style*="© 2026"],
-            .main-container > div:last-child {
-                position: absolute !important;
-                bottom: 10px !important; /* Жестко фиксируем у самого нижнего края белого свитка */
-                left: 0 !important;
-                width: 100% !important;
-                text-align: center !important;
-                margin: 0 !important;
-                padding: 0 10px !important;
-                font-size: 12px !important;
-                z-index: 10 !important;
+            /* Убираем пустой воздушный зазор в самом низу белого бланка перед копирайтом */
+            .main-container {
+                padding-bottom: 10px !important;
             }
         }
 
