@@ -604,7 +604,7 @@
                                                <h3 style="font-size: 20px; color: #A0522D; margin: 5px 0 15px 0; font-weight: bold; font-family: 'Segoe UI', Roboto, sans-serif; border: none; background: transparent; padding: 0; display: block; text-align: center;">🧁 Поделиться / Share / Поділитись</h3>
                         <p style="font-size: 15px; color: #554433; margin: 0 0 22px 0; line-height: 1.4;">📋 Ссылка скопирована! / Link copied! / Посилання скопійовано!</p>
 
-                        
+
                         <!-- Кнопка копирования ссылки -->
                         <button type="button" id="copy-link-btn" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 16px; font-size: 17px; font-weight: bold; border-radius: 20px; cursor: pointer; width: 100%; outline: none; box-shadow: 0 5px 15px rgba(255,122,51,0.2);">📋 Скопировать ссылку</button>
                     </div>
@@ -1537,11 +1537,11 @@
             // 1. Находим точное название открытого рецепта
             const recipeTitleEl = document.getElementById('recipe-display-title') || document.querySelector('.recipe-display-title');
             const rawTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
-            
+
             // 2. Формируем правильный адрес (например: сайт/?cat=1&recipe=3)
             const baseUrl = window.location.origin + window.location.pathname;
             const exactRecipeUrl = `${baseUrl}?cat=${currentAlbumId}&recipe=${currentRecipeIndex}`;
-            
+
             // 3. РЕКЛАМНЫЕ ТЕКСТЫ ДЛЯ ШАПКИ ССЫЛКИ
             const shareTitle = `➡️ Интерактивная книга рецептов с Таймером 📖`;
             const shareText = `🧁 Рецепт: "${rawTitle}". Нажмите, чтобы открыть интерактивные таймеры и умный калькулятор порций!`;
@@ -1578,7 +1578,7 @@
             // 1. Находим имя гостя
             let nameEl = document.getElementById('guestNameInput');
             let name = nameEl ? nameEl.value.trim() : '';
-            
+
             // Безопасно собираем название и текст рецепта с любого языка, который сейчас заполнен
             let titleRU = document.getElementById('guestTitleInput_RU');
             let textRU = document.getElementById('guestRecipeTextInput_RU');
@@ -1590,7 +1590,7 @@
             let title = (titleRU ? titleRU.value.trim() : '') || 
                         (titleEN ? titleEN.value.trim() : '') || 
                         (titleUKR ? titleUKR.value.trim() : '');
-                        
+
             let text = (textRU ? textRU.value.trim() : '') || 
                        (textEN ? textEN.value.trim() : '') || 
                        (textUKR ? textUKR.value.trim() : '');
@@ -1613,7 +1613,7 @@
                 .then(() => {
                     // Благодарим гостя на нужном языке
                     alert(currentLangCode === 'en' ? "Thank you! Your recipe has been sent to Helen! 🌸" : (currentLangCode === 'ukr' ? "Дякуємо! Ваш рецепт надіслано Оленочці! 🌸" : "Спасибо огромное! Ваш рецепт успешно отправлен Еленочке! 🌸"));
-                    
+
                     // Безопасно очищаем только те поля, которые существуют на экране
                     if (nameEl) nameEl.value = '';
                     if (titleRU) titleRU.value = '';
@@ -1622,7 +1622,7 @@
                     if (textEN) textEN.value = '';
                     if (titleUKR) titleUKR.value = '';
                     if (textUKR) textUKR.value = '';
-                    
+
                     // Закрываем окошко бланка
                     document.getElementById('guestSuggestModal').style.display = 'none';
                 })
@@ -1719,6 +1719,7 @@
             }
         }
 
+        function sendPasswordReminder() { let mail = prompt("Введите E-mail:"); if (mail && mail.trim().toLowerCase() === 'avender59@gmail.com') { window.location.href = 'mailto:avender59@://gmail.com: Еленочка'; } else { alert("Ошибка! 🛑"); } }
         function sendPasswordReminder() { let mail = prompt("Введите E-mail:"); if (mail && mail.trim().toLowerCase() === 'helen.amberst@gmail.com') { window.location.href = 'mailto:helen.amberst@://gmail.com: Еленочка'; } else { alert("Ошибка! 🛑"); } }
 
                // 🔄 ПОЛНАЯ АВТОМАТИЧЕСКАЯ СИНХРОНИЗАЦИЯ С ОБЛАКОМ ПРИ СТАРТЕ КНИГИ
@@ -1767,12 +1768,12 @@
                 }, 1000); 
             }
         });
-              
+
                 function shareCurrentRecipePage() {
     // 1. Находим точное название открытого рецепта
     const recipeTitleEl = document.getElementById('recipe-display-title') || document.querySelector('.recipe-display-title');
     const rawTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
-    
+
     // 2. Находим фотографию этого конкретного блюда
     const recipeImgEl = document.getElementById('recipe-uploaded-img');
     const recipePhoto = (recipeImgEl && recipeImgEl.src && !recipeImgEl.src.includes('window.location')) ? recipeImgEl.src : '';
@@ -1780,7 +1781,7 @@
     // 3. Формируем правильный адрес (например: сайт/?cat=1&recipe=3)
     const baseUrl = window.location.origin + window.location.pathname;
     const exactRecipeUrl = `${baseUrl}?cat=${currentAlbumId}&recipe=${currentRecipeIndex}`;
-    
+
     // 4. ТУТ САМАЯ МАГИЯ: Заголовок и рекламный текст-шапка, который увидят в мессенджере!
     const shareTitle = `Интерактивная книга рецептов с Таймером 📖`;
     const shareText = `Рецепт дня: "${rawTitle}". Нажмите, чтобы открыть интерактивный калькулятор порций и умный таймер!`;
@@ -1805,11 +1806,11 @@
             // 1. Находим точное название открытого рецепта
             const recipeTitleEl = document.getElementById('recipe-display-title') || document.querySelector('.recipe-display-title');
             const rawTitle = recipeTitleEl ? recipeTitleEl.innerText.trim() : 'Рецепт';
-            
+
             // 2. Формируем правильный адрес (например: сайт/?cat=1&recipe=3)
             const baseUrl = window.location.origin + window.location.pathname;
             const exactRecipeUrl = `${baseUrl}?cat=${currentAlbumId}&recipe=${currentRecipeIndex}`;
-            
+
             // 3. РЕКЛАМНЫЕ ТЕКСТЫ ДЛЯ ШАПКИ ССЫЛКИ
             const shareTitle = `➡️ Интерактивная книга рецептов с Таймером 📖`;
             const shareText = `🧁 Рецепт: "${rawTitle}". Нажмите, чтобы открыть интерактивные таймеры и умный калькулятор порций!`;
@@ -1861,7 +1862,7 @@
         }
     </script>
 
-        <!-- 📱 ТОЧЕЧНОЕ УДАЛЕНИЕ ПУСТЫХ ЗАЗОРОВ МЕЖДУ БЛОКАМИ ДЛЯ ТЕЛЕФОНОВ -->
+        <!-- 📱 КОМПАКТНЫЕ ОРАНЖЕВЫЕ КНОПКИ С КРУПНЫМ ШРИФТОМ ДЛЯ ТЕЛЕФОНОВ -->
     <style>
         @media (max-width: 768px) {
             /* 1. Намертво прячем фоновые сердца и кнопку админки */
@@ -1873,52 +1874,61 @@
                 display: none !important;
             }
 
-            /* 2. Ужимаем пустые воздушные зазоры между всеми блоками бланка */
-            
-            /* Сближаем блок пожелания с нижним текстом */
+            /* 2. Делаем блок с пожеланием более миниатюрным, сохраняя его оригинальную форму */
             div[style*="background-color: #FFF6EE"][style*="border-radius: 30px"],
             div[style*="background-color: rgb(255, 246, 238)"] {
-                margin-bottom: 6px !important;
-                padding: 16px 14px !important;
+                padding: 14px !important;
+                margin-bottom: 8px !important;
+                max-width: 92% !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
             }
 
-            /* Находим блок режима "Чистые руки" и ужимаем его отступы сверху и снизу */
-            div[style*="background-color: #FFF6EE"] + div,
-            .main-container > div:nth-of-type(2),
-            div[style*="font-size: 16px; color: #5C3A21; line-height: 1.5; margin-bottom: 25px;"] {
-                margin-top: 2px !important;
-                margin-bottom: 8px !important; /* Вместо 25px прижимаем текст ближе к кнопкам */
-                padding: 0 10px !important;
+            /* Уменьшаем круглую картинку еды внутри пожелания */
+            div[style*="background-color: #FFF6EE"] img,
+            div[style*="background-color: rgb(255, 246, 238)"] img {
+                max-height: 90px !important;
+                width: auto !important;
+                margin-bottom: 4px !important;
             }
 
-            /* ЗАПРЕЩАЕМ МЕНЯТЬ ШРИФТЫ: Возвращаем тексту «Умная кухня с таймером» его родной красивый размер */
+            /* Пропорционально уменьшаем шрифт внутри пожелания */
             div[style*="background-color: #FFF6EE"] h2,
             div[style*="background-color: #FFF6EE"] p,
             div[style*="background-color: rgb(255, 246, 238)"] p {
-                font-size: inherit !important;
-                line-height: inherit !important;
-                margin: inherit !important;
+                font-size: 14px !important;
+                line-height: 1.25 !important;
+                margin: 3px 0 !important;
             }
 
-            /* 3. ВАШИ ИДЕАЛЬНЫЕ КНОПКИ: Сохраняем форму, убираем только пустые дыры между ними */
+            /* Делаем текст режима "Чистые руки" компактным */
+            div[style*="background-color: #FFF6EE"] + div,
+            .main-container > div:nth-of-type(2) {
+                font-size: 13px !important;
+                margin-top: 4px !important;
+                margin-bottom: 8px !important;
+                padding: 0 10px !important;
+            }
+
+            /* 👑 КОМПАКТНЫЕ ОРАНЖЕВЫЕ КНОПКИ С КРУПНЫМ ШРИФТОМ ДЛЯ ТЕЛЕФОНОВ */
             .main-container button, 
             .main-container center button,
             .main-container a button,
             button[onclick*="openRecipeCategory"] {
-                width: 75% !important;
+                width: 75% !important; /* Делаем кнопки чуть уже, чтобы они смотрелись изящно */
                 max-width: 280px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 10px 20px !important; /* Оставляем ваши красивые аккуратные рамки кнопок */
-                font-size: 16px !important; /* Оставляем ваш крупный, четкий и легко читаемый шрифт */
+                padding: 10px 20px !important; /* Ювелирно сжимаем пустые поля внутри кнопок по высоте */
+                font-size: 16px !important; /* Оставляем шрифт крупным и четким, чтобы буквы отлично читались и вписывались в рамки */
                 font-weight: bold !important;
-                margin: 3px auto !important; /* Сближаем кнопки друг к другу по вертикали */
+                margin: 4px auto !important; /* Сближаем кнопки друг к другу по вертикали */
                 display: flex !important;
                 justify-content: center !important;
                 align-items: center !important;
             }
 
-            /* Уничтожаем пустые зазоры гибкой сетки между строками кнопок */
+            /* Убираем пустые зазоры между строками кнопок */
             .main-container center,
             .main-container div[style*="display: flex"] {
                 gap: 2px !important;
@@ -1932,9 +1942,5 @@
             }
         }
     </style>
-     
 </body>
 </html>
-
-           
-
