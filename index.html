@@ -195,7 +195,7 @@
             }
         }
 
-                /* 📱 ИДЕАЛЬНЫЙ МОБИЛЬНЫЙ ПОТОК ДЛЯ ТЕЛЕФОНОВ (ВЕРХ В ПОЛНОЙ БЕЗОПАСНОСТИ) */
+                /* 📱 ИДЕАЛЬНЫЙ МОБИЛЬНЫЙ ВИД С РАБОЧИМИ КНОПКАМИ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
             /* 1. Намертво прячем фоновые сердца и кнопку админки */
             div[style*="position: fixed"], 
@@ -213,30 +213,26 @@
                 padding: 4px !important;
             }
 
-            /* 2. ОТМЕНЯЕМ ВСЕ СЖАТИЯ И МАСШТАБЫ ДЛЯ ГЛАВНОГО КОНТЕЙНЕРА (ЧИНИМ ВЕРХ) */
-            .main-container {
-                transform: none !important; /* Полностью убираем кашу и сплющивание сверху */
-                height: auto !important;
-                max-height: unset !important;
-                overflow: visible !important;
-                padding-bottom: 20px !important; /* Делаем аккуратный отступ в самом низу свитка */
-                display: block !important; /* Возвращаем стандартный режим отображения */
-            }
-
-            /* 3. ⚡ ВЫВОДИМ КНОПКИ ИЗ ЖЕСТКОЙ ПРИВЯЗКИ В ОБЫЧНЫЙ ПОТОК (ПОДТЯГИВАЕМ ВВЕРХ) */
+            /* 2. ЧИНИМ ОТСТУПЫ: Убираем опасные отрицательные маржины, чтобы кнопки снова ожили */
             .categories-grid, 
             div[id="main-categories-buttons-categories-grid"],
-            #main-categories-buttons-categories-grid,
-            .main-container center {
-                position: static !important; /* Отключаем жесткую невидимую фиксацию к низу экрана! */
-                margin-top: 10px !important; /* Мягко и аккуратно прижимаем кнопки сразу под текстом таймера */
-                margin-bottom: 15px !important; /* Делаем красивый зазор до строчки копирайта */
-                gap: 5px !important; /* Плотный мобильный зазор между плашками кнопок */
+            #main-categories-buttons-categories-grid {
+                margin-top: 5px !important;
+                margin-bottom: 10px !important;
+                gap: 6px !important; /* Плотный зазор между плашками кнопок */
                 padding: 0 !important;
-                transform: none !important;
             }
 
-            /* 4. ВАШИ ЛЮБИМЫЕ АККУРАТНЫЕ МАЛЕНЬКИЕ КНОПКИ */
+            /* Возвращаем стандартные безопасные отступы для тега center */
+            .main-container center {
+                margin-top: 5px !important;
+                margin-bottom: 5px !important;
+                padding: 0 !important;
+                position: relative !important;
+                z-index: 10 !important;
+            }
+
+            /* 3. ВАШИ ЛЮБИМЫЕ АККУРАТНЫЕ МАЛЕНЬКИЕ КНОПКИ */
             .main-container button, 
             .main-container center button,
             .main-container a button,
@@ -245,7 +241,7 @@
                 max-width: 145px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 7px 10px !important; /* Тонкие аккуратные рамки по высоте */
+                padding: 8px 10px !important; /* Тонкие аккуратные рамки по высоте */
                 margin: 2px !important; /* Сближаем кнопки по вертикали */
                 
                 /* Ваш крупный, сочный, жирный и легко читаемый шрифт остается нетронутым */
@@ -256,24 +252,20 @@
                 display: inline-flex !important;
                 justify-content: center !important;
                 align-items: center !important;
+                position: relative !important;
+                z-index: 20 !important; /* Выводим кнопки на передний план для кликов */
             }
 
-                        /* 🥄 ТОЧЕЧНОЕ УВЕЛИЧЕНИЕ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ НА ТЕЛЕФОНАХ */
+            /* 🥄 ТОЧЕЧНОЕ УВЕЛИЧЕНИЕ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ НА ТЕЛЕФОНАХ */
             button[onclick*="openAdminLogin"] {
                 font-size: 22px !important; /* Увеличиваем только ложечку, рамка кнопки не изменится */
+                position: relative !important;
+                z-index: 20 !important;
             }
 
-            /* 5. ВЫВОДИМ СТРОКУ КОПИРАЙТА В ОБЫЧНЫЙ ПОТОК (СТРОГО ПОД КНОПКАМИ) */
-            .main-container footer,
-            div[style*="© 2026"],
-            p[style*="© 2026"],
-            .main-container > div:last-child {
-                position: static !important; /* Отключаем упрямую фиксацию копирайта */
-                margin-top: 10px !important; /* Он встанет ровно и аккуратно под кнопками */
-                margin-bottom: 5px !important;
-                width: 100% !important;
-                text-align: center !important;
-                font-size: 12px !important;
+            /* Сокращаем пустой воздушный зазор в самом низу белого бланка перед копирайтом */
+            .main-container {
+                padding-bottom: 10px !important;
             }
         }
 
