@@ -207,16 +207,6 @@
                 display: none !important;
             }
 
-            /* 2. ⚡ ИДЕАЛЬНОЕ СКРЫТИЕ КНОПОК В РЕЦЕПТАХ (ПРИВЯЗКА К СТРАНИЦЕ) */
-            /* Кнопки категорий будут намертво исчезать, как только гость открывает любой рецепт */
-            .categories-grid {
-                display: flex !important;
-            }
-            body:has(:target) .categories-grid,
-            body:has([id*="recipe"]:not([style*="display: none"])) .categories-grid {
-                display: none !important;
-            }
-
             /* 3. МОБИЛЬНОЕ РАЗДЕЛЕНИЕ ТЕКСТА НА СМАРТФОНАХ */
             .desktop-only-text {
                 display: none !important; /* Намертво убираем длинный блок на телефонах */
@@ -301,7 +291,7 @@
                 pointer-events: auto !important;
             }
 
-            /* 5. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ */
+                        /* 5. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ */
             .category-card {
                 width: 44% !important; 
                 max-width: 145px !important;
@@ -684,6 +674,28 @@
                 autoDisplay: false
             }, 'google_translate_element');
         }
+
+                // 🔄 АВТОМАТИЧЕСКОЕ СКРЫТИЕ КНОПОК КАТЕГОРИЙ ВНУТРИ РЕЦЕПТОВ НА ТЕЛЕФОНАХ
+        function toggleMobileButtons() {
+            // Скрипт срабатывает только на экранах мобильных телефонов (меньше 768 пикселей)
+            if (window.innerWidth <= 768) {
+                const categoriesBlock = document.getElementById('main-categories-buttons');
+                if (!categoriesBlock) return;
+                
+                // Если в адресе сайта открыт любой рецепт (есть знак # и слово recipe)
+                if (window.location.hash && window.location.hash.includes('recipe')) {
+                    categoriesBlock.style.setProperty('display', 'none', 'important'); // Намертво прячем кнопки в рецепте торта
+                } else {
+                    categoriesBlock.style.setProperty('display', 'grid', 'important'); // Возвращаем красивую сетку на главную
+                }
+            }
+        }
+
+        // Запускаем проверку при каждом переключении страниц и кликах
+        window.addEventListener('hashchange', toggleMobileButtons);
+        window.addEventListener('DOMContentLoaded', toggleMobileButtons);
+        document.addEventListener('click', function() { setTimeout(toggleMobileButtons, 50); });
+
     </script>
     <script type="text/javascript" src="https://google.com"></script>
     <!-- 👑 НЕЖНАЯ ОСНОВА ШАБЛОНА СТРАНИЦЫ РЕЦЕПТОВ -->
