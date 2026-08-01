@@ -195,6 +195,19 @@
             }
         }
 
+                /* 📱 НАМЕРТВО ПРЯЧЕМ КОФЕЙНЫЕ СЕРДЦА И КНОПКУ АДМИНКИ НА ТЕЛЕФОНАХ */
+        @media (max-width: 768px) {
+            div[style*="position: fixed"], 
+            span[style*="position: fixed"],
+            div[style*="color: #8B4513"],
+            div[style*="color:#8b4513"],
+            div[style*="color: rgb(139, 69, 19)"],
+            #secret-admin-heart,
+            .decor-heart, [id*="heart"], [class*="heart"] {
+                display: none !important;
+            }
+        }
+
     </style>
 </head>
 <body>
