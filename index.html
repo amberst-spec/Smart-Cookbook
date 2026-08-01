@@ -195,9 +195,9 @@
             }
         }
 
-                /* 📱 ВОЗВРАТ КОМПАКТНЫХ КНОПОК И ЖЕСТКОЕ СЖАТИЕ ЗАЗОРОВ НА ТЕЛЕФОНАХ */
+                /* 📱 ВОЗВРАТ КОМПАКТНЫХ КНОПОК И УДАЛЕНИЕ БАРЬЕРА ФОНА НА ТЕЛЕФОНАХ */
         @media (max-width: 768px) {
-            /* 1. 🔒 БРОНЕБОЙНОЕ СКРЫТИЕ ВСЕХ ЛЕТАЮЩИХ КОФЕЙНЫХ СЕРДЦ ПРАВИЛОМ ЦВЕТА И ИМЕНИ */
+            /* 1. Намертво прячем фоновые сердца и кнопку админки */
             div[style*="position: fixed"], 
             span[style*="position: fixed"],
             div[style*="color: #8B4513"],
@@ -208,7 +208,12 @@
                 display: none !important;
             }
 
-            /* 2. УНИЧТОЖАЕМ ПУСТЫЕ ЗАЗОРЫ МЕЖДУ СТРОКАМИ КНОПОК (СЖАТИЕ ПО ВЫСОТЕ) */
+            /* 2. ⚡ УБИРАЕМ НЕВИДИМЫЙ БАРЬЕР ФОНА (УНИЧТОЖАЕМ ПУСТОТУ НА ТЕЛЕФОНАХ) */
+            body {
+                padding: 5px !important; /* Сжимаем жесткие 25px отступа самого фона страницы */
+            }
+
+            /* 3. УПЛОТНЯЕМ ЗАЗОРЫ МЕЖДУ СТРОКАМИ КНОПОК И ТЕКСТОМ */
             .main-container center,
             .main-container div[style*="display: flex"] {
                 gap: 2px !important; /* Делаем зазоры между кнопочками крошечными */
@@ -217,19 +222,19 @@
                 padding: 0 !important;
             }
 
-            /* 3. ВОЗВРАЩАЕМ ВАШИ ЛЮБИМЫЕ АККУРАТНЫЕ МАЛЕНЬКИЕ КНОПКИ */
+            /* 4. СОХРАНЯЕМ ВАШИ ЛЮБИМЫЕ АККУРАТНЫЕ МАЛЕНЬКИЕ КНОПКИ */
             .main-container button, 
             .main-container center button,
             .main-container a button,
             button[onclick*="openRecipeCategory"] {
-                width: 44% !important; /* Идеальная аккуратная ширина, чтобы они стояли по две в ряд */
+                width: 44% !important; /* Идеальная ширина по две в ряд */
                 max-width: 150px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 8px 10px !important; /* Тонкие рамки по высоте — убираем внутреннюю пустоту! */
+                padding: 8px 10px !important; /* Тонкие рамки по высоте */
                 margin: 3px !important; /* Сближаем кнопки по вертикали */
                 
-                /* Ваш крупный, сочный, жирный и легко читаемый шрифт */
+                /* Шрифт остается крупным, жирным и легко читаемым */
                 font-size: 17px !important; 
                 font-weight: 900 !important; 
                 letter-spacing: 0.3px !important;
@@ -239,9 +244,9 @@
                 align-items: center !important;
             }
 
-            /* Убираем лишний пустой зазор в самом низу белого свитка бланка */
+            /* Сокращаем пустой отступ в самом низу свитка бланка */
             .main-container {
-                padding-bottom: 8px !important;
+                padding-bottom: 5px !important;
             }
         }
 
