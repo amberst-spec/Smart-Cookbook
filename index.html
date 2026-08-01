@@ -677,24 +677,24 @@
 
                 // 🔄 АВТОМАТИЧЕСКОЕ СКРЫТИЕ КНОПОК КАТЕГОРИЙ ВНУТРИ РЕЦЕПТОВ НА ТЕЛЕФОНАХ
         function toggleMobileButtons() {
-            // Скрипт срабатывает только на экранах мобильных телефонов (меньше 768 пикселей)
+            // Проверка срабатывает строго на мобильных экранах (меньше 768px)
             if (window.innerWidth <= 768) {
                 const categoriesBlock = document.getElementById('main-categories-buttons');
                 if (!categoriesBlock) return;
                 
-                // Если в адресе сайта открыт любой рецепт (есть знак # и слово recipe)
+                // Если в адресе открыт рецепт (есть знак # и слово recipe)
                 if (window.location.hash && window.location.hash.includes('recipe')) {
-                    categoriesBlock.style.setProperty('display', 'none', 'important'); // Намертво прячем кнопки в рецепте торта
+                    categoriesBlock.style.setProperty('display', 'none', 'important'); // Чисто убираем кнопки со страницы торта
                 } else {
-                    categoriesBlock.style.setProperty('display', 'grid', 'important'); // Возвращаем красивую сетку на главную
+                    categoriesBlock.style.removeProperty('display'); // На главной полностью возвращаем управление родным стилям книги!
                 }
             }
         }
 
-        // Запускаем проверку при каждом переключении страниц и кликах
+        // Запускаем проверку при каждом переключении страниц, загрузке и кликах
         window.addEventListener('hashchange', toggleMobileButtons);
         window.addEventListener('DOMContentLoaded', toggleMobileButtons);
-        document.addEventListener('click', function() { setTimeout(toggleMobileButtons, 50); });
+        document.addEventListener('click', function() { setTimeout(toggleMobileButtons, 60); });
 
     </script>
     <script type="text/javascript" src="https://google.com"></script>
