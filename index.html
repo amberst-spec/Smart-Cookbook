@@ -1860,5 +1860,18 @@
             showRecipePage();
         }
     </script>
+    
+        <!-- 📱 ПРИНУДИТЕЛЬНОЕ СКРЫТИЕ ЛЕТАЮЩИХ СЕРДЕЧЕК НА ТЕЛЕФОНАХ -->
+    <style>
+        @media (max-width: 768px) {
+            .decor-heart, 
+            [id*="heart"], 
+            [class*="heart"],
+            div[style*="position: absolute"][style*="color:"] {
+                display: none !important;
+            }
+        }
+    </style>
+
 </body>
 </html>
