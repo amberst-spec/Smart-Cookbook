@@ -208,19 +208,27 @@
                 display: none !important;
             }
 
-            /* 2. ⚡ УНИЧТОЖАЕМ ГИГАНТСКИЙ ОТСТУП 305px И ЗАЗОРЫ БЛОКА КНОПОК */
+            /* 2. ⚡ ПРИНУДИТЕЛЬНАЯ КОМАНДА СЖАТИЯ БЛАНКА ПО ВЫСОТЕ (СТРОГО ДЛЯ ТЕЛЕФОНОВ) */
+            .main-container {
+                max-height: 550px !important; /* ЖЕСТКО сдуваем белый свиток бланка только на смартфонах! */
+                height: auto !important;
+                padding-bottom: 5px !important; /* Уничтожаем скрытую пустоту снизу */
+                overflow: hidden !important; /* Обрезаем лишний пустой хвост бланка */
+            }
+
+            /* Уничтожаем гигантский отступ в 305 пикселей у блока кнопок */
             .categories-grid, 
             div[id="main-categories-buttons-categories-grid"],
             #main-categories-buttons-categories-grid {
-                margin-bottom: 10px !important; /* Вместо 305px делаем аккуратный маленький отступ! */
-                gap: 6px !important; /* Вместо 30px ужимаем зазор между кнопками */
+                margin-bottom: 5px !important;
+                gap: 5px !important; /* Плотный зазор между плашками кнопок */
                 padding: 0 !important;
             }
 
             /* Уплотняем родительский контейнер center */
             .main-container center {
-                margin-top: 5px !important;
-                margin-bottom: 5px !important;
+                margin-top: 3px !important;
+                margin-bottom: 3px !important;
                 padding: 0 !important;
             }
 
@@ -233,7 +241,7 @@
                 max-width: 145px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 8px 10px !important; /* Тонкие аккуратные рамки по высоте */
+                padding: 6px 10px !important; /* Тонкие изящные рамки по высоте */
                 margin: 2px !important; /* Сближаем кнопки по вертикали */
                 
                 /* Ваш крупный, сочный, жирный и легко читаемый шрифт остается нетронутым */
@@ -246,12 +254,17 @@
                 align-items: center !important;
             }
 
-            /* Сокращаем пустой воздушный зазор в самом низу белого бланка перед копирайтом */
-            .main-container {
-                padding-bottom: 10px !important;
+            /* Подтягиваем строчку копирайта вплотную к нижнему краю уплотненного бланка */
+            .main-container footer,
+            div[style*="© 2026"],
+            p[style*="© 2026"],
+            .main-container > div:last-child {
+                margin-top: 3px !important;
+                margin-bottom: 3px !important;
+                font-size: 11px !important;
             }
         }
-
+      
     </style>
 </head>
 <body>
