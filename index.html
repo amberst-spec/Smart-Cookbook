@@ -207,15 +207,15 @@
                 display: none !important;
             }
 
-            /* 2. ⚡ СУПЕР-ЖЕСТКОЕ РАЗДЕЛЕНИЕ ТЕКСТА НА СМАРТФОНАХ */
+            /* 2. ⚡ ПРОВЕРЕННОЕ РАЗДЕЛЕНИЕ БЛОКОВ ТЕКСТА НА ТЕЛЕФОНЕ */
             .desktop-only-text {
-                display: none !important; /* Намертво выключаем длинный текст на телефонах */
+                display: none !important; /* Полностью убираем длинный блок на смартфонах */
             }
             .mobile-only-text {
-                display: block !important; /* Включаем короткую строчку */
+                display: block !important; /* Включаем красивую компактную строчку с мыльцем */
             }
 
-            /* 3. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
+            /* 3. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ЯЗЫКАМ) */
             input[type="text"][placeholder*="Пошук"],
             input[type="text"][placeholder*="Поиск"],
             input[type="text"][placeholder*="Search"],
@@ -225,6 +225,7 @@
                 display: none !important;
             }
             
+            /* Чиним шапку сайта, выводим языки и шеринг на передний план */
             .main-container > div:first-child,
             div[style*="justify-content: space-between"] {
                 display: flex !important;
@@ -244,11 +245,11 @@
 
             /* 4. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ: Компактные и рабочие */
             .category-card {
-                width: 44% !important; 
+                width: 44% !important; /* Стоят по две в ряд */
                 max-width: 145px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 6px 10px !important; 
+                padding: 6px 10px !important; /* Ужимаем поля по высоте */
                 margin: 2px !important; 
                 font-size: 17px !important; 
                 font-weight: 900 !important; 
@@ -281,16 +282,16 @@
             }
         }
 
-        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (СКРЫВАЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
+        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
         @media (min-width: 769px) {
             .desktop-only-text {
                 display: block !important;
             }
             .mobile-only-text {
-                display: none !important; /* На ПК короткая строка будет намертво скрыта */
+                display: none !important; /* На ПК короткая строка будет скрыта */
             }
         }
- 
+
     </style>
 </head>
 <body>
@@ -347,15 +348,16 @@
         <img src="cover.jpg" alt="Обложка" class="cover-image">
 
                                 <!-- 👑 ВОЗВРАЩАЕМ ОРИГИНАЛЬНУЮ КРАСИВУЮ КАРТОЧКУ С ЦВЕТОМ НАЗВАНИЯ КНИГИ -->
-                        <p class="book-description" id="text-desc" style="background-color: #FFF6EE; border-radius: 30px; padding: 20px; text-align: center; margin: 20px auto; max-width: 600px; color: #A0522D !important;">
-                            <span class="desktop-only-text" style="color: #A0522D !important; font-size: 16px; line-height: 1.5;">
-                                <strong>⏱️ Режим «Чистые руки». Встроенный таймер.</strong><br>
-                                «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта.»
-                            </span>
-                            <span class="mobile-only-text" style="font-weight: bold; color: #A0522D !important; font-size: 16px;">
-                                🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.
-                            </span>
-                        </p>
+                        <div class="desktop-only-text" style="background-color: #FFF6EE; border-radius: 30px; padding: 20px; text-align: center; margin: 20px auto; max-width: 600px; color: #A0522D !important; font-size: 16px; line-height: 1.5;">
+                            <strong>⏱️ Режим «Чистые руки». Встроенный таймер.</strong><br>
+                            «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта.»
+                        </div>
+
+                        <!-- 📱 ВЕРСИЯ ТЕКСТА ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ (СТРОГО ОДНА СТРОКА С МЫЛЬЦЕМ) -->
+                        <div class="mobile-only-text" style="display: none; background-color: #FFF6EE; border-radius: 20px; padding: 12px 15px; text-align: center; margin: 15px auto; max-width: 320px; color: #A0522D !important; font-size: 16px; font-weight: bold; line-height: 1.4;">
+                            🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.
+                        </div>
+
 
         <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
         <div style="width: 360px; height: 110px; overflow: hidden; position: relative; margin: -475px 95px 365px auto; z-index: 15; opacity: 0.6; pointer-events: none;">
