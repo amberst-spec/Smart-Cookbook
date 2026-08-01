@@ -197,7 +197,7 @@
 
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-            /* 1. Наша старая проверенная команда скрытия сердечек и зерен */
+            /* 1. 🔒 ВАША СТРАЯ ПРОВЕРЕННАЯ КОМАНДА СКРЫТИЯ СЕРДЕЧЕК И ЗЕРЕН */
             div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
             div[style*="position: fixed"][style*="color: #8B4513"],
             div[style*="position: fixed"][style*="color:#8b4513"],
@@ -207,13 +207,13 @@
                 display: none !important;
             }
 
-            /* 2. ⚡ ПРЯЧЕМ ОРАНЖЕВЫЕ КНОПКИ ВНУТРИ СТРАНИЦ ОТКРЫТЫХ РЕЦЕПТОВ */
-            /* Чтобы кнопки на телефонах не накладывались поверх пошагового приготовления торта */
-            .recipe-card center,
-            .recipe-page center,
-            [id*="recipe"] center,
-            div[style*="display: fixed"] + center,
-            .main-container > center:last-of-type {
+            /* 2. ⚡ ИДЕАЛЬНОЕ СКРЫТИЕ КНОПОК В РЕЦЕПТАХ (ПРИВЯЗКА К СТРАНИЦЕ) */
+            /* Кнопки категорий будут намертво исчезать, как только гость открывает любой рецепт */
+            .categories-grid {
+                display: flex !important;
+            }
+            body:has(:target) .categories-grid,
+            body:has([id*="recipe"]:not([style*="display: none"])) .categories-grid {
                 display: none !important;
             }
 
@@ -225,7 +225,7 @@
                 display: block !important; /* Принудительно включаем крупную строчку с мыльцем */
             }
 
-            /* 4. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
+            /* 4. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ЯЗЫКАМ) */
             input[type="text"][placeholder*="Пошук"],
             input[type="text"][placeholder*="Поиск"],
             input[type="text"][placeholder*="Search"],
@@ -235,6 +235,7 @@
                 display: none !important;
             }
             
+            /* Чиним шапку сайта, выводим языки и шеринг на передний план */
             .main-container > div:first-child,
             div[style*="justify-content: space-between"] {
                 display: flex !important;
@@ -252,13 +253,13 @@
                 pointer-events: auto !important;
             }
 
-            /* 5. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ */
+            /* 5. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ: Компактные и рабочие */
             .category-card {
-                width: 44% !important; 
+                width: 44% !important; /* Стоят по две в ряд */
                 max-width: 145px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 6px 10px !important; 
+                padding: 6px 10px !important; /* Ужимаем поля по высоте */
                 margin: 2px !important; 
                 font-size: 17px !important; 
                 font-weight: 900 !important; 
@@ -300,7 +301,7 @@
                 display: none !important; 
             }
         }
-
+    
     </style>
 </head>
 <body>
