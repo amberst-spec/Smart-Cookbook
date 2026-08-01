@@ -207,7 +207,17 @@
                 display: none !important;
             }
 
-            /* 2. ⚡ ПРИНУДИТЕЛЬНОЕ МОБИЛЬНОЕ РАЗДЕЛЕНИЕ КРУПНЫХ БЛОКОВ ТЕКСТА */
+            /* 2. ⚡ ПРЯЧЕМ ОРАНЖЕВЫЕ КНОПКИ ВНУТРИ СТРАНИЦ ОТКРЫТЫХ РЕЦЕПТОВ */
+            /* Чтобы кнопки на телефонах не накладывались поверх пошагового приготовления торта */
+            .recipe-card center,
+            .recipe-page center,
+            [id*="recipe"] center,
+            div[style*="display: fixed"] + center,
+            .main-container > center:last-of-type {
+                display: none !important;
+            }
+
+            /* 3. МОБИЛЬНОЕ РАЗДЕЛЕНИЕ ТЕКСТА НА СМАРТФОНАХ */
             .desktop-only-text {
                 display: none !important; /* Намертво убираем длинный блок на телефонах */
             }
@@ -215,7 +225,7 @@
                 display: block !important; /* Принудительно включаем крупную строчку с мыльцем */
             }
 
-            /* 3. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
+            /* 4. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
             input[type="text"][placeholder*="Пошук"],
             input[type="text"][placeholder*="Поиск"],
             input[type="text"][placeholder*="Search"],
@@ -242,7 +252,7 @@
                 pointer-events: auto !important;
             }
 
-            /* 4. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ: Компактные и рабочие */
+            /* 5. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ */
             .category-card {
                 width: 44% !important; 
                 max-width: 145px !important;
@@ -269,7 +279,7 @@
                 z-index: 9998 !important;
             }
 
-            /* 5. 🥄 УВЕЛИЧИВАЕМ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ */
+            /* 6. 🥄 УВЕЛИЧИВАЕМ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ */
             button[onclick*="openAdminLogin"] {
                 font-size: 22px !important; 
                 padding: 6px 10px !important;
@@ -281,16 +291,13 @@
             }
         }
 
-               /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (ВОЗВРАЩАЕМ РОСКОШНЫЙ КРУПНЫЙ ШРИФТ) */
+        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (НАМЕРТВО ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
         @media (min-width: 769px) {
             .desktop-only-text {
                 display: block !important;
-                font-size: 20px !important; /* Намертво возвращаем крупный журнальный размер букв на ПК! */
-                line-height: 1.6 !important;
-                font-weight: normal !important;
             }
             .mobile-only-text {
-                display: none !important; /* На ПК крупная мобильная строка будет полностью скрыта */
+                display: none !important; 
             }
         }
 
@@ -350,14 +357,16 @@
         <img src="cover.jpg" alt="Обложка" class="cover-image">
 
                                 <!-- 👑 ВОЗВРАЩАЕМ РОСКОШНУЮ КРУПНУЮ КАРТОЧКУ С ЦВЕТОМ НАЗВАНИЯ КНИГИ -->
-                        <p class="book-description desktop-only-text" id="text-desc" style="background-color: #FFF6EE; border-radius: 30px; padding: 20px; text-align: center; margin: 20px auto; max-width: 600px; color: #A0522D !important; font-size: 18px !important; line-height: 1.6 !important;">
-                            <strong>⏱️ Режим «Чистые руки». Встроенный таймер.</strong><br>
-                            «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта.»
-                        </p>
-
-                        <!-- 📱 ВЕРСИЯ ТЕКСТА ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ (КРУПНАЯ СОЧНАЯ СТРОКА С МЫЛЬЦЕМ) -->
-                        <p class="book-description mobile-only-text" style="display: none; background-color: #FFF6EE; border-radius: 25px; padding: 14px 20px; text-align: center; margin: 15px auto; max-width: 340px; color: #A0522D !important; font-size: 18px !important; font-weight: 900 !important; line-height: 1.4 !important;">
-                            🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.
+                        <p class="book-description" id="text-desc" style="background-color: #FFF6EE; border-radius: 30px; padding: 20px; text-align: center; margin: 20px auto; max-width: 600px; color: #A0522D !important;">
+                            <!-- Этот кусок увидят только компьютеры (Крупный, сочный шрифт) -->
+                            <span class="desktop-only-text" style="color: #A0522D !important; font-size: 20px !important; line-height: 1.6 !important; display: block;">
+                                <strong>⏱️ Режим «Чистые руки». Встроенный таймер.</strong><br>
+                                «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта.»
+                            </span>
+                            <!-- Этот кусок увидят только телефоны -->
+                            <span class="mobile-only-text" style="display: none; font-weight: bold; color: #A0522D !important; font-size: 18px !important;">
+                                🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.
+                            </span>
                         </p>
 
         <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
