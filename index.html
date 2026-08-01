@@ -253,13 +253,61 @@
                 pointer-events: auto !important;
             }
 
-            /* 5. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ: Компактные и рабочие */
+                        /* 2. ⚡ НАМЕРТВО ПРЯЧЕМ БЛОК КНОПОК ВНУТРИ ЛЮБОГО ОТКРЫТОГО РЕЦЕПТА */
+            /* Чтобы кнопки на телефонах не накладывались поверх пошагового приготовления торта */
+            .homepage-only-block {
+                display: block !important;
+            }
+            body[class*="recipe"] .homepage-only-block,
+            [id*="recipe"]:not([style*="display: none"]) .homepage-only-block,
+            [id*="recipe"]:not([style*="display: none"]) ~ .homepage-only-block,
+            .recipe-card[style*="display: block"] ~ .homepage-only-block,
+            .recipe-page .homepage-only-block {
+                display: none !important;
+            }
+
+            /* 3. МОБИЛЬНОЕ РАЗДЕЛЕНИЕ ТЕКСТА НА СМАРТФОНАХ */
+            .desktop-only-text {
+                display: none !important; /* Намертво убираем длинный блок на телефонах */
+            }
+            .mobile-only-text {
+                display: block !important; /* Принудительно включаем крупную строчку с мыльцем */
+            }
+
+            /* 4. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
+            input[type="text"][placeholder*="Пошук"],
+            input[type="text"][placeholder*="Поиск"],
+            input[type="text"][placeholder*="Search"],
+            .main-container input[type="text"],
+            img[src*="search"],
+            input[type="text"] + img {
+                display: none !important;
+            }
+            
+            .main-container > div:first-child,
+            div[style*="justify-content: space-between"] {
+                display: flex !important;
+                justify-content: space-between !important;
+                gap: 10px !important;
+                width: 100% !important;
+                position: relative !important;
+                z-index: 9999 !important;
+                pointer-events: auto !important;
+            }
+
+            #google_translate_element, .goog-te-gadget, select, div[onclick*="changeLanguage"] {
+                position: relative !important;
+                z-index: 99999 !important;
+                pointer-events: auto !important;
+            }
+
+            /* 5. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ */
             .category-card {
-                width: 44% !important; /* Стоят по две в ряд */
+                width: 44% !important; 
                 max-width: 145px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 6px 10px !important; /* Ужимаем поля по высоте */
+                padding: 6px 10px !important; 
                 margin: 2px !important; 
                 font-size: 17px !important; 
                 font-weight: 900 !important; 
@@ -356,16 +404,16 @@
 
         <!-- Крупная журнальная фотография обложки -->
         <img src="cover.jpg" alt="Обложка" class="cover-image">
-
-                                <!-- 👑 ВОЗВРАЩАЕМ РОСКОШНУЮ КРУПНУЮ КАРТОЧКУ С ЦВЕТОМ НАЗВАНИЯ КНИГИ -->
+        
+                                <!-- 👑 РОСКОШНАЯ КРУПНАЯ КАРТОЧКА С ЦВЕТОМ НАЗВАНИЯ КНИГИ -->
                         <p class="book-description" id="text-desc" style="background-color: #FFF6EE; border-radius: 30px; padding: 20px; text-align: center; margin: 20px auto; max-width: 600px; color: #A0522D !important;">
                             <!-- Этот кусок увидят только компьютеры (Крупный, сочный шрифт) -->
                             <span class="desktop-only-text" style="color: #A0522D !important; font-size: 20px !important; line-height: 1.6 !important; display: block;">
                                 <strong>⏱️ Режим «Чистые руки». Встроенный таймер.</strong><br>
                                 «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта.»
                             </span>
-                            <!-- Этот кусок увидят только телефоны -->
-                            <span class="mobile-only-text" style="display: none; font-weight: bold; color: #A0522D !important; font-size: 18px !important;">
+                            <!-- Этот кусок увидят только телефоны (Крупный и сочный) -->
+                            <span class="mobile-only-text" style="display: none; font-weight: bold; color: #A0522D !important; font-size: 18px !important; line-height: 1.4 !important;">
                                 🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.
                             </span>
                         </p>
