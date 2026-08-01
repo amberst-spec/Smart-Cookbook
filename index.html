@@ -1574,13 +1574,57 @@
         }
 
         function shareRecipeBook() { document.getElementById('guestSuggestModal').style.display = 'flex'; }
-        function sendRecipeToHelen() {
+                function sendRecipeToHelen() {
+            // 1. Собираем данные, которые ввел гость
             let name = document.getElementById('guestNameInput').value.trim();
-            let title = document.getElementById('guestTitleInput').value.trim();
-            let text = document.getElementById('guestRecipeTextInput').value.trim();
-            if (!name || !title || !text) { alert("Пожалуйста, заполните все поля! 🌸"); return; }
-            window.location.href = "mailto:helen.amberst@://gmail.com" + encodeURIComponent("Новый рецепт от " + name) + "&body=" + encodeURIComponent("Автор: " + name + "\n\nРецепт:\n" + text);
-            document.getElementById('guestSuggestModal').style.display = 'none';
+            
+            // Проверяем, на каком языке сейчас открыта страница, и берем нужные поля
+            let title = document.getElementById('guestTitleInput_RU').value.trim() || 
+                        document.getElementById('guestTitleInput_EN').value.trim() || 
+                        document.getElementById('guestTitleInput_UKR').value.trim();
+                        
+            let text = document.getElementById('guestRecipeTextInput_RU').value.trim() || 
+                       document.getElementById('guestRecipeTextInput_EN').value.trim() || 
+                       document.getElementById('guestRecipeTextInput_UKR').value.trim();
+
+            // 2. Проверяем, заполнена ли анкета
+            if (!name || !title || !text) { 
+                alert(currentLangCode === 'en' ? "Please fill in all fields! 🌸" : (currentLangCode === 'ukr' ? "Будь ласка, заповніть усі поля! 🌸" : "Пожалуйста, заполните все поля! 🌸")); 
+                return; 
+            }
+
+            // 3. Отправляем данные на отдельную "полочку" в Firebase Firestore
+            if (window.db) {
+                window.db.collection("guest_recipes").add({
+                    guestName: name,
+                    recipeTitle: title,
+                    recipeContent: text,
+                    timestamp: Date.now(),
+                    dateString: new Date().toLocaleString()
+                })
+                .then(() => {
+                    // Если всё улетело успешно, благодарим гостя на его языке
+                    alert(currentLangCode === 'en' ? "Thank you! Your recipe has been sent to Helen! 🌸" : (currentLangCode === 'ukr' ? "Дякуємо! Ваш рецепт надіслано Оленочці! 🌸" : "Спасибо огромное! Ваш рецепт успешно отправлен Еленочке! 🌸"));
+                    
+                    // Очищаем поля формы, чтобы они снова стали чистыми
+                    document.getElementById('guestNameInput').value = '';
+                    document.getElementById('guestTitleInput_RU').value = '';
+                    document.getElementById('guestRecipeTextInput_RU').value = '';
+                    document.getElementById('guestTitleInput_EN').value = '';
+                    document.getElementById('guestRecipeTextInput_EN').value = '';
+                    document.getElementById('guestTitleInput_UKR').value = '';
+                    document.getElementById('guestRecipeTextInput_UKR').value = '';
+                    
+                    // Закрываем окошко бланка
+                    document.getElementById('guestSuggestModal').style.display = 'none';
+                })
+                .catch(err => {
+                    console.error("Ошибка отправки в Firebase: ", err);
+                    alert("Ошибка связи с облаком. Проверьте интернет! 🌐");
+                });
+            } else {
+                alert("Облачная база временно недоступна! 🫘");
+            }
         }
 
         function openAdminLogin() {
