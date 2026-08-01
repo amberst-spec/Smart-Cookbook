@@ -1861,13 +1861,18 @@
         }
     </script>
     
-        <!-- 📱 ПРИНУДИТЕЛЬНОЕ СКРЫТИЕ ЛЕТАЮЩИХ СЕРДЕЧЕК НА ТЕЛЕФОНАХ -->
+           <!-- 📱 ПОЛНОЕ УДАЛЕНИЕ ЛЕТАЮЩИХ ДЕКОРАЦИЙ НА ТЕЛЕФОНАХ -->
     <style>
         @media (max-width: 768px) {
-            .decor-heart, 
-            [id*="heart"], 
-            [class*="heart"],
-            div[style*="position: absolute"][style*="color:"] {
+            /* Уничтожаем сердечки по любым ключевым словам */
+            .decor-heart, [id*="heart"], [class*="heart"], .heart, span.heart, div.heart {
+                display: none !important;
+            }
+            /* Находим абсолютно любые мелкие летающие значки, смайлики или символы на экране */
+            div[style*="position: absolute"][style*="font-size"] {
+                display: none !important;
+            }
+            span[style*="position: absolute"] {
                 display: none !important;
             }
         }
