@@ -195,7 +195,7 @@
             }
         }
 
-                /* 📱 ПРОПОРЦИОНАЛЬНОЕ МАСШТАБИРОВАНИЕ СТРАНИЦЫ ДЛЯ ТЕЛЕФОНОВ */
+                /* 📱 ИДЕАЛЬНЫЙ МОБИЛЬНЫЙ ПОТОК ДЛЯ ТЕЛЕФОНОВ (ВЕРХ В ПОЛНОЙ БЕЗОПАСНОСТИ) */
         @media (max-width: 768px) {
             /* 1. Намертво прячем фоновые сердца и кнопку админки */
             div[style*="position: fixed"], 
@@ -213,26 +213,30 @@
                 padding: 4px !important;
             }
 
-            /* 2. ⚡ ПРОПОРЦИОНАЛЬНО УМЕНЬШАЕМ МАСШТАБ ВСЕЙ СТРАНИЦЫ ДЛЯ ЕЁ ИДЕАЛЬНОЙ ВЫСОТЫ */
+            /* 2. ОТМЕНЯЕМ ВСЕ СЖАТИЯ И МАСШТАБЫ ДЛЯ ГЛАВНОГО КОНТЕЙНЕРА (ЧИНИМ ВЕРХ) */
             .main-container {
-                transform: scale(0.88) !important; /* Аккуратно и пропорционально уменьшаем всю страницу на 12% */
-                transform-origin: top center !important; /* Точка сжатия находится строго вверху по центру */
-                margin-bottom: -100px !important; /* Убираем лишнюю пустоту снизу, которая появляется от сжатия масштаба */
+                transform: none !important; /* Полностью убираем кашу и сплющивание сверху */
                 height: auto !important;
-                max-height: unset !important; /* Полностью отменяем опасное обрезание элементов */
+                max-height: unset !important;
                 overflow: visible !important;
+                padding-bottom: 20px !important; /* Делаем аккуратный отступ в самом низу свитка */
+                display: block !important; /* Возвращаем стандартный режим отображения */
             }
 
-            /* 3. ОРАНЖЕВЫЕ КНОПКИ В ПОЛНОМ ПОРЯДКЕ */
+            /* 3. ⚡ ВЫВОДИМ КНОПКИ ИЗ ЖЕСТКОЙ ПРИВЯЗКИ В ОБЫЧНЫЙ ПОТОК (ПОДТЯГИВАЕМ ВВЕРХ) */
             .categories-grid, 
             div[id="main-categories-buttons-categories-grid"],
-            #main-categories-buttons-categories-grid {
-                margin-bottom: 5px !important; /* Убираем гигантский отступ в 305 пикселей */
+            #main-categories-buttons-categories-grid,
+            .main-container center {
+                position: static !important; /* Отключаем жесткую невидимую фиксацию к низу экрана! */
+                margin-top: 10px !important; /* Мягко и аккуратно прижимаем кнопки сразу под текстом таймера */
+                margin-bottom: 15px !important; /* Делаем красивый зазор до строчки копирайта */
                 gap: 5px !important; /* Плотный мобильный зазор между плашками кнопок */
                 padding: 0 !important;
+                transform: none !important;
             }
 
-            /* ВАШИ АККУРАТНЫЕ КНОПКИ С КРУПНЫМ ШРИФТОМ */
+            /* 4. ВАШИ ЛЮБИМЫЕ АККУРАТНЫЕ МАЛЕНЬКИЕ КНОПКИ */
             .main-container button, 
             .main-container center button,
             .main-container a button,
@@ -242,7 +246,7 @@
                 height: auto !important;
                 min-height: unset !important;
                 padding: 7px 10px !important; /* Тонкие аккуратные рамки по высоте */
-                margin: 2px !important;
+                margin: 2px !important; /* Сближаем кнопки по вертикали */
                 
                 /* Ваш крупный, сочный, жирный и легко читаемый шрифт остается нетронутым */
                 font-size: 17px !important; 
@@ -252,6 +256,19 @@
                 display: inline-flex !important;
                 justify-content: center !important;
                 align-items: center !important;
+            }
+
+            /* 5. ВЫВОДИМ СТРОКУ КОПИРАЙТА В ОБЫЧНЫЙ ПОТОК (СТРОГО ПОД КНОПКАМИ) */
+            .main-container footer,
+            div[style*="© 2026"],
+            p[style*="© 2026"],
+            .main-container > div:last-child {
+                position: static !important; /* Отключаем упрямую фиксацию копирайта */
+                margin-top: 10px !important; /* Он встанет ровно и аккуратно под кнопками */
+                margin-bottom: 5px !important;
+                width: 100% !important;
+                text-align: center !important;
+                font-size: 12px !important;
             }
         }
 
