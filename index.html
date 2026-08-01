@@ -195,41 +195,42 @@
             }
         }
 
-                /* 📱 ХИРУРГИЧЕСКОЕ СЖАТИЕ ВЫДЕЛЕННОЙ ЗОНЫ КНОПОК НА ТЕЛЕФОНАХ */
+                /* 📱 ВОЗВРАТ КОМПАКТНЫХ КНОПОК И ЖЕСТКОЕ СЖАТИЕ ЗАЗОРОВ НА ТЕЛЕФОНАХ */
         @media (max-width: 768px) {
-            /* 1. 🔒 НАМЕРТВО И БЕЗ ОШЕБОК ПРЯЧЕМ ВСЕ ЛЕТАЮЩИЕ СЕРДЦА И КНОПКУ АДМИНКИ */
+            /* 1. 🔒 БРОНЕБОЙНОЕ СКРЫТИЕ ВСЕХ ЛЕТАЮЩИХ КОФЕЙНЫХ СЕРДЦ ПРАВИЛОМ ЦВЕТА И ИМЕНИ */
             div[style*="position: fixed"], 
             span[style*="position: fixed"],
+            div[style*="color: #8B4513"],
+            div[style*="color:#8b4513"],
+            div[style*="color: rgb(139, 69, 19)"],
             #secret-admin-heart,
-            .decor-heart, 
-            [id*="heart"], 
-            [class*="heart"] {
+            .decor-heart, [id*="heart"], [class*="heart"] {
                 display: none !important;
             }
 
-            /* 2. Схлопываем до минимума пустые зазоры вокруг оранжевых кнопок (выделенная зона) */
+            /* 2. УНИЧТОЖАЕМ ПУСТЫЕ ЗАЗОРЫ МЕЖДУ СТРОКАМИ КНОПОК (СЖАТИЕ ПО ВЫСОТЕ) */
             .main-container center,
             .main-container div[style*="display: flex"] {
-                gap: 2px !important; /* Уплотняем зазор между самими кнопками */
-                margin-top: 2px !important; /* Убираем пустую дыру МЕЖДУ текстом и кнопками */
-                margin-bottom: 2px !important; /* Убираем пустую дыру МЕЖДУ кнопками и копирайтом */
+                gap: 2px !important; /* Делаем зазоры между кнопочками крошечными */
+                margin-top: 2px !important; /* Убираем пустоту сверху над кнопками */
+                margin-bottom: 2px !important; /* Убираем пустоту снизу под кнопками */
                 padding: 0 !important;
             }
 
-            /* 3. Делаем рамки самих кнопок тонкими по высоте, сохраняя ваш крупный шрифт */
+            /* 3. ВОЗВРАЩАЕМ ВАШИ ЛЮБИМЫЕ АККУРАТНЫЕ МАЛЕНЬКИЕ КНОПКИ */
             .main-container button, 
             .main-container center button,
             .main-container a button,
             button[onclick*="openRecipeCategory"] {
-                width: 44% !important; /* Компактная мобильная ширина рамок */
+                width: 44% !important; /* Идеальная аккуратная ширина, чтобы они стояли по две в ряд */
                 max-width: 150px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 6px 10px !important; /* Ювелирно ужимаем внутреннюю пустоту кнопок по высоте! */
-                margin: 2px !important; /* Сближаем кнопки по вертикали */
+                padding: 8px 10px !important; /* Тонкие рамки по высоте — убираем внутреннюю пустоту! */
+                margin: 3px !important; /* Сближаем кнопки по вертикали */
                 
-                /* Ваш крупный, сочный и читаемый шрифт остается нетронутым */
-                font-size: 18px !important; 
+                /* Ваш крупный, сочный, жирный и легко читаемый шрифт */
+                font-size: 17px !important; 
                 font-weight: 900 !important; 
                 letter-spacing: 0.3px !important;
                 
@@ -238,9 +239,9 @@
                 align-items: center !important;
             }
 
-            /* Сокращаем пустой зазор в самом низу свитка перед копирайтом */
+            /* Убираем лишний пустой зазор в самом низу белого свитка бланка */
             .main-container {
-                padding-bottom: 5px !important;
+                padding-bottom: 8px !important;
             }
         }
 
