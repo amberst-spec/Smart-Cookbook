@@ -207,15 +207,15 @@
                 display: none !important;
             }
 
-            /* 2. ⚡ РАЗДЕЛЕНИЕ ТЕКСТА: На телефонах прячем длинный ПК-текст, а короткий оставляем */
+            /* 2. ⚡ СУПЕР-ЖЕСТКОЕ РАЗДЕЛЕНИЕ ТЕКСТА НА СМАРТФОНАХ */
             .desktop-only-text {
-                display: none !important;
+                display: none !important; /* Намертво выключаем длинный текст на телефонах */
             }
             .mobile-only-text {
-                display: block !important;
+                display: block !important; /* Включаем короткую строчку */
             }
 
-            /* 3. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ЯЗЫКАМ) */
+            /* 3. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
             input[type="text"][placeholder*="Пошук"],
             input[type="text"][placeholder*="Поиск"],
             input[type="text"][placeholder*="Search"],
@@ -225,7 +225,6 @@
                 display: none !important;
             }
             
-            /* Чиним шапку сайта, выводим языки и шеринг на передний план */
             .main-container > div:first-child,
             div[style*="justify-content: space-between"] {
                 display: flex !important;
@@ -245,11 +244,11 @@
 
             /* 4. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ: Компактные и рабочие */
             .category-card {
-                width: 44% !important; /* Стоят по две в ряд */
+                width: 44% !important; 
                 max-width: 145px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 6px 10px !important; /* Ужимаем поля по высоте */
+                padding: 6px 10px !important; 
                 margin: 2px !important; 
                 font-size: 17px !important; 
                 font-weight: 900 !important; 
@@ -282,16 +281,16 @@
             }
         }
 
-        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (ПРЯЧЕМ КОРОТКИЙ ТЕКСТ НА ПК) */
+        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (СКРЫВАЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
         @media (min-width: 769px) {
             .desktop-only-text {
                 display: block !important;
             }
             .mobile-only-text {
-                display: none !important; /* На ПК короткая строка будет скрыта */
+                display: none !important; /* На ПК короткая строка будет намертво скрыта */
             }
         }
-       
+ 
     </style>
 </head>
 <body>
