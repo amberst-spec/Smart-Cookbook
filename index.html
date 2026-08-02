@@ -2059,51 +2059,44 @@
             }
         }
 
-                // 📱 ГЕНИАЛЬНЫЙ МОБИЛЬНЫЙ ПЕРЕКЛЮЧАТЕЛЬ: ОРИЕНТИРУЕТСЯ ПО КНОПКЕ ПЕРЕВОДЧИКА
-        function checkMainPageByTranslateElement() {
+                // 📱 САМЫЙ НАДЕЖНЫЙ МОБИЛЬНЫЙ ПЕРЕКЛЮЧАТЕЛЬ КНОПОК ПО НАЛИЧИЮ РЕЦЕПТА НА ЭКРАНЕ
+        function handleMobileButtonsSync() {
             if (window.innerWidth <= 768) {
                 const categoriesBlock = document.getElementById('main-categories-buttons');
                 const measuresBtn = document.getElementById('btn-measures');
                 
-                // Находим элемент переводчика Google на странице
-                const translateElem = document.getElementById('google_translate_element');
+                // Проверяем, открыт ли физически блок рецепта на экране
+                const recipeBlockActive = document.getElementById('interactiveRecipePage');
                 
-                if (translateElem) {
-                    // Проверяем, скрыт ли переводчик родными скриптами книги (display: none или убран из видимости)
-                    const isHidden = translateElem.style.display === 'none' || 
-                                     window.getComputedStyle(translateElem).display === 'none' ||
-                                     document.getElementById('interactiveRecipePage');
+                if (recipeBlockActive) {
+                    // 🔒 ЕСЛИ МЫ ВНУТРИ РЕЦЕПТА: Намертво прячем кнопки и ложечку, чтобы не летали поверх торта!
+                    if (categoriesBlock) categoriesBlock.style.setProperty('display', 'none', 'important');
+                    if (measuresBtn) measuresBtn.style.setProperty('display', 'none', 'important');
+                } else {
+                    // 🏡 ЕСЛИ РЕЦЕПТА НА ЭКРАНЕ НЕТ — МЫ ТОЧНО НА ГЛАВНОЙ: Принудительно возвращаем кнопки!
+                    if (categoriesBlock) categoriesBlock.style.setProperty('display', 'flex', 'important');
+                    if (measuresBtn) measuresBtn.style.setProperty('display', 'inline-flex', 'important');
                     
-                    if (isHidden) {
-                        // 🔒 ЕСЛИ МЫ ВНУТРИ РЕЦЕПТА: Намертво прячем кнопки и ложечку, чтобы не летали внутри торта!
-                        if (categoriesBlock) categoriesBlock.style.setProperty('display', 'none', 'important');
-                        if (measuresBtn) measuresBtn.style.setProperty('display', 'none', 'important');
-                    } else {
-                        // 🏡 ЕСЛИ МЫ НА ГЛАВНОЙ (Переводчик виден): Мгновенно и стабильно возвращаем оранжевые кнопки!
-                        if (categoriesBlock) categoriesBlock.style.setProperty('display', 'flex', 'important');
-                        if (measuresBtn) measuresBtn.style.setProperty('display', 'inline-flex', 'important');
-                        
-                        // Заодно аккуратно чистим застрявший хвост адреса, чтобы ссылка была красивой
-                        if (window.location.hash && window.location.hash.includes('recipe')) {
-                            history.replaceState(null, null, window.location.pathname + window.location.search);
-                        }
+                    // Заодно аккуратно чистим застрявший хвост адреса, чтобы ссылка была первозданной и чистой
+                    if (window.location.hash && window.location.hash.includes('recipe')) {
+                        history.replaceState(null, null, window.location.pathname + window.location.search);
                     }
                 }
             }
         }
 
-        // Неусыпно контролируем любые изменения истории, клики, скролл и возвраты назад на телефонах
-        window.addEventListener('hashchange', checkMainPageByTranslateElement);
-        window.addEventListener('popstate', checkMainPageByTranslateElement);
-        window.addEventListener('pageshow', checkMainPageByTranslateElement);
-        document.addEventListener('DOMContentLoaded', checkMainPageByTranslateElement);
+        // Непрерывно контролируем любые изменения истории, клики и возвраты назад на телефонах
+        window.addEventListener('hashchange', handleMobileButtonsSync);
+        window.addEventListener('popstate', handleMobileButtonsSync);
+        window.addEventListener('pageshow', handleMobileButtonsSync);
+        document.addEventListener('DOMContentLoaded', handleMobileButtonsSync);
 
-        // Постоянная микро-проверка: каждые 150 миллисекунд страхует возврат кнопок, когда переводчик "просыпается"
-        setInterval(checkMainPageByTranslateElement, 150);
+        // Постоянная микро-проверка каждые 150 миллисекунд для идеальной отзывчивости на смартфонах
+        setInterval(handleMobileButtonsSync, 150);
 
         // Моментально ловим клики пальцем по любым кнопкам закрытия или стрелочкам интерфейса
-        document.addEventListener('click', function() { setTimeout(checkMainPageByTranslateElement, 40); });
-      
+        document.addEventListener('click', function() { setTimeout(handleMobileButtonsSync, 40); });
+
     </script>
 
 </body>
