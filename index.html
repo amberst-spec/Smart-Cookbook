@@ -263,13 +263,17 @@
             }
         }
 
-        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (НАМЕРТВО ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
+                /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (ПРИНУДИТЕЛЬНО ВОЗВРАЩАЕМ КРУПНЫЙ ЖУРНАЛЬНЫЙ ШРИФТ) */
         @media (min-width: 769px) {
-            .desktop-only-text {
-                display: block !important; /* На ПК показываем длинный красивый текст */
+            p.book-description.desktop-only-text {
+                display: block !important;
+                font-size: 20px !important; /* Намертво возвращаем крупный размер букв на ПК! */
+                line-height: 1.6 !important;
+                font-weight: normal !important;
+                color: #A0522D !important;
             }
             .mobile-only-text {
-                display: none !important; /* На ПК короткая строка будет полностью скрыта */
+                display: none !important; /* На ПК мобильная короткая строка будет полностью скрыта */
             }
         }
 
