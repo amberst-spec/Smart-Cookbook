@@ -2059,33 +2059,51 @@
             }
         }
 
-                // 📱 ЖЕЛЕЗОБЕТОННЫЙ ВОЗВРАТ КНОПОК ДЛЯ ТЕЛЕФОНОВ ПО ИХ ОРИГИНАЛЬНОМУ ID
-        function forceRestoreMobileButtons() {
+                // 📱 ГЕНИАЛЬНЫЙ МОБИЛЬНЫЙ ПЕРЕКЛЮЧАТЕЛЬ: ОРИЕНТИРУЕТСЯ ПО КНОПКЕ ПЕРЕВОДЧИКА
+        function checkMainPageByTranslateElement() {
             if (window.innerWidth <= 768) {
-                // Находим блок кнопок по точному ID из строки 429 вашего HTML-кода
                 const categoriesBlock = document.getElementById('main-categories-buttons');
                 const measuresBtn = document.getElementById('btn-measures');
                 
-                // Проверяем, удалена ли страница открытого рецепта с экрана
-                const recipeActive = document.getElementById('interactiveRecipePage');
+                // Находим элемент переводчика Google на странице
+                const translateElem = document.getElementById('google_translate_element');
                 
-                // Если рецепта на экране больше нет — принудительно заставляем мобильный браузер включить кнопки!
-                if (!recipeActive) {
-                    if (categoriesBlock) categoriesBlock.style.setProperty('display', 'flex', 'important');
-                    if (measuresBtn) measuresBtn.style.setProperty('display', 'inline-flex', 'important');
+                if (translateElem) {
+                    // Проверяем, скрыт ли переводчик родными скриптами книги (display: none или убран из видимости)
+                    const isHidden = translateElem.style.display === 'none' || 
+                                     window.getComputedStyle(translateElem).display === 'none' ||
+                                     document.getElementById('interactiveRecipePage');
+                    
+                    if (isHidden) {
+                        // 🔒 ЕСЛИ МЫ ВНУТРИ РЕЦЕПТА: Намертво прячем кнопки и ложечку, чтобы не летали внутри торта!
+                        if (categoriesBlock) categoriesBlock.style.setProperty('display', 'none', 'important');
+                        if (measuresBtn) measuresBtn.style.setProperty('display', 'none', 'important');
+                    } else {
+                        // 🏡 ЕСЛИ МЫ НА ГЛАВНОЙ (Переводчик виден): Мгновенно и стабильно возвращаем оранжевые кнопки!
+                        if (categoriesBlock) categoriesBlock.style.setProperty('display', 'flex', 'important');
+                        if (measuresBtn) measuresBtn.style.setProperty('display', 'inline-flex', 'important');
+                        
+                        // Заодно аккуратно чистим застрявший хвост адреса, чтобы ссылка была красивой
+                        if (window.location.hash && window.location.hash.includes('recipe')) {
+                            history.replaceState(null, null, window.location.pathname + window.location.search);
+                        }
+                    }
                 }
             }
         }
 
-        // Ловим абсолютно любые мобильные события возврата назад, кликов и переключения истории смартфона
-        window.addEventListener('popstate', forceRestoreMobileButtons);
-        window.addEventListener('hashchange', forceRestoreMobileButtons);
-        window.addEventListener('pageshow', forceRestoreMobileButtons);
-        document.addEventListener('DOMContentLoaded', forceRestoreMobileButtons);
+        // Неусыпно контролируем любые изменения истории, клики, скролл и возвраты назад на телефонах
+        window.addEventListener('hashchange', checkMainPageByTranslateElement);
+        window.addEventListener('popstate', checkMainPageByTranslateElement);
+        window.addEventListener('pageshow', checkMainPageByTranslateElement);
+        document.addEventListener('DOMContentLoaded', checkMainPageByTranslateElement);
 
-        // Страховка на случай, если гость нажал внутреннюю круглую стрелочку закрытия торта
-        document.addEventListener('click', function() { setTimeout(forceRestoreMobileButtons, 60); });
-       
+        // Постоянная микро-проверка: каждые 150 миллисекунд страхует возврат кнопок, когда переводчик "просыпается"
+        setInterval(checkMainPageByTranslateElement, 150);
+
+        // Моментально ловим клики пальцем по любым кнопкам закрытия или стрелочкам интерфейса
+        document.addEventListener('click', function() { setTimeout(checkMainPageByTranslateElement, 40); });
+      
     </script>
 
 </body>
