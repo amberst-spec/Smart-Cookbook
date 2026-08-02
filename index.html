@@ -195,8 +195,9 @@
             }
         }
 
-                    /* 2. ⚡ РАЗДЕЛЕНИЕ ТЕКСТА: На телефонах намертво прячем длинный ПК-текст, а короткий оставляем */
-                    /* 1. 🔒 НАМЕРТВО ПРЯЧЕМ ЛЕТАЮЩИЕ СЕРДЕЧКИ И КОФЕЙНЫЕ ЗЕРНА НА СМАРТФОНАХ */
+                /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
+        @media (max-width: 768px) {
+            /* 1. Наша старая проверенная команда скрытия сердечек и зерен */
             div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
             div[style*="position: fixed"][style*="color: #8B4513"],
             div[style*="position: fixed"][style*="color:#8b4513"],
@@ -206,7 +207,15 @@
                 display: none !important;
             }
 
-            /* 2. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ПЕРЕВОДЧИКУ) */
+            /* 2. РАЗДЕЛЕНИЕ ТЕКСТА: На смартфонах прячем длинный ПК-текст, оставляя короткий */
+            .desktop-only-text {
+                display: none !important;
+            }
+            .mobile-only-text {
+                display: block !important;
+            }
+
+            /* 3. УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ПЕРЕВОДЧИКУ) */
             input[type="text"][placeholder*="Пошук"],
             input[type="text"][placeholder*="Поиск"],
             input[type="text"][placeholder*="Search"],
@@ -216,23 +225,23 @@
             .search-box, .search-container, [id*="search"], [class*="search"] {
                 display: none !important;
             }
-
-            .desktop-only-text {
-                display: none !important;
+            
+            /* Ровный вывод верхней панели с языками на смартфонах */
+            .main-container > div:first-child,
+            div[style*="justify-content: space-between"] {
+                display: flex !important;
+                justify-content: space-between !important;
+                gap: 10px !important;
+                width: 100% !important;
             }
-            .mobile-only-text {
-                display: block !important;
-            }
 
-                    /* 👑 УВЕЛИЧИВАЕМ КНОПКИ НА ТЕЛЕФОНЕ В 2 РАЗА БЕЗ ПОТЕРЬ РОДНОЙ КРАСИВОЙ ФОРМЫ */
+            /* 4. 👑 КРУПНЫЕ, СОЧНЫЕ И КРАСИВЫЕ ОВАЛЬНЫЕ КНОПКИ СТРОГО ДЛЯ СМАРТФОНОВ */
             .category-card {
-                padding: 12px 20px !important; /* Увеличиваем высоту и ширину кнопок ровно в 2 раза за счет внутренних полей! */
-                font-size: 20px !important; /* Делаем шрифт внутри кнопок крупным, жирным и читаемым! */
+                padding: 12px 20px !important; /* Увеличиваем кнопки в 2 раза для удобства пальца */
+                font-size: 20px !important; /* Делаем шрифт внутри кнопок большим и четким */
                 font-weight: 900 !important; 
                 letter-spacing: 0.5px !important;
-                margin: 4px !important; /* Делаем аккуратные журнальные зазоры */
-                
-                /* Оставляем родные скругления и стили вашей книги нетронутыми */
+                margin: 4px !important; /* Красивые журнальные зазоры */
                 height: auto !important;
                 min-height: unset !important;
                 display: inline-flex !important;
@@ -245,30 +254,12 @@
                 gap: 6px !important;
                 padding: 0 !important;
             }
-        }
 
-        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (НАМЕРТВО ЗАЩИЩАЕМ ОРИГИНАЛЬНЫЙ ВИД НА ПК) */
-        @media (min-width: 769px) {
-            .category-card {
-                /* Сбрасываем любые мобильные вмешательства и возвращаем родную ПК-форму вашей книги! */
-                padding: initial !important;
-                font-size: initial !important;
-                font-weight: initial !important;
-                width: initial !important;
-                max-width: initial !important;
-                margin: initial !important;
-            }
-        }
-       
-            /* 5. 🥄 КРУПНАЯ ЛОЖЕЧКА АДМИНКИ ПОД КНОПКАМИ */
+            /* 5. КРУПНАЯ ЛОЖЕЧКА АДМИНКИ СТРОГО НА ТЕЛЕФОНЕ */
             button[onclick*="openAdminLogin"] {
                 font-size: 26px !important; 
-                padding: 10px 14px !important;
-                width: 45% !important;
-                max-width: 165px !important;
-                position: relative !important;
-                z-index: 9999 !important;
-                pointer-events: auto !important;
+                padding: 10px 16px !important;
+                margin: 4px !important;
             }
         }
 
