@@ -282,29 +282,42 @@
             color: #4A2E1B !important; /* Короткая строчка на телефоне тоже становится четкой и шоколадной */
         }
 
-                    /* 🎨 ИЗЯЩНОЕ СМЕЩЕНИЕ ПОЖЕЛАНИЯ НА СМАРТФОНАХ СПРАВА И ЧУТЬ НИЖЕ */
-            img[src*="желаем вам"], 
-            img[src*="желаем"], 
-            img[onclick*="Еленочки"],
-            div[style*="position: absolute"]:has(img[src*="желаем"]) {
-                /* Отвязываем картинку от слепого левого края экрана смартфона */
-                position: relative !important; 
-                left: unset !important;
-                
-                /* Намертво прижимаем её к правому краю белого бланка с аккуратным зазором */
-                display: block !important;
-                margin-left: auto !important;   /* Автоматически подталкивает блок к правому краю */
-                margin-right: 15px !important;  /* Наш зазор от правой границы белого фона */
-                
-                /* Мягко опускаем всю композицию неделимо вниз на телефоне */
-                margin-top: 25px !important;    /* Сдвиг вниз, чтобы надпись не наезжала на верхнюю картинку */
-                margin-bottom: 5px !important;
-                
-                max-width: 85% !important;      /* Слегка ужимаем размер радуги, чтобы она изящно помещалась справа */
-                height: auto !important;
-                transform: none !important;
-            }
+                                <!-- 🎨 НЕПОДВИЖНЫЙ КОНТЕЙНЕР ДЛЯ ПОЖЕЛАНИЯ С РАДУГОЙ: ИДЕАЛЬНО НА ПК И ТЕЛЕФОНЕ -->
+                        <div class="inspiration-container" style="position: relative; width: 100%; clear: both;">
+                            
+                            <!-- 💻 Ваша оригинальная круглая радуга "От Еленочки с любовью" -->
+                            <img src="от еленочки с любовью.png" alt="От Еленочки" 
+                                 style="position: absolute; left: 165px; top: 125px; z-index: 2;">
+                            
+                            <!-- 💻 Ваш оригинальный текст "Желаем вам вдохновения..." -->
+                            <img src="желаем вам вдохновения.png" alt="Желаем вам вдохновения" 
+                                 style="position: absolute; left: 180px; top: 175px; z-index: 1;">
 
+                        </div>
+
+                        <!-- 📱 Специальное мобильное правило, которое крепко держит надписи внутри белого бланка на смартфонах -->
+                        <style>
+                            @media (max-width: 768px) {
+                                .inspiration-container {
+                                    display: flex !important;
+                                    flex-direction: column !important;
+                                    align-items: flex-end !important; /* Намертво прижимает всё к правому краю бланка */
+                                    padding-right: 15px !important;    /* Зазор от правой кромки белого фона */
+                                    margin-top: 35px !important;       /* Плавно и красиво опускает надписи вниз */
+                                    margin-bottom: 10px !important;
+                                    height: auto !important;
+                                }
+                                .inspiration-container img {
+                                    position: relative !important;     /* Сбрасывает слепые координаты абсолюта! */
+                                    left: unset !important;            /* Картинки больше никогда не улетят с бланка */
+                                    top: unset !important;
+                                    max-width: 85% !important;         /* Изящно сужаются под экран телефона */
+                                    height: auto !important;
+                                    margin: 4px 0 !important;          /* Небольшой зазор между радугой и текстом */
+                                }
+                            }
+                        </style>
+    
     </style>
 </head>
 <body>
