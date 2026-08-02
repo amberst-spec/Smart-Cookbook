@@ -196,6 +196,27 @@
         }
 
                     /* 2. ⚡ РАЗДЕЛЕНИЕ ТЕКСТА: На телефонах намертво прячем длинный ПК-текст, а короткий оставляем */
+                    /* 1. 🔒 НАМЕРТВО ПРЯЧЕМ ЛЕТАЮЩИЕ СЕРДЕЧКИ И КОФЕЙНЫЕ ЗЕРНА НА СМАРТФОНАХ */
+            div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
+            div[style*="position: fixed"][style*="color: #8B4513"],
+            div[style*="position: fixed"][style*="color:#8b4513"],
+            span[style*="position: fixed"],
+            #secret-admin-heart,
+            .decor-heart, [id*="heart"], [class*="heart"] {
+                display: none !important;
+            }
+
+            /* 2. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ПЕРЕВОДЧИКУ) */
+            input[type="text"][placeholder*="Пошук"],
+            input[type="text"][placeholder*="Поиск"],
+            input[type="text"][placeholder*="Search"],
+            .main-container input[type="text"],
+            img[src*="search"],
+            input[type="text"] + img,
+            .search-box, .search-container, [id*="search"], [class*="search"] {
+                display: none !important;
+            }
+
             .desktop-only-text {
                 display: none !important;
             }
