@@ -224,31 +224,26 @@
                 display: block !important;
             }
 
-            /* 4. 👑 ДЕЛАЕМ ОРАНЖЕВЫЕ КНОПКИ В 2 РАЗА КРУПНЕЕ И СОЧНЕЕ ДЛЯ ПАЛЬЦА */
+                    /* 👑 УВЕЛИЧИВАЕМ КНОПКИ НА ТЕЛЕФОНЕ В 2 РАЗА БЕЗ ПОТЕРЬ РОДНОЙ КРАСИВОЙ ФОРМЫ */
             .category-card {
-                width: 45% !important; /* Крупные кнопки ровно по две в ряд */
-                max-width: 165px !important;
-                height: auto !important;
-                min-height: unset !important;
-                padding: 12px 14px !important; /* Увеличиваем высоту кнопок в 2 раза для сочности! */
-                margin: 4px !important; /* Делаем красивые зазоры */
-                font-size: 20px !important; /* Шрифт внутри кнопок становится большим и четким! */
+                padding: 12px 20px !important; /* Увеличиваем высоту и ширину кнопок ровно в 2 раза за счет внутренних полей! */
+                font-size: 20px !important; /* Делаем шрифт внутри кнопок крупным, жирным и читаемым! */
                 font-weight: 900 !important; 
                 letter-spacing: 0.5px !important;
+                margin: 4px !important; /* Делаем аккуратные журнальные зазоры */
+                
+                /* Оставляем родные скругления и стили вашей книги нетронутыми */
+                height: auto !important;
+                min-height: unset !important;
                 display: inline-flex !important;
                 justify-content: center !important;
                 align-items: center !important;
-                position: relative !important;
-                z-index: 9999 !important;
-                pointer-events: auto !important;
             }
 
             .categories-grid {
                 margin-bottom: 10px !important;
                 gap: 6px !important;
                 padding: 0 !important;
-                position: relative !important;
-                z-index: 9998 !important;
             }
 
             /* 5. 🥄 КРУПНАЯ ЛОЖЕЧКА АДМИНКИ ПОД КНОПКАМИ */
