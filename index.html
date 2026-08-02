@@ -2067,9 +2067,6 @@
         window.addEventListener('pageshow', handleMobileButtonsSync);
         document.addEventListener('DOMContentLoaded', handleMobileButtonsSync);
 
-        // Постоянная микро-проверка каждые 150 миллисекунд для идеальной отзывчивости на смартфонах
-        setInterval(handleMobileButtonsSync, 150);
-
         // Моментально ловим клики пальцем по любым кнопкам закрытия или стрелочкам интерфейса
         document.addEventListener('click', function() { setTimeout(handleMobileButtonsSync, 40); });
 
