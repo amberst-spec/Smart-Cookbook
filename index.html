@@ -245,7 +245,21 @@
                 gap: 6px !important;
                 padding: 0 !important;
             }
+        }
 
+        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (НАМЕРТВО ЗАЩИЩАЕМ ОРИГИНАЛЬНЫЙ ВИД НА ПК) */
+        @media (min-width: 769px) {
+            .category-card {
+                /* Сбрасываем любые мобильные вмешательства и возвращаем родную ПК-форму вашей книги! */
+                padding: initial !important;
+                font-size: initial !important;
+                font-weight: initial !important;
+                width: initial !important;
+                max-width: initial !important;
+                margin: initial !important;
+            }
+        }
+       
             /* 5. 🥄 КРУПНАЯ ЛОЖЕЧКА АДМИНКИ ПОД КНОПКАМИ */
             button[onclick*="openAdminLogin"] {
                 font-size: 26px !important; 
