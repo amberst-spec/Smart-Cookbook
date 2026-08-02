@@ -197,7 +197,7 @@
 
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-            /* 1. 🔒 ВАША СТРАЯ ПРОВЕРЕННАЯ КОМАНДА СКРЫТИЯ СЕРДЕЧЕК И ЗЕРЕН */
+            /* 1. Наша старая проверенная команда скрытия сердечек и зерен */
             div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
             div[style*="position: fixed"][style*="color: #8B4513"],
             div[style*="position: fixed"][style*="color:#8b4513"],
@@ -207,15 +207,15 @@
                 display: none !important;
             }
 
-            /* 3. МОБИЛЬНОЕ РАЗДЕЛЕНИЕ ТЕКСТА НА СМАРТФОНАХ */
+            /* 2. ⚡ ЕСТЕСТВЕННОЕ РАЗДЕЛЕНИЕ ТЕКСТА НА СМАРТФОНАХ */
             .desktop-only-text {
-                display: none !important; /* Намертво убираем длинный блок на телефонах */
+                display: none !important; /* Убираем длинный блок на телефонах */
             }
             .mobile-only-text {
-                display: block !important; /* Принудительно включаем крупную строчку с мыльцем */
+                display: block !important; /* Включаем сочную строчку с мыльцем */
             }
 
-            /* 4. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ЯЗЫКАМ) */
+            /* 3. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ЯЗЫКАМ) */
             input[type="text"][placeholder*="Пошук"],
             input[type="text"][placeholder*="Поиск"],
             input[type="text"][placeholder*="Search"],
@@ -243,61 +243,29 @@
                 pointer-events: auto !important;
             }
 
-                        /* 2. ⚡ НАМЕРТВО ПРЯЧЕМ БЛОК КНОПОК ВНУТРИ ЛЮБОГО ОТКРЫТОГО РЕЦЕПТА */
-            /* Чтобы кнопки на телефонах не накладывались поверх пошагового приготовления торта */
-            .homepage-only-block {
-                display: block !important;
-            }
-            body[class*="recipe"] .homepage-only-block,
-            [id*="recipe"]:not([style*="display: none"]) .homepage-only-block,
-            [id*="recipe"]:not([style*="display: none"]) ~ .homepage-only-block,
-            .recipe-card[style*="display: block"] ~ .homepage-only-block,
-            .recipe-page .homepage-only-block {
-                display: none !important;
-            }
-
-            /* 3. МОБИЛЬНОЕ РАЗДЕЛЕНИЕ ТЕКСТА НА СМАРТФОНАХ */
-            .desktop-only-text {
-                display: none !important; /* Намертво убираем длинный блок на телефонах */
-            }
-            .mobile-only-text {
-                display: block !important; /* Принудительно включаем крупную строчку с мыльцем */
+            /* 4. 👑 ПРИКЛЕИВАЕМ ОРАНЖЕВЫЕ КНОПКИ К ОСНОВЕ ГЛАВНОЙ СТРАНИЦЫ БЕЗ ПОЛЁТОВ */
+            .categories-grid, 
+            #main-categories-buttons,
+            div[id*="categories-buttons"] {
+                /* Намертво отключаем любое фиксированное или абсолютное парение кнопок над экраном! */
+                position: relative !important; 
+                bottom: unset !important;
+                left: unset !important;
+                transform: none !important;
+                
+                margin-top: 5px !important;
+                margin-bottom: 5px !important;
+                gap: 4px !important;
+                padding: 0 !important;
             }
 
-            /* 4. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
-            input[type="text"][placeholder*="Пошук"],
-            input[type="text"][placeholder*="Поиск"],
-            input[type="text"][placeholder*="Search"],
-            .main-container input[type="text"],
-            img[src*="search"],
-            input[type="text"] + img {
-                display: none !important;
-            }
-            
-            .main-container > div:first-child,
-            div[style*="justify-content: space-between"] {
-                display: flex !important;
-                justify-content: space-between !important;
-                gap: 10px !important;
-                width: 100% !important;
-                position: relative !important;
-                z-index: 9999 !important;
-                pointer-events: auto !important;
-            }
-
-            #google_translate_element, .goog-te-gadget, select, div[onclick*="changeLanguage"] {
-                position: relative !important;
-                z-index: 99999 !important;
-                pointer-events: auto !important;
-            }
-
-                        /* 5. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ */
+            /* Ваши аккуратные, компактные и полностью рабочие рамки кнопок */
             .category-card {
-                width: 44% !important; 
+                width: 44% !important; /* Стоят строго по две в ряд внутри бланка */
                 max-width: 145px !important;
                 height: auto !important;
                 min-height: unset !important;
-                padding: 6px 10px !important; 
+                padding: 6px 10px !important; /* Ужимаем поля по высоте */
                 margin: 2px !important; 
                 font-size: 17px !important; 
                 font-weight: 900 !important; 
@@ -305,32 +273,23 @@
                 display: inline-flex !important;
                 justify-content: center !important;
                 align-items: center !important;
+                
+                /* Кнопки послушно лежат в потоке главной страницы */
                 position: relative !important;
-                z-index: 9999 !important;
+                z-index: 10 !important;
                 pointer-events: auto !important;
             }
 
-            .categories-grid {
-                margin-bottom: 5px !important;
-                gap: 4px !important;
-                padding: 0 !important;
-                position: relative !important;
-                z-index: 9998 !important;
-            }
-
-            /* 6. 🥄 УВЕЛИЧИВАЕМ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ */
+            /* 5. УВЕЛИЧИВАЕМ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ */
             button[onclick*="openAdminLogin"] {
                 font-size: 22px !important; 
                 padding: 6px 10px !important;
                 width: 44% !important;
                 max-width: 145px !important;
-                position: relative !important;
-                z-index: 9999 !important;
-                pointer-events: auto !important;
             }
         }
 
-        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (НАМЕРТВО ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
+        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
         @media (min-width: 769px) {
             .desktop-only-text {
                 display: block !important;
@@ -339,7 +298,7 @@
                 display: none !important; 
             }
         }
-    
+
     </style>
 </head>
 <body>
