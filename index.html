@@ -2036,6 +2036,35 @@
             if(currentRecipeIndex >= list.length) currentRecipeIndex = 0;
             showRecipePage();
         }
+
+                // 📱 УМНЫЙ ПЕРЕКЛЮЧАТЕЛЬ ДЛЯ ТЕЛЕФОНОВ: ВОЗВРАЩАЕТ КНОПКИ ПРИ ЛЮБОМ НАЖАТИИ "НАЗАД"
+        function fixMobileButtonsView() {
+            if (window.innerWidth <= 768) {
+                const categoriesBlock = document.getElementById('main-categories-buttons');
+                if (!categoriesBlock) return;
+
+                // Проверяем, открыта ли сейчас страница какого-либо рецепта
+                const recipeVisible = document.getElementById('interactiveRecipePage');
+                const hasRecipeHash = window.location.hash && window.location.hash.includes('recipe');
+
+                // Если рецепт открыт на экране — скрываем кнопки. Если закрылся — принудительно возвращаем!
+                if (recipeVisible || hasRecipeHash) {
+                    categoriesBlock.style.setProperty('display', 'none', 'important');
+                } else {
+                    categoriesBlock.style.setProperty('display', 'flex', 'important');
+                }
+            }
+        }
+
+        // Ловим любые изменения истории, хэша адреса и переключения страниц на смартфонах
+        window.addEventListener('hashchange', fixMobileButtonsView);
+        window.addEventListener('popstate', fixMobileButtonsView);
+        window.addEventListener('pageshow', fixMobileButtonsView);
+        document.addEventListener('DOMContentLoaded', fixMobileButtonsView);
+
+        // Страховка при кликах по кнопкам закрытия
+        document.addEventListener('click', function() { setTimeout(fixMobileButtonsView, 50); });
+
     </script>
 
 </body>
