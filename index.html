@@ -207,44 +207,6 @@
                 display: none !important;
             }
 
-            /* 2. РАЗДЕЛЕНИЕ БЛОКОВ ТЕКСТА: Прячем длинный ПК-текст на смартфонах */
-            .desktop-only-text {
-                display: none !important;
-            }
-            .mobile-only-text {
-                display: block !important;
-            }
-
-            /* 3. УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ЯЗЫКАМ) */
-            input[type="text"][placeholder*="Пошук"],
-            input[type="text"][placeholder*="Поиск"],
-            input[type="text"][placeholder*="Search"],
-            .main-container input[type="text"],
-            img[src*="search"],
-            input[type="text"] + img {
-                display: none !important;
-            }
-            
-            /* Ровный вывод верхней панели с языками */
-            .main-container > div:first-child,
-            div[style*="justify-content: space-between"] {
-                display: flex !important;
-                justify-content: space-between !important;
-                gap: 10px !important;
-                width: 100% !important;
-            }
-        }
-
-        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
-        @media (min-width: 769px) {
-            .desktop-only-text {
-                display: block !important;
-            }
-            .mobile-only-text {
-                display: none !important;
-            }
-        }
-
     </style>
 </head>
 <body>
