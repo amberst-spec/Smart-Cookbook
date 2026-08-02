@@ -282,6 +282,29 @@
             color: #4A2E1B !important; /* Короткая строчка на телефоне тоже становится четкой и шоколадной */
         }
 
+                    /* 🎨 ИЗЯЩНОЕ СМЕЩЕНИЕ ПОЖЕЛАНИЯ НА СМАРТФОНАХ СПРАВА И ЧУТЬ НИЖЕ */
+            img[src*="желаем вам"], 
+            img[src*="желаем"], 
+            img[onclick*="Еленочки"],
+            div[style*="position: absolute"]:has(img[src*="желаем"]) {
+                /* Отвязываем картинку от слепого левого края экрана смартфона */
+                position: relative !important; 
+                left: unset !important;
+                
+                /* Намертво прижимаем её к правому краю белого бланка с аккуратным зазором */
+                display: block !important;
+                margin-left: auto !important;   /* Автоматически подталкивает блок к правому краю */
+                margin-right: 15px !important;  /* Наш зазор от правой границы белого фона */
+                
+                /* Мягко опускаем всю композицию неделимо вниз на телефоне */
+                margin-top: 25px !important;    /* Сдвиг вниз, чтобы надпись не наезжала на верхнюю картинку */
+                margin-bottom: 5px !important;
+                
+                max-width: 85% !important;      /* Слегка ужимаем размер радуги, чтобы она изящно помещалась справа */
+                height: auto !important;
+                transform: none !important;
+            }
+
     </style>
 </head>
 <body>
