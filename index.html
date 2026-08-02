@@ -1449,10 +1449,6 @@
             const page = document.getElementById("interactiveRecipePage"); if (page) page.remove(); 
             if (timerInterval) { clearInterval(timerInterval); timerInterval = null; } 
             if (wakeLock) { wakeLock.release(); wakeLock = null; }
-                // Возвращаем кнопки на главной странице строго для телефонов при закрытии рецепта
-           const categoriesBlock = document.getElementById('main-categories-buttons');
-           if (categoriesBlock) categoriesBlock.style.setProperty('display', 'flex', 'important');
-
         }
 
         async function toggleCleanHandsMode() {
