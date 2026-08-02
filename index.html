@@ -2059,15 +2059,33 @@
             }
         }
 
-        // Ловим любые изменения истории, хэша адреса и переключения страниц на смартфонах
-        window.addEventListener('hashchange', fixMobileButtonsView);
-        window.addEventListener('popstate', fixMobileButtonsView);
-        window.addEventListener('pageshow', fixMobileButtonsView);
-        document.addEventListener('DOMContentLoaded', fixMobileButtonsView);
+                // 📱 ЖЕЛЕЗОБЕТОННЫЙ ВОЗВРАТ КНОПОК ДЛЯ ТЕЛЕФОНОВ ПО ИХ ОРИГИНАЛЬНОМУ ID
+        function forceRestoreMobileButtons() {
+            if (window.innerWidth <= 768) {
+                // Находим блок кнопок по точному ID из строки 429 вашего HTML-кода
+                const categoriesBlock = document.getElementById('main-categories-buttons');
+                const measuresBtn = document.getElementById('btn-measures');
+                
+                // Проверяем, удалена ли страница открытого рецепта с экрана
+                const recipeActive = document.getElementById('interactiveRecipePage');
+                
+                // Если рецепта на экране больше нет — принудительно заставляем мобильный браузер включить кнопки!
+                if (!recipeActive) {
+                    if (categoriesBlock) categoriesBlock.style.setProperty('display', 'flex', 'important');
+                    if (measuresBtn) measuresBtn.style.setProperty('display', 'inline-flex', 'important');
+                }
+            }
+        }
 
-        // Надежная страховка при кликах по внутренним кнопкам закрытия рецептов
-        document.addEventListener('click', function() { setTimeout(fixMobileButtonsView, 50); });
+        // Ловим абсолютно любые мобильные события возврата назад, кликов и переключения истории смартфона
+        window.addEventListener('popstate', forceRestoreMobileButtons);
+        window.addEventListener('hashchange', forceRestoreMobileButtons);
+        window.addEventListener('pageshow', forceRestoreMobileButtons);
+        document.addEventListener('DOMContentLoaded', forceRestoreMobileButtons);
 
+        // Страховка на случай, если гость нажал внутреннюю круглую стрелочку закрытия торта
+        document.addEventListener('click', function() { setTimeout(forceRestoreMobileButtons, 60); });
+       
     </script>
 
 </body>
