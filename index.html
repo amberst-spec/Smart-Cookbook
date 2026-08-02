@@ -2037,21 +2037,24 @@
             showRecipePage();
         }
 
-                // 📱 УМНЫЙ ПЕРЕКЛЮЧАТЕЛЬ ДЛЯ ТЕЛЕФОНОВ: ВОЗВРАЩАЕТ КНОПКИ ПРИ ЛЮБОМ НАЖАТИИ "НАЗАД"
+                // 📱 ТОЧНЫЙ МОБИЛЬНЫЙ ПЕРЕКЛЮЧАТЕЛЬ: ВОЗВРАЩАЕТ И КНОПКИ, И ЛОЖЕЧКУ ПРИ НАЖАТИИ "НАЗАД"
         function fixMobileButtonsView() {
             if (window.innerWidth <= 768) {
                 const categoriesBlock = document.getElementById('main-categories-buttons');
-                if (!categoriesBlock) return;
+                const measuresBtn = document.getElementById('btn-measures');
 
                 // Проверяем, открыта ли сейчас страница какого-либо рецепта
                 const recipeVisible = document.getElementById('interactiveRecipePage');
                 const hasRecipeHash = window.location.hash && window.location.hash.includes('recipe');
 
-                // Если рецепт открыт на экране — скрываем кнопки. Если закрылся — принудительно возвращаем!
+                // Если рецепт открыт — намертво убираем и кнопки, и ложечку, чтобы не летали поверх торта
                 if (recipeVisible || hasRecipeHash) {
-                    categoriesBlock.style.setProperty('display', 'none', 'important');
+                    if (categoriesBlock) categoriesBlock.style.setProperty('display', 'none', 'important');
+                    if (measuresBtn) measuresBtn.style.setProperty('display', 'none', 'important');
                 } else {
-                    categoriesBlock.style.setProperty('display', 'flex', 'important');
+                    // Как только рецепт закрывается — мгновенно и красиво возвращаем всё на главную страницу!
+                    if (categoriesBlock) categoriesBlock.style.setProperty('display', 'flex', 'important');
+                    if (measuresBtn) measuresBtn.style.setProperty('display', 'inline-flex', 'important');
                 }
             }
         }
@@ -2062,7 +2065,7 @@
         window.addEventListener('pageshow', fixMobileButtonsView);
         document.addEventListener('DOMContentLoaded', fixMobileButtonsView);
 
-        // Страховка при кликах по кнопкам закрытия
+        // Надежная страховка при кликах по внутренним кнопкам закрытия рецептов
         document.addEventListener('click', function() { setTimeout(fixMobileButtonsView, 50); });
 
     </script>
