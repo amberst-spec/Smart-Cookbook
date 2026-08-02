@@ -263,17 +263,18 @@
             }
         }
 
-                /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (НАМЕРТВО ВОЗВРАЩАЕМ РОСКОШНЫЙ КРУПНЫЙ ШРИФТ) */
+                /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (УВЕЛИЧИВАЕМ ТОЛЬКО МАСШТАБ БУКВ) */
         @media (min-width: 769px) {
-            .desktop-only-text {
+            .desktop-only-text, 
+            p.book-description span.desktop-only-text,
+            #text-desc, .book-description {
                 display: block !important;
-                font-size: 20px !important; /* Намертво возвращаем крупный размер букв на ПК! */
+                font-size: 28px !important; /* Принудительно увеличиваем только масштаб букв на ПК! */
                 line-height: 1.6 !important;
-                color: #A0522D !important;
-                font-weight: normal !important;
+                font-weight: normal !important; /* Строго сохраняем обычную журнальную жирность */
             }
             .mobile-only-text {
-                display: none !important; /* На ПК короткая мобильная строка будет полностью скрыта */
+                display: none !important; /* На ПК короткая мобильная строка будет намертво скрыта */
             }
         }
 
