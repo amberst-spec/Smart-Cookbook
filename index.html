@@ -262,23 +262,21 @@
                 margin: 4px !important;
             }
         }
-    
-        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (УВЕЛИЧИВАЕМ МАСШТАБ И ДЕЛАЕМ ЦВЕТ ТЕМНО-ШОКОЛАДНЫМ) */
+
+                /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (ИДЕАЛЬНЫЙ МЯГКИЙ ШОКОЛАДНЫЙ ШРИФТ И КОМФОРТНЫЙ РАЗМЕР) */
         @media (min-width: 769px) {
-            .desktop-only-text, 
-            p.book-description span.desktop-only-text,
-            #text-desc, .book-description {
+            p.book-description.desktop-only-text {
                 display: block !important;
-                font-size: 28px !important; /* Наш крупный сочный масштаб букв */
+                font-size: 19px !important; /* Убавили на один размер меньше, делая текст изящным */
+                color: #6E3C1B !important; /* Мягкий, благородный шоколадный цвет без черноты! */
                 line-height: 1.6 !important;
-                font-weight: normal !important; /* Обычная журнальная жирность */
-                color: #4A2E1B !important; /* Благородный темно-шоколадный цвет для идеальной читаемости! */
+                font-weight: normal !important;
             }
             .mobile-only-text {
-                display: none !important; /* На ПК короткая мобильная строка будет намертво скрыта */
+                display: none !important; /* На ПК мобильная строка будет намертво скрыта */
             }
         }
-
+   
         /* 📱 ТОЧЕЧНЫЙ ШОКОЛАДНЫЙ ЦВЕТ ДЛЯ МОБИЛЬНОЙ СТРОКИ С МЫЛЬЦЕМ */
         .mobile-only-text, p.book-description .mobile-only-text {
             color: #4A2E1B !important; /* Короткая строчка на телефоне тоже становится четкой и шоколадной */
