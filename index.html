@@ -194,9 +194,10 @@
                 pointer-events: none;
             }
         }
+
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-            /* 1. Наша старая проверенная команда скрытия сердечек и зерен */
+            /* 1. 🔒 ВАША СТРАЯ ПРОВЕРЕННАЯ КОМАНДА СКРЫТИЯ СЕРДЕЧЕК И ЗЕРЕН */
             div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
             div[style*="position: fixed"][style*="color: #8B4513"],
             div[style*="position: fixed"][style*="color:#8b4513"],
@@ -206,15 +207,15 @@
                 display: none !important;
             }
 
-            /* 2. РАЗДЕЛЕНИЕ БЛОКОВ ТЕКСТА: Прячем длинный ПК-текст на смартфонах */
+            /* 3. МОБИЛЬНОЕ РАЗДЕЛЕНИЕ ТЕКСТА НА СМАРТФОНАХ */
             .desktop-only-text {
-                display: none !important;
+                display: none !important; /* Намертво убираем длинный блок на телефонах */
             }
             .mobile-only-text {
-                display: block !important;
+                display: block !important; /* Принудительно включаем крупную строчку с мыльцем */
             }
 
-            /* 3. УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ЯЗЫКАМ) */
+            /* 4. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ЯЗЫКАМ) */
             input[type="text"][placeholder*="Пошук"],
             input[type="text"][placeholder*="Поиск"],
             input[type="text"][placeholder*="Search"],
@@ -223,24 +224,119 @@
             input[type="text"] + img {
                 display: none !important;
             }
-            
-            /* Ровный вывод верхней панели с языками */
+
+            /* Чиним шапку сайта, выводим языки и шеринг на передний план */
             .main-container > div:first-child,
             div[style*="justify-content: space-between"] {
                 display: flex !important;
                 justify-content: space-between !important;
                 gap: 10px !important;
                 width: 100% !important;
+                position: relative !important;
+                z-index: 9999 !important;
+                pointer-events: auto !important;
+            }
+
+            #google_translate_element, .goog-te-gadget, select, div[onclick*="changeLanguage"] {
+                position: relative !important;
+                z-index: 99999 !important;
+                pointer-events: auto !important;
+            }
+
+                        /* 2. ⚡ НАМЕРТВО ПРЯЧЕМ БЛОК КНОПОК ВНУТРИ ЛЮБОГО ОТКРЫТОГО РЕЦЕПТА */
+            /* Чтобы кнопки на телефонах не накладывались поверх пошагового приготовления торта */
+            .homepage-only-block {
+                display: block !important;
+            }
+            body[class*="recipe"] .homepage-only-block,
+            [id*="recipe"]:not([style*="display: none"]) .homepage-only-block,
+            [id*="recipe"]:not([style*="display: none"]) ~ .homepage-only-block,
+            .recipe-card[style*="display: block"] ~ .homepage-only-block,
+            .recipe-page .homepage-only-block {
+                display: none !important;
+            }
+
+            /* 3. МОБИЛЬНОЕ РАЗДЕЛЕНИЕ ТЕКСТА НА СМАРТФОНАХ */
+            .desktop-only-text {
+                display: none !important; /* Намертво убираем длинный блок на телефонах */
+            }
+            .mobile-only-text {
+                display: block !important; /* Принудительно включаем крупную строчку с мыльцем */
+            }
+
+            /* 4. 🔍 УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ */
+            input[type="text"][placeholder*="Пошук"],
+            input[type="text"][placeholder*="Поиск"],
+            input[type="text"][placeholder*="Search"],
+            .main-container input[type="text"],
+            img[src*="search"],
+            input[type="text"] + img {
+                display: none !important;
+            }
+
+            .main-container > div:first-child,
+            div[style*="justify-content: space-between"] {
+                display: flex !important;
+                justify-content: space-between !important;
+                gap: 10px !important;
+                width: 100% !important;
+                position: relative !important;
+                z-index: 9999 !important;
+                pointer-events: auto !important;
+            }
+
+            #google_translate_element, .goog-te-gadget, select, div[onclick*="changeLanguage"] {
+                position: relative !important;
+                z-index: 99999 !important;
+                pointer-events: auto !important;
+            }
+
+                        /* 5. ⚡ ОРАНЖЕВЫЕ КНОПКИ КАТЕГОРИЙ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ */
+            .category-card {
+                width: 44% !important; 
+                max-width: 145px !important;
+                height: auto !important;
+                min-height: unset !important;
+                padding: 6px 10px !important; 
+                margin: 2px !important; 
+                font-size: 17px !important; 
+                font-weight: 900 !important; 
+                letter-spacing: 0.3px !important;
+                display: inline-flex !important;
+                justify-content: center !important;
+                align-items: center !important;
+                position: relative !important;
+                z-index: 9999 !important;
+                pointer-events: auto !important;
+            }
+
+            .categories-grid {
+                margin-bottom: 5px !important;
+                gap: 4px !important;
+                padding: 0 !important;
+                position: relative !important;
+                z-index: 9998 !important;
+            }
+
+            /* 6. 🥄 УВЕЛИЧИВАЕМ СМАЙЛИКА ЛОЖЕЧКИ АДМИНКИ */
+            button[onclick*="openAdminLogin"] {
+                font-size: 22px !important; 
+                padding: 6px 10px !important;
+                width: 44% !important;
+                max-width: 145px !important;
+                position: relative !important;
+                z-index: 9999 !important;
+                pointer-events: auto !important;
             }
         }
 
-        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
+        /* 💻 ПРАВИЛО ДЛЯ КОМПЬЮТЕРОВ (НАМЕРТВО ПРЯЧЕМ МОБИЛЬНУЮ СТРОКУ НА ПК) */
         @media (min-width: 769px) {
             .desktop-only-text {
                 display: block !important;
             }
             .mobile-only-text {
-                display: none !important;
+                display: none !important; 
             }
         }
 
@@ -298,7 +394,7 @@
 
         <!-- Крупная журнальная фотография обложки -->
         <img src="cover.jpg" alt="Обложка" class="cover-image">
-        
+
                                 <!-- 👑 РОСКОШНАЯ КРУПНАЯ КАРТОЧКА С ЦВЕТОМ НАЗВАНИЯ КНИГИ -->
                         <p class="book-description" id="text-desc" style="background-color: #FFF6EE; border-radius: 30px; padding: 20px; text-align: center; margin: 20px auto; max-width: 600px; color: #A0522D !important;">
                             <!-- Этот кусок увидят только компьютеры (Крупный, сочный шрифт) -->
@@ -579,12 +675,17 @@
             }, 'google_translate_element');
         }
 
+                // 🔄 АВТОМАТИЧЕСКОЕ СКРЫТИЕ КНОПОК КАТЕГОРИЙ ВНУТРИ РЕЦЕПТОВ НА ТЕЛЕФОНАХ
                 // 🔄 ИДЕАЛЬНОЕ И ЧУТКОЕ СВЕРХБЫСТРОЕ СКРЫТИЕ И ПОКАЗ КНОПОК НА ТЕЛЕФОНАХ
         function toggleMobileButtons() {
+            // Проверка срабатывает строго на мобильных экранах (меньше 768px)
             if (window.innerWidth <= 768) {
                 const categoriesBlock = document.getElementById('main-categories-buttons');
                 if (!categoriesBlock) return;
-                
+
+                // Если в адресе открыт рецепт (есть знак # и слово recipe)
+                if (window.location.hash && window.location.hash.includes('recipe')) {
+                    categoriesBlock.style.setProperty('display', 'none', 'important'); // Чисто убираем кнопки со страницы торта
                 // Проверяем, открыт ли сейчас хоть один рецепт на экране
                 const activeRecipe = document.querySelector('.recipe-card[style*="display: block"], .recipe-page[style*="display: block"]');
                 const hasHash = window.location.hash && window.location.hash.includes('recipe');
@@ -592,15 +693,18 @@
                 if (hasHash || activeRecipe) {
                     categoriesBlock.style.setProperty('display', 'none', 'important'); // Чисто убираем кнопки внутри рецепта
                 } else {
+                    categoriesBlock.style.removeProperty('display'); // На главной полностью возвращаем управление родным стилям книги!
                     categoriesBlock.style.setProperty('display', 'grid', 'important'); // Мгновенно возвращаем красивую сетку на главную!
                     categoriesBlock.style.removeProperty('display');
                 }
             }
         }
 
+        // Запускаем проверку при каждом переключении страниц, загрузке и кликах
         // Запускаем проверку намертво при любых изменениях, кликах и прокрутках
         window.addEventListener('hashchange', toggleMobileButtons);
         window.addEventListener('DOMContentLoaded', toggleMobileButtons);
+        document.addEventListener('click', function() { setTimeout(toggleMobileButtons, 60); });
         window.addEventListener('popstate', toggleMobileButtons); // Ловим нажатие кнопки "Назад" в браузере телефона!
         document.addEventListener('click', function() { setTimeout(toggleMobileButtons, 30); });
 
@@ -1352,7 +1456,7 @@
         function closeRecipePageAndGoBack() { 
             const page = document.getElementById("interactiveRecipePage"); if (page) page.remove(); 
             if (timerInterval) { clearInterval(timerInterval); timerInterval = null; } 
-            if (wakeLock) { wakeLock.release(); wakeLock = null; }
+            if (wakeLock) { wakeLock.release(); wakeLock = null; } 
         }
 
         async function toggleCleanHandsMode() {
