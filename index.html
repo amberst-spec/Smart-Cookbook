@@ -225,6 +225,7 @@
             .search-box, .search-container, [id*="search"], [class*="search"] {
                 display: none !important;
             }
+            
 
             /* Ровный вывод верхней панели с языками на смартфонах */
             .main-container > div:first-child,
@@ -276,40 +277,51 @@
                 display: none !important; /* На ПК мобильная строка будет намертво скрыта */
             }
         }
+   
 
         /* 📱 ТОЧЕЧНЫЙ ШОКОЛАДНЫЙ ЦВЕТ ДЛЯ МОБИЛЬНОЙ СТРОКИ С МЫЛЬЦЕМ */
         .mobile-only-text, p.book-description .mobile-only-text {
             color: #4A2E1B !important; /* Короткая строчка на телефоне тоже становится четкой и шоколадной */
+        }
 
-                        /* 🎨 ОЧИЩЕННЫЕ МОБИЛЬНЫЕ СТИЛИ ДЛЯ НЕЗАВИСИМОЙ НАДПИСИ */
-            .mobile-inspiration-box {
-                display: block !important;
-                background: transparent !important; /* Полная прозрачность, никакого серого фона! */
-                box-shadow: none !important;
-                border: none !important;
-                padding: 0 !important;
-                margin: 15px 0 0 auto !important; /* Нативный зазор от краев */
-                width: 170px !important; /* Компактная ширина для правого нижнего угла */
-            }
+                                <!-- 🎨 НЕПОДВИЖНЫЙ КОНТЕЙНЕР ДЛЯ ПОЖЕЛАНИЯ С РАДУГОЙ: ИДЕАЛЬНО НА ПК И ТЕЛЕФОНЕ -->
+                        <div class="inspiration-container" style="position: relative; width: 100%; clear: both;">
+                            
 
-            .mobile-rainbow-wrap {
-                width: 150px !important;
-                height: 42px !important;
-                overflow: hidden !important;
-                margin: 0 auto 2px auto !important;
-                opacity: 0.85 !important;
-            }
+                            <!-- 💻 Ваша оригинальная круглая радуга "От Еленочки с любовью" -->
+                            <img src="от еленочки с любовью.png" alt="От Еленочки" 
+                                 style="position: absolute; left: 165px; top: 125px; z-index: 2;">
+                            
 
-            .mobile-inspiration-text {
-                font-family: 'Caveat', cursive !important; /* Наш красивый рукописный почерк */
-                color: #8B4513 !important;
-                font-size: 20px !important;
-                text-align: center !important;
-                line-height: 1.1 !important;
-                margin: 0 !important;
-                font-weight: bold !important;
-                display: block !important;
-            }
+                            <!-- 💻 Ваш оригинальный текст "Желаем вам вдохновения..." -->
+                            <img src="желаем вам вдохновения.png" alt="Желаем вам вдохновения" 
+                                 style="position: absolute; left: 180px; top: 175px; z-index: 1;">
+
+                        </div>
+
+                        <!-- 📱 Специальное мобильное правило, которое крепко держит надписи внутри белого бланка на смартфонах -->
+                        <style>
+                            @media (max-width: 768px) {
+                                .inspiration-container {
+                                    display: flex !important;
+                                    flex-direction: column !important;
+                                    align-items: flex-end !important; /* Намертво прижимает всё к правому краю бланка */
+                                    padding-right: 15px !important;    /* Зазор от правой кромки белого фона */
+                                    margin-top: 35px !important;       /* Плавно и красиво опускает надписи вниз */
+                                    margin-bottom: 10px !important;
+                                    height: auto !important;
+                                }
+                                .inspiration-container img {
+                                    position: relative !important;     /* Сбрасывает слепые координаты абсолюта! */
+                                    left: unset !important;            /* Картинки больше никогда не улетят с бланка */
+                                    top: unset !important;
+                                    max-width: 85% !important;         /* Изящно сужаются под экран телефона */
+                                    height: auto !important;
+                                    margin: 4px 0 !important;          /* Небольшой зазор между радугой и текстом */
+                                }
+                            }
+                        </style>
+    
 
     </style>
 </head>
@@ -372,12 +384,11 @@
                             «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта.»
                         </p>
 
-                                <!-- 📱 ВЕРСИЯ ТЕКСТА КАРТОЧКИ ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ (СТРОГО ОДНА СТРОКА С МЫЛЬЦЕМ) -->
-                        <p class="book-description mobile-only-text" style="display: none; background-color: #FFF6EE; border-radius: 25px; padding: 14px 20px; text-align: center; margin: 15px auto; max-width: 340px; color: #4A2E1B !important; font-size: 18px !important; font-weight: bold; line-height: 1.4 !important;">
+                        <!-- 📱 ВЕРСИЯ ТЕКСТА КАРТОЧКИ ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ (СТРОГО ОДНА СТРОКА С МЫЛЬЦЕМ) -->
+                        <p class="book-description mobile-only-text" style="display: none; background-color: #FFF6EE; border-radius: 25px; padding: 14px 20px; text-align: center; margin: 15px auto; max-width: 340px; color: #6E3C1B !important; font-size: 18px !important; font-weight: bold; line-height: 1.4 !important;">
                             🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.
                         </p>
-
-                        <!-- 💻 ОРИГИНАЛЬНАЯ ПК-ВЕРСИЯ РАДУГИ И ПОЖЕЛАНИЯ (ВОССТАНОВЛЕНА ОДИН В ОДИН) -->
+                                <!-- 💻 ВАШ ОРИГИНАЛЬНЫЙ ПК-КОД БЕЗ ЕДИНОГО ИЗМЕНЕНИЯ (ПРИВЯЗАН К ВАШИМ СТРОГИМ КООРДИНАТАХ) -->
                         <div class="desktop-only-text" style="width: 100%; clear: both;">
                             <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
                             <div style="width: 380px; height: 110px; overflow: hidden; position: relative; margin: 475px 95px 365px auto; z-index: 15; opacity: 0.8; pointer-events: none;">
@@ -390,31 +401,48 @@
                                     </text>
                                 </svg>
                             </div>
-                            <!-- Парное рукописное пожелание перед кнопками -->
+
+                            <!-- Парное рукописное пожелание перед (Красиво зафиксировано!) -->
                             <p style="font-family: 'Caveat', cursive; color: #8B4513; font-size: 32px; text-align: center; line-height: 1.2; max-width: 320px; margin: -385px 125px 260px auto; padding: 0 10px; position: relative; z-index: 14;">
                                 Желаем вам вдохновения на кухне и приятного аппетита!
                             </p>
                         </div>
 
-                        <!-- 📱 НЕЗАВИСИМЫЙ ОБЪЕКТ ПОЖЕЛАНИЯ СТРОГО ДЛЯ ТЕЛЕФОНОВ -->
-                        <div class="mobile-only-text mobile-inspiration-box" style="display: none;">
-                            <div class="mobile-rainbow-wrap">
-                                <svg viewBox="0 0 200 100" width="100%" height="100%">
-                                    <path id="rainbowPathMob" d="M 5,75 A 95,55 0 0,1 195,75" fill="none" />
-                                    <text font-family="Segoe UI, Roboto, sans-serif" font-size="18" font-weight="bold" fill="#8B4513" text-anchor="middle">
-                                        <textPath href="#rainbowPathMob" startOffset="50%">
-                                            🌸 От Еленочки с любовью 🌸
-                                        </textPath>
-                                    </text>
-                                </svg>
+                        <!-- 📱 УМНАЯ МОБИЛЬНАЯ ПОПРАВКА СТРОГО ДЛЯ ТЕЛЕФОНОВ (ЖЕСТКАЯ ПРИВЯЗКА СПРАВА И НИЖЕ) -->
+                        <div class="mobile-only-text" style="display: none; width: 100%; text-align: right; padding-right: 20px; margin-top: 30px; margin-bottom: 15px; clear: both;">
+                            <div style="display: inline-block; text-align: right; max-width: 85%;">
+                                <div style="width: 260px; height: 75px; overflow: hidden; display: block; margin-left: auto; margin-bottom: 5px; opacity: 0.85;">
+                                    <svg viewBox="0 0 200 100" width="100%" height="100%">
+                                        <path id="rainbowPathMob" d="M 5,75 A 95,55 0 0,1 195,75" fill="none" />
+                                        <text font-family="Segoe UI, Roboto, sans-serif" font-size="17" font-weight="bold" fill="#8B4513" text-anchor="middle">
+                                            <textPath href="#rainbowPathMob" startOffset="50%">
+                                                🌸 От Еленочки с любовью 🌸
+                                            </textPath>
+                                        </text>
+                                    </svg>
+                                </div>
+                                <p style="font-family: 'Caveat', cursive; color: #8B4513; font-size: 24px; text-align: right; line-height: 1.2; margin: 0; display: block;">
+                                    Желаем вам вдохновения на кухне и приятного аппетита!
+                                </p>
                             </div>
-                            <p class="mobile-inspiration-text">
-                                Желаем Вам<br>
-                                вдохновения на кухне<br>
-                                и приятного<br>
-                                аппетита!
-                            </p>
                         </div>
+   
+        <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
+        <div style="width: 360px; height: 110px; overflow: hidden; position: relative; margin: -475px 95px 365px auto; z-index: 15; opacity: 0.6; pointer-events: none;">
+            <svg viewBox="0 0 200 100" width="100%" height="100%">
+                <path id="rainbowPath" d="M 5,75 A 95,55 0 0,1 195,75" fill="none" />
+                <text font-family="'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="bold" fill="#8B4513" text-anchor="middle">
+                    <textPath href="#rainbowPath" startOffset="50%" id="text-watermark">
+                        ✨ От Еленочки с любовью ✨
+                    </textPath>
+                </text>
+            </svg>
+        </div>
+
+        <!-- Парящее рукописное пожелание пером (Красиво зафиксировано!) -->
+        <p style="font-family: 'Caveat', cursive; color: #8B4513; font-size: 32px; text-align: center; line-height: 1.2; max-width: 320px; margin: -385px 125px 260px auto; padding: 0 10px; position: relative; z-index: 10;" id="text-wish">
+            ✨ Желаем вам вдохновения на кухне и приятного аппетита!
+        </p>
 
         <!-- Крупные клавиши кулинарных разделов и круглая кнопка-пуговка мер веса -->
         <div class="categories-grid" id="main-categories-buttons">
@@ -2055,9 +2083,11 @@
             if (window.innerWidth <= 768) {
                 const categoriesBlock = document.getElementById('main-categories-buttons');
                 const measuresBtn = document.getElementById('btn-measures');
+                
 
                 // Проверяем, открыт ли физически блок рецепта на экране
                 const recipeBlockActive = document.getElementById('interactiveRecipePage');
+                
 
                 if (recipeBlockActive) {
                     // 🔒 ЕСЛИ МЫ ВНУТРИ РЕЦЕПТА: Намертво прячем кнопки и ложечку, чтобы не летали поверх торта!
@@ -2067,6 +2097,7 @@
                     // 🏡 ЕСЛИ РЕЦЕПТА НА ЭКРАНЕ НЕТ — МЫ ТОЧНО НА ГЛАВНОЙ: Принудительно возвращаем кнопки!
                     if (categoriesBlock) categoriesBlock.style.setProperty('display', 'flex', 'important');
                     if (measuresBtn) measuresBtn.style.setProperty('display', 'inline-flex', 'important');
+                    
 
                     // Заодно аккуратно чистим застрявший хвост адреса, чтобы ссылка была первозданной и чистой
                     if (window.location.hash && window.location.hash.includes('recipe')) {
