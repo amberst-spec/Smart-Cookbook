@@ -329,41 +329,27 @@
 
         }
 
-                                <!-- 🎨 НЕПОДВИЖНЫЙ КОНТЕЙНЕР ДЛЯ ПОЖЕЛАНИЯ С РАДУГОЙ: ИДЕАЛЬНО НА ПК И ТЕЛЕФОНЕ -->
-                        <div class="inspiration-container" style="position: relative; width: 100%; clear: both;">
-
-                            <!-- 💻 Ваша оригинальная круглая радуга "От Еленочки с любовью" -->
-                            <img src="от еленочки с любовью.png" alt="От Еленочки" 
-                                 style="position: absolute; left: 165px; top: 125px; z-index: 2;">
-
-                            <!-- 💻 Ваш оригинальный текст "Желаем вам вдохновения..." -->
-                            <img src="желаем вам вдохновения.png" alt="Желаем вам вдохновения" 
-                                 style="position: absolute; left: 180px; top: 175px; z-index: 1;">
-
+                                <!-- 📱 ВЕРСИЯ ДЛЯ ТЕЛЕФОНОВ: ЧИСТЫЙ ПРОЗРАЧНЫЙ БЛОК ПОЖЕЛАНИЯ -->
+                        <div class="book-description mobile-only-text mobile-inspiration-box" style="display: none;">
+                            <div class="mobile-rainbow-wrap">
+                                <!-- Мобильная копия радуги Еленочки -->
+                                <svg viewBox="0 0 200 100" width="100%" height="100%">
+                                    <path id="rainbowPathMob" d="M 5,75 A 95,55 0 0,1 195,75" fill="none" />
+                                    <text font-family="Segoe UI, Roboto, sans-serif" font-size="18" font-weight="bold" fill="#8B4513" text-anchor="middle">
+                                        <textPath href="#rainbowPathMob" startOffset="50%">
+                                            🌸 От Еленочки с любовью 🌸
+                                        </textPath>
+                                    </text>
+                                </svg>
+                            </div>
+                            <!-- Мобильное рукописное пожелание в 4 аккуратные строчки -->
+                            <p class="mobile-inspiration-text">
+                                Желаем вам<br>
+                                вдохновения на кухне<br>
+                                и приятного<br>
+                                аппетита!
+                            </p>
                         </div>
-
-                        <!-- 📱 Специальное мобильное правило, которое крепко держит надписи внутри белого бланка на смартфонах -->
-                        <style>
-                            @media (max-width: 768px) {
-                                .inspiration-container {
-                                    display: flex !important;
-                                    flex-direction: column !important;
-                                    align-items: flex-end !important; /* Намертво прижимает всё к правому краю бланка */
-                                    padding-right: 15px !important;    /* Зазор от правой кромки белого фона */
-                                    margin-top: 35px !important;       /* Плавно и красиво опускает надписи вниз */
-                                    margin-bottom: 10px !important;
-                                    height: auto !important;
-                                }
-                                .inspiration-container img {
-                                    position: relative !important;     /* Сбрасывает слепые координаты абсолюта! */
-                                    left: unset !important;            /* Картинки больше никогда не улетят с бланка */
-                                    top: unset !important;
-                                    max-width: 85% !important;         /* Изящно сужаются под экран телефона */
-                                    height: auto !important;
-                                    margin: 4px 0 !important;          /* Небольшой зазор между радугой и текстом */
-                                }
-                            }
-                        </style>
 
     </style>
 </head>
