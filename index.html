@@ -399,27 +399,33 @@
 
         <!-- Парящее рукописное пожелание пером (Красиво зафиксировано!) -->
         <p style="font-family: 'Caveat', cursive; color: #8B4513; font-size: 32px; text-align: center; line-height: 1.2; max-width: 320px; margin: -385px 125px 260px auto; padding: 0 10px; position: relative; z-index: 10;" id="text-wish">
-            ✨ Желаем вам вдохновения на кухне и приятного аппетита!
+            ✨ Желаем Вам вдохновения на кухне и приятного аппетита!
         </p>
         </div>
 
-                                <!-- 📱 НЕЗАВИСИМЫЙ ОБЪЕКТ РАДУГИ И ПОЖЕЛАНИЯ СТРОГО ДЛЯ ТЕЛЕФОНОВ -->
-                        <div class="mobile-only-text" style="display: none; width: 100%; text-align: right; padding-right: 20px; margin-top: 35px; margin-bottom: 15px; clear: both;">
-                            <div style="display: inline-block; text-align: right; max-width: 85%;">
-                                <!-- Мобильная независимая копия радуги "От Еленочки с любовью" -->
-                                <div style="width: 250px; height: 75px; overflow: hidden; display: block; margin-left: auto; margin-bottom: 5px; opacity: 0.85;">
+                                <!-- 📱 ВЕРСИЯ ДЛЯ ТЕЛЕФОНОВ: ВСЁ НАМЕРТВО ПРИВЯЗАНО ВНУТРЬ КРАСИВОГО СЛОЯ PATTERN -->
+                        <div class="book-description mobile-only-text" style="display: none; background-image: url('pattern.png'); background-repeat: repeat; border-radius: 25px; padding: 18px 20px; text-align: center; margin: 15px auto; max-width: 340px; color: #8B4513 !important; line-height: 1.4 !important; box-sizing: border-box; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                            
+                            <!-- Контейнер-фиксатор, удерживающий радугу и текст строго внутри границ карточки -->
+                            <div style="display: block; margin: 0 auto; max-width: 250px; text-align: center;">
+                                <!-- 1. Мобильная копия радуги Еленочки -->
+                                <div style="width: 200px; height: 58px; overflow: hidden; display: block; margin: 0 auto 4px auto; opacity: 0.85;">
                                     <svg viewBox="0 0 200 100" width="100%" height="100%">
                                         <path id="rainbowPathMob" d="M 5,75 A 95,55 0 0,1 195,75" fill="none" />
-                                        <text font-family="Segoe UI, Roboto, sans-serif" font-size="17" font-weight="bold" fill="#8B4513" text-anchor="middle">
+                                        <text font-family="Segoe UI, Roboto, sans-serif" font-size="18" font-weight="bold" fill="#8B4513" text-anchor="middle">
                                             <textPath href="#rainbowPathMob" startOffset="50%">
                                                 🌸 От Еленочки с любовью 🌸
                                             </textPath>
                                         </text>
                                     </svg>
                                 </div>
-                                <!-- Мобильная независимая копия пожелания вдохновения -->
-                                <p style="font-family: 'Caveat', cursive; color: #8B4513; font-size: 24px; text-align: right; line-height: 1.2; margin: 0; display: block;">
-                                    Желаем Вам вдохновения на кухне и приятного аппетита!
+                                
+                                <!-- 2. Мобильное рукописное пожелание, разбитое на 4 изящные строчки -->
+                                <p style="font-family: 'Caveat', cursive; color: #8B4513; font-size: 22px; text-align: center; line-height: 1.1; margin: 0; display: block; font-weight: bold;">
+                                    Желаем Вам<br>
+                                    вдохновения на кухне<br>
+                                    и приятного<br>
+                                    аппетита!
                                 </p>
                             </div>
                         </div>
