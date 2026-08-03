@@ -372,34 +372,15 @@
                             «Интуитивный кулинарный формат. Выбирайте количество порций, запускайте таймеры и отмечайте шаги прямо на странице рецепта.»
                         </p>
 
-                        <!-- 📱 ВЕРСИЯ ТЕКСТА КАРТОЧКИ ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ (СТРОГО ОДНА СТРОКА С МЫЛЬЦЕМ) -->
-                        <p class="book-description mobile-only-text" style="display: none; background-color: #FFF6EE; border-radius: 25px; padding: 14px 20px; text-align: center; margin: 15px auto; max-width: 340px; color: #6E3C1B !important; font-size: 18px !important; font-weight: bold; line-height: 1.4 !important;">
+                                <!-- 📱 ВЕРСИЯ ТЕКСТА КАРТОЧКИ ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ (СТРОГО ОДНА СТРОКА С МЫЛЬЦЕМ) -->
+                        <p class="book-description mobile-only-text" style="display: none; background-color: #FFF6EE; border-radius: 25px; padding: 14px 20px; text-align: center; margin: 15px auto; max-width: 340px; color: #4A2E1B !important; font-size: 18px !important; font-weight: bold; line-height: 1.4 !important;">
                             🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.
                         </p>
 
-        <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
-        <div class="desktop-only-text">
-        <div style="width: 360px; height: 110px; overflow: hidden; position: relative; margin: -475px 95px 365px auto; z-index: 15; opacity: 0.6; pointer-events: none;">
-            <svg viewBox="0 0 200 100" width="100%" height="100%">
-                <path id="rainbowPath" d="M 5,75 A 95,55 0 0,1 195,75" fill="none" />
-                <text font-family="'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="bold" fill="#8B4513" text-anchor="middle">
-                    <textPath href="#rainbowPath" startOffset="50%" id="text-watermark">
-                        ✨ От Еленочки с любовью ✨
-                    </textPath>
-                </text>
-            </svg>
-        </div>
-
-        <!-- Парящее рукописное пожелание пером (Красиво зафиксировано!) -->
-        <p style="font-family: 'Caveat', cursive; color: #8B4513; font-size: 32px; text-align: center; line-height: 1.2; max-width: 320px; margin: -385px 125px 260px auto; padding: 0 10px; position: relative; z-index: 10;" id="text-wish">
-            ✨ Желаем Вам вдохновения на кухне и приятного аппетита!
-        </p>
-        </div>
-
-                                <!-- 📱 ВЕРСИЯ ДЛЯ ТЕЛЕФОНОВ: ЧИСТЫЙ ПРОЗРАЧНЫЙ БЛОК ПОЖЕЛАНИЯ -->
+                        <!-- 📱 НЕЗАВИСИМЫЙ ОБЪЕКТ ПОЖЕЛАНИЯ СТРОГО ДЛЯ ТЕЛЕФОНОВ (БЕЗ ЛИШНИХ ФОНОВ И ЦВЕТОВ) -->
                         <div class="mobile-only-text mobile-inspiration-box" style="display: none;">
                             <div class="mobile-rainbow-wrap">
-                                <!-- Мобильная копия радуги Еленочки -->
+                                <!-- Мобильная независимая копия радуги "От Еленочки с любовью" -->
                                 <svg viewBox="0 0 200 100" width="100%" height="100%">
                                     <path id="rainbowPathMob" d="M 5,75 A 95,55 0 0,1 195,75" fill="none" />
                                     <text font-family="Segoe UI, Roboto, sans-serif" font-size="18" font-weight="bold" fill="#8B4513" text-anchor="middle">
@@ -409,15 +390,15 @@
                                     </text>
                                 </svg>
                             </div>
-                            <!-- Мобильное рукописное пожелание в 4 аккуратные строчки -->
+                            <!-- Мобильное рукописное пожелание, разбитое на 4 аккуратные строчки -->
                             <p class="mobile-inspiration-text">
-                                Желаем Вам<br>
+                                Желаем вам<br>
                                 вдохновения на кухне<br>
                                 и приятного<br>
                                 аппетита!
                             </p>
                         </div>
-        
+    
         <!-- Крупные клавиши кулинарных разделов и круглая кнопка-пуговка мер веса -->
         <div class="categories-grid" id="main-categories-buttons">
             <button class="category-card" id="cat-1" onclick="openRecipeCategory(1)">🍰 Выпечка</button>
