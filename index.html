@@ -197,6 +197,24 @@
 
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
+                        svg[viewBox="0 0 200 100"], 
+            #text-wish {
+                display: none !important;
+            }
+
+            #mobile-wish-box {
+                display: block !important;
+                font-family: 'Caveat', cursive;
+                color: #8B4513;
+                font-size: 20px;
+                line-height: 1.3;
+                text-align: left;
+                margin: -210px 15px 165px auto;
+                max-width: 170px;
+                position: relative;
+                z-index: 20;
+            }
+
             /* 1. Наша старая проверенная команда скрытия сердечек и зерен */
             div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
             div[style*="position: fixed"][style*="color: #8B4513"],
@@ -394,6 +412,12 @@
                     </textPath>
                 </text>
             </svg>
+        </div>
+
+                <!-- 📱 НОВАЯ СТРОКА ПОЖЕЛАНИЯ С СУПЕР-ТОЧНЫМ ПОЗИЦИОНИРОВАНИЕМ ДЛЯ СМАРТФОНОВ -->
+        <div id="mobile-wish-box">
+            ✨ От Еленочки с любовью ✨<br>
+            Желаем вам вдохновения на кухне и приятного аппетита!
         </div>
 
         <!-- Парящее рукописное пожелание пером (Красиво зафиксировано!) -->
@@ -900,6 +924,12 @@
 
         const wishTranslations = { ru: "✨ Желаем вам вдохновения на кухне и приятного аппетита!", ukr: "✨ Бажаємо вам натхнення на кухні та приємного апетиту!", en: "✨ Wishing you inspiration in the kitchen and bon appétit!" };
         const watermarkTranslations = { ru: "✨ От Еленочки с любовью ✨", ukr: "✨ Від Оленочки з любов'ю ✨", en: "✨ From Helen with love ✨" };
+                const mobileWishTranslations = { 
+            ru: "✨ От Еленочки с любовью ✨\nЖелаем вам вдохновения на кухне и приятного аппетита!", 
+            ukr: "✨ Від Оленочки з любов'ю ✨\nБажаємо вам натхнення на кухні та приємного апетиту!", 
+            en: "✨ From Helen with love ✨\nWishing you inspiration in the kitchen and bon appétit!" 
+        };
+
                 // УМНАЯ ФУНКЦИЯ ПЕРЕВОДА ИНТЕРФЕЙСА И ПРИНУДИТЕЛЬНОГО ПЕРЕВОДА СВИТКА РЕЦЕПТА
         function changeLanguage(lang) {
             currentLangCode = lang;
@@ -917,6 +947,11 @@
             if (document.getElementById('guestNameInput')) document.getElementById('guestNameInput').placeholder = translations[lang].guestNameInput;
             if (document.getElementById('guestTitleInput')) document.getElementById('guestTitleInput').placeholder = translations[lang].guestTitleInput;
             if (document.getElementById('guestRecipeTextInput')) document.getElementById('guestRecipeTextInput').placeholder = translations[lang].guestRecipeTextInput;
+                        // Перевод нового текстового блока пожеланий для смартфонов
+            const mobileWishEl = document.getElementById('mobile-wish-box');
+            if (mobileWishEl) {
+                mobileWishEl.innerText = mobileWishTranslations[lang];
+            }
 
                     // 🔓 ПОЛНАЯ РАЗБЛОКИРОВКА И СКРЫТИЕ ЛИШНИХ ЭТАЖИ ЯЗЫКОВ В ОКНЕ ГОСТЯ
         const currentModalLang = lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru');
