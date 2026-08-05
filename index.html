@@ -310,7 +310,7 @@
                         <div class="inspiration-container" style="position: relative; width: 100%; clear: both;">
 
                             <!-- 💻 Ваша оригинальная круглая радуга "От Еленочки с любовью" -->
-                            <img src="от еленочки с любовью.png" alt="От Еленочки" 
+                            <img src="от Еленочки с любовью.png" alt="От Еленочки" 
                                  style="position: absolute; left: 165px; top: 125px; z-index: 2;">
 
                             <!-- 💻 Ваш оригинальный текст "Желаем вам вдохновения..." -->
@@ -946,11 +946,18 @@
 
         const wishTranslations = { ru: "✨ Желаем вам вдохновения на кухне и приятного аппетита!", ukr: "✨ Бажаємо вам натхнення на кухні та приємного апетиту!", en: "✨ Wishing you inspiration in the kitchen and bon appétit!" };
         const watermarkTranslations = { ru: "✨ От Еленочки с любовью ✨", ukr: "✨ Від Оленочки з любов'ю ✨", en: "✨ From Helen with love ✨" };
-                const mobileWishTranslations = { 
-            ru: "✨ От Еленочки с любовью ✨\nЖелаем вам вдохновения на кухне и приятного аппетита!", 
-            ukr: "✨ Від Оленочки з любов'ю ✨\nБажаємо вам натхнення на кухні та приємного апетиту!", 
-            en: "✨ From Helen with love ✨\nWishing you inspiration in the kitchen and bon appétit!" 
+        const mobileRainbowTranslations = {
+            ru: "✨ От Еленочки с любовью ✨",
+            ukr: "✨ Від Оленочки з любов'ю ✨",
+            en: "✨ From Helen with love ✨"
         };
+
+        const mobileWishTranslations = {
+            ru: "Желаем вам вдохновения на кухне и приятного аппетита!",
+            ukr: "Бажаємо вам натхнення на кухні та приємного апетиту!",
+            en: "Wishing you inspiration in the kitchen and bon appétit!"
+        };
+
 
                 // УМНАЯ ФУНКЦИЯ ПЕРЕВОДА ИНТЕРФЕЙСА И ПРИНУДИТЕЛЬНОГО ПЕРЕВОДА СВИТКА РЕЦЕПТА
         function changeLanguage(lang) {
@@ -969,10 +976,19 @@
             if (document.getElementById('guestNameInput')) document.getElementById('guestNameInput').placeholder = translations[lang].guestNameInput;
             if (document.getElementById('guestTitleInput')) document.getElementById('guestTitleInput').placeholder = translations[lang].guestTitleInput;
             if (document.getElementById('guestRecipeTextInput')) document.getElementById('guestRecipeTextInput').placeholder = translations[lang].guestRecipeTextInput;
-                        // Перевод нового текстового блока пожеланий для смартфонов
-            const mobileWishEl = document.getElementById('mobile-wish-box');
-            if (mobileWishEl) {
-                mobileWishEl.innerText = mobileWishTranslations[lang];
+
+                        // 🔄 УМНЫЙ МУЛЬТИЯЗЫЧНЫЙ ПЕРЕВОДЧИК ОБЛОЖКИ ДЛЯ ТЕЛЕФОНОВ
+            
+            // 1. Выводим правильный перевод со звёздочками для мобильной радуги
+            const mobileRainbowTextEl = document.getElementById('text-mobile-watermark');
+            if (mobileRainbowTextEl) {
+                mobileRainbowTextEl.textContent = mobileRainbowTranslations[lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru')];
+            }
+
+            // 2. Выводим перевод для крупного рукописного пожелания под ней
+            const mobileCoverWishEl = document.getElementById('mobile-cover-wish');
+            if (mobileCoverWishEl) {
+                mobileCoverWishEl.innerText = mobileWishTranslations[lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru')];
             }
 
                     // 🔓 ПОЛНАЯ РАЗБЛОКИРОВКА И СКРЫТИЕ ЛИШНИХ ЭТАЖИ ЯЗЫКОВ В ОКНЕ ГОСТЯ
