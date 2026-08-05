@@ -305,43 +305,7 @@
         .mobile-only-text, p.book-description .mobile-only-text {
             color: #4A2E1B !important; /* Короткая строчка на телефоне тоже становится четкой и шоколадной */
         }
-
-                                <!-- 🎨 НЕПОДВИЖНЫЙ КОНТЕЙНЕР ДЛЯ ПОЖЕЛАНИЯ С РАДУГОЙ: ИДЕАЛЬНО НА ПК И ТЕЛЕФОНЕ -->
-                        <div class="inspiration-container" style="position: relative; width: 100%; clear: both;">
-
-                            <!-- 💻 Ваша оригинальная круглая радуга "От Еленочки с любовью" -->
-                            <img src="от Еленочки с любовью.png" alt="От Еленочки" 
-                                 style="position: absolute; left: 165px; top: 125px; z-index: 2;">
-
-                            <!-- 💻 Ваш оригинальный текст "Желаем вам вдохновения..." -->
-                            <img src="желаем вам вдохновения.png" alt="Желаем вам вдохновения" 
-                                 style="position: absolute; left: 180px; top: 175px; z-index: 1;">
-
-                        </div>
-
-                        <!-- 📱 Специальное мобильное правило, которое крепко держит надписи внутри белого бланка на смартфонах -->
-                        <style>
-                            @media (max-width: 768px) {
-                                .inspiration-container {
-                                    display: flex !important;
-                                    flex-direction: column !important;
-                                    align-items: flex-end !important; /* Намертво прижимает всё к правому краю бланка */
-                                    padding-right: 15px !important;    /* Зазор от правой кромки белого фона */
-                                    margin-top: 35px !important;       /* Плавно и красиво опускает надписи вниз */
-                                    margin-bottom: 10px !important;
-                                    height: auto !important;
-                                }
-                                .inspiration-container img {
-                                    position: relative !important;     /* Сбрасывает слепые координаты абсолюта! */
-                                    left: unset !important;            /* Картинки больше никогда не улетят с бланка */
-                                    top: unset !important;
-                                    max-width: 85% !important;         /* Изящно сужаются под экран телефона */
-                                    height: auto !important;
-                                    margin: 4px 0 !important;          /* Небольшой зазор между радугой и текстом */
-                                }
-                            }
-                        </style>
-
+                          
     </style>
 </head>
 <body>
