@@ -389,7 +389,19 @@
         </div>
 
         <!-- Крупная журнальная фотография обложки -->
-        <img src="cover.jpg" alt="Обложка" class="cover-image">
+               <!-- Контейнер-кармашек, который крепко держит мобильную надпись на картинке -->
+        <div style="position: relative; width: 100%; max-width: 960px; margin: 25px auto 35px auto;">
+            
+            <!-- Сама картинка-обложка -->
+            <img src="cover.jpg" alt="Обложка" style="width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 35px; box-shadow: 0 18px 40px rgba(160, 82, 45, 0.14); display: block;">
+            
+            <!-- 📱 КРАСИВАЯ МОБИЛЬНАЯ НАДПИСЬ (Появится строго на телефонах, на белом фоне обложки) -->
+            <div id="mobile-cover-wish" style="display: none; position: absolute; right: 4%; top: 38%; width: 38%; text-align: center; z-index: 25; pointer-events: none; font-family: 'Caveat', cursive; color: #8B4513; font-size: 16px; line-height: 1.25; font-weight: normal;">
+                ✨ От Еленочки с любовью ✨<br>
+                Желаем вам вдохновения на кухне и приятного аппетита!
+            </div>
+            
+        </div>
 
                                 <!-- 💻 ВЕРСИЯ ТЕКСТА КАРТОЧКИ ТОЛЬКО ДЛЯ КОМПЬЮТЕРОВ (ИДЕАЛЬНАЯ ЗОЛОТАЯ СЕРЕДИНА) -->
                         <p class="book-description desktop-only-text" id="text-desc" style="background-color: #FFF6EE; border-radius: 30px; padding: 20px; text-align: center; margin: 20px auto; max-width: 600px; color: #6E3C1B !important; font-size: 20px !important; line-height: 1.6 !important; font-weight: normal !important;">
