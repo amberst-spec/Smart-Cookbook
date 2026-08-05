@@ -203,22 +203,18 @@
                 display: block !important;
             }
 
-                        svg[viewBox="0 0 200 100"], 
-            #text-wish {
+                        /* Скрываем строго оригинальное ПК-пожелание и ПК-радугу по её родному водяному знаку */
+            #text-wish, 
+            #text-watermark {
                 display: none !important;
             }
 
-            #mobile-wish-box {
+            /* Принудительно открываем мобильную радугу, её буквы и узор */
+            #mobile-cover-rainbow,
+            #mobile-cover-rainbow svg,
+            #mobile-cover-rainbow textPath,
+            #mobile-cover-wish {
                 display: block !important;
-                font-family: 'Caveat', cursive;
-                color: #8B4513;
-                font-size: 20px;
-                line-height: 1.3;
-                text-align: left;
-                margin: -210px 15px 165px auto;
-                max-width: 170px;
-                position: relative;
-                z-index: 20;
             }
 
             /* 1. Наша старая проверенная команда скрытия сердечек и зерен */
