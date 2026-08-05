@@ -197,27 +197,20 @@
 
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-                        /* Включаем красивую надпись внутри обложки на телефонах */
-            #mobile-cover-rainbow,
-            #mobile-cover-wish {
-                display: block !important;
-            }
 
-                        /* Скрываем строго оригинальное ПК-пожелание и ПК-радугу по её родному водяному знаку */
-            #text-wish, 
-            #text-watermark {
+                        /* 1. Скрываем оригинальное ПК-пожелание на смартфонах */
+            #text-wish {
                 display: none !important;
             }
 
-            /* Принудительно открываем мобильную радугу, её буквы и узор */
-            #mobile-cover-rainbow,
-            #mobile-cover-rainbow svg,
-            #mobile-cover-rainbow textPath,
-            #mobile-cover-wish {
+            /* 2. Принудительно возвращаем середину паттерна на телефонах */
+            body::before {
                 display: block !important;
             }
-                        /* Принудительно возвращаем воздушный фоновый узор на телефонах */
-            body::before {
+
+            /* 3. Включаем отображение мобильной радуги и крупного пожелания */
+            #mobile-cover-rainbow,
+            #mobile-cover-wish {
                 display: block !important;
             }
 
