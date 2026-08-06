@@ -197,20 +197,9 @@
 
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-                        /* Оживляем золотые волны узора pattern во весь экран смартфона */
-            .mobile-only-pattern-layer {
-                display: block !important;
-            }
-
-                        /* 1. Задаем узору жесткие мобильные размеры, чтобы он не схлопывался */
+                        /* 1. Выводим родной слой узора на передний план фона телефона */
             body::before {
                 display: block !important;
-                content: "" !important;
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 100vw !important;
-                height: 100vh !important;
                 z-index: 2 !important;
             }
 
