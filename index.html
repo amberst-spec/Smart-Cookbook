@@ -197,9 +197,16 @@
 
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-                        /* 1. Защищаем родной узор паттерна на смартфонах */
+
+                        /* 1. Задаем узору жесткие мобильные размеры, чтобы он не схлопывался */
             body::before {
                 display: block !important;
+                content: "" !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
                 z-index: 2 !important;
             }
 
@@ -208,21 +215,7 @@
                 display: none !important;
             }
 
-            /* 2. РАЗДЕЛЕНИЕ ТЕКСТА: На смартфонах прячем длинный ПК-текст, оставляя короткий */
-            .desktop-only-text {
-                display: none !important;
-            }
-            .mobile-only-text {
-                display: block !important;
-            }
-
-            /* 3. УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ПЕРЕВОДЧИКУ) */
-            input[type="text"][placeholder*="Пошук"],
-            input[type="text"][placeholder*="Поиск"],
-            input[type="text"][placeholder*="Search"],
-            .main-container input[type="text"],
-            img[src*="search"],
-                       /* Точечно скрываем только само поле поиска, не ломая фоновый паттерн */
+            /* 3. Безопасно и чисто скрываем только само поле поиска рецептов */
             .search-box, 
             #search-input, 
             input[placeholder*="Поиск"], 
