@@ -222,8 +222,12 @@
             input[type="text"][placeholder*="Search"],
             .main-container input[type="text"],
             img[src*="search"],
-            input[type="text"] + img,
-            .search-box, .search-container, [id*="search"], [class*="search"] {
+                       /* Точечно скрываем только само поле поиска, не ломая фоновый паттерн */
+            .search-box, 
+            #search-input, 
+            input[placeholder*="Поиск"], 
+            input[placeholder*="Пошук"], 
+            input[placeholder*="Search"] {
                 display: none !important;
             }
 
