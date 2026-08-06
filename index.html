@@ -197,15 +197,15 @@
 
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-                        /* 1. Скрываем на смартфонах оригинальное ПК-пожелание */
-            #text-wish {
-                display: none !important;
+                        /* 1. Защищаем родной узор паттерна на смартфонах */
+            body::before {
+                display: block !important;
+                z-index: 2 !important;
             }
 
-            /* 2. Включаем отображение только наших новых мобильных блоков */
-            #mobile-cover-rainbow,
-            #mobile-cover-wish {
-                display: block !important;
+            /* 2. Скрываем на смартфонах оригинальное ПК-пожелание */
+            #text-wish {
+                display: none !important;
             }
 
             /* 2. РАЗДЕЛЕНИЕ ТЕКСТА: На смартфонах прячем длинный ПК-текст, оставляя короткий */
