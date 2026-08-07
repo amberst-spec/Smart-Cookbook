@@ -332,9 +332,6 @@
             <!-- Сама картинка-обложка -->
             <img src="cover.jpg" alt="Обложка" style="width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 35px; box-shadow: 0 18px 40px rgba(160, 82, 45, 0.14); display: block;">
 
-                           <!-- 📱 НЕЗАВИСИМЫЙ ЗОЛОТОЙ УЗОР PATTERN ДЛЯ СМАРТФОНОВ (Во весь экран на главной под тарелкой) -->
-        <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-image: url('pattern.png'); background-position: center center; background-repeat: no-repeat; background-size: cover; opacity: 0.35; z-index: -1; pointer-events: none;" class="mobile-only-main-pattern"></div>
-
             <!-- 1. НАСТОЯЩАЯ КРУПНАЯ МОБИЛЬНАЯ РАДУГА (Большая, сочная, строго над пожеланием!) -->
         <div id="mobile-cover-rainbow" style="display: none; position: absolute; right: 0%; top: 43%; width: 48%; text-align: center; z-index: 25; pointer-events: none;">
             <div style="font-family: 'Segoe UI', Roboto, sans-serif; font-size: 25px; font-weight: 900; color: #8B4513; letter-spacing: 0.5px;" id="text-mobile-watermark">
@@ -357,7 +354,6 @@
 
                         <!-- 📱 ВЕРСИЯ ТЕКСТА КАРТОЧКИ ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ (СТРОГО ОДНА СТРОКА С МЫЛЬЦЕМ) -->
                         <p class="book-description mobile-only-text" style="display: none; background-color: #FFF6EE; border-radius: 25px; padding: 14px 20px; text-align: center; margin: 15px auto; max-width: 340px; color: #6E3C1B !important; font-size: 18px !important; font-weight: bold; line-height: 1.4 !important;">
-                            🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.
                         </p>
 
         <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
@@ -906,6 +902,18 @@
             if (document.getElementById('guestNameInput')) document.getElementById('guestNameInput').placeholder = translations[lang].guestNameInput;
             if (document.getElementById('guestTitleInput')) document.getElementById('guestTitleInput').placeholder = translations[lang].guestTitleInput;
             if (document.getElementById('guestRecipeTextInput')) document.getElementById('guestRecipeTextInput').placeholder = translations[lang].guestRecipeTextInput;
+            
+                        // Ручной перевод мобильной строки режима "Чистые руки"
+            const mobileCleanHandsEl = document.getElementById('mobile-clean-hands-text');
+            if (mobileCleanHandsEl) {
+                const cleanHandsTranslations = {
+                    ru: "🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.",
+                    uk: "🧼 ⏱️ Режим «Чисті руки». Вбудований таймер.",
+                    en: "🧼 ⏱️ 'Clean Hands' mode. Built-in timer."
+                };
+                mobileCleanHandsEl.innerText = cleanHandsTranslations[lang === 'uk' ? 'uk' : (lang === 'en' ? 'en' : 'ru')];
+            }
+
 
                         // 🔄 УМНЫЙ МУЛЬТИЯЗЫЧНЫЙ ПЕРЕВОДЧИК ОБЛОЖКИ ДЛЯ ТЕЛЕФОНОВ
 
