@@ -197,23 +197,63 @@
 
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
-                        /* 1. Выводим родной слой узора на передний план фона телефона */
-            body::before {
-                display: block !important;
-                z-index: 2 !important;
-            }
 
-            /* 2. Скрываем на смартфонах оригинальное ПК-пожелание */
+                        /* 1. Скрываем оригинальное ПК-пожелание на смартфонах */
+                      /* 1. Намертво прячем оригинальный ПК-текст пожелания на телефонах */
             #text-wish {
                 display: none !important;
             }
 
-            /* 3. Безопасно и чисто скрываем только само поле поиска рецептов */
-            .search-box, 
-            #search-input, 
-            input[placeholder*="Поиск"], 
-            input[placeholder*="Пошук"], 
-            input[placeholder*="Search"] {
+            /* 2. Принудительно возвращаем середину паттерна на телефонах */
+            /* 2. Скрываем оригинальную ПК-радугу на тарелке по её точной картинке Еленочки */
+            img[src="от Еленочки с любовью.png"],
+            img[src="желаем вам вдохновения.png"],
+            #text-watermark {
+                display: none !important;
+            }
+
+            /* 3. Принудительно возвращаем отображение середины воздушного узора pattern на телефонах */
+            body::before {
+                display: block !important;
+                content: "" !important;
+            }
+
+            /* 3. Включаем отображение мобильной радуги и крупного пожелания */
+            /* 4. Полностью открываем новую красивую мобильную радугу со звёздочками и её буквы */
+            #mobile-cover-rainbow,
+            #mobile-cover-rainbow svg,
+            #mobile-cover-rainbow text,
+            #mobile-cover-rainbow textPath,
+            #mobile-cover-wish {
+                display: block !important;
+            }
+
+            /* 1. Наша старая проверенная команда скрытия сердечек и зерен */
+            div[style*="position: fixed"][style*="color: rgb(139, 69, 19)"],
+            div[style*="position: fixed"][style*="color: #8B4513"],
+            div[style*="position: fixed"][style*="color:#8b4513"],
+            span[style*="position: fixed"],
+            #secret-admin-heart,
+            .decor-heart, [id*="heart"], [class*="heart"] {
+                display: none !important;
+            }
+
+            /* 2. РАЗДЕЛЕНИЕ ТЕКСТА: На смартфонах прячем длинный ПК-текст, оставляя короткий */
+            .desktop-only-text {
+                display: none !important;
+            }
+            .mobile-only-text {
+                display: block !important;
+            }
+
+            /* 3. УБИРАЕМ ПОЛЕ «ПОИСК РЕЦЕПТОВ» НА ТЕЛЕФОНАХ (ОСВОБОЖДАЕМ МЕСТО ПЕРЕВОДЧИКУ) */
+            input[type="text"][placeholder*="Пошук"],
+            input[type="text"][placeholder*="Поиск"],
+            input[type="text"][placeholder*="Search"],
+            .main-container input[type="text"],
+            img[src*="search"],
+            input[type="text"] + img,
+            .search-box, .search-container, [id*="search"], [class*="search"] {
                 display: none !important;
             }
 
@@ -331,13 +371,16 @@
 
             <!-- Сама картинка-обложка -->
             <img src="cover.jpg" alt="Обложка" style="width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 35px; box-shadow: 0 18px 40px rgba(160, 82, 45, 0.14); display: block;">
-
-            <!-- 1. НАСТОЯЩАЯ КРУПНАЯ МОБИЛЬНАЯ РАДУГА (Большая, сочная, строго над пожеланием!) -->
-        <div id="mobile-cover-rainbow" style="display: none; position: absolute; right: 0%; top: 43%; width: 48%; text-align: center; z-index: 25; pointer-events: none;">
-            <div style="font-family: 'Segoe UI', Roboto, sans-serif; font-size: 25px; font-weight: 900; color: #8B4513; letter-spacing: 0.5px;" id="text-mobile-watermark">
-                ✨ От Еленочки с любовью ✨
+                        <div id="mobile-cover-rainbow" style="display: none; position: absolute; right: 2%; top: 40%; width: 44%; height: 60px; overflow: visible; z-index: 25; opacity: 0.95; pointer-events: none;">
+                <svg viewBox="0 0 200 100" width="100%" height="100%" style="overflow: visible;">
+                    <path id="mobileRainbowPath" d="M 20,72 A 80,45 0 0,1 180,72" fill="none" />
+                    <text font-family="'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="900" fill="#8B4513" text-anchor="middle">
+                        <textPath href="#mobileRainbowPath" startOffset="50%" id="text-mobile-watermark">
+                            ✨ От Еленочки с любовью ✨
+                        </textPath>
+                    </text>
+                </svg>
             </div>
-        </div>
 
             <!-- 📱 2. КРУПНОЕ ПОЖЕЛАНИЕ ПЕРОМ (Строго для телефонов, в 2 раза больше и ниже) -->
             <div id="mobile-cover-wish" style="display: none; position: absolute; right: 4%; top: 58%; width: 40%; text-align: center; z-index: 25; pointer-events: none; font-family: 'Caveat', cursive; color: #8B4513; font-size: 26px; line-height: 1.15; font-weight: normal;">
