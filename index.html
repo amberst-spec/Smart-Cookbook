@@ -962,6 +962,16 @@
             if (mobileCoverWishEl) {
                 mobileCoverWishEl.innerText = mobileWishTranslations[lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru')];
             }
+                        // // 3. Абсолютно безопасный перевод мобильной строки "Чистые руки" по её классу
+            const mobileCleanHandsEl = document.querySelector('.book-description.mobile-only-text');
+            if (mobileCleanHandsEl) {
+                const cleanHandsTranslations = {
+                    ru: "🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.",
+                    uk: "🧼 ⏱️ Режим «Чисті руки». Вбудований таймер.",
+                    en: "🧼 ⏱️ 'Clean Hands' mode. Built-in timer."
+                };
+                mobileCleanHandsEl.innerText = cleanHandsTranslations[lang === 'ukr' ? 'uk' : (lang === 'en' ? 'en' : 'ru')];
+            }
 
                     // 🔓 ПОЛНАЯ РАЗБЛОКИРОВКА И СКРЫТИЕ ЛИШНИХ ЭТАЖИ ЯЗЫКОВ В ОКНЕ ГОСТЯ
         const currentModalLang = lang === 'ukr' ? 'ukr' : (lang === 'en' ? 'en' : 'ru');
