@@ -369,6 +369,11 @@
                 <!-- Контейнер-кармашек, который крепко держит мобильную радугу и текст на картинке -->
         <div style="position: relative; width: 100%; max-width: 960px; margin: 25px auto 35px auto;">
 
+            <!-- Сама картинка-обложка -->
+            <img src="cover.jpg" alt="Обложка" style="width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 35px; box-shadow: 0 18px 40px rgba(160, 82, 45, 0.14); display: block;">
+                        <div id="mobile-cover-rainbow" style="display: none; position: absolute; right: 2%; top: 40%; width: 44%; height: 60px; overflow: visible; z-index: 25; opacity: 0.95; pointer-events: none;">
+                <svg viewBox="0 0 200 100" width="100%" height="100%" style="overflow: visible;">
+                    <path id="mobileRainbowPath" d="M 20,72 A 80,45 0 0,1 180,72" fill="none" />
                     <!-- 📱 1. НАСТОЯЩАЯ ИЗОГНУТАЯ МОБИЛЬНАЯ РАДУГА (С просторными границами и крупным текстом) -->
             <div id="mobile-cover-rainbow" style="display: none; position: absolute; right: 0%; top: 38%; width: 48%; height: 75px; overflow: visible; z-index: 25; opacity: 0.95; pointer-events: none;">
                 <svg viewBox="0 0 240 100" width="100%" height="100%" style="overflow: visible;">
@@ -398,6 +403,18 @@
                         <p class="book-description mobile-only-text" style="display: none; background-color: #FFF6EE; border-radius: 25px; padding: 14px 20px; text-align: center; margin: 15px auto; max-width: 340px; color: #6E3C1B !important; font-size: 18px !important; font-weight: bold; line-height: 1.4 !important;">
                             🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.
                         </p>
+
+        <!-- Оригинальное наложение радуги Еленочки: прямо на фото -->
+        <div style="width: 360px; height: 110px; overflow: hidden; position: relative; margin: -475px 95px 365px auto; z-index: 15; opacity: 0.6; pointer-events: none;">
+            <svg viewBox="0 0 200 100" width="100%" height="100%">
+                <path id="rainbowPath" d="M 5,75 A 95,55 0 0,1 195,75" fill="none" />
+                <text font-family="'Segoe UI', Roboto, sans-serif" font-size="17" font-weight="bold" fill="#8B4513" text-anchor="middle">
+                    <textPath href="#rainbowPath" startOffset="50%" id="text-watermark">
+                        ✨ От Еленочки с любовью ✨
+                    </textPath>
+                </text>
+            </svg>
+        </div>
 
         <!-- Парящее рукописное пожелание пером (Красиво зафиксировано!) -->
         <p style="font-family: 'Caveat', cursive; color: #8B4513; font-size: 32px; text-align: center; line-height: 1.2; max-width: 320px; margin: -385px 125px 260px auto; padding: 0 10px; position: relative; z-index: 10;" id="text-wish">
