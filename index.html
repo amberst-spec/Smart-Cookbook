@@ -903,18 +903,7 @@
             if (document.getElementById('guestTitleInput')) document.getElementById('guestTitleInput').placeholder = translations[lang].guestTitleInput;
             if (document.getElementById('guestRecipeTextInput')) document.getElementById('guestRecipeTextInput').placeholder = translations[lang].guestRecipeTextInput;
             
-                        // Ручной перевод мобильной строки режима "Чистые руки"
-            const mobileCleanHandsEl = document.getElementById('mobile-clean-hands-text');
-            if (mobileCleanHandsEl) {
-                const cleanHandsTranslations = {
-                    ru: "🧼 ⏱️ Режим «Чистые руки». Встроенный таймер.",
-                    uk: "🧼 ⏱️ Режим «Чисті руки». Вбудований таймер.",
-                    en: "🧼 ⏱️ 'Clean Hands' mode. Built-in timer."
-                };
-                mobileCleanHandsEl.innerText = cleanHandsTranslations[lang === 'uk' ? 'uk' : (lang === 'en' ? 'en' : 'ru')];
-            }
-
-
+                      
                         // 🔄 УМНЫЙ МУЛЬТИЯЗЫЧНЫЙ ПЕРЕВОДЧИК ОБЛОЖКИ ДЛЯ ТЕЛЕФОНОВ
 
             // 1. Выводим правильный перевод со звёздочками для мобильной радуги
