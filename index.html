@@ -222,32 +222,87 @@
             button[onclick*="shareCurrentRecipePage"] span {
                 display: none !important;
             }
-                        /* 1. Белая рамка таймера: фиксируем размеры под "Чистые руки" */
-                      /* Освобождаем форму белого окошка таймера, давая ему ширину 105px */
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
-                min-height: 85px !important;
-                max-height: 85px !important;
-                min-width: 105px !important; /* Увеличиваем ширину до 105 пикселей */
-                max-width: 105px !important; /* Даем простор для цифр и будильника */
-                padding: 6px !important;
+
+                        /* 1. Белая рамка мобильного таймера: расширяем до 125px по вашей задумке! */
+            .mobile-only-timer-block {
                 display: flex !important;
                 flex-direction: column !important;
-                align-items: center !important;
                 justify-content: space-between !important;
+                align-items: center !important;
+                min-height: 85px !important;
+                max-height: 85px !important;
+                min-width: 125px !important; /* Дали простор элементам! */
+                max-width: 125px !important;
+                padding: 6px 8px !important;
                 box-sizing: border-box !important;
+                position: relative !important;
+                background: #FFFFFF !important;
+                border: 2px solid #FFA166 !important;
+                border-radius: 25px !important;
             }
 
-            /* 2. Внутренний контейнер: принудительно ломаем горизонтальный ряд и разворачиваем в столбик */
-            div[style*="flex-direction: column; gap: 2px;"],
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div,
-            .recipe-timer-container {
-                display: flex !important;
-                flex-direction: column !important; /* НАМЕРТВО СТАВИМ КНОПКИ НАД И ПОД ЦИФРАМИ */
-                align-items: center !important;
-                justify-content: space-between !important;
+            /* 2. Сливочные стрелочки-плашки ▲ и ▼: делаем их кликабельными */
+            .mobile-only-timer-block button[onclick*="changeRecipeTimerMinutes"] {
                 width: 100% !important;
-                height: 100% !important;
-                gap: 2px !important;
+                height: 22px !important;
+                border-radius: 12px !important;
+                background: #FFF9F2 !important;
+                color: #FF7A33 !important;
+                border: 1.5px solid #EAD5C3 !important;
+                font-family: 'Segoe UI', Roboto, sans-serif !important;
+                font-size: 11px !important;
+                font-weight: 900 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                padding: 0 !important;
+                box-shadow: 0 2px 4px rgba(160, 82, 45, 0.04) !important;
+                cursor: pointer !important;
+                pointer-events: auto !important; /* Разрешаем тапы пальцем */
+                position: relative !important;
+                z-index: 15 !important; /* Выводим поверх технических слоев */
+            }
+
+            /* 3. Central block: цифры времени и будильник отодвигаем друг от друга */
+            .mobile-only-timer-block > div {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important; /* Разносим цифры влево, будильник вправо */
+                width: 100% !important;
+                height: 26px !important;
+                padding: 0 4px !important;
+                box-sizing: border-box !important;
+                position: relative !important;
+                z-index: 10 !important;
+            }
+
+            /* 4. Настройка оранжевого будильника ⏱️: сдвигаем вправо и открываем для кликов */
+            .mobile-only-timer-block #recipe-timer-trigger-mobile {
+                background: transparent !important;
+                border: none !important;
+                cursor: pointer !important;
+                font-size: 22px !important;
+                color: #FF7A33 !important;
+                line-height: 1 !important;
+                padding: 0 !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                margin-left: auto !important; /* Мягко прижимаем к правому краю */
+                outline: none !important;
+                pointer-events: auto !important; /* Будильник снова реагирует на нажатия! */
+            }
+
+            /* 5. Настройка цифр времени: аккуратно стоят слева */
+            .mobile-only-timer-block #recipe-timer-display-mobile {
+                font-size: 16px !important;
+                font-weight: bold !important;
+                color: #443322 !important;
+                font-family: monospace !important;
+                line-height: 1 !important;
+                display: inline-block !important;
+                pointer-events: auto !important;
             }
 
             /* 3. Цифры времени и часики: удерживаем ровно по центру */
@@ -1752,19 +1807,23 @@ const shareBtnText = document.getElementById("text-shareBtn");
 
         function changeRecipeTimerMinutes(amount) {
     if (timerInterval) return;
-    const displays = document.querySelectorAll("#recipe-timer-display");
-    if (!displays.length) return;
-
-    let parts = displays[0].innerText.split(":");
+    
+    // Находим дисплей (сначала пробуем мобильный, если нет — берем обычный ПК)
+    let display = document.getElementById("recipe-timer-display-mobile") || document.getElementById("recipe-timer-display");
+    if (!display) return;
+    
+    let parts = display.innerText.split(":");
     let newMinutes = parseInt(parts[0]) + amount;
     if (newMinutes < 1) newMinutes = 1;
     if (newMinutes > 60) newMinutes = 60;
-
-    displays.forEach(display => {
-        display.innerText = `${newMinutes < 10 ? '0' : ''}${newMinutes}:00`;
+    
+    // Обновляем время одновременно на всех дисплеях, какие есть на странице
+    const allDisplays = document.querySelectorAll("#recipe-timer-display, #recipe-timer-display-mobile");
+    allDisplays.forEach(d => {
+        d.innerText = `${newMinutes < 10 ? '0' : ''}${newMinutes}:00`;
     });
 }
-             
+   
         // 💾 ИСПРАВЛЕННАЯ ФУНКЦИЯ СОХРАНЕНИЯ РЕЦЕПТА (МГНОВЕННО СИНХРОНИЗИРУЕТ С FIREBASE!)
         function saveCurrentRecipeFromScreen() {
             let typedTitle = document.getElementById("recipe-display-title").innerText.trim();
@@ -1875,9 +1934,13 @@ const shareBtnText = document.getElementById("text-shareBtn");
         }
 
         function toggleRecipeTimer() {
-    const displays = document.querySelectorAll("#recipe-timer-display");
-    const triggers = document.querySelectorAll("#recipe-timer-trigger");
-    if (!displays.length) return;
+    // Собираем все дисплеи и триггеры, включая новые мобильные
+    const displays = document.querySelectorAll("#recipe-timer-display, #recipe-timer-display-mobile");
+    const triggers = document.querySelectorAll("#recipe-timer-trigger, #recipe-timer-trigger-mobile");
+    
+    // Ищем первый доступный дисплей, чтобы считать текущее время
+    let activeDisplay = document.getElementById("recipe-timer-display-mobile") || document.getElementById("recipe-timer-display");
+    if (!activeDisplay) return;
 
     if (timerInterval) {
         clearInterval(timerInterval);
@@ -1887,7 +1950,7 @@ const shareBtnText = document.getElementById("text-shareBtn");
         return;
     }
 
-    let parts = displays[0].innerText.split(":");
+    let parts = activeDisplay.innerText.split(":");
     let time = parseInt(parts[0]) * 60;
     triggers.forEach(t => t.innerText = "🛑");
 
@@ -1897,6 +1960,7 @@ const shareBtnText = document.getElementById("text-shareBtn");
         let sec = time % 60;
         let timeStr = `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`;
 
+        // Синхронно меняем цифры отсчета везде
         displays.forEach(d => d.innerText = timeStr);
 
         if (time <= 0) {
