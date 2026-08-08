@@ -503,6 +503,28 @@
             color: #4A2E1B !important; /* Короткая строчка на телефоне тоже становится четкой и шоколадной */
         }
 
+                    /* ЮВЕЛИРНАЯ РАЗБЛОКИРОВКА МОБИЛЬНОГО ТАЙМЕРА РЕЦЕПТА */
+        @media (max-width: 768px) {
+            /* Убираем блокировку с невидимого контейнера */
+            div:has(> #recipe-timer-display) > div:has(button) {
+                pointer-events: none !important; 
+            }
+            /* Разрешаем клики по самим стрелочкам на телефонах */
+            .mobile-only-timer-block button[onclick*="changeRecipeTimerMinutes"],
+            div:has(> button[onclick*="changeRecipeTimerMinutes"]) button {
+                pointer-events: auto !important;
+                cursor: pointer !important;
+                z-index: 99 !important;
+            }
+            /* Разрешаем кликать по тексту цифр и иконке оранжевого будильника */
+            .mobile-only-timer-block #recipe-timer-display,
+            .mobile-only-timer-block #recipe-timer-trigger {
+                pointer-events: auto !important;
+                cursor: pointer !important;
+                z-index: 99 !important;
+            }
+        }
+
     </style>
 </head>
 <body>
