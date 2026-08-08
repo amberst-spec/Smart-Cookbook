@@ -311,7 +311,7 @@
             button[onclick*="changeRecipeTimerMinutes"]:active {
                 transform: scale(0.96) !important;
                 background: #FCEBDC !important;
-                /* Разворачиваем маленький контейнер со стрелочками во всю ширину рамки */
+                               /* Разворачиваем маленький контейнер со стрелочками во всю ширину рамки */
                 div:has(> #recipe-timer-display) > div:has(button) {
                     display: block !important;
                     position: absolute !important;
@@ -321,7 +321,7 @@
                     height: 100% !important;
                     margin: 0 !important;
                     padding: 0 !important;
-                    pointer-events: none !important; /* Позволяет кликам проходить сквозь контейнер */
+                    z-index: 10 !important; /* Выводим кнопки вперед, чтобы палец их чувствовал! */
                 }
 
                 /* 🎂 Превращаем стрелочки на телефоне в крупные, уютные сливочные плашки НАД и ПОД цифрами */
