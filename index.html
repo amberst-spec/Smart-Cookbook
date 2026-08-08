@@ -1716,8 +1716,24 @@ const shareBtnText = document.getElementById("text-shareBtn");
                 try { wakeLock = await navigator.wakeLock.request('screen'); btn.style.background = "#0D9E5E"; btn.style.color = "#FFF"; } catch (err) {}
             } else { await wakeLock.release(); wakeLock = null; btn.style.background = "#FFFFFF"; btn.style.color = "#A0522D"; }
         }
+        
+        function changeRecipeTimerMinutes(amount) {
+    if (timerInterval) return;
+    // Находим ВСЕ дисплеи времени на странице (и для ПК, и для телефона)
+    const displays = document.querySelectorAll("#recipe-timer-display");
+    if (!displays.length) return;
 
-        function changeRecipeTimerMinutes(amount) { const display = document.getElementById("recipe-timer-display"); if (!display || timerInterval) return; let parts = display.innerText.split(":"); let newMinutes = parseInt(parts[0]) + amount; if (newMinutes < 1) newMinutes = 1; if (newMinutes > 60) newMinutes = 60; display.innerText = `${newMinutes < 10 ? '0' : ''}${newMinutes}:00`; }
+    let parts = displays[0].innerText.split(":");
+    let newMinutes = parseInt(parts[0]) + amount;
+    if (newMinutes < 1) newMinutes = 1;
+    if (newMinutes > 60) newMinutes = 60;
+
+    // Обновляем время одновременно на всех экранах
+    displays.forEach(display => {
+        display.innerText = `${newMinutes < 10 ? '0' : ''}${newMinutes}:00`;
+    });
+}
+       
         // 💾 ИСПРАВЛЕННАЯ ФУНКЦИЯ СОХРАНЕНИЯ РЕЦЕПТА (МГНОВЕННО СИНХРОНИЗИРУЕТ С FIREBASE!)
         function saveCurrentRecipeFromScreen() {
             let typedTitle = document.getElementById("recipe-display-title").innerText.trim();
@@ -1828,16 +1844,41 @@ const shareBtnText = document.getElementById("text-shareBtn");
         }
 
         function toggleRecipeTimer() {
-            const display = document.getElementById("recipe-timer-display");
-            const trigger = document.getElementById("recipe-timer-trigger");
-            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; trigger.innerText = "⏱️"; display.innerText = "05:00"; return; }
-            let parts = display.innerText.split(":"); let time = parseInt(parts) * 60; trigger.innerText = "🛑";
-            timerInterval = setInterval(() => {
-                time--; let min = Math.floor(time / 60); let sec = time % 60; 
-                display.innerText = `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`; 
-                if (time <= 0) { clearInterval(timerInterval); timerInterval = null; trigger.innerText = "⏱️"; display.innerText = "05:00"; playTimerEndSound(); } 
-            }, 1000);
+    const displays = document.querySelectorAll("#recipe-timer-display");
+    const triggers = document.querySelectorAll("#recipe-timer-trigger");
+
+    if (!displays.length) return;
+    const sampleDisplay = displays[0];
+
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        triggers.forEach(t => t.innerText = "⏱️");
+        displays.forEach(d => d.innerText = "05:00");
+        return;
+    }
+
+    let parts = sampleDisplay.innerText.split(":");
+    let time = parseInt(parts[0]) * 60;
+    triggers.forEach(t => t.innerText = "🛑");
+
+    timerInterval = setInterval(() => {
+        time--;
+        let min = Math.floor(time / 60);
+        let sec = time % 60;
+        let timeStr = `${min < 10 ? '0' : ''}${min}:${sec < 10 ? '0' : ''}${sec}`;
+
+        displays.forEach(d => d.innerText = timeStr);
+
+        if (time <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            triggers.forEach(t => t.innerText = "⏱️");
+            displays.forEach(d => d.innerText = "05:00");
+            playTimerEndSound();
         }
+    }, 1000);
+}
 
         // ТАБЛИЦА МЕР И ВЕСОВ ЕЛЕНОЧКИ
         const ingredientsData = {
