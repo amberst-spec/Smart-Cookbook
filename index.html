@@ -239,34 +239,21 @@
                 margin: 0 !important;
                 padding: 0 !important;
             }
-                        /* Крупные цифры времени — намертво возвращаем в центр родного белого окошка */
+                        /* Оставляем цифры времени в покое, позволяя им занять родное место в HTML */
             #recipe-timer-display {
-                font-size: 17px !important;
-                font-weight: bold !important;
-                color: #554433 !important;
-                position: absolute !important;
-                top: 50% !important;
-                left: 38% !important; /* Сдвигаем вправо, чтобы они встали идеально по центру рамки */
-                transform: translateY(-50%) !important;
-                margin: 0 !important;
-                display: block !important;
-                width: auto !important;
+                position: static !important;
+                display: inline-block !important;
+                transform: none !important;
+                margin: 0 4px !important;
             }
 
-            /* Иконка часиков — аккуратно фиксируем у правой стенки внутри рамки таймера */
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) img[src*="clock"],
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) span + img,
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) svg,
-            .recipe-timer-container img,
-            #recipe-timer-display + img {
-                position: absolute !important;
-                top: 50% !important;
-                right: 10px !important; /* Жесткая привязка к правому краю таймера */
-                left: auto !important;
-                transform: translateY(-50%) !important;
-                margin: 0 !important;
-                display: block !important;
-                z-index: 30 !important;
+            /* Иконка часиков просто аккуратно стоит рядом в потоке */
+            div:has(> button[onclick*="changeRecipeTimerMinutes"]) img[src*="clock"] {
+                position: static !important;
+                display: inline-block !important;
+                transform: none !important;
+                vertical-align: middle !important;
+                margin-left: 2px !important;
             }
 
             /* Превращаем стрелки в сливочные плашки строго НАД и ПОД числом */
