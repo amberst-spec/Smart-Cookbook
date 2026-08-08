@@ -196,68 +196,94 @@
         }
 
                     /* 🖥️ ВОЗВРАЩАЕМ ИДЕАЛЬНЫЙ ГОРИЗОНТАЛЬНЫЙ ВИД ТАЙМЕРА ДЛЯ ПК */
-                         /* Общая рамка таймера на ПК снова становится длинной аккуратной пуговкой */
-                div.recipe-timer-main-box,
+            @media (min-width: 769px) {
+                div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
+                    width: auto !important;
+                    min-width: 140px !important;
+                    height: 42px !important;
+                    min-height: 42px !important;
+                    flex-direction: row !important; /* На ПК всё строго в одну линию! */
+                    padding: 0 12px !important;
+                    border-radius: 50px !important; /* Закруглённая длинная пуговка */
+                    border: 2px solid #FFA166 !important;
+                }
+                
+                /* Сливочные кнопочки на ПК превращаются в аккуратные стрелочки */
+                button[onclick*="changeRecipeTimerMinutes"] {
+                    position: static !important;
+                    width: 24px !important;
+                    height: 24px !important;
+                    min-width: 24px !important;
+                    border-radius: 6px !important;
+                    background: transparent !important; /* Убираем сливочный фон на ПК */
+                    border: none !important;
+                    box-shadow: none !important;
+                    font-size: 14px !important;
+                }
+                
+                /* Центральный ряд с цифрами и часиками на ПК встаёт ровно в линию */
+                div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div {
+                    display: flex !important;
+                    flex-direction: row !important;
+                    position: static !important;
+                    width: auto !important;
+                    height: auto !important;
+                    gap: 6px !important;
+                    align-items: center !important;
+                }
+            }
+
+                    /* 🖥️ ВОЗВРАЩАЕМ ИДЕАЛЬНЫЙ ПК-ВИД ТАЙМЕРА ИЗ НАЧАЛЬНОЙ ВЕРСИИ */
+            @media (min-width: 769px) {
+                /* Большая белая рамка таймера снова становится длинной полоской */
                 div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
                     width: auto !important;
                     min-width: 135px !important;
                     height: 42px !important;
                     min-height: 42px !important;
-                    flex-direction: row !important; /* Общий ряд слева направо */
+                    flex-direction: row !important; /* Строго горизонтальный ряд */
                     padding: 0 14px !important;
                     border-radius: 25px !important;
                     border: 2px solid #FFA166 !important;
                     background: #FFFFFF !important;
                 }
                 
-                /* Внутренний контейнер для стрелочек — возвращаем его в вертикальный столбик СПРАВА */
-                div.recipe-timer-main-box > div,
+                /* Центральный контейнер с цифрами выпрямляется в линию со стрелками */
                 div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div {
                     display: flex !important;
-                    flex-direction: column !important; /* Стрелочки строго одна над другой! */
-                    gap: 2px !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                    width: auto !important;
-                    height: 100% !important;
-                    order: 2 !important; /* Ставим этот столбик кнопок после цифр */
-                    position: static !important;
-                }
-
-                /* Цифры времени и оранжевый будильник на ПК идут первыми в ряду */
-                .timer-center-row,
-                div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div.timer-center-row {
-                    display: flex !important;
-                    flex-direction: row !important;
-                    align-items: center !important;
-                    gap: 6px !important;
-                    order: 1 !important; /* Время и будильник встают слева */
+                    flex-direction: row !important; /* Элементы идут слева направо */
                     position: static !important;
                     width: auto !important;
                     height: auto !important;
+                    gap: 6px !important;
+                    align-items: center !important;
+                    order: 2 !important; /* Ставим время по центру */
                 }
 
-                /* 🍊 Сами стрелочки на ПК: убираем круглую форму и сливочный крем, красим в апельсиновый цвет */
+                /* Сливочные плашки на ПК превращаются в обычные аккуратные стрелочки по бокам */
                 button[onclick*="changeRecipeTimerMinutes"] {
                     position: static !important;
                     width: auto !important;
                     height: auto !important;
                     min-width: unset !important;
-                    min-height: unset !important;
-                    border-radius: 0 !important; /* Никаких кругов */
-                    background: transparent !important; /* Полностью убираем сливочный фон крема */
+                    border-radius: 0 !important;
+                    background: transparent !important; /* Убираем сливочный фон крема */
                     border: none !important;
                     box-shadow: none !important;
-                    color: #FF7A33 !important; /* Сочный апельсиновый цвет для самих треугольников 🔺/🔻 */
-                    font-size: 11px !important;
-                    font-weight: bold !important;
-                    padding: 0 !important;
-                    margin: 0 !important;
+                    font-size: 14px !important;
                     cursor: pointer !important;
-                    line-height: 1 !important;
-                    display: inline-flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
+                }
+
+                /* Стрелочку ВВЕРХ (🔺) на ПК ставим СЛЕВА от цифр */
+                button[onclick*="changeRecipeTimerMinutes(1)"],
+                button[onclick*="changeRecipeTimerMinutes"]:first-of-type {
+                    order: 1 !important;
+                }
+
+                /* Стрелочку ВНИЗ (🔻) на ПК ставим СПРАВА от цифр */
+                button[onclick*="changeRecipeTimerMinutes(-1)"],
+                button[onclick*="changeRecipeTimerMinutes"]:last-of-type {
+                    order: 3 !important;
                 }
             }
 
@@ -353,7 +379,7 @@
                 transform: scale(0.96) !important;
                 background: #FCEBDC !important;
             }
-                  
+
                         /* 1. Скрываем оригинальное ПК-пожелание на смартфонах */
                       /* 1. Намертво прячем оригинальный ПК-текст пожелания на телефонах */
             #text-wish {
@@ -524,10 +550,10 @@
         <!-- Крупная журнальная фотография обложки -->
                 <!-- 🖼️ ЦЕНТРАЛЬНАЯ КАРТОЧКА ОБЛОЖКИ ДЛЯ СМАРТФОНОВ (Держит всё намертво по координатам!) -->
         <div style="position: relative; width: 100%; max-width: 960px; margin: 25px auto 35px auto;">
-            
+
             <!-- Сама картинка-обложка -->
             <img src="cover.jpg" alt="Обложка" style="width: 100%; height: auto; max-height: 440px; object-fit: cover; border-radius: 35px; box-shadow: 0 18px 40px rgba(160, 82, 45, 0.14); display: block;">
-            
+
             <!-- 📱 1. НАСТОЯЩАЯ ИЗОГНУТАЯ МОБИЛЬНАЯ РАДУГА (Крупная, со звёздочками, жестко на своём месте!) -->
             <div id="mobile-cover-rainbow" style="display: none; position: absolute; right: 0%; top: 40%; width: 48%; height: 75px; overflow: visible; z-index: 25; opacity: 0.95; pointer-events: none;">
                 <svg viewBox="0 0 240 100" width="100%" height="100%" style="overflow: visible;">
@@ -544,7 +570,7 @@
             <div id="mobile-cover-wish" style="display: none; position: absolute; right: 4%; top: 54%; width: 40%; text-align: center; z-index: 25; pointer-events: none; font-family: 'Caveat', cursive; color: #8B4513; font-size: 26px; line-height: 1.15; font-weight: normal;">
                 Желаем вам вдохновения на кухне и приятного аппетита!
             </div>
-            
+
         </div>
 
                                 <!-- 💻 ВЕРСИЯ ТЕКСТА КАРТОЧКИ ТОЛЬКО ДЛЯ КОМПЬЮТЕРОВ (ИДЕАЛЬНАЯ ЗОЛОТАЯ СЕРЕДИНА) -->
@@ -898,23 +924,26 @@
                         <span>🧼</span> <span id="text-recipeCleanHands">Режим «Чистые руки»</span>
                     </div>
 
-                                    <!-- ⏱️ УМНЫЙ МУЛЬТИФОРМАТНЫЙ ТАЙМЕР (Фирменный оранжевый будильник ⏱️) -->
-                <div class="recipe-timer-main-box" style="background: #FFFFFF; padding: 6px; border-radius: 25px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); border: 2px solid #FFA166; box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; position: relative; margin: 0;">
-                    
-                    <!-- 🎂 Upper/Left orange arrow (Increase time) -->
-                    <button type="button" class="timer-btn-up" onclick="changeRecipeTimerMinutes(1)" style="border-radius: 12px; background: #FFF9F2; color: #A0522D; border: 1.5px solid #EAD5C3; font-family: 'Segoe UI', Roboto, sans-serif; font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; box-shadow: 0 2px 4px rgba(160, 82, 45, 0.04); order: 1;">🔺</button>
-                    
-                    <!-- 📊 Central row: Time and large signature ORANGE clock icon -->
-                    <div class="timer-center-row" style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: center !important; gap: 8px; margin: 0 auto; padding: 0; white-space: nowrap !important; order: 2;">
+                                <!-- ⏱️ УВЕЛИЧЕННЫЙ ТАЙМЕР (Расширен на пару мм в ширину для простора!) -->
+                <div style="background: #FFFFFF; padding: 6px; border-radius: 25px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02); border: 2px solid #FFA166; width: 105px; min-width: 105px; height: 85px; min-height: 85px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: space-between; position: relative; margin: 0; padding: 6px 8px;">
+
+                    <!-- 🎂 Upper creamy plate -->
+                    <button type="button" onclick="changeRecipeTimerMinutes(1)" style="width: 100%; height: 22px; border-radius: 12px; background: #FFF9F2; color: #A0522D; border: 1.5px solid #EAD5C3; font-family: 'Segoe UI', Roboto, sans-serif; font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; box-shadow: 0 2px 4px rgba(160, 82, 45, 0.04);">🔺</button>
+
+                    <!-- 📊 Expanded central row -->
+                    <div style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: center !important; gap: 7px; width: 100%; margin: 0 auto; padding: 0; height: 26px; min-height: 26px; white-space: nowrap !important;">
                         <span id="recipe-timer-display" style="font-size: 17px; font-weight: bold; color: #443322; font-family: monospace; display: inline-block; line-height: 1; margin: 0; padding: 0;">05:00</span>
-                        
-                        <!-- 🔔 ALARM CLOCK BECAME LARGE (24px) AND IS FIRMLY COLORED IN YOUR SIGNATURE ORANGE COLOR -->
-                        <button type="button" id="recipe-timer-trigger" onclick="toggleRecipeTimer()" style="background: transparent !important; border: none !important; cursor: pointer !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 24px !important; height: 24px !important; margin: 0; outline: none !important; font-size: 24px !important; color: #FFA166 !important; line-height: 1 !important;">⏱️</button>
+
+                        <!-- 🔔 КРУПНЫЙ ЗНАЧОК БУДИЛЬНИКА (26px) СТРОГО СПРАВА -->
+                        <button type="button" id="recipe-timer-trigger" onclick="toggleRecipeTimer()" style="background: transparent !important; border: none !important; cursor: pointer !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 26px !important; height: 26px !important; margin: 0 0 0 2px !important; outline: none !important;">
+                            <img src="clock.png" alt="Таймер" style="width: 26px !important; height: 26px !important; display: block !important; object-fit: contain; filter: sepia(0.4) saturate(1.2) hue-rotate(10deg) brightness(0.7) !important;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                            <span style="display: none; font-size: 22px; color: #8B4513 !important;">⏱️</span>
+                        </button>
                     </div>
-                    
-                    <!-- 🎂 Lower/Right orange arrow (Decrease time) -->
-                    <button type="button" class="timer-btn-down" onclick="changeRecipeTimerMinutes(-1)" style="border-radius: 12px; background: #FFF9F2; color: #A0522D; border: 1.5px solid #EAD5C3; font-family: 'Segoe UI', Roboto, sans-serif; font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; box-shadow: 0 2px 4px rgba(160, 82, 45, 0.04); order: 3;">🔻</button>
-                    
+
+                    <!-- 🎂 Lower creamy plate -->
+                    <button type="button" onclick="changeRecipeTimerMinutes(-1)" style="width: 100%; height: 22px; border-radius: 12px; background: #FFF9F2; color: #A0522D; border: 1.5px solid #EAD5C3; font-family: 'Segoe UI', Roboto, sans-serif; font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; box-shadow: 0 2px 4px rgba(160, 82, 45, 0.04);">🔻</button>
+
                 </div>
 
                             <button type="button" onclick="shareCurrentRecipePage()" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #D2B48C; color: #5C3A21; height: 42px; padding: 0 15px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(93,64,55,0.1); transition: transform 0.1s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
