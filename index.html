@@ -213,53 +213,67 @@
                 display: none !important;
             }
 
-                        /* Настраиваем форму белого окошка таймера под размер соседних кнопок */
+                        /* Окошко таймера: делаем его квадратным и уютным под размер "Чистых рук" */
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
                 min-height: 85px !important;
-                max-width: 90px !important; /* Сдерживаем ширину, чтобы панель не распирало */
+                max-width: 95px !important;
+                min-width: 95px !important;
                 padding: 6px !important;
                 display: flex !important;
-                flex-direction: column !important; /* Элементы строго один под другим */
+                flex-direction: column !important; /* Строго вертикальный ряд */
                 align-items: center !important;
                 justify-content: space-between !important;
                 box-sizing: border-box !important;
             }
 
-            /* Сами цифры времени удерживаем по центру */
-            #recipe-timer-display {
-                font-size: 17px !important;
-                font-weight: bold !important;
-                margin: 2px 0 !important;
-                display: inline-block !important;
+            /* Выстраиваем кнопки и цифры строго друг под другом по центру */
+            div[style*="flex-direction: column; gap: 2px;"],
+            div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: 100% !important;
+                height: 100% !important;
+                gap: 5px !important;
             }
 
-            /* Превращаем кнопки в изящные широкие полоски-плашки над и под временем */
-            button[onclick*="changeRecipeTimerMinutes"] {
-                width: 100% !important; /* Полоска растягивается на всю ширину рамки */
-                min-width: 70px !important;
-                height: 24px !important; /* Делаем её аккуратной по высоте */
-                border-radius: 12px !important; /* Красиво скругляем края полоски */
-                background: #FFA166 !important; /* Ваш любимый насыщенный оранжевый цвет */
-                color: #FFFFFF !important; /* Белые стрелочки внутри */
-                border: none !important;
-                font-family: 'Segoe UI', Roboto, sans-serif !important;
-                font-size: 13px !important;
+            /* Крупные цифры времени — строго по центру между кнопками */
+            #recipe-timer-display {
+                font-size: 18px !important;
                 font-weight: bold !important;
+                color: #554433 !important; /* Мягкий кофейный цвет цифр */
+                margin: 2px 0 !important;
+                display: block !important;
+                text-align: center !important;
+            }
+
+            /* Превращаем стрелки в широкие кофейные плашки НАД и ПОД числом */
+            button[onclick*="changeRecipeTimerMinutes"] {
+                width: 90% !important; /* Полоска по ширине почти во все окошко */
+                height: 24px !important; /* Удобная высота для тапа пальцем */
+                border-radius: 12px !important; /* Красивые скругленные края */
+                background: #F4E7DC !important; /* Вкусный нежно-кофейный кремовый оттенок */
+                color: #8B4513 !important; /* Насыщенный шоколадный цвет для самих стрелочек */
+                border: 1.5px solid #D2B48C !important; /* Мягкая кофейная рамка */
+                font-family: 'Segoe UI', Roboto, sans-serif !important;
+                font-size: 12px !important;
+                font-weight: 900 !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
                 padding: 0 !important;
                 cursor: pointer !important;
-                box-shadow: 0 2px 6px rgba(255, 122, 51, 0.1) !important;
+                box-shadow: 0 2px 5px rgba(139, 69, 19, 0.05) !important;
                 transition: transform 0.1s ease !important;
             }
 
-            /* Эффект мягкого клика для полоски */
+            /* Эффект мягкого нажатия для пальца */
             button[onclick*="changeRecipeTimerMinutes"]:active {
-                transform: scale(0.96) !important;
-                background: #FF8B4D !important;
+                transform: scale(0.95) !important;
+                background: #EADBCF !important; /* Чуть более насыщенный кофе при клике */
             }
-                
+
                         /* 1. Скрываем оригинальное ПК-пожелание на смартфонах */
                       /* 1. Намертво прячем оригинальный ПК-текст пожелания на телефонах */
             #text-wish {
