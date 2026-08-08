@@ -212,60 +212,63 @@
             button[onclick*="shareCurrentRecipePage"] span {
                 display: none !important;
             }
-
-                        /* Окошко таймера: фиксируем размеры под соседний режим "Чистые руки" */
+                        /* Белая рамка таймера: фиксируем размеры под "Чистые руки" */
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
                 min-height: 85px !important;
                 max-height: 85px !important;
                 min-width: 95px !important;
                 max-width: 95px !important;
-                padding: 0 !important;
+                padding: 6px !important;
                 display: flex !important;
-                position: relative !important; /* Становится базой для точных координат */
+                flex-direction: column !important; /* Главная рамка выстраивает всё вертикально */
                 align-items: center !important;
-                justify-content: center !important;
+                justify-content: space-between !important;
                 box-sizing: border-box !important;
             }
 
-            /* Сбрасываем любые попытки HTML-кода выстроить элементы в одну горизонтальную линию */
+            /* Внутренний контейнер: намертво разворачиваем элементы в один столбик по центру */
             div[style*="flex-direction: column; gap: 2px;"],
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div {
-                display: block !important;
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
+                display: flex !important;
+                flex-direction: column !important; /* Разворачиваем кнопки над и под цифрами */
+                align-items: center !important;
+                justify-content: space-between !important;
                 width: 100% !important;
                 height: 100% !important;
-                margin: 0 !important;
-                padding: 0 !important;
+                gap: 2px !important;
             }
-                        /* Оставляем цифры времени в покое, позволяя им занять родное место в HTML */
+
+            /* Цифры времени и часики: выстраиваем в одну аккуратную строчку по центру */
+            .recipe-timer-container span,
             #recipe-timer-display {
-                position: static !important;
-                display: inline-block !important;
-                transform: none !important;
-                margin: 0 4px !important;
+                font-size: 16px !important;
+                font-weight: bold !important;
+                color: #554433 !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                margin: 0 !important;
             }
 
-            /* Иконка часиков просто аккуратно стоит рядом в потоке */
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) img[src*="clock"] {
-                position: static !important;
+            /* Иконка часиков: просто аккуратно стоит справа от цифр, не улетая */
+            div:has(> button[onclick*="changeRecipeTimerMinutes"]) img[src*="clock"],
+            div:has(> button[onclick*="changeRecipeTimerMinutes"]) span + img {
                 display: inline-block !important;
-                transform: none !important;
                 vertical-align: middle !important;
-                margin-left: 2px !important;
+                margin-left: 4px !important;
+                width: 16px !important;
+                height: 16px !important;
             }
 
-            /* Превращаем стрелки в сливочные плашки строго НАД и ПОД числом */
+            /* Превращаем стрелки в изящные сливочные плашки НАД и ПОД числом */
             button[onclick*="changeRecipeTimerMinutes"] {
-                position: absolute !important;
-                left: 5% !important;
-                width: 90% !important; /* Полоска во всю ширину окошка */
-                height: 22px !important; /* Удобная высота для тапа пальцем */
+                width: 100% !important; /* Полоска занимает всю ширину столбика */
+                min-width: 75px !important;
+                height: 22px !important; /* Аккуратная высота для пальца */
                 border-radius: 12px !important; /* Красивые скругленные края */
-                background: #FFF9F2 !important; /* 🎂 ТОТ САМЫЙ ВОЗДУШНЫЙ СЛИВОЧНЫЙ ЦВЕТ КРЕМА ТОРТА */
-                color: #A0522D !important; /* Красивый каштановый цвет для стрелочек */
-                border: 1.5px solid #EAD5C3 !important; /* Мягкая карамельно-кремовая рамка пуговки */
+                background: #FFF9F2 !important; /* Воздушный сливочный цвет крема торта */
+                color: #A0522D !important; /* Каштановые стрелочки */
+                border: 1.5px solid #EAD5C3 !important; /* Нежная карамельная рамка */
                 font-family: 'Segoe UI', Roboto, sans-serif !important;
                 font-size: 11px !important;
                 font-weight: 900 !important;
@@ -278,22 +281,10 @@
                 transition: transform 0.1s ease !important;
             }
 
-            /* Верхняя кнопка (🔺) — намертво крепится к самому верху окошка */
-            button[onclick*="changeRecipeTimerMinutes(1)"],
-            button[onclick*="changeRecipeTimerMinutes"]:first-of-type {
-                top: 4px !important;
-            }
-
-            /* Нижняя кнопка (🔻) — намертво крепится к самому низу окошка */
-            button[onclick*="changeRecipeTimerMinutes(-1)"],
-            button[onclick*="changeRecipeTimerMinutes"]:last-of-type {
-                bottom: 4px !important;
-            }
-
-            /* Мягкий эффект нажатия для пальца */
+            /* Эффект мягкого нажатия для пальца */
             button[onclick*="changeRecipeTimerMinutes"]:active {
                 transform: scale(0.96) !important;
-                background: #FCEBDC !important; /* Слегка темнеет при тапе */
+                background: #FCEBDC !important;
             }
 
                         /* 1. Скрываем оригинальное ПК-пожелание на смартфонах */
