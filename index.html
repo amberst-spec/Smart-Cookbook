@@ -213,65 +213,94 @@
                 display: none !important;
             }
 
-                        /* Окошко таймера: делаем его квадратным и уютным под размер "Чистых рук" */
+                        /* Окошко таймера: фиксируем размеры под соседний режим "Чистые руки" */
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
                 min-height: 85px !important;
-                max-width: 95px !important;
+                max-height: 85px !important;
                 min-width: 95px !important;
-                padding: 6px !important;
+                max-width: 95px !important;
+                padding: 0 !important;
                 display: flex !important;
-                flex-direction: column !important; /* Строго вертикальный ряд */
+                position: relative !important; /* Становится базой для точных координат */
                 align-items: center !important;
-                justify-content: space-between !important;
+                justify-content: center !important;
                 box-sizing: border-box !important;
             }
 
-            /* Выстраиваем кнопки и цифры строго друг под другом по центру */
+            /* Сбрасываем любые попытки HTML-кода выстроить элементы в одну горизонтальную линию */
             div[style*="flex-direction: column; gap: 2px;"],
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div {
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                justify-content: center !important;
+                display: block !important;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
                 width: 100% !important;
                 height: 100% !important;
-                gap: 5px !important;
+                margin: 0 !important;
+                padding: 0 !important;
             }
 
-            /* Крупные цифры времени — строго по центру между кнопками */
+            /* Крупные цифры времени — намертво вешаем по центру бевого окошка */
             #recipe-timer-display {
-                font-size: 18px !important;
+                font-size: 17px !important;
                 font-weight: bold !important;
-                color: #554433 !important; /* Мягкий кофейный цвет цифр */
-                margin: 2px 0 !important;
+                color: #554433 !important;
+                position: absolute !important;
+                top: 50% !important;
+                left: 45% !important;
+                transform: translate(-50%, -50%) !important; /* Центровка ровно по пикселям */
+                margin: 0 !important;
                 display: block !important;
-                text-align: center !important;
             }
 
-            /* Превращаем стрелки в широкие кофейные плашки НАД и ПОД числом */
+            /* Иконка часиков — аккуратно встаёт справа от цифр */
+            div:has(> button[onclick*="changeRecipeTimerMinutes"]) img[src*="clock"],
+            div:has(> button[onclick*="changeRecipeTimerMinutes"]) span + img {
+                position: absolute !important;
+                top: 50% !important;
+                right: 8px !important;
+                transform: translateY(-50%) !important;
+                margin: 0 !important;
+            }
+
+            /* Превращаем стрелки в сливочные плашки строго НАД и ПОД числом */
             button[onclick*="changeRecipeTimerMinutes"] {
-                width: 90% !important; /* Полоска по ширине почти во все окошко */
-                height: 24px !important; /* Удобная высота для тапа пальцем */
+                position: absolute !important;
+                left: 5% !important;
+                width: 90% !important; /* Полоска во всю ширину окошка */
+                height: 22px !important; /* Удобная высота для тапа пальцем */
                 border-radius: 12px !important; /* Красивые скругленные края */
-                background: #F4E7DC !important; /* Вкусный нежно-кофейный кремовый оттенок */
-                color: #8B4513 !important; /* Насыщенный шоколадный цвет для самих стрелочек */
-                border: 1.5px solid #D2B48C !important; /* Мягкая кофейная рамка */
+                background: #FFF9F2 !important; /* 🎂 ТОТ САМЫЙ ВОЗДУШНЫЙ СЛИВОЧНЫЙ ЦВЕТ КРЕМА ТОРТА */
+                color: #A0522D !important; /* Красивый каштановый цвет для стрелочек */
+                border: 1.5px solid #EAD5C3 !important; /* Мягкая карамельно-кремовая рамка пуговки */
                 font-family: 'Segoe UI', Roboto, sans-serif !important;
-                font-size: 12px !important;
+                font-size: 11px !important;
                 font-weight: 900 !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
                 padding: 0 !important;
                 cursor: pointer !important;
-                box-shadow: 0 2px 5px rgba(139, 69, 19, 0.05) !important;
+                box-shadow: 0 2px 4px rgba(160, 82, 45, 0.04) !important;
                 transition: transform 0.1s ease !important;
             }
 
-            /* Эффект мягкого нажатия для пальца */
+            /* Верхняя кнопка (🔺) — намертво крепится к самому верху окошка */
+            button[onclick*="changeRecipeTimerMinutes(1)"],
+            button[onclick*="changeRecipeTimerMinutes"]:first-of-type {
+                top: 4px !important;
+            }
+
+            /* Нижняя кнопка (🔻) — намертво крепится к самому низу окошка */
+            button[onclick*="changeRecipeTimerMinutes(-1)"],
+            button[onclick*="changeRecipeTimerMinutes"]:last-of-type {
+                bottom: 4px !important;
+            }
+
+            /* Мягкий эффект нажатия для пальца */
             button[onclick*="changeRecipeTimerMinutes"]:active {
-                transform: scale(0.95) !important;
-                background: #EADBCF !important; /* Чуть более насыщенный кофе при клике */
+                transform: scale(0.96) !important;
+                background: #FCEBDC !important; /* Слегка темнеет при тапе */
             }
 
                         /* 1. Скрываем оригинальное ПК-пожелание на смартфонах */
