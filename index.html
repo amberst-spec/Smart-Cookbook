@@ -502,25 +502,58 @@
         .mobile-only-text, p.book-description .mobile-only-text {
             color: #4A2E1B !important; /* Короткая строчка на телефоне тоже становится четкой и шоколадной */
         }
-
-                    /* ЮВЕЛИРНАЯ РАЗБЛОКИРОВКА МОБИЛЬНОГО ТАЙМЕРА РЕЦЕПТА */
+                    /* ЮВЕЛИРНАЯ РАЗБЛОКИРОВКА И РАСШИРЕНИЕ МОБИЛЬНОГО ТАЙМЕРА РЕЦЕПТА */
         @media (max-width: 768px) {
-            /* Убираем блокировку с невидимого контейнера */
+            /* Делаем белое окошко шире и даем ему простор */
+            .mobile-only-timer-block {
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                min-height: 85px !important;
+                max-height: 85px !important;
+                min-width: 125px !important; /* Увеличили ширину, чтобы разгрузить цифры! */
+                max-width: 125px !important;
+                padding: 4px 6px !important;
+                box-sizing: border-box !important;
+                position: relative !important;
+            }
+
+            /* Убираем блокировку кликов с невидимого технического контейнера */
             div:has(> #recipe-timer-display) > div:has(button) {
                 pointer-events: none !important; 
             }
-            /* Разрешаем клики по самим стрелочкам на телефонах */
+
+            /* Выводим стрелочки ▲ и ▼ на передний план и разрешаем клики */
             .mobile-only-timer-block button[onclick*="changeRecipeTimerMinutes"],
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) button {
                 pointer-events: auto !important;
                 cursor: pointer !important;
                 z-index: 99 !important;
             }
-            /* Разрешаем кликать по тексту цифр и иконке оранжевого будильника */
-            .mobile-only-timer-block #recipe-timer-display,
+
+            /* Даем свободу цифрам и сдвигаем оранжевый будильник правее */
+            .mobile-only-timer-block > div {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important; /* Разносим цифры и часики по краям */
+                width: 100% !important;
+                padding: 0 4px !important;
+                box-sizing: border-box !important;
+            }
+
+            /* Разрешаем кликать по самому будильнику и сдвигаем его в правый угол */
             .mobile-only-timer-block #recipe-timer-trigger {
                 pointer-events: auto !important;
                 cursor: pointer !important;
+                z-index: 99 !important;
+                margin-left: auto !important; /* Прижимаем будильник вправо */
+            }
+
+            /* Цифры времени оставляем кликабельными по центру */
+            .mobile-only-timer-block #recipe-timer-display {
+                pointer-events: auto !important;
                 z-index: 99 !important;
             }
         }
