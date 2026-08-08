@@ -213,52 +213,53 @@
                 display: none !important;
             }
 
-                        /* Настраиваем форму белого окошка таймера под размер "Чистых рук" */
+                        /* Настраиваем форму белого окошка таймера под размер соседних кнопок */
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
                 min-height: 85px !important;
-                padding: 10px 14px !important;
+                max-width: 90px !important; /* Сдерживаем ширину, чтобы панель не распирало */
+                padding: 6px !important;
                 display: flex !important;
-                flex-direction: row !important; /* Выстраиваем всё в одну красивую линию */
+                flex-direction: column !important; /* Элементы строго один под другим */
                 align-items: center !important;
                 justify-content: space-between !important;
                 box-sizing: border-box !important;
             }
 
-            /* Внутренний контейнер для кнопок и цифр, чтобы они не распирали панель */
-            div[style*="flex-direction: column; gap: 2px;"] {
-                flex-direction: row !important;
-                align-items: center !important;
-                justify-content: space-between !important;
-                width: 100% !important;
-                gap: 8px !important;
+            /* Сами цифры времени удерживаем по центру */
+            #recipe-timer-display {
+                font-size: 17px !important;
+                font-weight: bold !important;
+                margin: 2px 0 !important;
+                display: inline-block !important;
             }
 
-            /* Превращаем стрелочки в крупные оранжевые пуговицы по бокам */
+            /* Превращаем кнопки в изящные широкие полоски-плашки над и под временем */
             button[onclick*="changeRecipeTimerMinutes"] {
-                min-width: 36px !important;
-                width: 36px !important;
-                height: 36px !important;
-                border-radius: 50% !important; /* Идеальные круглые пуговки */
-                background: #FFA166 !important; /* Ваш насыщенный оранжевый цвет */
-                color: #FFFFFF !important; /* Белые символы внутри */
+                width: 100% !important; /* Полоска растягивается на всю ширину рамки */
+                min-width: 70px !important;
+                height: 24px !important; /* Делаем её аккуратной по высоте */
+                border-radius: 12px !important; /* Красиво скругляем края полоски */
+                background: #FFA166 !important; /* Ваш любимый насыщенный оранжевый цвет */
+                color: #FFFFFF !important; /* Белые стрелочки внутри */
                 border: none !important;
                 font-family: 'Segoe UI', Roboto, sans-serif !important;
-                font-size: 20px !important;
+                font-size: 13px !important;
                 font-weight: bold !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
-                padding: 0 0 2px 0 !important; /* Центровка символов */
-                box-shadow: 0 4px 10px rgba(255, 122, 51, 0.15) !important;
+                padding: 0 !important;
                 cursor: pointer !important;
+                box-shadow: 0 2px 6px rgba(255, 122, 51, 0.1) !important;
                 transition: transform 0.1s ease !important;
             }
 
-            /* Мягкий эффект нажатия для пальца */
+            /* Эффект мягкого клика для полоски */
             button[onclick*="changeRecipeTimerMinutes"]:active {
-                transform: scale(0.9) !important;
+                transform: scale(0.96) !important;
+                background: #FF8B4D !important;
             }
-
+                
                         /* 1. Скрываем оригинальное ПК-пожелание на смартфонах */
                       /* 1. Намертво прячем оригинальный ПК-текст пожелания на телефонах */
             #text-wish {
