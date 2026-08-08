@@ -1945,14 +1945,18 @@ const shareBtnText = document.getElementById("text-shareBtn");
     if (timerInterval) {
         clearInterval(timerInterval);
         timerInterval = null;
-        triggers.forEach(t => t.innerText = "⏱️");
+        triggers.forEach(t => { t.innerText = "⏱️"; t.style.color = ""; t.style.textShadow = ""; });
         displays.forEach(d => d.innerText = "05:00");
         return;
     }
 
     let parts = activeDisplay.innerText.split(":");
     let time = parseInt(parts[0]) * 60;
-    triggers.forEach(t => t.innerText = "🛑");
+    triggers.forEach(t => {
+    t.innerText = "●";
+    t.style.color = "#FFFDF9"; /* Цвет сливочного крема внутри */
+    t.style.textShadow = "0 0 2px #8B4513"; /* Красивый шоколадный контур вокруг */
+});
 
     timerInterval = setInterval(() => {
         time--;
