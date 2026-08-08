@@ -250,52 +250,95 @@
                 gap: 2px !important;
             }
 
-            /* 3. Цифры времени и часики: удерживаем ровно по центру */
-            #recipe-timer-display {
-                font-size: 16px !important;
-                font-weight: bold !important;
-                color: #554433 !important;
-                display: inline-flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                margin: 0 !important;
-            }
+                        /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ПЕРЕСТРОЙКА ТАЙМЕРА ДЛЯ СМАРТФОНОВ */
+            @media (max-width: 768px) {
+                /* Расширяем и закругляем общую рамку таймера на телефоне под размер "Чистых рук" */
+                div:has(> #recipe-timer-display) {
+                    min-height: 85px !important;
+                    max-height: 85px !important;
+                    min-width: 105px !important;
+                    max-width: 105px !important;
+                    padding: 4px 6px !important;
+                    flex-direction: column !important; /* Выстраиваем элементы сверху вниз */
+                    justify-content: space-between !important;
+                    align-items: center !important;
+                    box-sizing: border-box !important;
+                    position: relative !important;
+                }
 
-            /* 4. Иконка часиков: аккуратно стоит справа от цифр */
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) img[src*="clock"],
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) span + img {
-                display: inline-block !important;
-                vertical-align: middle !important;
-                margin-left: 4px !important;
-                width: 16px !important;
-                height: 16px !important;
-            }
+                /* Разворачиваем маленький контейнер со стрелочками во всю ширину рамки */
+                div:has(> #recipe-timer-display) > div:has(button) {
+                    display: block !important;
+                    position: absolute !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    pointer-events: none !important; /* Позволяет кликам проходить сквозь контейнер */
+                }
 
-            /* 5. Превращаем стрелки в сливочные плашки НАД и ПОД числом */
-            button[onclick*="changeRecipeTimerMinutes"] {
-                width: 100% !important; /* Занимает всю ширину столбика */
-                min-width: 75px !important;
-                height: 22px !important; /* Удобная высота для тапа пальцем */
-                border-radius: 12px !important; /* Красивые скругленные края */
-                background: #FFF9F2 !important; /* Сливочный цвет крема торта */
-                color: #A0522D !important; /* Каштановые стрелочки */
-                border: 1.5px solid #EAD5C3 !important; /* Нежная карамельная рамка */
-                font-family: 'Segoe UI', Roboto, sans-serif !important;
-                font-size: 11px !important;
-                font-weight: 900 !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                padding: 0 !important;
-                cursor: pointer !important;
-                box-shadow: 0 2px 4px rgba(160, 82, 45, 0.04) !important;
-                transition: transform 0.1s ease !important;
-            }
+                /* 🎂 Превращаем стрелочки на телефоне в крупные, уютные сливочные плашки НАД и ПОД цифрами */
+                button[onclick*="changeRecipeTimerMinutes"] {
+                    position: absolute !important;
+                    left: 6px !important;
+                    right: 6px !important;
+                    width: calc(100% - 12px) !important;
+                    height: 20px !important; /* Идеальная высота, чтобы не вылезать за рамку! */
+                    border-radius: 10px !important;
+                    background: #FFF9F2 !important; /* Воздушный сливочный крем */
+                    color: #FF7A33 !important; /* Родной апельсиновый цвет стрелочек */
+                    border: 1.5px solid #EAD5C3 !important; /* Карамельная рамочка */
+                    font-size: 10px !important;
+                    font-weight: bold !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    padding: 0 !important;
+                    box-shadow: 0 2px 4px rgba(160, 82, 45, 0.04) !important;
+                    pointer-events: auto !important; /* Возвращаем кликабельность кнопкам-плашкам */
+                }
 
-            /* Эффект мягкого нажатия для пальца */
-            button[onclick*="changeRecipeTimerMinutes"]:active {
-                transform: scale(0.96) !important;
-                background: #FCEBDC !important;
+                /* Верхняя стрелочка ▲ садится строго к верхнему краю рамки */
+                button[onclick*="changeRecipeTimerMinutes(1)"] {
+                    top: 4px !important;
+                }
+
+                /* Нижняя стрелочка ▼ садится строго к нижнему краю рамки */
+                button[onclick*="changeRecipeTimerMinutes(-1)"] {
+                    bottom: 4px !important;
+                }
+
+                /* 📊 Цифры времени на телефоне центрируем ровно посредине рамки */
+                #recipe-timer-display {
+                    position: absolute !important;
+                    top: 50% !important;
+                    left: 6px !important;
+                    transform: translateY(-50%) !important;
+                    font-size: 16px !important;
+                    margin: 0 !important;
+                    width: 50px !important;
+                    text-align: center !important;
+                    line-height: 1 !important;
+                }
+
+                /* ⏱️ Крупный оранжевый будильник на телефоне фиксируем строго справа от цифр */
+                #recipe-timer-trigger {
+                    position: absolute !important;
+                    top: 50% !important;
+                    right: 8px !important;
+                    transform: translateY(-50%) !important;
+                    font-size: 22px !important; /* Сделали его крупным и заметным */
+                    color: #FF7A33 !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+                    width: 24px !important;
+                    height: 24px !important;
+                    display: inline-flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
             }
 
                         /* 1. Скрываем оригинальное ПК-пожелание на смартфонах */
