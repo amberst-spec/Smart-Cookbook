@@ -613,17 +613,27 @@
                 z-index: 99 !important;
             }
         }
-            
+
             /* 📖 АДАПТИВНАЯ ШИРИНА ЖУРНАЛЬНОГО ЛИСТА ДЛЯ ВСЕХ УСТРОЙСТВ */
         @media (max-width: 768px) {
+            /* На телефонах намертво оставляем прежний компактный и аккуратный размер */
             .recipe-scroll-box {
-                max-width: 720px !important; /* На телефонах намертво оставляем прежний компактный размер */
+                width: 100% !important;
+                max-width: 720px !important; 
             }
         }
-            @media (min-width: 769px) {
+        @media (min-width: 769px) {
+            /* Главный блок рецепта на ПК занимает ровно 60% экрана (оставляя по 20% полей по бокам) */
+            #interactiveRecipePage {
+                width: 60% !important;
+                max-width: 850px !important;
+                margin: 0 auto !important; /* Центрируем лист строго посередине экрана */
+                position: relative !important;
+            }
+            /* Внутренний журнальный лист аккуратно заполняет этот блок */
             .recipe-scroll-box {
-                width: 60% !important; /* Лист занимает 60% ширины экрана, оставляя по 20% красивых полей по бокам! */
-                max-width: 820px !important; /* На очень больших мониторах он аккуратно зафиксируется и не расползётся */
+                width: 100% !important;
+                max-width: 100% !important;
             }
         }
 
