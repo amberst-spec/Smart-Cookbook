@@ -195,6 +195,98 @@
             }
         }
 
+                    /* 🖥️ ВОЗВРАЩАЕМ ИДЕАЛЬНЫЙ ГОРИЗОНТАЛЬНЫЙ ВИД ТАЙМЕРА ДЛЯ ПК */
+            @media (min-width: 769px) {
+                div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
+                    width: auto !important;
+                    min-width: 140px !important;
+                    height: 42px !important;
+                    min-height: 42px !important;
+                    flex-direction: row !important; /* На ПК всё строго в одну линию! */
+                    padding: 0 12px !important;
+                    border-radius: 50px !important; /* Закруглённая длинная пуговка */
+                    border: 2px solid #FFA166 !important;
+                }
+                
+                /* Сливочные кнопочки на ПК превращаются в аккуратные стрелочки */
+                button[onclick*="changeRecipeTimerMinutes"] {
+                    position: static !important;
+                    width: 24px !important;
+                    height: 24px !important;
+                    min-width: 24px !important;
+                    border-radius: 6px !important;
+                    background: transparent !important; /* Убираем сливочный фон на ПК */
+                    border: none !important;
+                    box-shadow: none !important;
+                    font-size: 14px !important;
+                }
+                
+                /* Центральный ряд с цифрами и часиками на ПК встаёт ровно в линию */
+                div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div {
+                    display: flex !important;
+                    flex-direction: row !important;
+                    position: static !important;
+                    width: auto !important;
+                    height: auto !important;
+                    gap: 6px !important;
+                    align-items: center !important;
+                }
+            }
+
+                    /* 🖥️ ВОЗВРАЩАЕМ ИДЕАЛЬНЫЙ ПК-ВИД ТАЙМЕРА ИЗ НАЧАЛЬНОЙ ВЕРСИИ */
+            @media (min-width: 769px) {
+                /* Большая белая рамка таймера снова становится длинной полоской */
+                div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
+                    width: auto !important;
+                    min-width: 135px !important;
+                    height: 42px !important;
+                    min-height: 42px !important;
+                    flex-direction: row !important; /* Строго горизонтальный ряд */
+                    padding: 0 14px !important;
+                    border-radius: 25px !important;
+                    border: 2px solid #FFA166 !important;
+                    background: #FFFFFF !important;
+                }
+                
+                /* Центральный контейнер с цифрами выпрямляется в линию со стрелками */
+                div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div {
+                    display: flex !important;
+                    flex-direction: row !important; /* Элементы идут слева направо */
+                    position: static !important;
+                    width: auto !important;
+                    height: auto !important;
+                    gap: 6px !important;
+                    align-items: center !important;
+                    order: 2 !important; /* Ставим время по центру */
+                }
+
+                /* Сливочные плашки на ПК превращаются в обычные аккуратные стрелочки по бокам */
+                button[onclick*="changeRecipeTimerMinutes"] {
+                    position: static !important;
+                    width: auto !important;
+                    height: auto !important;
+                    min-width: unset !important;
+                    border-radius: 0 !important;
+                    background: transparent !important; /* Убираем сливочный фон крема */
+                    border: none !important;
+                    box-shadow: none !important;
+                    font-size: 14px !important;
+                    cursor: pointer !important;
+                }
+
+                /* Стрелочку ВВЕРХ (🔺) на ПК ставим СЛЕВА от цифр */
+                button[onclick*="changeRecipeTimerMinutes(1)"],
+                button[onclick*="changeRecipeTimerMinutes"]:first-of-type {
+                    order: 1 !important;
+                }
+
+                /* Стрелочку ВНИЗ (🔻) на ПК ставим СПРАВА от цифр */
+                button[onclick*="changeRecipeTimerMinutes(-1)"],
+                button[onclick*="changeRecipeTimerMinutes"]:last-of-type {
+                    order: 3 !important;
+                }
+            }
+
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
 
