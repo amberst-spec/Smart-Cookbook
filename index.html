@@ -298,6 +298,7 @@
             .mobile-only-timer-block #recipe-timer-display-mobile {
                 font-size: 20px !important;
                 font-weight: bold !important;
+                color: #6E3C1B !important;
                 color: #A0522D !important;
                 font-family: monospace !important;
                 line-height: 1 !important;
@@ -1807,23 +1808,23 @@ const shareBtnText = document.getElementById("text-shareBtn");
 
         function changeRecipeTimerMinutes(amount) {
     if (timerInterval) return;
-    
+
     // Находим дисплей (сначала пробуем мобильный, если нет — берем обычный ПК)
     let display = document.getElementById("recipe-timer-display-mobile") || document.getElementById("recipe-timer-display");
     if (!display) return;
-    
+
     let parts = display.innerText.split(":");
     let newMinutes = parseInt(parts[0]) + amount;
     if (newMinutes < 1) newMinutes = 1;
     if (newMinutes > 60) newMinutes = 60;
-    
+
     // Обновляем время одновременно на всех дисплеях, какие есть на странице
     const allDisplays = document.querySelectorAll("#recipe-timer-display, #recipe-timer-display-mobile");
     allDisplays.forEach(d => {
         d.innerText = `${newMinutes < 10 ? '0' : ''}${newMinutes}:00`;
     });
 }
-   
+
         // 💾 ИСПРАВЛЕННАЯ ФУНКЦИЯ СОХРАНЕНИЯ РЕЦЕПТА (МГНОВЕННО СИНХРОНИЗИРУЕТ С FIREBASE!)
         function saveCurrentRecipeFromScreen() {
             let typedTitle = document.getElementById("recipe-display-title").innerText.trim();
@@ -1937,7 +1938,7 @@ const shareBtnText = document.getElementById("text-shareBtn");
     // Собираем все дисплеи и триггеры, включая новые мобильные
     const displays = document.querySelectorAll("#recipe-timer-display, #recipe-timer-display-mobile");
     const triggers = document.querySelectorAll("#recipe-timer-trigger, #recipe-timer-trigger-mobile");
-    
+
     // Ищем первый доступный дисплей, чтобы считать текущее время
     let activeDisplay = document.getElementById("recipe-timer-display-mobile") || document.getElementById("recipe-timer-display");
     if (!activeDisplay) return;
@@ -1945,18 +1946,14 @@ const shareBtnText = document.getElementById("text-shareBtn");
     if (timerInterval) {
         clearInterval(timerInterval);
         timerInterval = null;
-        triggers.forEach(t => { t.innerText = "⏱️"; t.style.color = ""; t.style.textShadow = ""; });
+        triggers.forEach(t => t.innerText = "⏱️");
         displays.forEach(d => d.innerText = "05:00");
         return;
     }
 
     let parts = activeDisplay.innerText.split(":");
     let time = parseInt(parts[0]) * 60;
-    triggers.forEach(t => {
-    t.innerText = "●";
-    t.style.color = "#FFFDF9"; /* Цвет сливочного крема внутри */
-    t.style.textShadow = "0 0 2px #8B4513"; /* Красивый шоколадный контур вокруг */
-});
+    triggers.forEach(t => t.innerText = "🛑");
 
     timerInterval = setInterval(() => {
         time--;
