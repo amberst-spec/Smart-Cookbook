@@ -213,14 +213,15 @@
                 display: none !important;
             }
                         /* 1. Белая рамка таймера: фиксируем размеры под "Чистые руки" */
+                      /* Освобождаем форму белого окошка таймера, давая ему ширину 105px */
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
                 min-height: 85px !important;
                 max-height: 85px !important;
-                min-width: 95px !important;
-                max-width: 95px !important;
+                min-width: 105px !important; /* Увеличиваем ширину до 105 пикселей */
+                max-width: 105px !important; /* Даем простор для цифр и будильника */
                 padding: 6px !important;
                 display: flex !important;
-                flex-direction: column !important; /* Направляем поток сверху вниз */
+                flex-direction: column !important;
                 align-items: center !important;
                 justify-content: space-between !important;
                 box-sizing: border-box !important;
