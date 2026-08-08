@@ -198,18 +198,18 @@
                 /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
         @media (max-width: 768px) {
 
-                            /* Оптимизация кнопки Поделиться для мобильных экранов */
-            button[onclick*="customShareModal"] {
+                        /* Точечная мобильная оптимизация кнопки Поделиться по её функции */
+            button[onclick*="shareCurrentRecipePage"] {
                 min-width: 42px !important;
                 width: 42px !important;
                 height: 42px !important;
                 padding: 0 !important;
                 border-radius: 50% !important;
-                display: flex !important;
+                display: inline-flex !important;
                 align-items: center !important;
                 justify-content: center !important;
             }
-            button[onclick*="customShareModal"] span {
+            button[onclick*="shareCurrentRecipePage"] span {
                 display: none !important;
             }
 
