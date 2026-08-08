@@ -212,7 +212,7 @@
             button[onclick*="shareCurrentRecipePage"] span {
                 display: none !important;
             }
-                        /* Белая рамка таймера: фиксируем размеры под "Чистые руки" */
+                        /* 1. Белая рамка таймера: фиксируем размеры под "Чистые руки" */
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
                 min-height: 85px !important;
                 max-height: 85px !important;
@@ -220,17 +220,18 @@
                 max-width: 95px !important;
                 padding: 6px !important;
                 display: flex !important;
-                flex-direction: column !important; /* Главная рамка выстраивает всё вертикально */
+                flex-direction: column !important; /* Направляем поток сверху вниз */
                 align-items: center !important;
                 justify-content: space-between !important;
                 box-sizing: border-box !important;
             }
 
-            /* Внутренний контейнер: намертво разворачиваем элементы в один столбик по центру */
+            /* 2. Внутренний контейнер: принудительно ломаем горизонтальный ряд и разворачиваем в столбик */
             div[style*="flex-direction: column; gap: 2px;"],
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div {
+            div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div,
+            .recipe-timer-container {
                 display: flex !important;
-                flex-direction: column !important; /* Разворачиваем кнопки над и под цифрами */
+                flex-direction: column !important; /* НАМЕРТВО СТАВИМ КНОПКИ НАД И ПОД ЦИФРАМИ */
                 align-items: center !important;
                 justify-content: space-between !important;
                 width: 100% !important;
@@ -238,8 +239,7 @@
                 gap: 2px !important;
             }
 
-            /* Цифры времени и часики: выстраиваем в одну аккуратную строчку по центру */
-            .recipe-timer-container span,
+            /* 3. Цифры времени и часики: удерживаем ровно по центру */
             #recipe-timer-display {
                 font-size: 16px !important;
                 font-weight: bold !important;
@@ -250,7 +250,7 @@
                 margin: 0 !important;
             }
 
-            /* Иконка часиков: просто аккуратно стоит справа от цифр, не улетая */
+            /* 4. Иконка часиков: аккуратно стоит справа от цифр */
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) img[src*="clock"],
             div:has(> button[onclick*="changeRecipeTimerMinutes"]) span + img {
                 display: inline-block !important;
@@ -260,13 +260,13 @@
                 height: 16px !important;
             }
 
-            /* Превращаем стрелки в изящные сливочные плашки НАД и ПОД числом */
+            /* 5. Превращаем стрелки в сливочные плашки НАД и ПОД числом */
             button[onclick*="changeRecipeTimerMinutes"] {
-                width: 100% !important; /* Полоска занимает всю ширину столбика */
+                width: 100% !important; /* Занимает всю ширину столбика */
                 min-width: 75px !important;
-                height: 22px !important; /* Аккуратная высота для пальца */
+                height: 22px !important; /* Удобная высота для тапа пальцем */
                 border-radius: 12px !important; /* Красивые скругленные края */
-                background: #FFF9F2 !important; /* Воздушный сливочный цвет крема торта */
+                background: #FFF9F2 !important; /* Сливочный цвет крема торта */
                 color: #A0522D !important; /* Каштановые стрелочки */
                 border: 1.5px solid #EAD5C3 !important; /* Нежная карамельная рамка */
                 font-family: 'Segoe UI', Roboto, sans-serif !important;
@@ -286,7 +286,7 @@
                 transform: scale(0.96) !important;
                 background: #FCEBDC !important;
             }
-
+                  
                         /* 1. Скрываем оригинальное ПК-пожелание на смартфонах */
                       /* 1. Намертво прячем оригинальный ПК-текст пожелания на телефонах */
             #text-wish {
