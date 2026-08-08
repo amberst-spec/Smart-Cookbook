@@ -837,10 +837,13 @@
                     <button type="button" onclick="changeRecipeTimerMinutes(1)" style="width: 100%; height: 22px; border-radius: 12px; background: #FFF9F2; color: #A0522D; border: 1.5px solid #EAD5C3; font-family: 'Segoe UI', Roboto, sans-serif; font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center; padding: 0; cursor: pointer; box-shadow: 0 2px 4px rgba(160, 82, 45, 0.04);">🔺</button>
                     
                     <!-- 📊 Центральный ряд: Крупные цифры и Увеличенный будильник -->
-                                    <div style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: center !important; gap: 7px; width: 100%; margin: 0 auto; padding: 0; height: 26px; min-height: 26px; white-space: nowrap !important;">
+                        <div style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: center !important; gap: 8px; width: 100%; margin: 0 auto; padding: 0; height: 26px; min-height: 26px; white-space: nowrap !important;">
                         <span id="recipe-timer-display" style="font-size: 17px; font-weight: bold; color: #443322; font-family: monospace; display: inline-block; line-height: 1; margin: 0; padding: 0;">05:00</span>
-                        <!-- 🔔 БУДИЛЬНИК СТАЛ ЕЩЕ КРУПНЕЕ И НАМЕРТВО СТОИТ СПРАВА (font-size: 25px) -->
-                        <button type="button" id="recipe-timer-trigger" onclick="toggleRecipeTimer()" style="background: transparent !important; border: none !important; cursor: pointer !important; font-size: 25px !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 26px !important; height: 26px !important; color: #443322 !important; vertical-align: middle !important; line-height: 1 !important; margin: 0 0 0 2px !important; outline: none !important;">⏰</button>
+                        <!-- 🔔 КРУПНАЯ КОФЕЙНАЯ ИКОНКА БУДИЛЬНИКА СТРОГО СПРАВА -->
+                        <button type="button" id="recipe-timer-trigger" onclick="toggleRecipeTimer()" style="background: transparent !important; border: none !important; cursor: pointer !important; padding: 0 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; width: 24px !important; height: 24px !important; margin: 0 !important; outline: none !important;">
+                            <img src="clock.png" alt="Таймер" style="width: 24px !important; height: 24px !important; display: block !important; object-fit: contain; filter: sepia(0.4) saturate(1.2) hue-rotate(10deg) brightness(0.7) !important;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                            <span style="display: none; font-size: 20px; color: #8B4513 !important;">⏱️</span>
+                        </button>
                     </div>
 
                     <!-- 🎂 Нижняя сливочная плашка (Убавлять время) -->
