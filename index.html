@@ -222,33 +222,9 @@
             button[onclick*="shareCurrentRecipePage"] span {
                 display: none !important;
             }
-                        /* 1. Белая рамка таймера: фиксируем размеры под "Чистые руки" */
-                      /* Освобождаем форму белого окошка таймера, давая ему ширину 105px */
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) {
-                min-height: 85px !important;
-                max-height: 85px !important;
-                min-width: 105px !important; /* Увеличиваем ширину до 105 пикселей */
-                max-width: 105px !important; /* Даем простор для цифр и будильника */
-                padding: 6px !important;
-                display: flex !important;
-                flex-direction: column !important;
-                align-items: center !important;
-                justify-content: space-between !important;
-                box-sizing: border-box !important;
-            }
 
-            /* 2. Внутренний контейнер: принудительно ломаем горизонтальный ряд и разворачиваем в столбик */
-            div[style*="flex-direction: column; gap: 2px;"],
-            div:has(> button[onclick*="changeRecipeTimerMinutes"]) > div,
-            .recipe-timer-container {
-                display: flex !important;
-                flex-direction: column !important; /* НАМЕРТВО СТАВИМ КНОПКИ НАД И ПОД ЦИФРАМИ */
-                align-items: center !important;
-                justify-content: space-between !important;
-                width: 100% !important;
-                height: 100% !important;
-                gap: 2px !important;
-            }
+            
+                      
 
                         /* 📱 ТОЧЕЧНАЯ МОБИЛЬНАЯ ПЕРЕСТРОЙКА ТАЙМЕРА ДЛЯ СМАРТФОНОВ */
             @media (max-width: 768px) {
