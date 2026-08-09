@@ -1041,24 +1041,38 @@
     <template id="recipePageTemplate">
         <div id="interactiveRecipePage" style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #FFF6EE; z-index: 600; overflow-y: auto; box-sizing: border-box; padding: 10px; margin: 0;">
 
-     <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
+    <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
             <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 601; background-image: url('coffee_bg.png'), url('coffee_bg.jpg'); background-position: center center; background-repeat: no-repeat; background-size: cover; opacity: 0.25; pointer-events: none;"></div>
 
-            <!-- 🪄 МАГИЧЕСКАЯ КНИГА И ПЕРО НАД НЕЙ (СДВИГ К ЦЕНТРУ И НАКЛОН 50°) -->
+            <!-- 🪄 МАГИЧЕСКАЯ КНИГА И ПЕРО НАД НЕЙ -->
             <div style="position: fixed; right: 140px; bottom: 180px; z-index: 602; pointer-events: none; width: 550px; height: 500px;">
-                <!-- Золотое перо (с анимацией волшебного письма) -->
-                <img src="pero.png" style="position: absolute; right: 150px; top: -90px; width: 220px; height: auto; transform: rotate(-50deg); transform-origin: bottom center; animation: magicWriting 6s ease-in-out infinite;">
+                <!-- Золотое перо (с эффектом невидимого автора) -->
+                <img src="pero.png" style="position: absolute; right: 150px; top: -90px; width: 220px; height: auto; transform: rotate(-50deg); transform-origin: bottom center; animation: fantasyWriting 7s ease-in-out infinite;">
                 <!-- Золотая магическая книга -->
                 <img src="kniga-gold.png" style="position: absolute; right: 0; bottom: 0; width: 500px; height: auto;">
             </div>
 
-            <!-- ЭФФЕКТ ДВИЖЕНИЯ ПЕРА -->
+            <!-- ЭФФЕКТ ЖИВОГО ФЕНТЕЗИ-ПИСЬМА -->
             <style>
-                @keyframes magicWriting {
+                @keyframes fantasyWriting {
                     0%   { transform: translate(0, 0) rotate(-50deg); }
-                    25%  { transform: translate(15px, -8px) rotate(-46deg); }
-                    50%  { transform: translate(-10px, 4px) rotate(-53deg); }
-                    75%  { transform: translate(12px, -4px) rotate(-48deg); }
+                    /* Пишем первое слово (мелкие покачивания и движение вправо) */
+                    10%  { transform: translate(8px, -4px) rotate(-48deg); }
+                    15%  { transform: translate(5px, 2px) rotate(-51deg); }
+                    20%  { transform: translate(14px, -3px) rotate(-47deg); }
+                    /* Пауза между словами */
+                    25%  { transform: translate(18px, 0px) rotate(-49deg); }
+                    /* Пишем второе слово */
+                    35%  { transform: translate(26px, -5px) rotate(-46deg); }
+                    40%  { transform: translate(22px, 3px) rotate(-52deg); }
+                    48%  { transform: translate(35px, -2px) rotate(-47deg); }
+                    /* Закончили строчку, замерли (задумываемся) */
+                    55%  { transform: translate(38px, 2px) rotate(-50deg); }
+                    /* Обмакиваем перо в чернильницу (движение чуть вниз и наклон) */
+                    65%  { transform: translate(10px, 15px) rotate(-35deg); }
+                    75%  { transform: translate(10px, 15px) rotate(-35deg); }
+                    /* Возвращаемся в начало новой строки */
+                    90%  { transform: translate(0, -5px) rotate(-52deg); }
                     100% { transform: translate(0, 0) rotate(-50deg); }
                 }
             </style>
@@ -1073,7 +1087,7 @@
                     #interactiveRecipePage::-webkit-scrollbar-thumb:hover { background: #5C2D0C; }
                 </style>
 
-                <!-- ☕ ПАРЯЩАЯ ЧАШЕЧКА ПОДДЕРЖКИ (СЛОЙ 9999, ОСТАЕТСЯ НА МЕСТЕ ПРИ СКРОЛЛЕ) -->
+                <!-- ☕ ПАРЯЩАЯ ЧАШЕЧКА ПОДДЕРЖКИ -->
                 <div onclick="openSupportModal()" style="position: fixed; left: 50%; margin-left: 275px; bottom: 45px; z-index: 9999; width: 95px; height: 95px; display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none;">
                     <svg viewBox="0 0 100 100" style="position: absolute; width: 100%; height: 100%; animation: rotateText 12s linear infinite;">
                         <path id="cupTextPath" d="M 15,50 A 35,35 0 1,1 85,50" fill="none" />
@@ -1086,7 +1100,6 @@
                 <style>
                     @keyframes rotateText { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
                 </style>
-
 
                 <!-- 🟠 ПАНЕЛЬ УПРАВЛЕНИЯ РЕЦЕПТОМ (Кнопки навигации, Таймер, Чистые руки) -->
                 <div style="position: sticky; top: 0; width: 100%; max-width: 1000px; background: #FFF3E7; border: 2px solid #EAD5C3; border-radius: 30px; padding: 10px 15px; margin: 15px auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; box-sizing: border-box; z-index: 610; box-shadow: 0 10px 30px rgba(160, 82, 45, 0.08);">
