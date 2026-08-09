@@ -652,7 +652,6 @@
                 filter: drop-shadow(-5px 10px 15px rgba(139, 69, 19, 0.12)) !important; /* Мягкая тень пера, падающая на книгу */
             }
         }
-        @media (max-width: 1024px) { .pc-only-pen { display: none !important; } }
 
     </style>
 </head>
@@ -1041,9 +1040,7 @@
     <script type="text/javascript" src="https://google.com"></script>
     <!-- 👑 НЕЖНАЯ ОСНОВА ШАБЛОНА СТРАНИЦЫ РЕЦЕПТОВ -->
     <template id="recipePageTemplate">
-       <div id="interactiveRecipePage" style="display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 600; overflow-y: auto; box-sizing: border-box; padding: 10px; background: #FFF6EE url('book-base.png') no-repeat center center / 1100px auto !important;">
-    <!-- ✒️ ЗОЛОТОЕ ПЕРО, СОРАЗМЕРНОЕ С КНИГОЙ (ВЫВОДИТСЯ СТРОГО НА ПК СБОКУ ОТ РЕЦЕПТА) -->
-    <img src="pen-overlay.png" style="position: fixed; top: 80px; right: calc(50vw - 530px); width: 220px; height: auto; z-index: 615; pointer-events: none; transform: rotate(15deg); filter: drop-shadow(-5px 10px 15px rgba(139, 69, 19, 0.15));" class="pc-only-pen" alt="Золотое перо">
+        <div id="interactiveRecipePage" style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #FFF6EE; z-index: 600; overflow-y: auto; box-sizing: border-box; padding: 10px; margin: 0;">
 
             <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
             <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 601; background-image: url('coffee_bg.png'), url('coffee_bg.jpg'); background-position: center center; background-repeat: no-repeat; background-size: cover; opacity: 0.25; pointer-events: none;"></div>
