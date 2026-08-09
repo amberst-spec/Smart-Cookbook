@@ -1045,21 +1045,24 @@
         <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
             <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 601; background-image: url('coffee_bg.png'), url('coffee_bg.jpg'); background-position: center center; background-repeat: no-repeat; background-size: cover; opacity: 0.25; pointer-events: none;"></div>
 
-            <!-- 🪄 НОВЫЙ МАГИЧЕСКИЙ СЛОЙ: КНИГА И ПЕРО (ЯРКИЕ) -->
-            <div style="
-                position: fixed; 
-                top: 0; 
-                left: 0; 
-                width: 100%; 
-                height: 100%; 
-                z-index: 602; 
-                background-image: url('pen-overlay.jpg'), url('book-base.jpg'); 
-                background-repeat: no-repeat, no-repeat; 
-                background-size: 130px auto, 280px auto; 
-                background-position: calc(100% - 70px) calc(100% - 210px), calc(100% - 20px) calc(100% - 20px); 
-                background-blend-mode: multiply, multiply; 
-                pointer-events: none;
-            "></div>
+            <!-- 🪄 МАГИЧЕСКАЯ КНИГА И ПЕРО НАД НЕЙ -->
+            <div style="position: fixed; right: 30px; bottom: 40px; z-index: 602; pointer-events: none; width: 340px; height: 380px;">
+                <!-- Перо (приподнято, смещено и наклонено) -->
+                <img src="pen-overlay.jpg" style="position: absolute; right: 100px; top: 0; width: 150px; height: auto; transform: rotate(-15deg); mix-blend-mode: multiply;">
+                <!-- Книга -->
+                <img src="book-base.jpg" style="position: absolute; right: 0; bottom: 0; width: 320px; height: auto; mix-blend-mode: multiply;">
+            </div>
+
+            <div style="width: 100%; min-height: 100%; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; position: relative; z-index: 605;">
+
+                <!-- 📜 ШОКОЛАДНЫЙ ПОЛЗУНОК СКРОЛЛА -->
+                <style>
+                    #interactiveRecipePage::-webkit-scrollbar { width: 12px; }
+                    #interactiveRecipePage::-webkit-scrollbar-track { background: transparent; }
+                    #interactiveRecipePage::-webkit-scrollbar-thumb { background: #8B4513; border-radius: 10px; border: 2px solid #FFF6EE; }
+                    #interactiveRecipePage::-webkit-scrollbar-thumb:hover { background: #5C2D0C; }
+                </style>
+
 
             <div style="width: 100%; min-height: 100%; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; position: relative; z-index: 605;">
 
