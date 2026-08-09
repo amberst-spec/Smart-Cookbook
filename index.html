@@ -1044,24 +1044,24 @@
 <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
             <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 601; background-image: url('coffee_bg.png'), url('coffee_bg.jpg'); background-position: center center; background-repeat: no-repeat; background-size: cover; opacity: 0.25; pointer-events: none;"></div>
 
-            <!-- 💨 МНОГОСЛОЙНЫЙ ГУСТОЙ ПАР (ОТЗЕРКАЛЕН СЛЕВА ДЛЯ СИММЕТРИИ) -->
+            <!-- 💨 МНОГОСЛОЙНЫЙ ГУСТОЙ ПАР НА ВЕСЬ ЭКРАН (С ОРТЗЕРКАЛИВАНИЕМ) -->
             <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 601; pointer-events: none; mix-blend-mode: screen; opacity: 0.95; filter: contrast(1.5) brightness(1.2);">
-                <!-- ПАР СЛЕВА (Ширина 35% от экрана, отзеркален слева направо) -->
-                <div style="position: absolute; left: 0; top: 0; width: 35%; height: 100%; background-image: url('par.gif'); background-size: cover; background-position: bottom left; transform: scaleX(-1);"></div>
+                <!-- Первый слой пара (обычный, на весь экран) -->
+                <div style="position: absolute; width: 100%; height: 100%; background-image: url('par.gif'); background-size: cover; background-position: bottom center;"></div>
                 
-                <!-- ПАР СПРАВА (Ширина 35% от экрана, в обычном положении) -->
-                <div style="position: absolute; right: 0; top: 0; width: 35%; height: 100%; background-image: url('par.gif'); background-size: cover; background-position: bottom right;"></div>
+                <!-- Второй слой пара (ОТЗЕРКАЛЕННЫЙ, на весь экран для заполнения центра) -->
+                <div style="position: absolute; width: 100%; height: 100%; background-image: url('par.gif'); background-size: cover; background-position: bottom center; transform: scaleX(-1);"></div>
             </div>
 
             <!-- 🪄 МАГИЧЕСКАЯ КНИГА И ПЕРО НАД НЕЙ -->
-            <div style="position: fixed; right: 140px; bottom: 180px; z-index: 602; pointer-events: none; width: 550px; height: 500px;">
+            <div class="magic-book-container" style="position: fixed; right: 140px; bottom: 180px; z-index: 602; pointer-events: none; width: 550px; height: 500px;">
                 <!-- Золотое перо -->
                 <img src="pero.png" style="position: absolute; right: 125px; top: 10px; width: 220px; height: auto; transform: rotate(-15deg); transform-origin: bottom center; animation: gentleFantasyWriting 7s ease-in-out infinite;">
                 <!-- Золотая магическая книга -->
                 <img src="kniga-gold.png" style="position: absolute; right: 0; bottom: 0; width: 500px; height: auto;">
             </div>
 
-            <!-- ЭФФЕКТ ЕСТЕСТВЕННОГО ФЕНТЕЗИ-ПИСЬМА -->
+            <!-- ЭФФЕКТЫ АНИМАЦИИ И НАСТРОЙКА ДЛЯ МОБИЛЬНЫХ -->
             <style>
                 @keyframes gentleFantasyWriting {
                     0%   { transform: translate(0, 0) rotate(-15deg); }
@@ -1077,6 +1077,13 @@
                     75%  { transform: translate(15px, 25px) rotate(-5deg); }
                     90%  { transform: translate(0, -5px) rotate(-18deg); }
                     100% { transform: translate(0, 0) rotate(-15deg); }
+                }
+
+                /* ЗАЩИТА ТЕЛЕФОНОВ: скрываем книгу и перо на экранах меньше 768px */
+                @media (max-width: 768px) {
+                    .magic-book-container {
+                        display: none !important;
+                    }
                 }
             </style>
 
