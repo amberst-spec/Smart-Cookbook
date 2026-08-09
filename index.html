@@ -615,25 +615,27 @@
         }
 
                 /* 🎬 НАСТРОЙКА ВИДЕО-ФОНА ДЛЯ ЭКРАНА ПК */
-        @media (min-width: 1025px) {
+        @media (min-width: 769px) {
             .pc-only-video {
                 display: block !important;
                 position: fixed !important;
                 top: 0 !important;
                 left: 0 !important;
-                width: 100vw !important; /* Намертво растягиваем на 100% ширины экрана */
-                height: 100vh !important; /* Намертво растягиваем на 100% высоты экрана */
-                object-fit: cover !important; /* Видео идеально заполняет экран без искажений */
-                z-index: 598 !important; /* Ложится под ваш блокнот рецепта */
-                pointer-events: none !important;
+                width: 100vw !important; /* Принудительно растягиваем во всю ширину экрана */
+                height: 100vh !important; /* Принудительно растягиваем во всю высоту экрана */
+                object-fit: cover !important; /* Видео заполняет весь экран без искажений */
+                z-index: 598 !important; /* Уводим под блокнот рецепта */
+                pointer-events: none !important; /* Чтобы мышка кликала сквозь пыльцу */
+                filter: opacity(0.5) !important; /* Делаем золотые искорки нежными и мягкими */
+                mix-blend-mode: screen !important; /* 🌟 МГНОВЕННО СТИРАЕМ ЧЕРНЫЙ КВАДРАТ И ДЕЛАЕМ ФОН ПРОЗРАЧНЫМ! */
             }
         }
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .pc-only-video {
-                display: none !important; /* Намертво прячем на телефонах */
+                display: none !important; /* Намертво прячем на всех телефонах */
             }
         }
-
+     
     </style>
 </head>
 <body>
