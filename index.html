@@ -1044,21 +1044,13 @@
 <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
             <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 601; background-image: url('coffee_bg.png'), url('coffee_bg.jpg'); background-position: center center; background-repeat: no-repeat; background-size: cover; opacity: 0.25; pointer-events: none;"></div>
 
-            <!-- 💨 ЖИВОЙ ГУСТОЙ ПАР НА ВЕСЬ ЭКРАН (ПЛОТНОСТЬ УВЕЛИЧЕНА ДО 0.85) -->
-            <div style="
-                position: fixed; 
-                top: 0; 
-                left: 0; 
-                width: 100%; 
-                height: 100%; 
-                z-index: 601; 
-                pointer-events: none; 
-                background-image: url('par.gif'); 
-                background-size: cover; 
-                background-position: bottom center; 
-                mix-blend-mode: screen; 
-                opacity: 0.85;
-            "></div>
+            <!-- 💨 МНОГОСЛОЙНЫЙ ГУСТОЙ ПАР (МАКСИМАЛЬНАЯ НАДЁЖНОСТЬ И ЯРКОСТЬ) -->
+            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 601; pointer-events: none; mix-blend-mode: screen; opacity: 0.95; filter: contrast(1.5) brightness(1.2);">
+                <!-- Слои накладываются друг на друга, делая дым белым и плотным -->
+                <div style="position: absolute; width: 100%; height: 100%; background-image: url('par.gif'); background-size: cover; background-position: bottom center;"></div>
+                <div style="position: absolute; width: 100%; height: 100%; background-image: url('par.gif'); background-size: cover; background-position: bottom center;"></div>
+                <div style="position: absolute; width: 100%; height: 100%; background-image: url('par.gif'); background-size: cover; background-position: bottom center;"></div>
+            </div>
 
             <!-- 🪄 МАГИЧЕСКАЯ КНИГА И ПЕРО НАД НЕЙ -->
             <div style="position: fixed; right: 140px; bottom: 180px; z-index: 602; pointer-events: none; width: 550px; height: 500px;">
