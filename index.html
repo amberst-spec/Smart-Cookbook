@@ -662,6 +662,128 @@
         <span style="position: fixed; right: 110px; top: 45%; font-size: 32px; opacity: 0.65;">🤎</span>
     </div>
 
+        <!-- 🪄 НЕЗАВИСИМЫЙ МАГИЧЕСКИЙ БЛОК ДЛЯ ИЗБРАННЫХ РЕЦЕПТОВ -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let headerDiv = document.querySelector('.header');
+            if (!headerDiv) return;
+
+            let favHeaderBtn = document.createElement('div');
+            favHeaderBtn.id = 'headerFavButton';
+            favHeaderBtn.innerHTML = '❤️';
+            favHeaderBtn.setAttribute('title', 'Любимые рецепты');
+            favHeaderBtn.style.cssText = `
+                font-size: 24px; cursor: pointer; user-select: none; background: #FFF6EE;
+                border: 2px solid #EAD5C3; width: 46px; height: 46px; border-radius: 50%;
+                display: flex; align-items: center; justify-content: center;
+                box-shadow: 0 4px 10px rgba(160,82,45,0.08); transition: transform 0.2s;
+                margin-left: 15px; margin-right: 15px; z-index: 999;
+            `;
+
+            favHeaderBtn.onmouseover = function() { this.style.transform = 'scale(1.1)'; };
+            favHeaderBtn.onmouseout = function() { this.style.transform = 'scale(1)'; };
+            favHeaderBtn.onclick = function(e) { e.stopPropagation(); openMyFavoritesModal(); };
+
+            let langSwitcher = document.querySelector('.lang-switcher') || headerDiv.lastElementChild;
+            headerDiv.insertBefore(favHeaderBtn, langSwitcher);
+        });
+
+        function openMyFavoritesModal() {
+            if (document.getElementById('myFavModal')) return;
+            let favorites = JSON.parse(localStorage.getItem('myFavoriteRecipes') || '[]');
+
+            let modal = document.createElement('div');
+            modal.id = 'myFavModal';
+            modal.style.cssText = `
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(51, 34, 17, 0.4); z-index: 10000;
+                display: flex; align-items: center; justify-content: center;
+                backdrop-filter: blur(4px); pointer-events: auto;
+            `;
+            modal.onclick = closeMyFavoritesModal;
+
+            let content = document.createElement('div');
+            content.style.cssText = `
+                background: #FFFDFB; border: 2px solid #EAD5C3; padding: 30px;
+                border-radius: 26px; max-width: 450px; width: 90%; box-sizing: border-box;
+                box-shadow: 0 20px 50px rgba(160, 82, 45, 0.15); text-align: center;
+                position: relative; animation: modalSlideUp 0.3s ease-out;
+            `;
+            content.onclick = function(e) { e.stopPropagation(); };
+
+            let title = document.createElement('h3');
+            title.innerHTML = '❤️ Любимые рецепты';
+            title.style.cssText = `font-family: 'Caveat', cursive; font-size: 32px; color: #A0522D; margin: 0 0 20px 0; font-weight: normal;`;
+            content.appendChild(title);
+
+            let closeX = document.createElement('span');
+            closeX.innerHTML = '✕';
+            closeX.style.cssText = `position: absolute; right: 20px; top: 20px; font-size: 18px; color: #A0522D; cursor: pointer; font-weight: bold;`;
+            closeX.onclick = closeMyFavoritesModal;
+            content.appendChild(closeX);
+
+            let listContainer = document.createElement('div');
+            listContainer.style.cssText = `max-height: 250px; overflow-y: auto; text-align: left; margin-bottom: 10px; padding-right: 5px;`;
+
+            if (favorites.length === 0) {
+                let emptyText = document.createElement('p');
+                emptyText.innerText = 'Список пока пуст. Нажимайте ❤️ на страницах рецептов!';
+                emptyText.style.cssText = `color: #8B7E74; text-align: center; font-size: 15px; font-style: italic; font-family: sans-serif;`;
+                listContainer.appendChild(emptyText);
+            } else {
+                favorites.forEach((recipeId) => {
+                    let item = document.createElement('div');
+                    item.style.cssText = `
+                        padding: 10px 14px; background: #FFF6EE; border: 1px solid #EAD5C3;
+                        border-radius: 12px; margin-bottom: 8px; cursor: pointer;
+                        font-size: 16px; color: #5C2D0C; font-weight: bold; transition: background 0.2s;
+                        display: flex; justify-content: space-between; align-items: center; font-family: sans-serif;
+                    `;
+                    let cleanName = recipeId.replace('recipe-', 'Рецепт №').replace('-', '.');
+                    
+                    let textSpan = document.createElement('span');
+                    textSpan.innerText = '📖 ' + cleanName;
+                    item.appendChild(textSpan);
+
+                    let delBtn = document.createElement('span');
+                    delBtn.innerHTML = '🗑️';
+                    delBtn.style.cssText = `cursor: pointer; padding: 2px 5px; font-size: 14px;`;
+                    delBtn.onclick = function(e) {
+                        e.stopPropagation();
+                        let favs = JSON.parse(localStorage.getItem('myFavoriteRecipes') || '[]');
+                        let idx = favs.indexOf(recipeId);
+                        if (idx !== -1) favs.splice(idx, 1);
+                        localStorage.setItem('myFavoriteRecipes', JSON.stringify(favs));
+                        content.remove(); modal.remove(); openMyFavoritesModal();
+                    };
+                    item.appendChild(delBtn);
+
+                    item.onclick = function() {
+                        window.location.hash = '#' + recipeId;
+                        closeMyFavoritesModal();
+                    };
+                    listContainer.appendChild(item);
+                });
+            }
+            
+            content.appendChild(listContainer);
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+        }
+
+        function closeMyFavoritesModal() {
+            let m = document.getElementById('myFavModal');
+            if (m) m.remove();
+        }
+    </script>
+
+    <style>
+        @keyframes modalSlideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+
     <!-- Интерактивная крупная шапка сайта -->
     <div class="header">
         <div style="display: flex; align-items: center;">
