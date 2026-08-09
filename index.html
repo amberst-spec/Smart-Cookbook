@@ -614,46 +614,6 @@
             }
         }
 
-                /* 📖 АДАПТИВНАЯ ШИРИНА ЖУРНАЛЬНОГО ЛИСТА ДЛЯ ВСЕХ УСТРОЙСТВ */
-        @media (max-width: 768px) {
-            /* На телефонах намертво оставляем прежний компактный и аккуратный размер */
-            .recipe-scroll-box {
-                width: 100% !important;
-                max-width: 720px !important; 
-            }
-        }
-        @media (min-width: 769px) {
-            /* Перехватываем хэш-режим рецепта на ПК и принудительно сжимаем его до 60% */
-            body, html, #interactiveRecipePage {
-                background: transparent !important;
-            }
-            
-            /* Создаем элегантное центрирование бланка с полями по 20% по бокам */
-            #interactiveRecipePage {
-                width: 60% !important;
-                max-width: 850px !important;
-                margin: 0 auto !important;
-                left: 20% !important; /* Сдвигаем на 20% вправо, делая идеальное левое поле! */
-                right: 20% !important; /* Оставляем 20% поля справа */
-                box-shadow: 0 20px 50px rgba(139, 69, 19, 0.12) !important;
-                background: #FFFDFB !important; /* Возвращаем кремовый журнальный цвет самому листу */
-                border-radius: 26px !important;
-                border: 2px solid #EAD5C3 !important;
-                height: 94vh !important; /* Делаем аккуратный отступ сверху и снизу экрана */
-                top: 3vh !important;
-                overflow-y: auto !important; /* Разрешаем листать рецепт внутри рамки */
-            }
-            
-            /* Внутренний журнальный лист аккуратно заполняет этот блок */
-            .recipe-scroll-box {
-                width: 100% !important;
-                max-width: 100% !important;
-                border: none !important; /* Убираем двойную рамку */
-                box-shadow: none !important;
-                margin: 0 !important;
-            }
-        }
-  
     </style>
 </head>
 <body>
