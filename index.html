@@ -1326,10 +1326,10 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px; border-bottom: 2px dashed #EAD5C3; padding-bottom: 5px; margin-bottom: 18px; flex-wrap: wrap; width: 100%;">
                         
                         <!-- Рукописное название кулинарного шедевра пером (Осталось свободным для ввода Хозяйки) -->
-                        <h2 id="recipe-display-title" contenteditable="true" style="font-family: 'Caveat', cursive; font-size: 38px; color: #A0522D; font-weight: normal; margin: 0; text-align: left; flex: 1; min-width: 200px; border: none; outline: none;">Название рецепта</h2>
+                       <h2 id="recipe-display-title" contenteditable="true" style="font-family: 'Caveat', cursive; font-size: 38px; color: #A0522D; font-weight: normal; margin: 0; text-align: left; flex: 1; min-width: 200px; border: none; outline: none;">Название рецепта</div></h2>
 
                         <!-- БЛОК ЛАЙКА И ИЗБРАННОГО В ПРАВОМ УГЛУ РАМКИ -->
-                        <div style="display: flex; align-items: center; gap: 12px; z-index: 10;">
+                       <div style="display: flex; align-items: center; gap: 12px; position: relative; z-index: 999; pointer-events: auto;">
                             <!-- Кнопка-лайк со счетчиком 👍 -->
                             <span onclick="event.stopPropagation(); handleFirestoreLikeClick()" id="likeCounterBtn" style="font-size: 20px; cursor: pointer; user-select: none; transition: transform 0.2s; display: inline-flex; align-items: center; gap: 5px; background: #FFF6EE; border: 1.5px dashed #EAD5C3; padding: 4px 10px; border-radius: 20px;" title="Поставить лайк">
                                 👍 <span id="likeNum" style="font-family: 'Segoe UI', sans-serif; font-size: 15px; font-weight: bold; color: #A0522D;">0</span>
@@ -1350,10 +1350,15 @@
                         }
                     </style>
 
-                    <!-- СКРИПТ СВЯЗИ С CLOUD FIRESTORE -->
+                <!-- СКРИПТ СВЯЗИ С CLOUD FIRESTORE -->
                     <script>
+                        // Универсальное получение ID рецепта из адресной строки
+                        function getSafeRecipeId() {
+                            return window.location.hash.replace('#', '').trim() || 'recipe-default';
+                        }
+
                         function loadFirestoreLikes() {
-                            let recipeId = window.location.hash.replace('#', '') || 'default_recipe';
+                            let recipeId = getSafeRecipeId();
                             let fs = window.db || window.firestore || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
                             if (!fs) return;
 
@@ -1373,9 +1378,8 @@
                         }
 
                         function handleFirestoreLikeClick() {
-                            let recipeId = window.location.hash.replace('#', '') || 'default_recipe';
+                            let recipeId = getSafeRecipeId();
                             if (localStorage.getItem('liked_' + recipeId)) {
-                                alert("Вы уже оценили этот рецепт! ❤️");
                                 return;
                             }
 
@@ -1399,7 +1403,7 @@
                         }
 
                         function loadFavoriteStatus() {
-                            let recipeId = window.location.hash.replace('#', '') || 'default_recipe';
+                            let recipeId = getSafeRecipeId();
                             let favorites = JSON.parse(localStorage.getItem('myFavoriteRecipes') || '[]');
                             let isFav = favorites.includes(recipeId);
                             
@@ -1409,7 +1413,7 @@
                         }
 
                         function handleFavoriteClick() {
-                            let recipeId = window.location.hash.replace('#', '') || 'default_recipe';
+                            let recipeId = getSafeRecipeId();
                             let favorites = JSON.parse(localStorage.getItem('myFavoriteRecipes') || '[]');
                             let index = favorites.indexOf(recipeId);
                             let btn = document.getElementById('favRecipeBtn');
@@ -1424,7 +1428,7 @@
                                 document.getElementById('favHeartIcon').innerText = '🤍';
                                 btn.style.background = '#FFF6EE';
                                 btn.style.borderColor = '#EAD5C3';
-                }
+                            }
                             localStorage.setItem('myFavoriteRecipes', JSON.stringify(favorites));
                         }
 
@@ -1436,7 +1440,7 @@
                         setTimeout(() => {
                             loadFirestoreLikes();
                             loadFavoriteStatus();
-                        }, 1200);
+                        }, 1500);
                     </script>
 
                     <!-- Фотоаппарат для загрузки и отображения фотографии блюда -->
