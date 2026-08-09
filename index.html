@@ -614,6 +614,26 @@
             }
         }
 
+                /* 🎬 НАСТРОЙКА ВИДЕО-ФОНА ДЛЯ ЭКРАНА ПК */
+        @media (min-width: 1025px) {
+            .pc-only-video {
+                display: block !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important; /* Намертво растягиваем на 100% ширины экрана */
+                height: 100vh !important; /* Намертво растягиваем на 100% высоты экрана */
+                object-fit: cover !important; /* Видео идеально заполняет экран без искажений */
+                z-index: 598 !important; /* Ложится под ваш блокнот рецепта */
+                pointer-events: none !important;
+            }
+        }
+        @media (max-width: 1024px) {
+            .pc-only-video {
+                display: none !important; /* Намертво прячем на телефонах */
+            }
+        }
+
     </style>
 </head>
 <body>
