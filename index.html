@@ -712,7 +712,7 @@
             content.onclick = function(e) { e.stopPropagation(); };
 
             let title = document.createElement('h3');
-            title.innerHTML = '❤️ Любимые рецепты';
+            title.innerHTML = '❤️ My Favorites';
             title.style.cssText = `font-family: 'Caveat', cursive; font-size: 32px; color: #A0522D; margin: 0 0 20px 0; font-weight: normal;`;
             content.appendChild(title);
 
@@ -783,6 +783,16 @@
             to { transform: translateY(0); opacity: 1; }
         }
     </style>
+    
+        <!-- 👁️ СКРЫТИЕ ВЕРХНЕГО СЕРДЕЧКА НА СТРАНИЦЕ РЕЦЕПТА -->
+    <style>
+        body:has(#interactiveRecipePage[style*="display: block"]) #headerFavButton,
+        body:has(#interactiveRecipePage:not([style*="display: none"])) #headerFavButton,
+        .recipe-scroll-box #headerFavButton {
+            display: none !important;
+        }
+    </style>
+
 
     <!-- Интерактивная крупная шапка сайта -->
     <div class="header">
