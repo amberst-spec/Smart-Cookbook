@@ -1041,13 +1041,13 @@
     <template id="recipePageTemplate">
         <div id="interactiveRecipePage" style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #FFF6EE; z-index: 600; overflow-y: auto; box-sizing: border-box; padding: 10px; margin: 0;">
 
-  <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
+ <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
             <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 601; background-image: url('coffee_bg.png'), url('coffee_bg.jpg'); background-position: center center; background-repeat: no-repeat; background-size: cover; opacity: 0.25; pointer-events: none;"></div>
 
-            <!-- 🪄 МАГИЧЕСКАЯ КНИГА И ПЕРО НАД НЕЙ (УГОЛ 15° И СДВИГ ВЛЕВО) -->
+            <!-- 🪄 МАГИЧЕСКАЯ КНИГА И ПЕРО НАД НЕЙ (ПЕРО ОПУЩЕНО И СДВИНУТО К ЦЕНТРУ КНИГИ) -->
             <div style="position: fixed; right: 140px; bottom: 180px; z-index: 602; pointer-events: none; width: 550px; height: 500px;">
-                <!-- Золотое перо (легкий наклон -15° влево, сдвинуто к центру книги) -->
-                <img src="pero.png" style="position: absolute; right: 210px; top: -100px; width: 220px; height: auto; transform: rotate(-15deg); transform-origin: bottom center; animation: gentleFantasyWriting 7s ease-in-out infinite;">
+                <!-- Золотое перо (сдвинуто на right: 125px и опущено на top: 10px) -->
+                <img src="pero.png" style="position: absolute; right: 125px; top: 10px; width: 220px; height: auto; transform: rotate(-15deg); transform-origin: bottom center; animation: gentleFantasyWriting 7s ease-in-out infinite;">
                 <!-- Золотая магическая книга -->
                 <img src="kniga-gold.png" style="position: absolute; right: 0; bottom: 0; width: 500px; height: auto;">
             </div>
@@ -1056,7 +1056,7 @@
             <style>
                 @keyframes gentleFantasyWriting {
                     0%   { transform: translate(0, 0) rotate(-15deg); }
-                    /* Пишем первое слово (аккуратные живые покачивания) */
+                    /* Пишем первое слово */
                     10%  { transform: translate(8px, -4px) rotate(-13deg); }
                     15%  { transform: translate(5px, 2px) rotate(-17deg); }
                     20%  { transform: translate(14px, -3px) rotate(-12deg); }
