@@ -1190,8 +1190,89 @@
             <button type="button" onclick="switchAdminRecipeLanguage('uk')" id="tab-lang-uk" style="padding: 6px 16px; border: 2px solid #EAD5C3; border-radius: 12px; background: #FFFFFF; color: #5C2D0C; font-size: 14px; font-weight: bold; cursor: pointer; transition: all 0.2s;">UKR</button>
         </div>
 
-                    <!-- Рукописное название кулинарного шедевра пером -->
-                    <h2 id="recipe-display-title" contenteditable="false" style="font-family: 'Caveat', cursive; font-size: 38px; color: #A0522D; font-weight: normal; margin: 0 0 18px 0; text-align: center; border-bottom: 2px dashed #EAD5C3; padding-bottom: 5px; outline: none;"></h2>
+                             <!-- Рукописное название кулинарного шедевра пером + счётчик лайков -->
+                    <h2 id="recipe-display-title" contenteditable="false" style="font-family: 'Caveat', cursive; font-size: 38px; color: #A0522D; font-weight: normal; margin: 0 0 18px 0; text-align: center; border-bottom: 2px dashed #EAD5C3; padding-bottom: 5px; outline: none; display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                        <!-- Название рецепта -->
+                        <span id="recipe-title-text"></span>
+                        <!-- Кнопка-лайк со счетчиком 👍 -->
+                        <span onclick="event.stopPropagation(); handleFirestoreLikeClick()" id="likeCounterBtn" style="font-size: 22px; cursor: pointer; user-select: none; transition: transform 0.2s; display: inline-flex; align-items: center; gap: 5px;" title="Поставить лайк">
+                            👍 <span id="likeNum" style="font-family: 'Segoe UI', sans-serif; font-size: 18px; font-weight: bold; color: #A0522D;">0</span>
+                        </span>
+                    </h2>
+
+                    <!-- УМНЫЙ СКРИПТ СЧЁТЧИКА ЛАЙКОВ ДЛЯ CLOUD FIRESTORE -->
+                    <script>
+                        // Функция загрузки лайков из Cloud Firestore
+                        function loadFirestoreLikes(recipeId) {
+                            if (!recipeId) return;
+                            
+                            // Автоматически ищем подключенный Firestore в окне браузера (db или firestore)
+                            let fs = window.db || window.firestore || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
+                            if (!fs) return;
+
+                            // Слушаем изменения лайков для конкретного рецепта в реальном времени
+                            fs.collection('recipe_likes').doc(recipeId).onSnapshot((doc) => {
+                                if (doc.exists) {
+                                    document.getElementById('likeNum').innerText = doc.data().count || 0;
+                                } else {
+                                    document.getElementById('likeNum').innerText = 0;
+                                }
+                            });
+
+                            // Проверяем локальный факт лайка, чтобы сделать кнопку полупрозрачной
+                            if (localStorage.getItem('liked_' + recipeId)) {
+                                document.getElementById('likeCounterBtn').style.opacity = '0.6';
+                            } else {
+                                document.getElementById('likeCounterBtn').style.opacity = '1';
+                            }
+                        }
+
+                        // Нажатие на палец вверх 👍
+                        function handleFirestoreLikeClick() {
+                            let recipeId = window.location.hash.replace('#', '') || 'default_recipe';
+                            
+                            if (localStorage.getItem('liked_' + recipeId)) {
+                                alert("Вы уже оценили этот рецепт! ❤️");
+                                return;
+                            }
+
+                            let fs = window.db || window.firestore || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
+                            if (!fs) {
+                                // Если связи с базой нет, сработает локальный запасной счетчик
+                                let localNum = document.getElementById('likeNum');
+                                localNum.innerText = parseInt(localNum.innerText) + 1;
+                                localStorage.setItem('liked_' + recipeId, 'true');
+                                return;
+                            }
+
+                            // Магия Firestore: атомарное увеличение счетчика на +1 без сбоев
+                            let docRef = fs.collection('recipe_likes').doc(recipeId);
+                            
+                            docRef.set({
+                                count: firebase.firestore.FieldValue.increment(1)
+                            }, { merge: true }).then(() => {
+                                // Запоминаем лайк в браузере, чтобы исключить накрутку
+                                localStorage.setItem('liked_' + recipeId, 'true');
+                                
+                                // Красивая микроанимация прыжка пальца вверх
+                                let btn = document.getElementById('likeCounterBtn');
+                                btn.style.transform = 'scale(1.3)';
+                                btn.style.opacity = '0.6';
+                                setTimeout(() => { btn.style.transform = 'scale(1)'; }, 200);
+                            }).catch((err) => {
+                                console.log("Ошибка Firestore: ", err);
+                            });
+                        }
+
+                        // Отслеживаем переключение рецептов по ссылкам-хэшам
+                        window.addEventListener('hashchange', () => {
+                            let rId = window.location.hash.replace('#', '');
+                            loadFirestoreLikes(rId);
+                        });
+                        
+                        // Запускаем через небольшую паузу, чтобы Firestore успел проинициализироваться
+                        setTimeout(() => loadFirestoreLikes(window.location.hash.replace('#', '')), 1000);
+                    </script>
 
                     <!-- Фотоаппарат для загрузки и отображения фотографии блюда -->
                     <div id="recipe-photo-area" onclick="triggerRecipePhotoUpload()" style="width: 100%; height: 260px; background: #FFF6EE; border-radius: 18px; margin-bottom: 12px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 2px dashed #EAD5C3; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#FFEAD9'" onmouseout="this.style.background='#FFF6EE'">
