@@ -614,6 +614,45 @@
             }
         }
 
+                /* 📚✨ МАГИЧЕСКАЯ КНИГА И ЗОЛОТОЕ ПЕРО НА ЗАДНЕМ ФОНЕ РЕЦЕПТА (СТРОГО ДЛЯ ПК) */
+        @media (min-width: 1025px) {
+            /* Полностью очищаем все прошлые следы видео-эффектов в памяти */
+            #interactiveRecipePage::before, #interactiveRecipePage::after { content: none !important; }
+            
+            /* Подкладываем под открытый рецепт магическую книгу, растягивая её до идеальных 1100px */
+            #interactiveRecipePage {
+                background: #FFF6EE url('book-base.png') no-repeat center center / 1100px auto !important;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                overflow-y: auto !important;
+            }
+
+            /* Включаем правильный каркас блокнота, чтобы к нему привязалось перо */
+            .recipe-scroll-box {
+                position: relative !important;
+                overflow: visible !important; /* Разрешаем перу аккуратно выступать за правый край */
+                z-index: 605 !important;
+            }
+
+            /* Изящно крепим золотое перо с правого бока от журнального листа в соразмерном масштабе */
+            .recipe-scroll-box::after {
+                content: '' !important;
+                position: absolute !important;
+                top: 60px !important; /* Комфортный отступ сверху, ближе к шапочке */
+                left: 95% !important; /* Перо аккуратно выглядывает из-под правого края блокнота */
+                width: 240px !important; /* Идеальный гармоничный размер пера относительно книги! */
+                height: 240px !important;
+                background: url('pen-overlay.png') no-repeat center center / contain !important;
+                z-index: 610 !important; /* Ложится красивым верхним слоем */
+                pointer-events: none !important; /* Мышка свободно кликает сквозь него */
+                transform: rotate(20deg) !important; /* Реалистичный наклон пера */
+                filter: drop-shadow(-5px 10px 15px rgba(139, 69, 19, 0.12)) !important; /* Мягкая тень пера, падающая на книгу */
+            }
+        }
+
     </style>
 </head>
 <body>
