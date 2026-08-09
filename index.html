@@ -1042,8 +1042,24 @@
     <template id="recipePageTemplate">
         <div id="interactiveRecipePage" style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #FFF6EE; z-index: 600; overflow-y: auto; box-sizing: border-box; padding: 10px; margin: 0;">
 
-            <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
+        <!-- ☕ СЛОЙ ОСНОВЫ С ЧАШЕЧКАМИ НА ВЕСЬ ЭКРАН РЕЦЕПТА -->
             <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 601; background-image: url('coffee_bg.png'), url('coffee_bg.jpg'); background-position: center center; background-repeat: no-repeat; background-size: cover; opacity: 0.25; pointer-events: none;"></div>
+
+            <!-- 🪄 НОВЫЙ МАГИЧЕСКИЙ СЛОЙ: КНИГА И ПЕРО (ЯРКИЕ) -->
+            <div style="
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                width: 100%; 
+                height: 100%; 
+                z-index: 602; 
+                background-image: url('pen-overlay.jpg'), url('book-base.jpg'); 
+                background-repeat: no-repeat, no-repeat; 
+                background-size: 130px auto, 280px auto; 
+                background-position: calc(100% - 70px) calc(100% - 210px), calc(100% - 20px) calc(100% - 20px); 
+                background-blend-mode: multiply, multiply; 
+                pointer-events: none;
+            "></div>
 
             <div style="width: 100%; min-height: 100%; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; position: relative; z-index: 605;">
 
