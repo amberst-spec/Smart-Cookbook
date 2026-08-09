@@ -614,6 +614,63 @@
             }
         }
 
+                /* ✨ ЖИВАЯ КОНДИТЕРСКАЯ ПЫЛЬЦА ПО ВСЕМУ БОКОВОМУ ФОНУ (СТРОГО ДЛЯ ПК) */
+        @media (min-width: 1025px) {
+            /* Левое широкое поле для магии */
+            #interactiveRecipePage::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                /* Занимает всё пространство от левого края до начала блокнота */
+                width: calc(50vw - 510px); 
+                height: 100vh;
+                z-index: 601;
+                pointer-events: none; /* Полная безопасность для кликов мышки */
+                background-image: 
+                    radial-gradient(circle, rgba(255,161,102,0.65) 1.5px, transparent 1.5px),
+                    radial-gradient(circle, rgba(244,164,96,0.45) 2.5px, transparent 2.5px),
+                    radial-gradient(circle, rgba(255,223,128,0.55) 2px, transparent 2px);
+                background-size: 120px 180px, 160px 220px, 90px 130px;
+                animation: fairyDustLeft 12s linear infinite;
+            }
+
+            /* Правое широкое поле для магии */
+            #interactiveRecipePage::after {
+                content: '';
+                position: fixed;
+                top: 0;
+                right: 0;
+                /* Занимает всё пространство от правого края до конца блокнота */
+                width: calc(50vw - 510px); 
+                height: 100vh;
+                z-index: 601;
+                pointer-events: none;
+                background-image: 
+                    radial-gradient(circle, rgba(255,161,102,0.65) 1.5px, transparent 1.5px),
+                    radial-gradient(circle, rgba(244,164,96,0.45) 2.5px, transparent 2.5px),
+                    radial-gradient(circle, rgba(255,223,128,0.55) 2px, transparent 2px);
+                background-size: 110px 160px, 150px 240px, 100px 140px;
+                animation: fairyDustRight 16s linear infinite;
+                animation-delay: 1.5s;
+            }
+        }
+
+        /* 🎬 ТРАЕКТОРИИ ДВИЖЕНИЯ ИСКОРОК (ПЛАВНЫЙ И УЮТНЫЙ ПОЛЁТ) */
+        @keyframes fairyDustLeft {
+            0% { background-position: 0 0, 0 0, 0 0; opacity: 0; }
+            15% { opacity: 0.8; }
+            85% { opacity: 0.8; }
+            100% { background-position: 30px -220px, -20px -260px, 20px -180px; opacity: 0; }
+        }
+
+        @keyframes fairyDustRight {
+            0% { background-position: 0 0, 0 0, 0 0; opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { background-position: -25px -200px, 35px -280px, -15px -160px; opacity: 0; }
+        }
+
     </style>
 </head>
 <body>
