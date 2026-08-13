@@ -2534,42 +2534,7 @@ const shareBtnText = document.getElementById("text-shareBtn");
             }
         }
 
-                // 📱 САМЫЙ НАДЕЖНЫЙ МОБИЛЬНЫЙ ПЕРЕКЛЮЧАТЕЛЬ КНОПОК ПО НАЛИЧИЮ РЕЦЕПТА НА ЭКРАНЕ
-        function handleMobileButtonsSync() {
-            if (window.innerWidth <= 768) {
-                const categoriesBlock = document.getElementById('main-categories-buttons');
-                const measuresBtn = document.getElementById('btn-measures');
-
-                // Проверяем, открыт ли физически блок рецепта на экране
-                const recipeBlockActive = document.getElementById('interactiveRecipePage');
-
-                if (recipeBlockActive) {
-                    // 🔒 ЕСЛИ МЫ ВНУТРИ РЕЦЕПТА: Намертво прячем кнопки и ложечку, чтобы не летали поверх торта!
-                    if (categoriesBlock) categoriesBlock.style.setProperty('display', 'none', 'important');
-                    if (measuresBtn) measuresBtn.style.setProperty('display', 'none', 'important');
-                } else {
-                    // 🏡 ЕСЛИ РЕЦЕПТА НА ЭКРАНЕ НЕТ — МЫ ТОЧНО НА ГЛАВНОЙ: Принудительно возвращаем кнопки!
-                    if (categoriesBlock) categoriesBlock.style.setProperty('display', 'flex', 'important');
-                    if (measuresBtn) measuresBtn.style.setProperty('display', 'inline-flex', 'important');
-
-                    // Заодно аккуратно чистим застрявший хвост адреса, чтобы ссылка была первозданной и чистой
-                    if (window.location.hash && window.location.hash.includes('recipe')) {
-                        history.replaceState(null, null, window.location.pathname + window.location.search);
-                    }
-                }
-            }
-        }
-
-        // Непрерывно контролируем любые изменения истории, клики и возвраты назад на телефонах
-        window.addEventListener('hashchange', handleMobileButtonsSync);
-        window.addEventListener('popstate', handleMobileButtonsSync);
-        window.addEventListener('pageshow', handleMobileButtonsSync);
-        document.addEventListener('DOMContentLoaded', handleMobileButtonsSync);
-
-        // Моментально ловим клики пальцем по любым кнопкам закрытия или стрелочкам интерфейса
-        document.addEventListener('click', function() { setTimeout(handleMobileButtonsSync, 40); });
-
-      // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (при клике на Лупу или Enter)
+               // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (при клике на Лупу или Enter)
 function runSearch() {
     const searchInput = document.getElementById('search-field');
     const suggestionsBlock = document.getElementById('search-suggestions');
@@ -2577,26 +2542,24 @@ function runSearch() {
 
     // Очищаем и переводим поисковый запрос в маленькие буквы
     const query = searchInput.value.trim().toLowerCase();
-    const currentLang = document.documentElement.lang || 'ru';
 
     if (suggestionsBlock) suggestionsBlock.style.display = 'none';
 
     if (!query) {
-        alert(translations[currentLang]?.searchPlaceholder || "Введите название...");
         return;
     }
 
     let foundAlbumId = null;
     let foundIndex = null;
 
-    // Перебираем всю базу рецептов подряд (альбомы 1, 2, 3 и т.д. — это ваши категории!)
+    // Перебираем всю базу рецептов подряд (ищет по текущему активному языку в базе)
     if (typeof recipeAlbums !== 'undefined') {
         for (let albumId in recipeAlbums) {
             const album = recipeAlbums[albumId];
             if (Array.isArray(album)) {
                 for (let i = 0; i < album.length; i++) {
                     const recipe = album[i];
-                    // Берем поле title и тоже переводим в маленькие буквы для сравнения
+                    // Берем поле title (оно уже переведено ИИ на нужный язык) и переводим в маленькие буквы
                     if (recipe && recipe.title) {
                         const lowerTitle = recipe.title.toLowerCase();
                         // .includes() найдет и целое слово, и его половинку (например, "беляш" или "тортик")
@@ -2612,15 +2575,15 @@ function runSearch() {
         }
     }
 
-    // Если нашли рецепт — открываем его по его точным координатам категории и индекса
+    // Если нашли рецепт — открываем его по его координатам
     if (foundAlbumId !== null && foundIndex !== null) {
         window.location.hash = `recipe-${foundAlbumId}-${foundIndex}`;
         if (typeof showRecipePage === 'function') {
             showRecipePage();
         }
     } else {
-        const notFoundMessage = translations[currentLang]?.alertSearch || "Рецепт не найден.";
-        alert(notFoundMessage);
+        // Если ничего не нашли, показываем стандартное сообщение
+        alert("Рецепт не найден / Рецепт не знайдено");
     }
 }
 
@@ -2628,7 +2591,6 @@ function runSearch() {
 document.getElementById('search-field')?.addEventListener('input', function() {
     const query = this.value.trim().toLowerCase();
     let suggestionsBlock = document.getElementById('search-suggestions');
-    const currentLang = document.documentElement.lang || 'ru';
     
     if (!suggestionsBlock) {
         suggestionsBlock = document.createElement('div');
