@@ -913,43 +913,50 @@
         }
     </style>
 
-        <!-- 🔍 ВОЛШЕБНЫЙ ДВИЖОК ПОИСКА РЕЦЕПТОВ -->
+        <!-- 🔍 СУПЕР-УМНЫЙ ИНТЕРНАЦИОНАЛЬНЫЙ ПОИСК РЕЦЕПТОВ -->
     <script>
         window.runSearch = function() {
-            // Находим строку ввода по её ID
             let searchField = document.getElementById('search-field');
             if (!searchField) return;
 
-            // Берём текст, переводим в нижний регистр и убираем лишние пробелы
+            // Берём введённый текст (например, "беля" или "Cake"), убираем пробелы и переводим в нижний регистр
             let query = searchField.value.trim().toLowerCase();
             if (!query) {
                 alert("Пожалуйста, введите название рецепта! ✨");
                 return;
             }
 
-            // Сканируем все плитки рецептов на главной странице
+            // Находим абсолютно все плитки и элементы рецептов на главной странице
             let allCards = document.querySelectorAll('.recipe-card, [onclick*="recipe"], [onclick*="Recipe"]');
             let foundCard = null;
 
             for (let card of allCards) {
+                // 1. Сканируем видимый текст карточки
                 let cardText = card.innerText?.toLowerCase() || "";
-                // Проверяем, совпадает ли текст на плитке с тем, что ввёл пользователь (например, "торт" или "беляши")
-                if (cardText.includes(query)) {
+                
+                // 2. Сканируем весь HTML-код карточки (включая скрытые атрибуты данных, переводы и языковые теги)
+                let cardHtml = card.innerHTML?.toLowerCase() || "";
+                
+                // 3. Сканируем содержимое onclick (там часто написаны технические названия функций)
+                let onclickText = card.getAttribute('onclick')?.toLowerCase() || "";
+
+                // Если кусочек введённого слова нашёлся хоть где-то внутри карточки — мы нашли рецепт!
+                if (cardText.includes(query) || cardHtml.includes(query) || onclickText.includes(query)) {
                     foundCard = card;
                     break;
                 }
             }
 
-            // Если рецепт найден — симулируем клик по плитке, чтобы книга открыла рецепт
+            // Если рецепт успешно найден — симулируем клик по плитке для автоперелистывания
             if (foundCard) {
-                searchField.value = ""; // Очищаем строку поиска для красоты
+                searchField.value = ""; // Красиво очищаем строку поиска
                 foundCard.click();
             } else {
                 alert("Рецепт '" + searchField.value + "' пока не найден на нашей кухне. 📖");
             }
         }
 
-        // Разрешаем нажимать Enter на клавиатуре вместо клика по лупе
+        // Поддержка нажатия кнопки Enter на клавиатуре
         document.addEventListener("DOMContentLoaded", () => {
             let searchField = document.getElementById('search-field');
             if (searchField) {
