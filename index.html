@@ -617,7 +617,7 @@
         @media (min-width: 1025px) {
             /* Полностью очищаем все прошлые следы видео-эффектов в памяти */
             #interactiveRecipePage::before, #interactiveRecipePage::after { content: none !important; }
-            
+
             /* Подкладываем под открытый рецепт магическую книгу, растягивая её до идеальных 1100px */
             #interactiveRecipePage {
                 background: #FFF6EE url('book-base.png') no-repeat center center / 1100px auto !important;
@@ -668,11 +668,15 @@
             <div id="text-menu" style="font-size: 20px; font-weight: bold; color: #A0522D;">📖 Меню</div>
 
             <!-- Рабочая укрупненная поисковая строка -->
-            <div class="search-container" style="display: flex; align-items: center; background: #FFF6EE; border: 2px solid #EAD5C3; border-radius: 25px; padding: 4px 14px; margin-left: 20px; position: relative;">
+            <div class="search-container" style="display: flex; align-items: center; background: #FFF6EE; border: 2px solid #EAD5C3; border-radius: 25px; padding: 4px 14px; margin-left: 20px;">
                 <input type="text" id="search-field" style="border: none; background: transparent; padding: 6px; font-size: 16px; color: #332211; outline: none; width: 180px;" placeholder="Поиск рецептов...">
                 <button type="button" onclick="runSearch()" style="background: transparent; border: none; cursor: pointer; font-size: 18px;">🔍</button>
             </div>
         </div>
+
+        <!-- Блок для выпадающих подсказок поиска -->
+<div id="search-suggestions" style="position: absolute; background: white; border: 1px solid #EAD5C3; width: 100%; max-height: 200px; overflow-y: auto; z-index: 1000; display: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+
 
         <!-- Кнопка "Поделиться" для вызова гостевого бланка предложений -->
         <button id="text-share-btn" onclick="shareRecipeBook()" 
@@ -1048,7 +1052,7 @@
             <div class="steam-master-container" style="position: fixed; top: 0; left: 0; width: 100%; height: calc(100% + 80px); z-index: 601; pointer-events: none; mix-blend-mode: screen; opacity: 0.95; filter: contrast(1.5) brightness(1.2);">
                 <!-- Первый слой пара (обычный, растянут во весь экран) -->
                 <div style="position: absolute; width: 100%; height: 100%; background-image: url('par.gif'); background-size: cover; background-position: bottom center;"></div>
-                
+
                 <!-- Второй слой пара (ОТЗЕРКАЛЕННЫЙ, для заполнения центра) -->
                 <div style="position: absolute; width: 100%; height: 100%; background-image: url('par.gif'); background-size: cover; background-position: bottom center; transform: scaleX(-1);"></div>
             </div>
@@ -2534,56 +2538,94 @@ const shareBtnText = document.getElementById("text-shareBtn");
             }
         }
 
-        // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (при клике на Лупу или Enter)
+                // 📱 САМЫЙ НАДЕЖНЫЙ МОБИЛЬНЫЙ ПЕРЕКЛЮЧАТЕЛЬ КНОПОК ПО НАЛИЧИЮ РЕЦЕПТА НА ЭКРАНЕ
+        function handleMobileButtonsSync() {
+            if (window.innerWidth <= 768) {
+                const categoriesBlock = document.getElementById('main-categories-buttons');
+                const measuresBtn = document.getElementById('btn-measures');
+
+                // Проверяем, открыт ли физически блок рецепта на экране
+                const recipeBlockActive = document.getElementById('interactiveRecipePage');
+
+                if (recipeBlockActive) {
+                    // 🔒 ЕСЛИ МЫ ВНУТРИ РЕЦЕПТА: Намертво прячем кнопки и ложечку, чтобы не летали поверх торта!
+                    if (categoriesBlock) categoriesBlock.style.setProperty('display', 'none', 'important');
+                    if (measuresBtn) measuresBtn.style.setProperty('display', 'none', 'important');
+                } else {
+                    // 🏡 ЕСЛИ РЕЦЕПТА НА ЭКРАНЕ НЕТ — МЫ ТОЧНО НА ГЛАВНОЙ: Принудительно возвращаем кнопки!
+                    if (categoriesBlock) categoriesBlock.style.setProperty('display', 'flex', 'important');
+                    if (measuresBtn) measuresBtn.style.setProperty('display', 'inline-flex', 'important');
+
+                    // Заодно аккуратно чистим застрявший хвост адреса, чтобы ссылка была первозданной и чистой
+                    if (window.location.hash && window.location.hash.includes('recipe')) {
+                        history.replaceState(null, null, window.location.pathname + window.location.search);
+                    }
+                }
+            }
+        }
+
+        // Непрерывно контролируем любые изменения истории, клики и возвраты назад на телефонах
+        window.addEventListener('hashchange', handleMobileButtonsSync);
+        window.addEventListener('popstate', handleMobileButtonsSync);
+        window.addEventListener('pageshow', handleMobileButtonsSync);
+        document.addEventListener('DOMContentLoaded', handleMobileButtonsSync);
+
+        // Моментально ловим клики пальцем по любым кнопкам закрытия или стрелочкам интерфейса
+        document.addEventListener('click', function() { setTimeout(handleMobileButtonsSync, 40); });
+
+        // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (срабатывает при клике на Лупу или Enter)
 function runSearch() {
     const searchInput = document.getElementById('search-field');
     const suggestionsBlock = document.getElementById('search-suggestions');
     if (!searchInput) return;
 
-    // Переводим поисковый запрос в маленькие буквы для всеядности
     const query = searchInput.value.trim().toLowerCase();
-    const currentLang = document.documentElement.lang || 'ru';
+    const currentLang = document.documentElement.lang || 'ru'; // Определение языка (ru, uk, en)
 
-    if (suggestionsBlock) suggestionsBlock.style.display = 'none';
+    if (suggestionsBlock) suggestionsBlock.style.display = 'none'; // Прячем подсказки при поиске
 
     if (!query) {
         alert(translations[currentLang]?.searchPlaceholder || "Введите название...");
         return;
     }
 
+    // Ищем рецепт в вашей базе recipeAlbums
+    let foundRecipe = null;
     let foundAlbumId = null;
-    let foundIndex = null;
 
-    // Перебираем всю вашу базу данных подряд по старой схеме
     if (typeof recipeAlbums !== 'undefined') {
         for (let albumId in recipeAlbums) {
             const album = recipeAlbums[albumId];
             if (Array.isArray(album)) {
-                for (let i = 0; i < album.length; i++) {
-                    const recipe = album[i];
-                    // Переводим название рецепта из базы в маленькие буквы
-                    if (recipe && recipe.title) {
-                        const lowerTitle = recipe.title.toLowerCase();
-                        // .includes() позволяет находить текст в любом месте слова
-                        if (lowerTitle.includes(query)) {
-                            foundAlbumId = albumId;
-                            foundIndex = i;
-                            break;
-                        }
-                    }
+                foundRecipe = album.find(recipe => {
+                    // Проверяем название рецепта в зависимости от языка
+                    if (currentLang === 'ru' && recipe.titleRU) return recipe.titleRU.toLowerCase().includes(query);
+                    if (currentLang === 'uk' && recipe.titleUKR) return recipe.titleUKR.toLowerCase().includes(query);
+                    if (currentLang === 'en' && recipe.title) return recipe.title.toLowerCase().includes(query);
+                    // На всякий случай проверяем стандартный title
+                    return recipe.title && recipe.title.toLowerCase().includes(query);
+                });
+                if (foundRecipe) {
+                    foundAlbumId = albumId;
+                    break;
                 }
             }
-            if (foundAlbumId !== null) break;
         }
     }
 
-    // Если рецепт найден, открываем его по его координатам хэша
-    if (foundAlbumId !== null && foundIndex !== null) {
-        window.location.hash = `recipe-${foundAlbumId}-${foundIndex}`;
+    // Если рецепт найден, открываем его через хэш (как у вас в адресной строке)
+    if (foundRecipe) {
+        // Формируем хэш вида #recipe-альбом-индекс (например #recipe-1-1)
+        // Если у вас структура ID отличается, адрес переключит на ID из базы
+        const recipeIndex = recipeAlbums[foundAlbumId].indexOf(foundRecipe);
+        window.location.hash = `recipe-${foundAlbumId}-${recipeIndex}`;
+        
+        // Вызываем функцию обновления страницы, если она есть (из строки 1989 вашего кода)
         if (typeof showRecipePage === 'function') {
             showRecipePage();
         }
     } else {
+        // Если ничего не нашли — выводим сообщение из вашего словаря translations
         const notFoundMessage = translations[currentLang]?.alertSearch || "Рецепт не найден.";
         alert(notFoundMessage);
     }
@@ -2592,72 +2634,55 @@ function runSearch() {
 // 2. ЖИВОЙ ПОИСК (Выпадающее окно с подсказками при вводе букв)
 document.getElementById('search-field')?.addEventListener('input', function() {
     const query = this.value.trim().toLowerCase();
-    let suggestionsBlock = document.getElementById('search-suggestions');
+    const suggestionsBlock = document.getElementById('search-suggestions');
     const currentLang = document.documentElement.lang || 'ru';
     
-    if (!suggestionsBlock) {
-        suggestionsBlock = document.createElement('div');
-        suggestionsBlock.id = 'search-suggestions';
-        this.parentNode.appendChild(suggestionsBlock);
-    }
-    
-    // Стили внешнего вида выпадающего окна
-    suggestionsBlock.style.position = 'absolute';
-    suggestionsBlock.style.top = (this.offsetHeight + 5) + 'px';
-    suggestionsBlock.style.left = '0px';
-    suggestionsBlock.style.width = this.offsetWidth + 'px';
-    suggestionsBlock.style.background = '#ffffff';
-    suggestionsBlock.style.border = '2px solid #EAD5C3';
-    suggestionsBlock.style.maxHeight = '250px';
-    suggestionsBlock.style.overflowY = 'auto';
-    suggestionsBlock.style.zIndex = '99999';
-    suggestionsBlock.style.borderRadius = '8px';
-    suggestionsBlock.style.boxShadow = '0 6px 12px rgba(0,0,0,0.15)';
-    
-    suggestionsBlock.innerHTML = ''; 
+    if (!suggestionsBlock) return;
+    suggestionsBlock.innerHTML = ''; // Очищаем старые подсказки
 
-    if (query.length < 2) { 
+    if (query.length < 2) { // Показываем подсказки, если введено хотя бы 2 буквы
         suggestionsBlock.style.display = 'none';
         return;
     }
 
     let matches = [];
 
+    // Собираем подходящие рецепты из базы
     if (typeof recipeAlbums !== 'undefined') {
         for (let albumId in recipeAlbums) {
             const album = recipeAlbums[albumId];
             if (Array.isArray(album)) {
                 album.forEach((recipe, index) => {
-                    if (recipe && recipe.title) {
-                        const lowerTitle = recipe.title.toLowerCase();
-                        // .includes() вместо строгого .startsWith(), чтобы ловить части слов
-                        if (lowerTitle.includes(query)) {
-                            matches.push({ title: recipe.title, albumId: albumId, index: index });
-                        }
+                    let title = '';
+                    if (currentLang === 'ru') title = recipe.titleRU;
+                    else if (currentLang === 'uk') title = recipe.titleUKR;
+                    else title = recipe.title;
+
+                    if (title && title.toLowerCase().startsWith(query)) {
+                        matches.push({ title: title, albumId: albumId, index: index });
                     }
                 });
             }
         }
     }
 
-    // Если нашли совпадения, строим выпадающие строчки
+    // Если нашли совпадения, строим выпадающий список
     if (matches.length > 0) {
         suggestionsBlock.style.display = 'block';
         matches.forEach(match => {
             const div = document.createElement('div');
             div.textContent = match.title;
-            div.style.padding = '10px 14px';
+            div.style.padding = '8px 12px';
             div.style.cursor = 'pointer';
             div.style.color = '#332211';
-            div.style.fontWeight = '500';
             div.style.borderBottom = '1px solid #f5eadd';
-            div.style.textAlign = 'left';
             
+            // Подсветка при наведении мыши
             div.onmouseover = () => div.style.background = '#FEE6CE';
             div.onmouseout = () => div.style.background = 'transparent';
             
-            div.onclick = function(e) {
-                e.stopPropagation();
+            // Клик по подсказке открывает рецепт
+            div.onclick = function() {
                 document.getElementById('search-field').value = match.title;
                 suggestionsBlock.style.display = 'none';
                 window.location.hash = `recipe-${match.albumId}-${match.index}`;
@@ -2670,14 +2695,14 @@ document.getElementById('search-field')?.addEventListener('input', function() {
     }
 });
 
-// 3. ОБРАБОТКА НАЖАТИЯ КЛАВИШИ ENTER
+// 3. Поиск по нажатию на клавишу Enter
 document.getElementById('search-field')?.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         runSearch();
     }
 });
 
-// Клик в любое пустое место экрана закрывает подсказки
+// Клик в любое место экрана закрывает выпадающие подсказки поиска
 document.addEventListener('click', function(e) {
     const suggestionsBlock = document.getElementById('search-suggestions');
     if (suggestionsBlock && e.target.id !== 'search-field') {
