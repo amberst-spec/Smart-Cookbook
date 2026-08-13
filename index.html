@@ -1440,6 +1440,7 @@
                             loadFavoriteStatus();
                         }, 1200);
                     </script>
+
                                        <!-- 🧠 МАГИЧЕСКИЙ СКРИПТ ДЛЯ РАБОТЫ ЛАЙКОВ И ИЗБРАННОГО -->
                     <script>
                         // Функция для безопасного получения ID текущего рецепта из хэша ссылки
@@ -1448,7 +1449,7 @@
                         }
 
                         // Загрузка лайков из Cloud Firestore
-                        function loadFirestoreLikes() {
+                        window.loadFirestoreLikes = function() {
                             let recipeId = getSafeRecipeId();
                             let fs = window.db || window.firestore || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
                             if (!fs) return;
@@ -1474,8 +1475,8 @@
                             }
                         }
 
-                        // Клик по пальцу вверх 👍
-                        function handleFirestoreLikeClick() {
+                        // Клик по пальцу вверх 👍 (Привязано к window!)
+                        window.handleFirestoreLikeClick = function() {
                             let recipeId = getSafeRecipeId();
                             if (localStorage.getItem('liked_' + recipeId)) {
                                 return;
@@ -1504,7 +1505,7 @@
                         }
 
                         // Проверка статуса Избранного (сердечка) при открытии страницы
-                        function loadFavoriteStatus() {
+                        window.loadFavoriteStatus = function() {
                             let recipeId = getSafeRecipeId();
                             let favorites = JSON.parse(localStorage.getItem('myFavoriteRecipes') || '[]');
                             let isFav = favorites.includes(recipeId);
@@ -1519,8 +1520,8 @@
                             }
                         }
 
-                        // Клик по кнопке Favorite
-                        function handleFavoriteClick() {
+                        // Клик по кнопке Favorite (Привязано к window!)
+                        window.handleFavoriteClick = function() {
                             let recipeId = getSafeRecipeId();
                             let favorites = JSON.parse(localStorage.getItem('myFavoriteRecipes') || '[]');
                             let index = favorites.indexOf(recipeId);
@@ -1547,14 +1548,14 @@
 
                         // Автообновление данных при смене рецептов (кликах по меню)
                         window.addEventListener('hashchange', () => {
-                            loadFirestoreLikes();
-                            loadFavoriteStatus();
+                            window.loadFirestoreLikes();
+                            window.loadFavoriteStatus();
                         });
                         
                         // Запуск инициализации при открытии книги
                         setTimeout(() => {
-                            loadFirestoreLikes();
-                            loadFavoriteStatus();
+                            window.loadFirestoreLikes();
+                            window.loadFavoriteStatus();
                         }, 1500);
                     </script>
 
