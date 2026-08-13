@@ -913,7 +913,7 @@
         }
     </style>
 
-        <!-- 🔍 СУПЕР-ПОИСК С ИНТЕГРАЦИЕЙ CLOUD FIRESTORE -->
+            <!-- 🔍 СУПЕР-ПОИСК ПО ЛИЧНЫМ РЕЦЕПТАМ ХОЗЯЙКИ -->
     <script>
         window.runSearch = function() {
             let searchField = document.getElementById('search-field');
@@ -926,10 +926,9 @@
                 return;
             }
 
-            // Автоматически подключаемся к вашему Firestore (db или firestore)
             let fs = window.db || window.firestore || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
             
-            // Сначала пробуем найти карточку визуально на странице по тексту или onclick (план А)
+            // ПЛАН А: Сначала ищем карточку визуально на странице по тексту или onclick
             let allCards = document.querySelectorAll('.recipe-card, [onclick*="recipe"], [onclick*="Recipe"]');
             let foundCard = null;
 
@@ -950,17 +949,17 @@
                 return; // Успешно нашли визуально и открыли!
             }
 
-            // ПЛАН Б: Если карточка ещё не отрендерилась на экране, запрашиваем базу Firestore напрямую!
+            // ПЛАН Б: Если карточка скрыта в категории, ищем напрямую в вашей личной коллекции Firebase!
             if (fs) {
-                fs.collection('guest_recipes').get().then((querySnapshot) => {
+                fs.collection('recipes').get().then((querySnapshot) => {
                     let targetRecipeId = null;
 
                     querySnapshot.forEach((doc) => {
                         let data = doc.data();
-                        // Проверяем все текстовые поля внутри документа в базе данных (и названия, и контент)
+                        // Сканируем все текстовые поля внутри документа (названия, ингредиенты, описание)
                         for (let key in data) {
                             if (typeof data[key] === 'string' && data[key].toLowerCase().includes(query)) {
-                                targetRecipeId = doc.id; // Нашли ID документа в Firebase!
+                                targetRecipeId = doc.id; // Запоминаем ID вашего личного рецепта!
                                 break;
                             }
                         }
@@ -1006,6 +1005,7 @@
             }
         });
     </script>
+
 
     <!-- Интерактивная крупная шапка сайта -->
     <div class="header">
