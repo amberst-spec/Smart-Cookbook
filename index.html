@@ -2573,78 +2573,30 @@ const shareBtnText = document.getElementById("text-shareBtn");
         // Моментально ловим клики пальцем по любым кнопкам закрытия или стрелочкам интерфейса
         document.addEventListener('click', function() { setTimeout(handleMobileButtonsSync, 40); });
 
-      // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (при клике на Лупу или Enter)
-// 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (Прямой поиск по названию для любого языка)
+      // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (Полностью возвращенный родной код)
 function runSearch() {
-    const searchInput = document.getElementById('search-field');
-    const suggestionsBlock = document.getElementById('search-suggestions');
-    if (!searchInput) return;
-
-    // Переводим запрос в нижний регистр, чтобы искать независимо от больших/маленьких букв
-    const query = searchInput.value.trim().toLowerCase();
-    const currentLang = document.documentElement.lang || 'ru';
-
-    if (suggestionsBlock) suggestionsBlock.style.display = 'none';
-
-    if (!query) {
-        alert(translations[currentLang]?.searchPlaceholder || "Введите название...");
-        return;
-    }
-
-    let foundRecipe = null;
-    let foundAlbumId = null;
-
-    // Шаг 1. Перебираем абсолютно все рецепты во всех альбомах базы
-    if (typeof recipeAlbums !== 'undefined') {
-        outerLoop:
-        for (let albumId in recipeAlbums) {
-            const album = recipeAlbums[albumId];
-            if (Array.isArray(album)) {
-                for (let i = 0; i < album.length; i++) {
-                    const recipe = album[i];
-                    // Сравниваем введённый текст с названием рецепта (на любом языке, какой сейчас в базе)
-                    if (recipe && recipe.title) {
-                        const lowerTitle = recipe.title.toLowerCase();
-                        if (lowerTitle.includes(query)) { 
-                            foundRecipe = recipe;
-                            foundAlbumId = albumId;
-                            break outerLoop; // Мгновенно останавливаем поиск, как только нашли совпадение
-                        }
-                    }
-                }
-            }
+    let q = document.getElementById("search-field").value.trim().toLowerCase();
+    if(!q) return;
+    for (let cat in recipeAlbums) {
+        let idx = recipeAlbums[cat].findIndex(r => r.title.toLowerCase().includes(q));
+        if (idx !== -1) { 
+            currentAlbumId = parseInt(cat); 
+            currentRecipeIndex = idx; 
+            showRecipePage(); 
+            return; 
         }
     }
-
-    // Шаг 2. Если рецепт с таким названием найден, открываем его страницу
-    if (foundRecipe) {
-        // Проверяем, как в вашей базе записан личный ID рецепта (обычно id или ID)
-        const recipeUniqueId = foundRecipe.id || foundRecipe.ID;
-        
-        if (recipeUniqueId) {
-            // Открываем страницу напрямую по его уникальному ID из базы Firebase
-            window.location.hash = `recipe-${recipeUniqueId}`;
-        } else {
-            // Если ИИ не прописал рецептам ID, используем точный индекс, который мы нашли в цикле
-            const recipeIndex = recipeAlbums[foundAlbumId].indexOf(foundRecipe);
-            window.location.hash = `recipe-${foundAlbumId}-${recipeIndex}`;
-        }
-
-        // Принудительно даём сайту команду перерисовать страницу и показать этот рецепт
-        if (typeof showRecipePage === 'function') {
-            showRecipePage();
-        } else if (typeof renderRecipe === 'function') {
-            renderRecipe();
-        } else {
-            // Если ИИ назвал функцию по-другому, просто перезагрузим хэш для надёжности
-            window.location.reload();
-        }
-    } else {
-        // Если вообще ничего похожего не нашли
-        const notFoundMessage = translations[currentLang]?.alertSearch || "Рецепт не найден / Рецепт не знайдено";
-        alert(notFoundMessage);
-    }
+    // Используем ваше точное название переменной языка currentLangCode
+    alert(translations[currentLangCode].alertSearch);
 }
+
+// 2. ОБРАБОТКА НАЖАТИЯ ENTER ДЛЯ УДОБСТВА
+document.getElementById('search-field')?.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+        runSearch();
+    }
+});
+
 
     </script>
 
