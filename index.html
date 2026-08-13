@@ -2631,9 +2631,9 @@ function runSearch() {
     }
 }
 
-// 2. ЖИВОЙ ПОИСК (Выпадающее окно с подсказками при вводе букв)
+// 2. ЖИВОЙ ПОИСК (Выпадающее окно с подсказками при вводе букв - УЛУЧШЕННЫЙ)
 document.getElementById('search-field')?.addEventListener('input', function() {
-    const query = this.value.trim().toLowerCase();
+    const query = this.value.trim().toLowerCase(); // Переводим запрос в маленький регистр
     const suggestionsBlock = document.getElementById('search-suggestions');
     const currentLang = document.documentElement.lang || 'ru';
     
@@ -2658,8 +2658,13 @@ document.getElementById('search-field')?.addEventListener('input', function() {
                     else if (currentLang === 'uk') title = recipe.titleUKR;
                     else title = recipe.title;
 
-                    if (title && title.toLowerCase().startsWith(query)) {
-                        matches.push({ title: title, albumId: albumId, index: index });
+                    // Если название существует, переводим его в маленький регистр для проверки
+                    if (title) {
+                        const lowerTitle = title.toLowerCase();
+                        // .includes(query) позволяет находить текст в любом месте (и в начале, и в середине)
+                        if (lowerTitle.includes(query)) {
+                            matches.push({ title: title, albumId: albumId, index: index });
+                        }
                     }
                 });
             }
@@ -2691,21 +2696,6 @@ document.getElementById('search-field')?.addEventListener('input', function() {
             suggestionsBlock.appendChild(div);
         });
     } else {
-        suggestionsBlock.style.display = 'none';
-    }
-});
-
-// 3. Поиск по нажатию на клавишу Enter
-document.getElementById('search-field')?.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        runSearch();
-    }
-});
-
-// Клик в любое место экрана закрывает выпадающие подсказки поиска
-document.addEventListener('click', function(e) {
-    const suggestionsBlock = document.getElementById('search-suggestions');
-    if (suggestionsBlock && e.target.id !== 'search-field') {
         suggestionsBlock.style.display = 'none';
     }
 });
