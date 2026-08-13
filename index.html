@@ -913,6 +913,56 @@
         }
     </style>
 
+        <!-- 🔍 ВОЛШЕБНЫЙ ДВИЖОК ПОИСКА РЕЦЕПТОВ -->
+    <script>
+        window.runSearch = function() {
+            // Находим строку ввода по её ID
+            let searchField = document.getElementById('search-field');
+            if (!searchField) return;
+
+            // Берём текст, переводим в нижний регистр и убираем лишние пробелы
+            let query = searchField.value.trim().toLowerCase();
+            if (!query) {
+                alert("Пожалуйста, введите название рецепта! ✨");
+                return;
+            }
+
+            // Сканируем все плитки рецептов на главной странице
+            let allCards = document.querySelectorAll('.recipe-card, [onclick*="recipe"], [onclick*="Recipe"]');
+            let foundCard = null;
+
+            for (let card of allCards) {
+                let cardText = card.innerText?.toLowerCase() || "";
+                // Проверяем, совпадает ли текст на плитке с тем, что ввёл пользователь (например, "торт" или "беляши")
+                if (cardText.includes(query)) {
+                    foundCard = card;
+                    break;
+                }
+            }
+
+            // Если рецепт найден — симулируем клик по плитке, чтобы книга открыла рецепт
+            if (foundCard) {
+                searchField.value = ""; // Очищаем строку поиска для красоты
+                foundCard.click();
+            } else {
+                alert("Рецепт '" + searchField.value + "' пока не найден на нашей кухне. 📖");
+            }
+        }
+
+        // Разрешаем нажимать Enter на клавиатуре вместо клика по лупе
+        document.addEventListener("DOMContentLoaded", () => {
+            let searchField = document.getElementById('search-field');
+            if (searchField) {
+                searchField.addEventListener("keypress", function(event) {
+                    if (event.key === "Enter") {
+                        event.preventDefault();
+                        window.runSearch();
+                    }
+                });
+            }
+        });
+    </script>
+
     <!-- Интерактивная крупная шапка сайта -->
     <div class="header">
         <div style="display: flex; align-items: center;">
