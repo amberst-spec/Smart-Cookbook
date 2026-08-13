@@ -913,50 +913,87 @@
         }
     </style>
 
-        <!-- 🔍 СУПЕР-УМНЫЙ ИНТЕРНАЦИОНАЛЬНЫЙ ПОИСК РЕЦЕПТОВ -->
+        <!-- 🔍 СУПЕР-ПОИСК С ИНТЕГРАЦИЕЙ CLOUD FIRESTORE -->
     <script>
         window.runSearch = function() {
             let searchField = document.getElementById('search-field');
             if (!searchField) return;
 
-            // Берём введённый текст (например, "беля" или "Cake"), убираем пробелы и переводим в нижний регистр
+            // Берём слово (например, "беля" или "Cake"), очищаем пробелы и переводим в нижний регистр
             let query = searchField.value.trim().toLowerCase();
             if (!query) {
                 alert("Пожалуйста, введите название рецепта! ✨");
                 return;
             }
 
-            // Находим абсолютно все плитки и элементы рецептов на главной странице
+            // Автоматически подключаемся к вашему Firestore (db или firestore)
+            let fs = window.db || window.firestore || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
+            
+            // Сначала пробуем найти карточку визуально на странице по тексту или onclick (план А)
             let allCards = document.querySelectorAll('.recipe-card, [onclick*="recipe"], [onclick*="Recipe"]');
             let foundCard = null;
 
             for (let card of allCards) {
-                // 1. Сканируем видимый текст карточки
                 let cardText = card.innerText?.toLowerCase() || "";
-                
-                // 2. Сканируем весь HTML-код карточки (включая скрытые атрибуты данных, переводы и языковые теги)
                 let cardHtml = card.innerHTML?.toLowerCase() || "";
-                
-                // 3. Сканируем содержимое onclick (там часто написаны технические названия функций)
                 let onclickText = card.getAttribute('onclick')?.toLowerCase() || "";
 
-                // Если кусочек введённого слова нашёлся хоть где-то внутри карточки — мы нашли рецепт!
                 if (cardText.includes(query) || cardHtml.includes(query) || onclickText.includes(query)) {
                     foundCard = card;
                     break;
                 }
             }
 
-            // Если рецепт успешно найден — симулируем клик по плитке для автоперелистывания
             if (foundCard) {
-                searchField.value = ""; // Красиво очищаем строку поиска
+                searchField.value = "";
                 foundCard.click();
+                return; // Успешно нашли визуально и открыли!
+            }
+
+            // ПЛАН Б: Если карточка ещё не отрендерилась на экране, запрашиваем базу Firestore напрямую!
+            if (fs) {
+                fs.collection('guest_recipes').get().then((querySnapshot) => {
+                    let targetRecipeId = null;
+
+                    querySnapshot.forEach((doc) => {
+                        let data = doc.data();
+                        // Проверяем все текстовые поля внутри документа в базе данных (и названия, и контент)
+                        for (let key in data) {
+                            if (typeof data[key] === 'string' && data[key].toLowerCase().includes(query)) {
+                                targetRecipeId = doc.id; // Нашли ID документа в Firebase!
+                                break;
+                            }
+                        }
+                    });
+
+                    if (targetRecipeId) {
+                        searchField.value = "";
+                        // Ищем карточку на главной, у которой в onclick зашит этот ID документа из Firebase
+                        let dynamicCards = document.querySelectorAll('[onclick]');
+                        let matchedCard = null;
+                        dynamicCards.forEach(c => {
+                            if (c.getAttribute('onclick').includes(targetRecipeId)) matchedCard = c;
+                        });
+
+                        if (matchedCard) {
+                            matchedCard.click();
+                        } else {
+                            // Если карточка скрыта в категории, просто переходим по хэшу ссылки
+                            window.location.hash = '#' + targetRecipeId;
+                        }
+                    } else {
+                        alert("Рецепт '" + searchField.value + "' пока не найден на нашей кухне. 📖");
+                    }
+                }).catch((err) => {
+                    console.error("Ошибка поиска в Firebase:", err);
+                    alert("Произошла ошибка при поиске в базе данных. 😔");
+                });
             } else {
-                alert("Рецепт '" + searchField.value + "' пока не найден на нашей кухне. 📖");
+                alert("Рецепт '" + searchField.value + "' пока не найден. 📖");
             }
         }
 
-        // Поддержка нажатия кнопки Enter на клавиатуре
+        // Поддержка Enter на клавиатуре
         document.addEventListener("DOMContentLoaded", () => {
             let searchField = document.getElementById('search-field');
             if (searchField) {
