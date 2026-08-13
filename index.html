@@ -2534,35 +2534,37 @@ const shareBtnText = document.getElementById("text-shareBtn");
             }
         }
 
-               // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (при клике на Лупу или Enter)
+        // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (при клике на Лупу или Enter)
 function runSearch() {
     const searchInput = document.getElementById('search-field');
     const suggestionsBlock = document.getElementById('search-suggestions');
     if (!searchInput) return;
 
-    // Очищаем и переводим поисковый запрос в маленькие буквы
+    // Переводим поисковый запрос в маленькие буквы для всеядности
     const query = searchInput.value.trim().toLowerCase();
+    const currentLang = document.documentElement.lang || 'ru';
 
     if (suggestionsBlock) suggestionsBlock.style.display = 'none';
 
     if (!query) {
+        alert(translations[currentLang]?.searchPlaceholder || "Введите название...");
         return;
     }
 
     let foundAlbumId = null;
     let foundIndex = null;
 
-    // Перебираем всю базу рецептов подряд (ищет по текущему активному языку в базе)
+    // Перебираем всю вашу базу данных подряд по старой схеме
     if (typeof recipeAlbums !== 'undefined') {
         for (let albumId in recipeAlbums) {
             const album = recipeAlbums[albumId];
             if (Array.isArray(album)) {
                 for (let i = 0; i < album.length; i++) {
                     const recipe = album[i];
-                    // Берем поле title (оно уже переведено ИИ на нужный язык) и переводим в маленькие буквы
+                    // Переводим название рецепта из базы в маленькие буквы
                     if (recipe && recipe.title) {
                         const lowerTitle = recipe.title.toLowerCase();
-                        // .includes() найдет и целое слово, и его половинку (например, "беляш" или "тортик")
+                        // .includes() позволяет находить текст в любом месте слова
                         if (lowerTitle.includes(query)) {
                             foundAlbumId = albumId;
                             foundIndex = i;
@@ -2575,22 +2577,23 @@ function runSearch() {
         }
     }
 
-    // Если нашли рецепт — открываем его по его координатам
+    // Если рецепт найден, открываем его по его координатам хэша
     if (foundAlbumId !== null && foundIndex !== null) {
         window.location.hash = `recipe-${foundAlbumId}-${foundIndex}`;
         if (typeof showRecipePage === 'function') {
             showRecipePage();
         }
     } else {
-        // Если ничего не нашли, показываем стандартное сообщение
-        alert("Рецепт не найден / Рецепт не знайдено");
+        const notFoundMessage = translations[currentLang]?.alertSearch || "Рецепт не найден.";
+        alert(notFoundMessage);
     }
 }
 
-// 2. ЖИВОЙ ПОИСК (Выпадающее окно с подсказками)
+// 2. ЖИВОЙ ПОИСК (Выпадающее окно с подсказками при вводе букв)
 document.getElementById('search-field')?.addEventListener('input', function() {
     const query = this.value.trim().toLowerCase();
     let suggestionsBlock = document.getElementById('search-suggestions');
+    const currentLang = document.documentElement.lang || 'ru';
     
     if (!suggestionsBlock) {
         suggestionsBlock = document.createElement('div');
@@ -2598,7 +2601,7 @@ document.getElementById('search-field')?.addEventListener('input', function() {
         this.parentNode.appendChild(suggestionsBlock);
     }
     
-    // Стили внешнего вида окна подсказок
+    // Стили внешнего вида выпадающего окна
     suggestionsBlock.style.position = 'absolute';
     suggestionsBlock.style.top = (this.offsetHeight + 5) + 'px';
     suggestionsBlock.style.left = '0px';
@@ -2627,7 +2630,7 @@ document.getElementById('search-field')?.addEventListener('input', function() {
                 album.forEach((recipe, index) => {
                     if (recipe && recipe.title) {
                         const lowerTitle = recipe.title.toLowerCase();
-                        // Ищем совпадение букв в любой части названия рецепта
+                        // .includes() вместо строгого .startsWith(), чтобы ловить части слов
                         if (lowerTitle.includes(query)) {
                             matches.push({ title: recipe.title, albumId: albumId, index: index });
                         }
@@ -2637,7 +2640,7 @@ document.getElementById('search-field')?.addEventListener('input', function() {
         }
     }
 
-    // Выводим подсказки на экран
+    // Если нашли совпадения, строим выпадающие строчки
     if (matches.length > 0) {
         suggestionsBlock.style.display = 'block';
         matches.forEach(match => {
@@ -2667,14 +2670,14 @@ document.getElementById('search-field')?.addEventListener('input', function() {
     }
 });
 
-// 3. Поиск по нажатию клавиши Enter
+// 3. ОБРАБОТКА НАЖАТИЯ КЛАВИШИ ENTER
 document.getElementById('search-field')?.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         runSearch();
     }
 });
 
-// Клик по экрану закрывает подсказки
+// Клик в любое пустое место экрана закрывает подсказки
 document.addEventListener('click', function(e) {
     const suggestionsBlock = document.getElementById('search-suggestions');
     if (suggestionsBlock && e.target.id !== 'search-field') {
