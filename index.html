@@ -2132,6 +2132,31 @@ const shareBtnText = document.getElementById("text-shareBtn");
             } catch (e) { console.log("Воспроизведение звука недоступно:", e); }
         }
 
+                function runSearch() {
+            let q = document.getElementById("search-field").value.trim().toLowerCase();
+            if(!q) return;
+            for (let cat in recipeAlbums) {
+                let idx = recipeAlbums[cat].findIndex(r => r.title.toLowerCase().includes(q));
+                if (idx !== -1) { currentAlbumId = parseInt(cat); currentRecipeIndex = idx; showRecipePage(); return; }
+            }
+            
+            // Безопасный вывод сообщения, если рецепт не найден
+            let langCode = typeof currentLangCode !== 'undefined' ? currentLangCode : (document.documentElement.lang || 'ru');
+            if (typeof translations !== 'undefined' && translations[langCode] && translations[langCode].alertSearch) {
+                alert(translations[langCode].alertSearch);
+            } else {
+                alert("Рецепт не найден / Рецепт не знайдено 🌸");
+            }
+        }
+
+        // Подвязываем обработчик клавиши Enter для строки поиска
+        document.getElementById('search-field')?.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                runSearch();
+            }
+        });
+
+
         // ☕ УПРАВЛЕНИЕ ОКНОМ ЧАШЕЧКИ
         function openSupportModal() {
             document.getElementById('supportAmountInput').value = '';
@@ -2572,31 +2597,6 @@ const shareBtnText = document.getElementById("text-shareBtn");
 
         // Моментально ловим клики пальцем по любым кнопкам закрытия или стрелочкам интерфейса
         document.addEventListener('click', function() { setTimeout(handleMobileButtonsSync, 40); });
-
-      // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (Полностью возвращенный родной код)
-function runSearch() {
-    let q = document.getElementById("search-field").value.trim().toLowerCase();
-    if(!q) return;
-    for (let cat in recipeAlbums) {
-        let idx = recipeAlbums[cat].findIndex(r => r.title.toLowerCase().includes(q));
-        if (idx !== -1) { 
-            currentAlbumId = parseInt(cat); 
-            currentRecipeIndex = idx; 
-            showRecipePage(); 
-            return; 
-        }
-    }
-    // Используем ваше точное название переменной языка currentLangCode
-    alert(translations[currentLangCode].alertSearch);
-}
-
-// 2. ОБРАБОТКА НАЖАТИЯ ENTER ДЛЯ УДОБСТВА
-document.getElementById('search-field')?.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        runSearch();
-    }
-});
-
 
     </script>
 
