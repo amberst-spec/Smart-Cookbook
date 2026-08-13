@@ -2569,14 +2569,13 @@ const shareBtnText = document.getElementById("text-shareBtn");
         // Моментально ловим клики пальцем по любым кнопкам закрытия или стрелочкам интерфейса
         document.addEventListener('click', function() { setTimeout(handleMobileButtonsSync, 40); });
 
-        // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (при клике на Лупу или нажатии Enter)
+       // 1. ГЛАВНАЯ ФУНКЦИЯ ПОИСКА (при клике на Лупу или Enter)
 function runSearch() {
     const searchInput = document.getElementById('search-field');
     const suggestionsBlock = document.getElementById('search-suggestions');
     if (!searchInput) return;
 
-    // Очищаем пробелы и переводим в нижний регистр
-    const query = searchInput.value.trim().toLowerCase();
+    const query = searchInput.value.trim().toLowerCase(); // Ищем только маленькими буквами
     const currentLang = document.documentElement.lang || 'ru';
 
     if (suggestionsBlock) suggestionsBlock.style.display = 'none';
@@ -2586,7 +2585,6 @@ function runSearch() {
         return;
     }
 
-    let foundRecipe = null;
     let foundAlbumId = null;
     let foundIndex = null;
 
@@ -2596,24 +2594,22 @@ function runSearch() {
             if (Array.isArray(album)) {
                 for (let i = 0; i < album.length; i++) {
                     const recipe = album[i];
-                    let title = '';
-                    if (currentLang === 'ru') title = recipe.titleRU;
-                    else if (currentLang === 'uk') title = recipe.titleUKR;
-                    else title = recipe.title;
-
-                    if (title && title.toLowerCase().includes(query)) {
-                        foundRecipe = recipe;
-                        foundAlbumId = albumId;
-                        foundIndex = i;
-                        break;
+                    // Проверяем универсальное поле title, переведя его в нижний регистр
+                    if (recipe && recipe.title) {
+                        const lowerTitle = recipe.title.toLowerCase();
+                        if (lowerTitle.includes(query)) { // Находит и часть слова!
+                            foundAlbumId = albumId;
+                            foundIndex = i;
+                            break;
+                        }
                     }
                 }
             }
-            if (foundRecipe) break;
+            if (foundAlbumId !== null) break;
         }
     }
 
-    if (foundRecipe) {
+    if (foundAlbumId !== null && foundIndex !== null) {
         window.location.hash = `recipe-${foundAlbumId}-${foundIndex}`;
         if (typeof showRecipePage === 'function') {
             showRecipePage();
@@ -2624,20 +2620,19 @@ function runSearch() {
     }
 }
 
-// 2. ЖИВОЙ ПОИСК С УЛУЧШЕННОЙ ВИДИМОСТЬЮ ПОДСКАЗОК
+// 2. ЖИВОЙ ПОИСК (Выпадающее окно с подсказками при вводе букв)
 document.getElementById('search-field')?.addEventListener('input', function() {
     const query = this.value.trim().toLowerCase();
     let suggestionsBlock = document.getElementById('search-suggestions');
     const currentLang = document.documentElement.lang || 'ru';
     
-    // Если блока подсказок почему-то нет в HTML, создадим его на лету прямо под полем ввода
     if (!suggestionsBlock) {
         suggestionsBlock = document.createElement('div');
         suggestionsBlock.id = 'search-suggestions';
         this.parentNode.appendChild(suggestionsBlock);
     }
     
-    // Принудительно задаем стили отображения, чтобы окно точно было видно
+    // Стили отображения окна подсказок под строкой поиска
     suggestionsBlock.style.position = 'absolute';
     suggestionsBlock.style.top = (this.offsetHeight + 5) + 'px';
     suggestionsBlock.style.left = '0px';
@@ -2664,14 +2659,12 @@ document.getElementById('search-field')?.addEventListener('input', function() {
             const album = recipeAlbums[albumId];
             if (Array.isArray(album)) {
                 album.forEach((recipe, index) => {
-                    let title = '';
-                    if (currentLang === 'ru') title = recipe.titleRU;
-                    else if (currentLang === 'uk') title = recipe.titleUKR;
-                    else title = recipe.title;
-
-                    // Поиск без учета регистра и в любом месте слова
-                    if (title && title.toLowerCase().indexOf(query) !== -1) {
-                        matches.push({ title: title, albumId: albumId, index: index });
+                    if (recipe && recipe.title) {
+                        const lowerTitle = recipe.title.toLowerCase();
+                        // Ищет совпадение маленькими буквами в любом месте слова
+                        if (lowerTitle.includes(query)) {
+                            matches.push({ title: recipe.title, albumId: albumId, index: index });
+                        }
                     }
                 });
             }
@@ -2707,14 +2700,14 @@ document.getElementById('search-field')?.addEventListener('input', function() {
     }
 });
 
-// 3. Обработка клавиши Enter
+// 3. Поиск по клавише Enter
 document.getElementById('search-field')?.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         runSearch();
     }
 });
 
-// Клик в любое место экрана закрывает подсказки
+// Клик в пустое место закрывает подсказки
 document.addEventListener('click', function(e) {
     const suggestionsBlock = document.getElementById('search-suggestions');
     if (suggestionsBlock && e.target.id !== 'search-field') {
