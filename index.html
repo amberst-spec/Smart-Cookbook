@@ -74,10 +74,10 @@
             let recipeId = getSafeRecipeId();
             let favorites = JSON.parse(localStorage.getItem('myFavoriteRecipes') || '[]');
             let isFav = favorites.includes(recipeId);
-            
+
             let favHeartIcon = document.getElementById('favHeartIcon');
             let favRecipeBtn = document.getElementById('favRecipeBtn');
-            
+
             if (favHeartIcon) favHeartIcon.innerText = isFav ? '❤️' : '🤍';
             if (favRecipeBtn) {
                 favRecipeBtn.style.background = isFav ? '#FCE4D6' : '#FFF6EE';
@@ -91,7 +91,7 @@
             let index = favorites.indexOf(recipeId);
             let btn = document.getElementById('favRecipeBtn');
             let favHeartIcon = document.getElementById('favHeartIcon');
-            
+
             if (index === -1) {
                 favorites.push(recipeId);
                 if (favHeartIcon) favHeartIcon.innerText = '❤️';
@@ -913,6 +913,7 @@
         }
     </style>
 
+        <!-- 🔍 СУПЕР-ПОИСК С ИНТЕГРАЦИЕЙ CLOUD FIRESTORE -->
             <!-- 🔍 СУПЕР-ПОИСК ПО ЛИЧНЫМ РЕЦЕПТАМ ХОЗЯЙКИ -->
     <script>
         window.runSearch = function() {
@@ -926,8 +927,10 @@
                 return;
             }
 
+            // Автоматически подключаемся к вашему Firestore (db или firestore)
             let fs = window.db || window.firestore || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
-            
+
+            // Сначала пробуем найти карточку визуально на странице по тексту или onclick (план А)
             // ПЛАН А: Сначала ищем карточку визуально на странице по тексту или onclick
             let allCards = document.querySelectorAll('.recipe-card, [onclick*="recipe"], [onclick*="Recipe"]');
             let foundCard = null;
@@ -949,16 +952,20 @@
                 return; // Успешно нашли визуально и открыли!
             }
 
+            // ПЛАН Б: Если карточка ещё не отрендерилась на экране, запрашиваем базу Firestore напрямую!
             // ПЛАН Б: Если карточка скрыта в категории, ищем напрямую в вашей личной коллекции Firebase!
             if (fs) {
+                fs.collection('guest_recipes').get().then((querySnapshot) => {
                 fs.collection('recipes').get().then((querySnapshot) => {
                     let targetRecipeId = null;
 
                     querySnapshot.forEach((doc) => {
                         let data = doc.data();
+                        // Проверяем все текстовые поля внутри документа в базе данных (и названия, и контент)
                         // Сканируем все текстовые поля внутри документа (названия, ингредиенты, описание)
                         for (let key in data) {
                             if (typeof data[key] === 'string' && data[key].toLowerCase().includes(query)) {
+                                targetRecipeId = doc.id; // Нашли ID документа в Firebase!
                                 targetRecipeId = doc.id; // Запоминаем ID вашего личного рецепта!
                                 break;
                             }
@@ -1536,13 +1543,14 @@
         </div>
 
                                 <!-- 🪄 КОНТЕЙНЕР ЗАГОЛОВКА С КНОПКАМИ СПРАВА -->
-    
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 15px; border-bottom: 2px dashed #EAD5C3; padding-bottom: 5px; margin-bottom: 18px; flex-wrap: wrap; width: 100%;">
+
                         <!-- Рукописное название кулинарного шедевра пером (Осталось свободным для ввода Хозяйки) -->
                         <h2 id="recipe-display-title" contenteditable="true" style="font-family: 'Caveat', cursive; font-size: 38px; color: #A0522D; font-weight: normal; margin: 0; text-align: left; flex: 1; min-width: 200px; border: none; outline: none;">Название рецепта</h2>
 
                         <!-- БЛОК ЛАЙКА И ИЗБРАННОГО В ПРАВОМ УГЛУ РАМКИ -->
                         <div style="display: flex; align-items: center; gap: 12px; position: relative; z-index: 9999; pointer-events: auto;">
-                      
+
                             <!-- Кнопка-лайк со счетчиком 👍 -->
                             <span onclick="event.stopPropagation(); handleFirestoreLikeClick()" id="likeCounterBtn" style="font-size: 20px; cursor: pointer; user-select: none; transition: transform 0.2s; display: inline-flex; align-items: center; gap: 5px; background: #FFF6EE; border: 1.5px dashed #EAD5C3; padding: 4px 10px; border-radius: 20px;" title="Поставить лайк">
                                 👍 <span id="likeNum" style="font-family: 'Segoe UI', sans-serif; font-size: 15px; font-weight: bold; color: #A0522D;">0</span>
