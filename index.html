@@ -1731,8 +1731,8 @@ const shareBtnText = document.getElementById("text-shareBtn");
             stepInput.rows = 1;
             stepInput.value = stepTextValue;
             stepInput.readOnly = false;
-            // Увеличили до 22px и сделали цвет насыщенным тёмно-коричневым #5C2D0C
-            stepInput.style.cssText = "flex-grow: 1; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; font-size: 22px; color: #5C2D0C; font-weight: 600; text-align: left; padding: 6px 10px; line-height: 1.4; outline: none; box-sizing: border-box; font-family: inherit;";
+            // Поменяли цвет на оригинальный теплый #A0522D
+            stepInput.style.cssText = "flex-grow: 1; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; font-size: 22px; color: #A0522D; font-weight: 600; text-align: left; padding: 6px 10px; line-height: 1.4; outline: none; box-sizing: border-box; font-family: inherit;";
 
             // Автоматическое выравнивание высоты рамки под размер текста в режиме админа
             stepInput.oninput = function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; };
@@ -1740,11 +1740,11 @@ const shareBtnText = document.getElementById("text-shareBtn");
         } else {
             stepInput = document.createElement("span");
             stepInput.innerText = stepTextValue;
-            // Тут для гостей тоже увеличили до 22px и сделали цвет #5C2D0C
-            stepInput.style.cssText = "flex-grow: 1; font-size: 22px; color: #5C2D0C; font-weight: 600; text-align: left; padding: 4px 8px; line-height: 1.4; display: inline-block; white-space: pre-wrap; font-family: inherit;";
+            // Тут для гостей тоже вернули теплый цвет #A0522D
+            stepInput.style.cssText = "flex-grow: 1; font-size: 22px; color: #A0522D; font-weight: 600; text-align: left; padding: 4px 8px; line-height: 1.4; display: inline-block; white-space: pre-wrap; font-family: inherit;";
         }
         stepInput.className = "step-text-cell";
-     
+ 
             // Клик по пуговке-номеру отмечает выполненный шаг нежным цветом
             checkBtn.onclick = function() {
                 if (isAdminModeActive) return;
