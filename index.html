@@ -776,7 +776,7 @@
 </div>
 
 <style>
-/* Базовый красивый стиль для ложечки */
+/* Base styling for the spoon */
 .spoon-pc-style {
     background: linear-gradient(135deg, #FFF, #FFF6EE); 
     border: 2px solid #EAD5C3; 
@@ -796,12 +796,12 @@
     flex-shrink: 0;
 }
 
-/* На компьютерах (ПК) — сдвиг вправо над буквами "ер" кнопки Консервация */
+/* На компьютерах (ПК) — сдвиг ещё дальше вправо, строго над "ер" */
 @media (min-width: 768px) {
     .spoon-pc-style {
         position: absolute !important;
         bottom: 165px; 
-        left: calc(50% + 285px); /* Изменили на left и плюс, чтобы ложечка улетела строго вправо */
+        left: calc(50% + 370px); /* Увеличили сдвиг вправо, чтобы поймать центр над текстом кнопки */
         margin-left: 0 !important;
     }
 }
