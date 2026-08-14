@@ -664,18 +664,18 @@
 
     <!-- Интерактивная крупная шапка сайта -->
 <div class="header">
-    <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+    <div style="display: flex; align-items: center;">
         <div id="text-menu" style="font-size: 20px; font-weight: bold; color: #A0522D;">📖 Меню</div>
 
-        <!-- Рабочая поисковая строка -->
-        <div class="search-container" style="display: flex; align-items: center; background: #FFF6EE; border: 2px solid #EAD5C3; border-radius: 25px; padding: 4px 14px; position: relative;">
+        <!-- Рабочая укрупненная поисковая строка -->
+        <div class="search-container" style="display: flex; align-items: center; background: #FFF6EE; border: 2px solid #EAD5C3; border-radius: 25px; padding: 4px 14px; margin-left: 20px; position: relative;">
             <input type="text" id="search-field" style="border: none; background: transparent; padding: 6px; font-size: 16px; color: #332211; outline: none; width: 180px;" placeholder="Поиск рецептов...">
             <button type="button" onclick="runSearch()" style="background: transparent; border: none; cursor: pointer; font-size: 18px;">🔍</button>
         </div>
 
-        <!-- Кнопка мер веса, которая будет видна СТРОГО на ПК -->
-        <button type="button" id="btn-measures-pc" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" style="font-size: 16px; font-weight: bold; color: #A0522D; background: #FFF6EE; border: 2px solid #EAD5C3; border-radius: 20px; padding: 6px 14px; cursor: pointer; outline: none; display: flex; align-items: center; gap: 6px;">
-            <span>🥄</span> <span id="text-measures-btn-pc">Меры веса</span>
+        <!-- Круглая укрупненная кнопочка ложечки мер веса (СТРОГО ДЛЯ ПК) -->
+        <button type="button" id="btn-measures-pc" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; width: 64px; height: 64px; border-radius: 50%; font-size: 24px; color: #A0522D; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.1); display: flex; align-items: center; justify-content: center; padding: 0; outline: none; margin-left: 20px; flex-shrink: 0;">
+            <span>🥄</span>
         </button>
     </div>
 </div>
