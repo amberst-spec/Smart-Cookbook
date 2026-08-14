@@ -1487,10 +1487,11 @@
         function openRecipeCategory(catId) { 
             currentAlbumId = catId; 
             const modalTitles = {
-                ru: { 1: "🍰 Выпечка", 2: "🥣 Основные блюда", 3: "🥗 Салаты" },
-                ukr: { 1: "🍰 Випічка", 2: "🥣 Основні страви", 3: "🥗 Салати" },
-                en: { 1: "🍰 Baking", 2: "🥣 Savoury", 3: "🥗 Salads" }
-            };
+            ru: { 1: "🍰 Выпечка", 2: "🥣 Основные блюда", 3: "🥗 Салаты", 4: "🥫 Консервация" },
+            ukr: { 1: "🍰 Випічка", 2: "🥣 Основні страви", 3: "🥗 Салати", 4: "🥫 Консервація" },
+            en: { 1: "🍰 Baking", 2: "🥣 Savoury", 3: "🥗 Salads", 4: "🥫 Canning" }
+        };
+
             const titleEl = document.getElementById("category-modal-title");
             if (titleEl) titleEl.innerText = modalTitles[currentLangCode][catId];
             renderCategoryRecipesList(); 
