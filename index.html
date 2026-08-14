@@ -673,7 +673,7 @@
             <button type="button" onclick="runSearch()" style="background: transparent; border: none; cursor: pointer; font-size: 18px;">🔍</button>
         </div>
     </div>
-  
+
         <!-- Блок для выпадающих подсказок поиска -->
 <div id="search-suggestions" style="position: absolute; background: white; border: 1px solid #EAD5C3; width: 100%; max-height: 200px; overflow-y: auto; z-index: 1000; display: none; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
 
@@ -773,7 +773,7 @@
     <button class="category-card" id="cat-2" onclick="openRecipeCategory(2)">🥣 Основные блюда</button>
     <button class="category-card" id="cat-3" onclick="openRecipeCategory(3)">🥗 Салаты</button>
     <button class="category-card" id="cat-4" onclick="openRecipeCategory(4)">🥫 Консервация</button>
-    
+
     <!-- Круглая кнопочка ложечки, которая будет видна СТРОГО на телефонах -->
     <button type="button" id="btn-measures-mobile" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; width: 64px; height: 64px; border-radius: 50%; font-size: 24px; color: #A0522D; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.1); display: flex; align-items: center; justify-content: center; padding: 0; outline: none; margin-left: 6px; flex-shrink: 0;">
         <span>🥄</span>
@@ -832,17 +832,15 @@
             <!-- Исправленная кнопка вызова, предотвращающая перезагрузку страницы -->
             <button type="button" onclick="checkAdminCredentials(event)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; padding: 14px 30px; font-size: 18px; font-weight: bold; border-radius: 25px; cursor: pointer; width: 92%; box-shadow: 0 5px 12px rgba(255,122,51,0.15);">Войти</button>
 
-                <!-- Личный кабинет Елены с круглыми кнопками-папками -->
-<div id="helenAdminPanel" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px dashed #EAD5C3; text-align: center;">
-    <h4 style="font-size: 16px; color: #A0522D; margin: 0 0 15px 0; font-weight: bold;">Создать шаблон в категории:</h4>
-    <div style="display: flex; justify-content: center; gap: 20px;">
-        <button type="button" onclick="openAdminForm(1)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🍰</button>
-        <button type="button" onclick="openAdminForm(2)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🥣</button>
-        <button type="button" onclick="openAdminForm(3)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🥗</button>
-        <button type="button" onclick="openAdminForm(4)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🥫</button>
-    </div>
-</div>
-
+            <!-- Личный кабинет Елены с круглыми кнопками-папками -->
+            <div id="helenAdminPanel" style="display: none; margin-top: 25px; padding-top: 20px; border-top: 2px dashed #EAD5C3; text-align: center;">
+                <h4 style="font-size: 16px; color: #A0522D; margin: 0 0 15px 0; font-weight: bold;">Создать шаблон в категории:</h4>
+                <div style="display: flex; justify-content: center; gap: 20px;">
+                    <button type="button" onclick="openAdminForm(1)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🍰</button>
+                    <button type="button" onclick="openAdminForm(2)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🥣</button>
+                    <button type="button" onclick="openAdminForm(3)" style="background: linear-gradient(135deg, #FF9E66, #FF7A33); color: #FFF; border: none; width: 62px; height: 62px; border-radius: 50%; font-size: 26px; cursor: pointer; outline: none; display: flex; align-items: center; justify-content: center; padding: 0;">🥗</button>
+                </div>
+            </div>
             <div style="margin-top: 20px; text-align: center;">
                 <span onclick="sendPasswordReminder()" style="font-size: 14px; color: #A0522D; text-decoration: underline; opacity: 0.8; cursor: pointer; font-weight: 500;">Забыли пароль?</span>
             </div>
@@ -2171,7 +2169,7 @@ const shareBtnText = document.getElementById("text-shareBtn");
                 let idx = recipeAlbums[cat].findIndex(r => r.title.toLowerCase().includes(q));
                 if (idx !== -1) { currentAlbumId = parseInt(cat); currentRecipeIndex = idx; showRecipePage(); return; }
             }
-            
+
             // Безопасный вывод сообщения, если рецепт не найден
             let langCode = typeof currentLangCode !== 'undefined' ? currentLangCode : (document.documentElement.lang || 'ru');
             if (typeof translations !== 'undefined' && translations[langCode] && translations[langCode].alertSearch) {
