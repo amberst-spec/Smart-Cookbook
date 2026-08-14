@@ -936,7 +936,8 @@
             // 3. ПОСЛЕ ПЕРЕКЛЮЧЕНИЯ: Выводим из памяти переведенные тексты, оставляя цифры нетронутыми
             const cache = window.recipeTranslationsCache[newLang];
             if (titleInput) {
-                titleInput.innerText = cache.title || '';
+            titleInput.innerText = cache?.title || (newLang === 'ru' ? (recipeAlbums[currentAlbumId]?.[currentRecipeIndex]?.title || '') : '');
+
             }
 
             // Обновляем ТОЛЬКО строчки названий ингредиентов (цифры веса остаются на экране!)
