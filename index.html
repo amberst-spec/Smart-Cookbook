@@ -662,7 +662,7 @@
         <span style="position: fixed; right: 110px; top: 45%; font-size: 32px; opacity: 0.65;">🤎</span>
     </div>
 
-    <!-- Интерактивная крупная шапка сайта -->
+     <!-- Интерактивная крупная шапка сайта -->
 <div class="header">
     <div style="display: flex; align-items: center;">
         <div id="text-menu" style="font-size: 20px; font-weight: bold; color: #A0522D;">📖 Меню</div>
@@ -684,6 +684,11 @@
                 onmouseover="this.style.background='#FFF6EE'; this.style.transform='scale(1.02)'" 
                 onmouseout="this.style.background='#FFF'; this.style.transform='scale(1)'">
             👩‍🍳 Поделиться рецептом 
+        </button>
+
+        <!-- Крупная круглая кнопочка ложечки мер веса пуговкой без названия (СТРОГО ДЛЯ ПК) -->
+        <button type="button" id="btn-measures-pc" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; width: 64px; height: 64px; border-radius: 50%; font-size: 24px; color: #A0522D; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.1); display: flex; align-items: center; justify-content: center; padding: 0; outline: none; margin-right: 20px; flex-shrink: 0;">
+            <span>🥄</span>
         </button>
 
        <div id="lang-btn" class="lang-switcher" onclick="document.documentElement.lang = this.innerText.trim() === 'EN' ? 'en' : (this.innerText.trim() === 'UKR' ? 'uk' : 'ru');">RU</div>
