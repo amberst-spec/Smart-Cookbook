@@ -762,24 +762,47 @@
             ✨ Желаем вам вдохновения на кухне и приятного аппетита!
         </p>
 
-       <!-- Крупные клавиши кулинарных разделов: в один ряд на ПК и в два ряда на мобильных -->
-<div class="categories-grid" id="main-categories-buttons" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; width: 100%; max-width: 100% !important; padding: 10px 0; margin: 0 auto;">
+        <!-- Крупные клавиши кулинарных разделов в их родном красивом масштабе -->
+<div class="categories-grid" id="main-categories-buttons" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; width: 100%; max-width: 100% !important; padding: 10px 0; margin: 0 auto; position: relative;">
     <button class="category-card" id="cat-1" onclick="openRecipeCategory(1)">🍰 Выпечка</button>
     <button class="category-card" id="cat-2" onclick="openRecipeCategory(2)">🥣 Основные блюда</button>
     <button class="category-card" id="cat-3" onclick="openRecipeCategory(3)">🥗 Салаты</button>
     <button class="category-card" id="cat-4" onclick="openRecipeCategory(4)">🥫 Консервация</button>
     
-    <!-- Кнопочка ложечки мер веса -->
-    <button type="button" id="btn-measures" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; width: 64px; height: 64px; border-radius: 50%; font-size: 24px; color: #A0522D; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.1); display: flex; align-items: center; justify-content: center; padding: 0; outline: none; margin-left: 6px; flex-shrink: 0;">
+    <!-- Кнопочка ложечки с умным расположением: НАД консервацией на ПК -->
+    <button type="button" id="btn-measures" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" class="spoon-pc-style">
         <span>🥄</span>
     </button>
 </div>
 
 <style>
-/* Умное правило для ПК: если экран широкий, запрещаем кнопкам переноситься на второй ряд */
+/* Базовый красивый стиль для ложечки */
+.spoon-pc-style {
+    background: linear-gradient(135deg, #FFF, #FFF6EE); 
+    border: 2px solid #EAD5C3; 
+    width: 64px; 
+    height: 64px; 
+    border-radius: 50%; 
+    font-size: 24px; 
+    color: #A0522D; 
+    cursor: pointer; 
+    box-shadow: 0 4px 12px rgba(160, 82, 45, 0.1); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 0; 
+    outline: none;
+    margin-left: 6px;
+    flex-shrink: 0;
+}
+
+/* На компьютерах (ПК) поднимаем ложечку и ставим ровно НАД четвертой кнопкой */
 @media (min-width: 768px) {
-    #main-categories-buttons {
-        flex-wrap: nowrap !important;
+    .spoon-pc-style {
+        position: absolute !important;
+        bottom: 85px; /* Высота подъема над кнопкой */
+        right: calc(50% - 370px); /* Выравнивание строго по центру над Консервацией */
+        margin-left: 0 !important;
     }
 }
 </style>
