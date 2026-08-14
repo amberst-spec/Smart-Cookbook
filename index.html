@@ -762,7 +762,7 @@
             ✨ Желаем вам вдохновения на кухне и приятного аппетита!
         </p>
 
-          <!-- Крупные клавиши кулинарных разделов в их родном красивом масштабе -->
+            <!-- Крупные клавиши кулинарных разделов в их родном красивом масштабе -->
 <div class="categories-grid" id="main-categories-buttons" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; width: 100%; max-width: 100% !important; padding: 10px 0; margin: 0 auto; position: relative;">
     <button class="category-card" id="cat-1" onclick="openRecipeCategory(1)">🍰 Выпечка</button>
     <button class="category-card" id="cat-2" onclick="openRecipeCategory(2)">🥣 Основные блюда</button>
@@ -796,12 +796,12 @@
     flex-shrink: 0;
 }
 
-/* На компьютерах (ПК) — центрируем строго над буквами "ер" кнопки Консервация */
+/* На компьютерах (ПК) — сдвиг вправо над буквами "ер" кнопки Консервация */
 @media (min-width: 768px) {
     .spoon-pc-style {
         position: absolute !important;
-        bottom: 165px; /* Высота идеальная, оставляем */
-        right: calc(50% - 245px); /* Сместили правее ровно в нужную точку */
+        bottom: 165px; 
+        left: calc(50% + 285px); /* Изменили на left и плюс, чтобы ложечка улетела строго вправо */
         margin-left: 0 !important;
     }
 }
