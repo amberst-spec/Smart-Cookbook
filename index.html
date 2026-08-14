@@ -769,7 +769,7 @@
     <button class="category-card" id="cat-3" onclick="openRecipeCategory(3)">🥗 Салаты</button>
     <button class="category-card" id="cat-4" onclick="openRecipeCategory(4)">🥫 Консервация</button>
     
-    <!-- Кнопочка ложечки с умным расположением: НАД консервацией на ПК -->
+    <!-- Кнопочка ложечки с точным позиционированием в районе красного кружка -->
     <button type="button" id="btn-measures" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" class="spoon-pc-style">
         <span>🥄</span>
     </button>
@@ -796,12 +796,12 @@
     flex-shrink: 0;
 }
 
-/* На компьютерах (ПК) поднимаем ложечку и ставим ровно НАД четвертой кнопкой */
+/* На компьютерах (ПК) поднимаем ложечку строго в зону вашего красного кружка */
 @media (min-width: 768px) {
     .spoon-pc-style {
         position: absolute !important;
-        bottom: 85px; /* Высота подъема над кнопкой */
-        right: calc(50% - 370px); /* Выравнивание строго по центру над Консервацией */
+        bottom: 150px; /* Увеличили высоту, чтобы она поднялась прямо в ваш кружок */
+        right: calc(50% - 370px); /* Держим её ровно по центру над Консервацией */
         margin-left: 0 !important;
     }
 }
