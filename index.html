@@ -762,19 +762,18 @@
             ✨ Желаем вам вдохновения на кухне и приятного аппетита!
         </p>
 
-          <!-- Крупные клавиши кулинарных разделов в один ряд без выдавливания подвала -->
-<div class="categories-grid" id="main-categories-buttons" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; max-width: 100% !important; padding: 0; margin: 5px auto;">
+        <!-- Крупные клавиши кулинарных разделов и ложечка строго в один ряд -->
+<div class="categories-grid" id="main-categories-buttons" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; width: 100%; max-width: 100% !important; padding: 10px 0; margin: 0 auto;">
     <button class="category-card" id="cat-1" onclick="openRecipeCategory(1)">🍰 Выпечка</button>
     <button class="category-card" id="cat-2" onclick="openRecipeCategory(2)">🥣 Основные блюда</button>
     <button class="category-card" id="cat-3" onclick="openRecipeCategory(3)">🥗 Салаты</button>
     <button class="category-card" id="cat-4" onclick="openRecipeCategory(4)">🥫 Консервация</button>
+    
+    <!-- Кнопочка ложечки мер веса строго после консервации -->
+    <button type="button" id="btn-measures" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; width: 64px; height: 64px; border-radius: 50%; font-size: 24px; color: #A0522D; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.1); display: flex; align-items: center; justify-content: center; padding: 0; outline: none; margin-left: 6px; flex-shrink: 0;">
+        <span>🥄</span>
+    </button>
 </div>
-
-            <!-- Круглая укрупненная кнопочка ложечки мер веса (с жесткой фиксацией на ПК) -->
-<button type="button" id="btn-measures" onclick="renderMeasuresTable(currentLangCode); document.getElementById('measuresModal').style.display='flex'" style="background: linear-gradient(135deg, #FFF, #FFF6EE); border: 2px solid #EAD5C3; width: 64px; height: 64px; border-radius: 50%; font-size: 24px; color: #A0522D; cursor: pointer; box-shadow: 0 4px 12px rgba(160, 82, 45, 0.1); display: flex; align-items: center; justify-content: center; padding: 0; outline: none; position: fixed; bottom: 40px; right: 40px; z-index: 9999;">
-    <span>🥄</span>
-</button>
-
 
         <!-- Права автора в самом низу главной страницы -->
         <div id="text-copyright" class="footer-copyright">
