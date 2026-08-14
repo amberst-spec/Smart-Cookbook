@@ -1724,15 +1724,15 @@ const shareBtnText = document.getElementById("text-shareBtn");
             checkBtn.style.cssText = "width: 28px; height: 28px; border-radius: 50%; border: 2px solid #EAD5C3; background: #FFFDF9; color: #A0522D; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; padding: 0; outline: none; transition: all 0.2s; flex-shrink: 0; margin-right: 15px; font-family: monospace;";
             checkBtn.innerText = currentStepsCount;
 
-                    let stepInput;
+                        let stepInput;
         if (isAdminModeActive) {
             stepInput = document.createElement("textarea");
             stepInput.placeholder = "Опишите кулинарный шаг...";
             stepInput.rows = 1;
             stepInput.value = stepTextValue;
             stepInput.readOnly = false;
-            // Поменяли цвет на оригинальный теплый #A0522D
-            stepInput.style.cssText = "flex-grow: 1; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; font-size: 22px; color: #A0522D; font-weight: 600; text-align: left; padding: 6px 10px; line-height: 1.4; outline: none; box-sizing: border-box; font-family: inherit;";
+            // Установили шоколадный цвет #8B4513 и крупный размер 22px для админа
+            stepInput.style.cssText = "flex-grow: 1; border: 2px solid #EAD5C3; border-radius: 8px; background: #FFFFFF; font-size: 22px; color: #8B4513; font-weight: 600; text-align: left; padding: 6px 10px; line-height: 1.4; outline: none; box-sizing: border-box; font-family: inherit;";
 
             // Автоматическое выравнивание высоты рамки под размер текста в режиме админа
             stepInput.oninput = function() { this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'; };
@@ -1740,11 +1740,11 @@ const shareBtnText = document.getElementById("text-shareBtn");
         } else {
             stepInput = document.createElement("span");
             stepInput.innerText = stepTextValue;
-            // Тут для гостей тоже вернули теплый цвет #A0522D
-            stepInput.style.cssText = "flex-grow: 1; font-size: 22px; color: #A0522D; font-weight: 600; text-align: left; padding: 4px 8px; line-height: 1.4; display: inline-block; white-space: pre-wrap; font-family: inherit;";
+            // Установили шоколадный цвет #8B4513 и крупный размер 22px для гостей
+            stepInput.style.cssText = "flex-grow: 1; font-size: 22px; color: #8B4513; font-weight: 600; text-align: left; padding: 4px 8px; line-height: 1.4; display: inline-block; white-space: pre-wrap; font-family: inherit;";
         }
         stepInput.className = "step-text-cell";
- 
+
             // Клик по пуговке-номеру отмечает выполненный шаг нежным цветом
             checkBtn.onclick = function() {
                 if (isAdminModeActive) return;
